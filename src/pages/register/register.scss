@@ -1,0 +1,21 @@
+page-register {
+  ion-content {
+    background: url("../assets/images/login_bg.jpg") no-repeat center;
+    background-size: cover;
+    .enter-block {
+      h4 {
+        margin-bottom: 30px;
+        font-weight: 400;
+        text-transform: uppercase;
+        color: #fff;
+        border-bottom: 2px solid #fff;
+      }
+      ion-buttons {
+        margin-top: 30px;
+      }
+    }
+    .item {
+      background-color: transparent;
+    }
+  }
+}

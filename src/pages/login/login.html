@@ -1,0 +1,43 @@
+<ion-header>
+
+  <ion-navbar color="danger">
+    <ion-title>
+      <img src="assets/images/logo.png" alt="TickFly">
+    </ion-title>
+    <ion-buttons (click)="onRegisterPage()" end>
+      <button ion-button icon-end>
+        Зарегистрироваться
+        <ion-icon name="arrow-round-forward"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="enter-block" padding>
+    <h4>вход</h4>
+    <ion-list>
+
+      <ion-item>
+        <ion-input type="text" placeholder="Логин"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder="Пароль"></ion-input>
+      </ion-item>
+
+    </ion-list>
+    <ion-buttons text-center>
+      <button ion-button color="danger">Войти</button>
+    </ion-buttons>
+  </div>
+
+  <div class="enter-block" padding>
+    <h4>войти с помощью</h4>
+    <ion-buttons>
+      <button ion-button color="primary" block margin-bottom>Facebook</button>
+      <button ion-button color="danger" block>Google+</button>
+    </ion-buttons>
+  </div>
+</ion-content>

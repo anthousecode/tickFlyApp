@@ -1,18 +1,63 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
+  <ion-navbar color="danger">
+    <ion-title>
+      <img src="assets/images/logo.png" alt="TickFly">
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-end>
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button ion-button icon-end>
+        <ion-icon name="chatboxes"></ion-icon>
+      </button>
+      <button ion-button icon-end>
+        <ion-icon name="mail"></ion-icon>
+      </button>
+      <button class="slide-menu" ion-button menuToggle icon-end>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <ion-card>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+    <ion-item margin-bottom>
+      <ion-avatar item-start>
+        <img src="img/marty-avatar.png">
+      </ion-avatar>
+      <h2 float-left>Marty McFly</h2>
+      <ion-buttons end>
+        <button class="more-icon" icon-end>
+          <ion-icon name="more"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-item>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+    <h2 padding class="post-title">Lorem impsum dollor sit ammet</h2>
+    <img src="assets/images/boat.jpg">
+
+    <ion-card-content>
+      <p margin-bottom>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+      <p>November 5</p>
+    </ion-card-content>
+
+    <div class="post-footer">
+      <ion-buttons>
+        <button ion-button icon-left small clear>
+          <img style="width: 20px; margin-right: 5px;" src="assets/images/close2.svg" alt="TickFly">
+          <div class="tickfly-currency">4</div>
+        </button>
+        <button ion-button small clear>
+          <ion-icon name="chatboxes"></ion-icon>
+        </button>
+        <button ion-button small clear>
+          <ion-icon name="mail"></ion-icon>
+        </button>
+      </ion-buttons>
+      <div class="category">Путешествия</div>
+    </div>
+
+  </ion-card>
 </ion-content>

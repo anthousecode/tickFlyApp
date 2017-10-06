@@ -1,0 +1,45 @@
+page-login {
+  ion-navbar {
+    button {
+      font-size: 12px;
+    }
+  }
+  ion-content {
+    background: url("../assets/images/login_bg.jpg") no-repeat center;
+    background-size: cover;
+    .enter-block {
+      h4 {
+        margin-bottom: 30px;
+        font-weight: 400;
+        text-transform: uppercase;
+        color: #fff;
+        border-bottom: 2px solid #fff;
+      }
+    }
+    .item {
+      background-color: transparent;
+    }
+  }
+  ion-title {
+    width: 130px;
+  }
+}
+
+.platform-ios {
+  page-login {
+    ion-navbar {
+      padding-top: 0 !important;
+      ion-title {
+        position: relative;
+        width: 130px;
+        padding: 0;
+      }
+    }
+  }
+  ion-navbar {
+    button {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+  }
+}
