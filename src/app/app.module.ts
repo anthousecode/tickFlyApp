@@ -1,15 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, ComponentFactoryResolver } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
-
-import { StatusBar } from '@ionic-native/status-bar';
+import { ListPage } from '../pages/list/list';import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {LoginPage} from "../pages/login/login";
 import {RegisterPage} from "../pages/register/register";
+import {PostPage} from "../pages/post/post";
+import { Facebook } from '@ionic-native/facebook';
+import {HttpModule} from "@angular/http";
+import {HttpService} from "../services/http.service";
+import {FormsModule} from "@angular/forms";
+// import {RouterModule, Routes} from "@angular/router";
+//
+// const appRoutes: Routes = [
+//   { path: '', component: LoginPage },
+//   { path: 'home', component: HomePage },
+//   { path: 'post', component: PostPage }
+// ]
 
 @NgModule({
   declarations: [
@@ -17,11 +27,15 @@ import {RegisterPage} from "../pages/register/register";
     HomePage,
     ListPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    PostPage
   ],
   imports: [
     BrowserModule,
+    // RouterModule.forRoot(appRoutes, { enableTracing: true }),
     IonicModule.forRoot(MyApp),
+    HttpModule,
+    FormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -29,12 +43,15 @@ import {RegisterPage} from "../pages/register/register";
     HomePage,
     ListPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    PostPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Facebook,
+    HttpService
   ]
 })
 export class AppModule {}
