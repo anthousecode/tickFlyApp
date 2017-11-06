@@ -3,11 +3,12 @@ import {AlertController, NavController} from 'ionic-angular';
 import {PostPage} from "../post/post";
 import {User} from "../../shared/user";
 import {HttpService} from "../../services/http.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [HttpService]
+  providers: [HttpService, AuthService]
 })
 export class HomePage {
 

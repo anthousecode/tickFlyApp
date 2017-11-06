@@ -5,6 +5,7 @@ import {RegisterPage} from "../register/register";
 import {AuthService} from "../../services/auth.service";
 import {Facebook, FacebookLoginResponse} from "@ionic-native/facebook";
 import {NgForm} from "@angular/forms";
+import {HomePage} from "../home/home";
 
 @IonicPage()
 @Component({
@@ -14,6 +15,8 @@ import {NgForm} from "@angular/forms";
 })
 export class LoginPage {
   @ViewChild(Nav) nav: Nav;
+
+  rootPage: any = null;
 
   userData = null;
 
@@ -26,7 +29,10 @@ export class LoginPage {
 
   onRegisterPage() {
     this.navCtrl.push(RegisterPage);
-    //this.authService.login();
+  }
+
+  onHomePage() {
+    this.navCtrl.push(HomePage);
   }
 
   onSignup(form: NgForm) {
@@ -38,6 +44,8 @@ export class LoginPage {
           // this.notificationsService.add(new Notification('success', 'User successfully registered!'));
           // this.router.navigate(['/signin']);
           console.log('Success');
+          this.onHomePage();
+          console.log(localStorage);
         },
         error => {
           // this.alertService.error(error);

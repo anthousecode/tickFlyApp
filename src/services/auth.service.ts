@@ -22,9 +22,10 @@ export class AuthService {
 
   constructor(private http: Http) {}
 
-  // public login(): void {
-  //   this.auth0.authorize();
-  // }
+  createAuthorizationHeader(headers: Headers) {
+    headers.append('Authorization', 'Bearer ' +
+      this.getToken());
+  }
 
   signup(email: string, password: string) {
     return this.http.post(`http://localhost:8080/api/sign-up`,
@@ -49,6 +50,22 @@ export class AuthService {
           console.log(tokenData.token);
         }
       );
+  }
+
+  logout() {
+    localStorage.removeItem("token");
+  }
+
+  getToken() {
+    return localStorage.getItem("token");
+  }
+
+  isLogin(): boolean {
+    if (this.getToken()) {
+      console.log('logged true');
+      console.log(this.getToken());
+      return true;
+    }
   }
 
   // signupFacebook(email: string, password: string) {
