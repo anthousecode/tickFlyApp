@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 //import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';
-import {Http, Headers, Response} from "@angular/http";
+import {Http, Headers, Response, RequestOptions} from "@angular/http";
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
 
@@ -46,8 +46,6 @@ export class AuthService {
       .do(
         tokenData => {
           localStorage.setItem("token", tokenData.token);
-          console.log(tokenData);
-          console.log(tokenData.token);
         }
       );
   }
@@ -62,8 +60,8 @@ export class AuthService {
 
   isLogin(): boolean {
     if (this.getToken()) {
-      console.log('logged true');
-      console.log(this.getToken());
+      // console.log('logged true');
+      // console.log(this.getToken());
       return true;
     }
   }
@@ -72,6 +70,22 @@ export class AuthService {
   //   return this.http.post(`${this.API}\api\facebook\authorize`)
   //     .subscribe();
   // }
+
+  signinGoogle() {
+    // this.auth.login('google').then( (success) => {
+    //   console.log();
+    // } );
+    console.log('testss');
+    return this.http.get('http://localhost:8080/api/google/authorize').subscribe(
+      response => {
+        console.log(response);
+        console.log('Success');
+      },
+      error => {
+        console.log('Error');
+      }
+    );
+  }
 
   // signin(email: string, password: string) {
   //   return this.http.post( `${this.API}\api\signin',

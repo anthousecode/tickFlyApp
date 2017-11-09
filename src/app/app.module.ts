@@ -13,13 +13,7 @@ import { Facebook } from '@ionic-native/facebook';
 import {HttpModule} from "@angular/http";
 import {HttpService} from "../services/http.service";
 import {FormsModule} from "@angular/forms";
-// import {RouterModule, Routes} from "@angular/router";
-//
-// const appRoutes: Routes = [
-//   { path: '', component: LoginPage },
-//   { path: 'home', component: HomePage },
-//   { path: 'post', component: PostPage }
-// ]
+
 
 @NgModule({
   declarations: [

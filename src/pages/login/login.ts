@@ -20,7 +20,10 @@ export class LoginPage {
 
   userData = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthService, public facebook: Facebook) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public authService: AuthService,
+              public facebook: Facebook) {
   }
 
   ionViewDidLoad() {
@@ -45,13 +48,17 @@ export class LoginPage {
           // this.router.navigate(['/signin']);
           console.log('Success');
           this.onHomePage();
-          console.log(localStorage);
         },
         error => {
           // this.alertService.error(error);
           console.log('Error');
         }
       );
+  }
+
+  signinGoogle() {
+    console.log('test login');
+    this.authService.signinGoogle();
   }
 
   // loginWithFB() {

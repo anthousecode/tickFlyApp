@@ -26,7 +26,12 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public alertCtrl: AlertController, private authService: AuthService) {
+  constructor(
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public alertCtrl: AlertController,
+    private authService: AuthService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -62,8 +67,12 @@ export class MyApp {
     this.nav.setRoot(page.component);
   }
 
-  logout($injector) {
+  onLoginPage() {
+    this.nav.push(LoginPage);
+  }
+
+  logout() {
     this.authService.logout();
-    // let authService = $injector.get(this.authService.logout());
+    this.onLoginPage();
   }
 }

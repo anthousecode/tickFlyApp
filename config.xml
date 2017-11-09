@@ -93,4 +93,5 @@
         <variable name="APP_ID" value="238693829993351" />
         <variable name="APP_NAME" value="Test" />
     </plugin>
+    <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
 </widget>
