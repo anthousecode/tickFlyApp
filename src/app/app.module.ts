@@ -12,6 +12,8 @@ import {PostPage} from "../pages/post/post";
 import {HttpModule} from "@angular/http";
 import {HttpService} from "../services/http.service";
 import {FormsModule} from "@angular/forms";
+import {UserPrivatePage} from "../pages/user-private/user-private";
+import {UserPublicPage} from "../pages/user-public/user-public";
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import {FormsModule} from "@angular/forms";
     LoginPage,
     RegisterPage,
     PostPage,
-    ModalContentPage
+    ModalContentPage,
+    UserPrivatePage,
+    UserPublicPage
   ],
   imports: [
     BrowserModule,
@@ -39,7 +43,9 @@ import {FormsModule} from "@angular/forms";
     LoginPage,
     RegisterPage,
     PostPage,
-    ModalContentPage
+    ModalContentPage,
+    UserPrivatePage,
+    UserPublicPage
   ],
   providers: [
     StatusBar,

@@ -14,13 +14,33 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+/* Variables */
+/* Colors */
+$primary-red: #c24849;
+$black: #212121;
+$grey: #7e7e7e;
+$primary-blue: #3a549f;
+$secondary-red: #d7565c;
+$secondary-blue: #1da1f2;
+$white: #f0f0f0;
+
+
 ion-header {
   ion-navbar {
+    .toolbar-background-md, .toolbar-background-ios {
+      background-color: $primary-red;
+      color: $primary-red;
+    }
     .slide-menu {
       display: inline-block;
     }
     button {
       font-size: 24px;
+    }
+    .bar-button-default-ios, .bar-button-default-md {
+      color: $white;
     }
   }
 }
@@ -59,3 +79,4 @@ ion-content {
     }
   }
 }
+

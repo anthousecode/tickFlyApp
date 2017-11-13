@@ -10,6 +10,7 @@ import {RegisterPage} from "../pages/register/register";
 import {PostPage} from "../pages/post/post";
 import {HttpService} from "../services/http.service";
 import {AuthService} from "../services/auth.service";
+import {UserPrivatePage} from "../pages/user-private/user-private";
 
 @Component({
   templateUrl: 'app.html',
@@ -37,6 +38,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
+      { title: 'User', component: UserPrivatePage },
       { title: 'List', component: ListPage },
       { title: 'Login', component: LoginPage },
       { title: 'Register', component: RegisterPage },
