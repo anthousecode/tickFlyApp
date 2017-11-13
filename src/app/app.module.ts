@@ -9,7 +9,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {LoginPage} from "../pages/login/login";
 import {RegisterPage} from "../pages/register/register";
 import {PostPage} from "../pages/post/post";
-import { Facebook } from '@ionic-native/facebook';
 import {HttpModule} from "@angular/http";
 import {HttpService} from "../services/http.service";
 import {FormsModule} from "@angular/forms";
@@ -44,7 +43,6 @@ import {FormsModule} from "@angular/forms";
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Facebook,
     HttpService
   ]
 })

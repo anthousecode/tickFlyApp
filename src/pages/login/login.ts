@@ -3,7 +3,6 @@ import {IonicPage, Nav, NavController, NavParams} from 'ionic-angular';
 
 import {RegisterPage} from "../register/register";
 import {AuthService} from "../../services/auth.service";
-import {Facebook, FacebookLoginResponse} from "@ionic-native/facebook";
 import {NgForm} from "@angular/forms";
 import {HomePage} from "../home/home";
 
@@ -22,8 +21,7 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public authService: AuthService,
-              public facebook: Facebook) {
+              public authService: AuthService) {
   }
 
   ionViewDidLoad() {

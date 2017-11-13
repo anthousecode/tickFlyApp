@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 //import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import * as auth0 from 'auth0-js';
 import {Http, Headers, Response, RequestOptions} from "@angular/http";
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
@@ -28,7 +27,7 @@ export class AuthService {
   }
 
   signup(email: string, password: string) {
-    return this.http.post(`http://localhost:8080/api/sign-up`,
+    return this.http.post(this.API + `/api/sign-up`,
       {email: email, password: password},
       {headers: new Headers({"X-Requested-With": "XMLHttpRequest"})})
       .map(
@@ -76,9 +75,18 @@ export class AuthService {
     //   console.log();
     // } );
     console.log('testss');
-    return this.http.get('http://localhost:8080/api/google/authorize').subscribe(
+    return this.http.get(this.API + '/api/google/authorize')
+      .map(
+        (response: Response) => {
+          console.log(response.text());
+        }
+      )
+      .do(
+        tokenData => {
+          // localStorage.setItem("token", tokenData.token);
+        }
+      ).subscribe(
       response => {
-        console.log(response);
         console.log('Success');
       },
       error => {
