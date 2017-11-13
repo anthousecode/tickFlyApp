@@ -49,6 +49,13 @@ export class AuthService {
       );
   }
 
+  signinGoogle() {
+    console.log('Google auth test');
+    let htmlAlert;
+    return this.http.get(this.API + '/api/google/authorize')
+  }
+
+
   logout() {
     localStorage.removeItem("token");
   }
@@ -69,31 +76,6 @@ export class AuthService {
   //   return this.http.post(`${this.API}\api\facebook\authorize`)
   //     .subscribe();
   // }
-
-  signinGoogle() {
-    // this.auth.login('google').then( (success) => {
-    //   console.log();
-    // } );
-    console.log('testss');
-    return this.http.get(this.API + '/api/google/authorize')
-      .map(
-        (response: Response) => {
-          console.log(response.text());
-        }
-      )
-      .do(
-        tokenData => {
-          // localStorage.setItem("token", tokenData.token);
-        }
-      ).subscribe(
-      response => {
-        console.log('Success');
-      },
-      error => {
-        console.log('Error');
-      }
-    );
-  }
 
   // signin(email: string, password: string) {
   //   return this.http.post( `${this.API}\api\signin',

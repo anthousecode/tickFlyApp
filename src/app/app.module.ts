@@ -6,7 +6,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import {LoginPage} from "../pages/login/login";
+import {LoginPage, ModalContentPage} from "../pages/login/login";
 import {RegisterPage} from "../pages/register/register";
 import {PostPage} from "../pages/post/post";
 import {HttpModule} from "@angular/http";
@@ -21,7 +21,8 @@ import {FormsModule} from "@angular/forms";
     ListPage,
     LoginPage,
     RegisterPage,
-    PostPage
+    PostPage,
+    ModalContentPage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +38,8 @@ import {FormsModule} from "@angular/forms";
     ListPage,
     LoginPage,
     RegisterPage,
-    PostPage
+    PostPage,
+    ModalContentPage
   ],
   providers: [
     StatusBar,

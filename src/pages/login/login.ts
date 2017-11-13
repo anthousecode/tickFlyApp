@@ -1,10 +1,14 @@
 import {Component, ViewChild} from '@angular/core';
-import {IonicPage, Nav, NavController, NavParams} from 'ionic-angular';
+import {
+  AlertController, IonicPage, ModalController, Nav, NavController, NavParams, Platform,
+  ViewController
+} from 'ionic-angular';
 
 import {RegisterPage} from "../register/register";
 import {AuthService} from "../../services/auth.service";
 import {NgForm} from "@angular/forms";
 import {HomePage} from "../home/home";
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 @IonicPage()
 @Component({
@@ -21,7 +25,10 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public authService: AuthService) {
+              public authService: AuthService,
+              public alertCtrl: AlertController,
+              public modalCtrl: ModalController,
+              public _sanitizer: DomSanitizer) {
   }
 
   ionViewDidLoad() {
@@ -42,13 +49,10 @@ export class LoginPage {
     this.authService.signup(form.value.email, form.value.password)
       .subscribe(
         response => {
-          // this.notificationsService.add(new Notification('success', 'User successfully registered!'));
-          // this.router.navigate(['/signin']);
           console.log('Success');
           this.onHomePage();
         },
         error => {
-          // this.alertService.error(error);
           console.log('Error');
         }
       );
@@ -56,16 +60,78 @@ export class LoginPage {
 
   signinGoogle() {
     console.log('test login');
-    this.authService.signinGoogle();
+    this.authService.signinGoogle().subscribe(
+      response => {
+        console.log('Success');
+        console.log(response.text());
+        let htmlAlert = response.text();
+        this.presentModal(htmlAlert);
+        // this.showPromptGoogle(htmlAlert);
+      },
+      error => {
+        console.log('Error');
+      }
+    );
   }
 
-  // loginWithFB() {
-  // loginWithFB() {
-  //   this.facebook.login(['email', 'public_profile']).then((response: FacebookLoginResponse) => {
-  //     this.facebook.api('me?fields=id,email,first_name', []).then(profile => {
-  //       this.userData = {email: profile['email'], first_name: profile['first_name'], username: profile['name']};
-  //     })
+  // showPromptGoogle(html: string) {
+  //   let testString = this._sanitizer.bypassSecurityTrustHtml(html).toString();
+  //   let prompt = this.alertCtrl.create({
+  //     title: 'Login',
+  //     message: testString
   //   });
+  //   prompt.present();
   // }
 
+  presentModal(html: string) {
+    let modal = this.modalCtrl.create(ModalContentPage, {html: html});
+    modal.present();
+  }
+
+}
+
+
+
+@Component({
+  template: `
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Google Auth
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div [innerHtml]="htmlProperty"></div>
+</ion-content>
+`
+})
+
+export class ModalContentPage {
+
+  private _htmlProperty: string = '';
+
+  constructor(
+    public platform: Platform,
+    public params: NavParams,
+    public viewCtrl: ViewController,
+    private _sanitizer: DomSanitizer
+  ) {
+    this._htmlProperty = params.get('html');
+  }
+
+  public get htmlProperty() : SafeHtml {
+    return this._sanitizer.bypassSecurityTrustHtml(this._htmlProperty);
+  }
+
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
 }
