@@ -105,3 +105,16 @@ ion-content {
   }
 }
 
+
+.toolbar-ios {
+  & ion-title {
+    position: relative;
+    padding: 0px !important;
+  }
+  & ion-buttons{
+    & button {
+      margin:0px !important;
+    }
+  }
+}
+
