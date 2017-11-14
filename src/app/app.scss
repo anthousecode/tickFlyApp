@@ -79,4 +79,29 @@ ion-content {
     }
   }
 }
+.header-ios {
+  background: $secondary-red;
+  color: $white;
+}
+
+.menu-inner {
+  ion-list {
+    &.item-ios, .item {
+      background-color: $secondary-red;
+      color: $white;
+    }
+  }
+  ion-header {
+    .toolbar-background-md, .toolbar-background-ios {
+      background-color: $secondary-red;
+      color: $white;
+    }
+  }
+  ion-content {
+    &.fixed-content, .scroll-content {
+      background-color: $secondary-red;
+      color: $white;
+    }
+  }
+}
 
