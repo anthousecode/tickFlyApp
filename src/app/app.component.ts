@@ -10,7 +10,7 @@ import {RegisterPage} from "../pages/register/register";
 import {PostPage} from "../pages/post/post";
 import {HttpService} from "../services/http.service";
 import {AuthService} from "../services/auth.service";
-import {UserPrivatePage} from "../pages/user-private/user-private";
+import {UserProfilePage} from "../pages/user-profile/user-profile";
 
 @Component({
   templateUrl: 'app.html',
@@ -38,7 +38,6 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'User', component: UserPrivatePage },
       { title: 'List', component: ListPage },
       { title: 'Login', component: LoginPage },
       { title: 'Register', component: RegisterPage },
@@ -66,11 +65,15 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.nav.push(page.component);
   }
 
   onLoginPage() {
     this.nav.push(LoginPage);
+  }
+
+  onUserProfile() {
+    this.nav.setRoot(UserProfilePage);
   }
 
   logout() {

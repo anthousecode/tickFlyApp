@@ -12,8 +12,7 @@ import {PostPage} from "../pages/post/post";
 import {HttpModule} from "@angular/http";
 import {HttpService} from "../services/http.service";
 import {FormsModule} from "@angular/forms";
-import {UserPrivatePage} from "../pages/user-private/user-private";
-import {UserPublicPage} from "../pages/user-public/user-public";
+import {UserProfilePage} from "../pages/user-profile/user-profile";
 
 
 @NgModule({
@@ -25,8 +24,7 @@ import {UserPublicPage} from "../pages/user-public/user-public";
     RegisterPage,
     PostPage,
     ModalContentPage,
-    UserPrivatePage,
-    UserPublicPage
+    UserProfilePage
   ],
   imports: [
     BrowserModule,
@@ -44,8 +42,7 @@ import {UserPublicPage} from "../pages/user-public/user-public";
     RegisterPage,
     PostPage,
     ModalContentPage,
-    UserPrivatePage,
-    UserPublicPage
+    UserProfilePage
   ],
   providers: [
     StatusBar,
