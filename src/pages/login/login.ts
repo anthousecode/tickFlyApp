@@ -1,14 +1,14 @@
 import {Component, ViewChild} from '@angular/core';
 import {
-  AlertController, IonicPage, ModalController, Nav, NavController, NavParams, Platform,
+  AlertController, IonicPage, ModalController, Nav, NavController, NavParams, Platform, ToastController,
   ViewController
 } from 'ionic-angular';
 
 import {RegisterPage} from "../register/register";
 import {AuthService} from "../../services/auth.service";
 import {NgForm} from "@angular/forms";
-import {HomePage} from "../home/home";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
+import {HomePage} from "../home/home";
 
 @IonicPage()
 @Component({
@@ -17,7 +17,6 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
   providers: [AuthService],
 })
 export class LoginPage {
-  @ViewChild(Nav) nav: Nav;
 
   rootPage: any = null;
 
@@ -28,7 +27,8 @@ export class LoginPage {
               public authService: AuthService,
               public alertCtrl: AlertController,
               public modalCtrl: ModalController,
-              public _sanitizer: DomSanitizer) {
+              public _sanitizer: DomSanitizer,
+              public toastCtrl: ToastController) {
   }
 
   ionViewDidLoad() {
@@ -40,20 +40,22 @@ export class LoginPage {
   }
 
   onHomePage() {
-    this.navCtrl.push(HomePage);
+    this.navCtrl.setRoot(HomePage);
   }
 
-  onSignup(form: NgForm) {
+  onSignin(form: NgForm) {
     console.log(form.value.email);
     console.log(form.value.password);
-    this.authService.signup(form.value.email, form.value.password)
+    this.authService.signin(form.value.email, form.value.password)
       .subscribe(
         response => {
           console.log('Success');
           this.onHomePage();
+          this.authService.presentSuccessToast();
         },
         error => {
           console.log('Error');
+          this.authService.presentUnsuccessToast();
         }
       );
   }

@@ -4,6 +4,7 @@ import 'rxjs/add/operator/filter';
 import {Http, Headers, Response, RequestOptions} from "@angular/http";
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
+import {ToastController} from "ionic-angular";
 
 @Injectable()
 export class AuthService {
@@ -19,16 +20,39 @@ export class AuthService {
 
   API = "http://localhost:8080";
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private toastCtrl: ToastController) {}
 
   createAuthorizationHeader(headers: Headers) {
     headers.append('Authorization', 'Bearer ' +
       this.getToken());
   }
 
-  signup(email: string, password: string) {
+  signin(email: string, password: string) {
     return this.http.post(this.API + `/api/sign-up`,
       {email: email, password: password},
+      {headers: new Headers({"X-Requested-With": "XMLHttpRequest"})})
+      .map(
+        (response: Response) => {
+          const token = response.json().access_token;
+          const base64Url = token.split(".")[1];
+          const base64 = base64Url.replace("-", "+").replace("_", "/");
+          console.log(JSON.parse(window.atob(base64)));
+          return {
+            token: token,
+            decoded: JSON.parse(window.atob(base64))
+          };
+        }
+      )
+      .do(
+        tokenData => {
+          localStorage.setItem("token", tokenData.token);
+        }
+      );
+  }
+
+  signup(nickname: string, email: string, password: string) {
+    return this.http.post(this.API + `/api/sign-up`,
+      {nickname: nickname, email: email, password: password},
       {headers: new Headers({"X-Requested-With": "XMLHttpRequest"})})
       .map(
         (response: Response) => {
@@ -70,6 +94,24 @@ export class AuthService {
       // console.log(this.getToken());
       return true;
     }
+  }
+
+  presentSuccessToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Вы были успешно авторизированы!',
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
+  }
+
+  presentUnsuccessToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Авторизация не выполнена!',
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
   }
 
   // signupFacebook(email: string, password: string) {

@@ -1,5 +1,5 @@
 import { Component, ViewChild, Injectable} from '@angular/core';
-import {AlertController, Nav, Platform} from 'ionic-angular';
+import {AlertController, Nav, Platform, ToastController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -32,7 +32,8 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public alertCtrl: AlertController,
-    private authService: AuthService) {
+    private authService: AuthService,
+    public toastCtrl: ToastController) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -65,7 +66,7 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.push(page.component);
+    this.nav.setRoot(page.component);
   }
 
   onLoginPage() {

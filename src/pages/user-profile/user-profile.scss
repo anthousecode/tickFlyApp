@@ -4,8 +4,10 @@ page-user-profile {
       border-bottom: none !important;
     }
   }
-  .item-md ion-avatar img {
-    width: 60px;
-    height: 60px;
+  .item-md, .item-ios {
+    ion-avatar img {
+      width: 60px;
+      height: 60px;
+    }
   }
 }
