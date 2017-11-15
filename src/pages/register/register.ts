@@ -38,6 +38,7 @@ export class RegisterPage {
           console.log('Success');
           this.onHomePage();
           this.authService.presentSuccessToast();
+          this.authService.getCurrentUserId();
         },
         error => {
           console.log('Error');

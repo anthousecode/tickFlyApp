@@ -13,6 +13,7 @@ import {HttpModule} from "@angular/http";
 import {HttpService} from "../services/http.service";
 import {FormsModule} from "@angular/forms";
 import {UserProfilePage} from "../pages/user-profile/user-profile";
+import {UserComponent} from "../components/user/user";
 
 
 @NgModule({

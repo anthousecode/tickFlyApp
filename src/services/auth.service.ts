@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-//import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import {Http, Headers, Response, RequestOptions} from "@angular/http";
 import 'rxjs/add/operator/map';
@@ -73,6 +72,23 @@ export class AuthService {
       );
   }
 
+  getCurrentUserId() {
+    return this.http.get( this.API + `/api/user-info`,
+      {headers: new Headers({'Authorization': 'Bearer ' + this.getToken()})})
+      .subscribe(
+        response => {
+          const idUser = response.json().user.id_user;
+          console.log(response.json().user.id_user);
+          localStorage.setItem("id_user", idUser);
+        }
+      )
+  }
+
+  getProfile(idUser) {
+    return this.http.get(this.API + `/api/v1/user/profile?id_user=` + idUser,
+    {headers: new Headers({"Authorization": 'Bearer ' + this.getToken()})})
+  }
+
   signinGoogle() {
     console.log('Google auth test');
     let htmlAlert;
@@ -87,6 +103,8 @@ export class AuthService {
   getToken() {
     return localStorage.getItem("token");
   }
+
+  getUserId
 
   isLogin(): boolean {
     if (this.getToken()) {

@@ -27,6 +27,9 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
+  userId =  this.getUserId();
+
+
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
@@ -80,5 +83,9 @@ export class MyApp {
   logout() {
     this.authService.logout();
     this.onLoginPage();
+  }
+
+  getUserId() {
+    return localStorage.getItem('id_user');
   }
 }
