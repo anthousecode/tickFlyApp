@@ -18,10 +18,6 @@ export class HomePage {
 
   users: User[] = [];
 
-  onPostPage() {
-    this.navCtrl.push(PostPage);
-  }
-
   ngOnInit(){
     this.httpService.getData().subscribe(
       (resp: any) => {

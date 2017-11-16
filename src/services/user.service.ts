@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
 import {Http} from "@angular/http";
 import {AuthService} from "./auth.service";
+import {Headers} from '@angular/http';
 
 @Injectable()
 export class UserService {
@@ -12,9 +13,11 @@ export class UserService {
 
   }
 
-  getProfile() {
-    return this.http.get(this.authService.API + `/api/v1/user/profile`)
-      // {headers: new Headers({"X-Requested-With": "XMLHttpRequest"})})
+  API = "http://localhost:8080";
+
+  getProfile(idUser) {
+    return this.http.get(this.authService.API + `/api/v1/user/profile?id_user=` + idUser,
+      {headers: new Headers({"Authorization": 'Bearer ' + this.authService.getToken()})})
   }
 
 }

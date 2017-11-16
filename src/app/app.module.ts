@@ -13,7 +13,7 @@ import {HttpModule} from "@angular/http";
 import {HttpService} from "../services/http.service";
 import {FormsModule} from "@angular/forms";
 import {UserProfilePage} from "../pages/user-profile/user-profile";
-import {UserComponent} from "../components/user/user";
+import {PostPreviewComponent} from "../components/post-preview/post-preview";
 
 
 @NgModule({
@@ -25,7 +25,8 @@ import {UserComponent} from "../components/user/user";
     RegisterPage,
     PostPage,
     ModalContentPage,
-    UserProfilePage
+    UserProfilePage,
+    PostPreviewComponent
   ],
   imports: [
     BrowserModule,

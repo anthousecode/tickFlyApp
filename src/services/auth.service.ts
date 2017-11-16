@@ -84,11 +84,6 @@ export class AuthService {
       )
   }
 
-  getProfile(idUser) {
-    return this.http.get(this.API + `/api/v1/user/profile?id_user=` + idUser,
-    {headers: new Headers({"Authorization": 'Bearer ' + this.getToken()})})
-  }
-
   signinGoogle() {
     console.log('Google auth test');
     let htmlAlert;
@@ -108,8 +103,6 @@ export class AuthService {
 
   isLogin(): boolean {
     if (this.getToken()) {
-      // console.log('logged true');
-      // console.log(this.getToken());
       return true;
     }
   }

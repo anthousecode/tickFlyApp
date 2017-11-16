@@ -1,0 +1,41 @@
+<!-- Generated template for the PostPreviewComponent component -->
+<ion-card>
+
+  <ion-item>
+    <ion-avatar item-start>
+      <img src="assets/images/default-avatar.jpg">
+    </ion-avatar>
+    <h2 float-left *ngFor="let user of users">{{user?.name}}</h2>
+    <h2 float-left>{{user?.age}}</h2>
+    <ion-buttons end>
+      <button class="more-icon" (click)="showAlert()" icon-end>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-item>
+
+  <h2 padding class="post-title" (click)="onPostPage()">Lorem impsum dollor sit ammet</h2>
+  <img src="assets/images/boat.jpg">
+
+  <ion-card-content>
+    <p margin-bottom>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+    <p>November 5</p>
+  </ion-card-content>
+
+  <div class="post-footer">
+    <ion-buttons>
+      <button ion-button icon-left small clear>
+        <img style="width: 20px; margin-right: 5px;" src="assets/images/close2.svg" alt="TickFly">
+        <div class="tickfly-currency">4</div>
+      </button>
+      <button ion-button small clear>
+        <ion-icon name="chatboxes"></ion-icon>
+      </button>
+      <button ion-button small clear>
+        <ion-icon name="mail"></ion-icon>
+      </button>
+    </ion-buttons>
+    <div class="category">Путешествия</div>
+  </div>
+
+</ion-card>
