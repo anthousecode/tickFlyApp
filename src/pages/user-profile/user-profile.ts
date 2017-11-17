@@ -25,6 +25,7 @@ export class UserProfilePage {
   userId;
   posts = [];
   profile;
+  subscribe;
   user;
 
   constructor(
@@ -36,7 +37,6 @@ export class UserProfilePage {
     private httpService: HttpService
   ) {
     this.userId = this.navParams.get('userId');
-    console.log(this)
   }
 
   ionViewDidLoad() {
@@ -66,6 +66,7 @@ export class UserProfilePage {
           this.user = response.json().user;
           let postsList = response.json().posts;
           this.profile = response.json().public;
+          this.subscribe = response.json().subscribe;
           for(let index in postsList){
             let post = postsList[index];
             this.posts.push({
@@ -123,5 +124,17 @@ export class UserProfilePage {
           console.log();
         }
       );
+  }
+
+  onToggleSubscribe(userId) {
+    this.userService.toggleSubscribe(userId)
+      .subscribe(
+        response => {
+          console.log(response.json());
+        },
+        error => {
+          console.log('error');
+        }
+      )
   }
 }

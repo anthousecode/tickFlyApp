@@ -27,7 +27,6 @@ export class FollowersPage {
     this.selectedItem = navParams.get('item');
 
     this.followersList = navParams.get('followersList');
-    this.followedList = navParams.get('followedList');
   }
 
   itemTapped(event, idUser) {
