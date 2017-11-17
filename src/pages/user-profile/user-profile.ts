@@ -4,6 +4,7 @@ import {AuthService} from "../../services/auth.service";
 import {UserService} from "../../services/user.service";
 import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
+import {FollowersPage} from "../followers/followers";
 
 /**
  * Generated class for the UserProfilePage page.
@@ -20,16 +21,21 @@ import {HttpService} from "../../services/http.service";
 })
 export class UserProfilePage {
 
-  userId = this.getUserId();
+  userId;
   posts = [];
+  profile;
   user;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private authService: AuthService,
-              private userService: UserService,
-              public alertCtrl: AlertController,
-              private httpService: HttpService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private authService: AuthService,
+    private userService: UserService,
+    public alertCtrl: AlertController,
+    private httpService: HttpService
+  ) {
+    this.userId = this.navParams.get('userId');
+    console.log(this)
   }
 
   ionViewDidLoad() {
@@ -58,6 +64,7 @@ export class UserProfilePage {
           console.log(response.json());
           this.user = response.json().user;
           let postsList = response.json().posts;
+          this.profile = response.json().public;
           for(let index in postsList){
             let post = postsList[index];
             this.posts.push({
@@ -87,5 +94,33 @@ export class UserProfilePage {
       buttons: ['Подписаться', 'Поделиться', 'Пожаловаться']
     });
     alert.present();
+  }
+
+  onFollowersPage(userId) {
+    let followersList;
+    this.userService.getFollowers(userId)
+      .subscribe(
+        response => {
+          followersList = response.json().followers;
+          this.navCtrl.push(FollowersPage, {followersList: followersList});
+        },
+        error => {
+          console.log();
+        }
+      );
+  }
+
+  onFollowedPage(userId) {
+    let followedList;
+    this.userService.getFollowed(userId)
+      .subscribe(
+        response => {
+          followedList = response.json().followed;
+          this.navCtrl.push(FollowersPage, {followedList: followedList});
+        },
+        error => {
+          console.log();
+        }
+      );
   }
 }

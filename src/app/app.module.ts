@@ -14,6 +14,7 @@ import {HttpService} from "../services/http.service";
 import {FormsModule} from "@angular/forms";
 import {UserProfilePage} from "../pages/user-profile/user-profile";
 import {PostPreviewComponent} from "../components/post-preview/post-preview";
+import {FollowersPage} from "../pages/followers/followers";
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {PostPreviewComponent} from "../components/post-preview/post-preview";
     PostPage,
     ModalContentPage,
     UserProfilePage,
-    PostPreviewComponent
+    PostPreviewComponent,
+    FollowersPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,8 @@ import {PostPreviewComponent} from "../components/post-preview/post-preview";
     RegisterPage,
     PostPage,
     ModalContentPage,
-    UserProfilePage
+    UserProfilePage,
+    FollowersPage
   ],
   providers: [
     StatusBar,

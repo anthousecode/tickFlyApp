@@ -20,4 +20,18 @@ export class UserService {
       {headers: new Headers({"Authorization": 'Bearer ' + this.authService.getToken()})})
   }
 
+  getFollowers(idUser) {
+    return this.http.get(this.authService.API + `/api/v1/user/followers?id_user=` + idUser,
+      {headers: new Headers({
+        "Authorization": 'Bearer ' + this.authService.getToken()
+      })})
+  }
+
+  getFollowed(idUser) {
+    return this.http.get(this.authService.API + `/api/v1/user/followed?id_user=` + idUser,
+      {headers: new Headers({
+        "Authorization": 'Bearer ' + this.authService.getToken()
+      })})
+  }
+
 }

@@ -23,7 +23,6 @@ export class PostPage {
     public alertCtrl: AlertController
   ) {
     this.post = navParams.get('post');
-    console.log(this.post.media[0]['url_orign']);
   }
 
   ionViewDidLoad() {

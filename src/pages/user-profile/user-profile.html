@@ -39,19 +39,20 @@
         </button>
       </ion-buttons>
     </div>
+    <button ion-button *ngIf="profile" color="danger">Подписаться</button>
   </ion-item>
   <ion-item class="no-padding">
     <ion-grid>
-      <ion-row text-center>
+      <ion-row *ngIf="!profile; else publicProfile" text-center>
         <ion-col col-3>
           <h3>{{user?.posts_count}}</h3>
           <p>Публикации</p>
         </ion-col>
-        <ion-col col-3>
+        <ion-col col-3 (click)="onFollowersPage(userId)">
           <h3>{{user?.followers_count}}</h3>
           <p>Подписчики</p>
         </ion-col>
-        <ion-col col-3>
+        <ion-col col-3 (click)="onFollowedPage(userId)">
           <h3>{{user?.followed_count}}</h3>
           <p>Подписки</p>
         </ion-col>
@@ -60,6 +61,22 @@
           <p>Тики</p>
         </ion-col>
       </ion-row>
+      <ng-template #publicProfile>
+        <ion-row text-center>
+          <ion-col col-4>
+            <h3>{{user?.posts_count}}</h3>
+            <p>Публикации</p>
+          </ion-col>
+          <ion-col col-4 (click)="onFollowersPage(userId)">
+            <h3>{{user?.followers_count}}</h3>
+            <p>Подписчики</p>
+          </ion-col>
+          <ion-col col-4 (click)="onFollowedPage(userId)">
+            <h3>{{user?.followed_count}}</h3>
+            <p>Подписки</p>
+          </ion-col>
+        </ion-row>
+      </ng-template>
     </ion-grid>
   </ion-item>
 

@@ -51,7 +51,6 @@ export class HomePage {
     this.httpService.getPost(postId)
       .subscribe(
         response => {
-          console.log(response.json().post);
           post = response.json().post;
           this.navCtrl.push(PostPage, {post: post});
         },
