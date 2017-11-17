@@ -21,14 +21,6 @@ import {HttpService} from "../../services/http.service";
 export class UserProfilePage {
 
   userId = this.getUserId();
-  nickname;
-  avatar;
-  fullname;
-  status;
-  postCount;
-  subscribersCount;
-  subscriptionsCount;
-  balance;
   posts = [];
   user;
 
@@ -65,13 +57,6 @@ export class UserProfilePage {
         response => {
           console.log(response.json());
           this.user = response.json().user;
-          // this.nickname = response.json().user.nick_name;
-          this.avatar =  response.json().user.avatar;
-          this.fullname = response.json().user.first_name + ' ' + response.json().user.last_name;
-          this.postCount = response.json().user.posts_count;
-          this.subscribersCount = response.json().user.followers_count;
-          this.subscriptionsCount = response.json().user.followed_count;
-          this.balance = response.json().user.balance.amount;
           let postsList = response.json().posts;
           for(let index in postsList){
             let post = postsList[index];

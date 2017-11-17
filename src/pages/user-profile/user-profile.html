@@ -44,19 +44,19 @@
     <ion-grid>
       <ion-row text-center>
         <ion-col col-3>
-          <h3>{{postCount}}</h3>
+          <h3>{{user?.posts_count}}</h3>
           <p>Публикации</p>
         </ion-col>
         <ion-col col-3>
-          <h3>{{subscribersCount}}</h3>
+          <h3>{{user?.followers_count}}</h3>
           <p>Подписчики</p>
         </ion-col>
         <ion-col col-3>
-          <h3>{{subscriptionsCount}}</h3>
+          <h3>{{user?.followed_count}}</h3>
           <p>Подписки</p>
         </ion-col>
         <ion-col col-3>
-          <h3>{{balance}}</h3>
+          <h3>{{user?.balance.amount}}</h3>
           <p>Тики</p>
         </ion-col>
       </ion-row>

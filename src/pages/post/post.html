@@ -27,7 +27,7 @@
     </ion-item>
 
     <h2 padding class="post-title">{{post?.title}}</h2>
-    <img src="{{post?.media[0]['url_orign']}}">
+    <img *ngFor="let picture of post?.media" src="{{picture['url_orign']}}">
 
     <ion-card-content>
       <p margin-bottom>{{post?.description}}</p>
