@@ -21,5 +21,43 @@
 </ion-header>
 
 <ion-content padding>
- <post-preview></post-preview>
+  <ion-card *ngFor="let post of posts">
+
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="{{post?.author.avatar}}">
+      </ion-avatar>
+      <h2 float-left>{{post?.author.nick_name}}</h2>
+      <ion-buttons end>
+        <button class="more-icon" (click)="showAlert()" icon-end>
+          <ion-icon name="more"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-item>
+
+    <h2 padding class="post-title" (click)="onPostPage(post?.postId)">{{post?.title}}</h2>
+    <img src="{{post?.media[0]['url_orign']}}">
+
+    <ion-card-content>
+      <p margin-bottom>{{post?.description}}</p>
+      <p>{{post?.date}}</p>
+    </ion-card-content>
+
+    <div class="post-footer">
+      <ion-buttons>
+        <button ion-button icon-left small clear>
+          <img style="width: 20px; margin-right: 5px;" src="assets/images/close2.svg" alt="TickFly">
+          <div class="tickfly-currency">{{post?.tickCount}}</div>
+        </button>
+        <button ion-button small clear>
+          <ion-icon name="chatboxes"></ion-icon>
+        </button>
+        <button ion-button small clear>
+          <ion-icon name="mail"></ion-icon>
+        </button>
+      </ion-buttons>
+      <div class="category">{{post?.categories[0].title}}</div>
+    </div>
+
+  </ion-card>
 </ion-content>

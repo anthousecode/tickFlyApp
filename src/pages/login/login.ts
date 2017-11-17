@@ -46,8 +46,7 @@ export class LoginPage {
   onSignin(form: NgForm) {
     console.log(form.value.email);
     console.log(form.value.password);
-    this.authService.signin(form.value.email, form.value.password)
-      .subscribe(
+    this.authService.signin(form.value.email, form.value.password).subscribe(
         response => {
           console.log('Success');
           this.onHomePage();

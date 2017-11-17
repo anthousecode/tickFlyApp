@@ -12,29 +12,53 @@ import {AuthService} from "../../services/auth.service";
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private httpService: HttpService) {
+  constructor(public navCtrl: NavController, private httpService: HttpService) {
 
   }
 
   users: User[] = [];
 
+  posts = [];
+
   ngOnInit(){
-    this.httpService.getData().subscribe(
-      (resp: any) => {
-        var usersList = resp.json().users;
-        for(let index in usersList){
-          console.log(usersList[index]);
-          let user = usersList[index];
-          this.users.push({name: user.userName, age: user.userAge});
+    this.httpService.getPosts().subscribe(
+      response => {
+        console.log(response.json());
+        let postsList = response.json().posts;
+        for(let index in postsList){
+          let post = postsList[index];
+          this.posts.push({
+            postId: post.id_post,
+            title: post.title,
+            categories: post.categories,
+            description: post.description,
+            tags: post.tags,
+            tickCount: post.summ_ticks,
+            date: post.format_date,
+            media: post.media,
+            author: post.user
+          });
         }
+      },
+      error => {
+        console.log(error);
       }
-    );
+    )
   }
 
-  showAlert() {
-    let alert = this.alertCtrl.create({
-      buttons: ['Подписаться', 'Поделиться', 'Пожаловаться']
-    });
-    alert.present();
+  onPostPage(postId) {
+    let post;
+    this.httpService.getPost(postId)
+      .subscribe(
+        response => {
+          console.log(response.json().post);
+          post = response.json().post;
+          this.navCtrl.push(PostPage, {post: post});
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
+
 }

@@ -16,9 +16,9 @@
 
     <ion-item margin-bottom>
       <ion-avatar item-start>
-        <img src="assets/images/default-avatar.jpg">
+        <img src="{{post?.user?.avatar}}">
       </ion-avatar>
-      <h2 float-left>Marty McFly</h2>
+      <h2 float-left>{{post?.user?.nick_name}}</h2>
       <ion-buttons end>
         <button class="more-icon" (click)="showAlert()" icon-end>
           <ion-icon name="more"></ion-icon>
@@ -26,19 +26,19 @@
       </ion-buttons>
     </ion-item>
 
-    <h2 padding class="post-title">Lorem impsum dollor sit ammet</h2>
-    <img src="assets/images/boat.jpg">
+    <h2 padding class="post-title">{{post?.title}}</h2>
+    <img src="{{post?.media[0]['url_orign']}}">
 
     <ion-card-content>
-      <p margin-bottom>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
-      <p>November 5</p>
+      <p margin-bottom>{{post?.description}}</p>
+      <p>{{post?.format_date}}</p>
     </ion-card-content>
 
     <div class="post-footer">
       <ion-buttons>
         <button ion-button icon-left small clear>
           <img style="width: 20px; margin-right: 5px;" src="assets/images/close2.svg" alt="TickFly">
-          <div class="tickfly-currency">4</div>
+          <div class="tickfly-currency">{{post?.summ_ticks}}</div>
         </button>
         <button ion-button small clear>
           <ion-icon name="chatboxes"></ion-icon>
@@ -47,11 +47,11 @@
           <ion-icon name="mail"></ion-icon>
         </button>
       </ion-buttons>
-      <div class="category">Путешествия</div>
+      <div class="category" *ngFor="let category of post?.categories">{{category.title}}</div>
     </div>
 
   <hr>
 
-    <div class="comments">Посмотреть все комментарии (35)</div>
+    <div class="comments">Посмотреть все комментарии ({{post?.comments_count}})</div>
 
 </ion-content>

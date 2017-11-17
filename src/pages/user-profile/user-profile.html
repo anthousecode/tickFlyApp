@@ -29,10 +29,10 @@
 <ion-content padding>
   <ion-item class="top-userprofile no-padding">
     <ion-avatar item-start>
-      <img src="assets/images/default-avatar.jpg">
+      <img src="{{user?.avatar}}">
     </ion-avatar>
     <div>
-      <h2>{{nickname}}</h2>
+      <h2>{{user?.nick_name}}</h2>
       <ion-buttons end>
         <button class="more-icon" icon-end>
           <ion-icon name="more"></ion-icon>
@@ -56,7 +56,7 @@
           <p>Подписки</p>
         </ion-col>
         <ion-col col-3>
-          <h3>{{subscriptionsCount}}</h3>
+          <h3>{{balance}}</h3>
           <p>Тики</p>
         </ion-col>
       </ion-row>
@@ -66,15 +66,9 @@
 
   <ion-card *ngFor="let post of posts">
 
-    <h2 padding class="post-title" (click)="onPostPage()">{{post?.title}}</h2>
+    <h2 padding class="post-title" (click)="onPostPage(post?.postId)">{{post?.title}}</h2>
 
-    <ion-buttons end>
-      <button class="more-icon" (click)="showAlert()" icon-end>
-        <ion-icon name="more"></ion-icon>
-      </button>
-    </ion-buttons>
-
-    <img src="assets/images/boat.jpg">
+    <img src="{{post?.media[0]['url_orign']}}">
 
     <ion-card-content>
       <p margin-bottom>{{post?.description}}</p>

@@ -15,7 +15,15 @@ import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angula
 })
 export class PostPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  post;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public alertCtrl: AlertController
+  ) {
+    this.post = navParams.get('post');
+    console.log(this.post.media[0]['url_orign']);
   }
 
   ionViewDidLoad() {
@@ -28,10 +36,5 @@ export class PostPage {
     });
     alert.present();
   }
-
-  // @Output() myEvent = new EventEmitter();
-  // showPostAlert(){
-  //   this.myEvent.emit(null)
-  // }
 
 }

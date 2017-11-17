@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AuthService} from "../../services/auth.service";
 import {UserService} from "../../services/user.service";
 import {PostPage} from "../post/post";
+import {HttpService} from "../../services/http.service";
 
 /**
  * Generated class for the UserProfilePage page.
@@ -27,20 +28,35 @@ export class UserProfilePage {
   postCount;
   subscribersCount;
   subscriptionsCount;
+  balance;
   posts = [];
+  user;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private authService: AuthService,
-              private userService: UserService) {
+              private userService: UserService,
+              public alertCtrl: AlertController,
+              private httpService: HttpService) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProfilePage');
   }
 
-  onPostPage() {
-    this.navCtrl.push(PostPage);
+  onPostPage(postId) {
+    let post;
+    this.httpService.getPost(postId)
+      .subscribe(
+        response => {
+          console.log(response.json().post);
+          post = response.json().post;
+          this.navCtrl.push(PostPage, {post: post});
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
   ngOnInit() {
@@ -48,17 +64,19 @@ export class UserProfilePage {
       .subscribe(
         response => {
           console.log(response.json());
-          this.nickname = response.json().user.nick_name;
+          this.user = response.json().user;
+          // this.nickname = response.json().user.nick_name;
           this.avatar =  response.json().user.avatar;
           this.fullname = response.json().user.first_name + ' ' + response.json().user.last_name;
           this.postCount = response.json().user.posts_count;
           this.subscribersCount = response.json().user.followers_count;
           this.subscriptionsCount = response.json().user.followed_count;
+          this.balance = response.json().user.balance.amount;
           let postsList = response.json().posts;
           for(let index in postsList){
             let post = postsList[index];
             this.posts.push({
-              id: post.id_post,
+              postId: post.id_post,
               title: post.title,
               categories: post.categories,
               description: post.description,
@@ -68,12 +86,21 @@ export class UserProfilePage {
               media: post.media
             });
           }
-          console.log(this.posts);
+        },
+        error => {
+          console.log(error);
         }
       );
   }
 
   getUserId() {
     return localStorage.getItem('id_user');
+  }
+
+  showAlert() {
+    let alert = this.alertCtrl.create({
+      buttons: ['Подписаться', 'Поделиться', 'Пожаловаться']
+    });
+    alert.present();
   }
 }
