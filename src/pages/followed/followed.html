@@ -1,0 +1,31 @@
+<!--
+  Generated template for the FollowedPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Подписки</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let followed of followedList" (click)="itemTapped($event, followed.id_followed)">
+      <ion-item class="top-userprofile no-padding">
+        <ion-avatar item-start>
+          <img src="{{followed.user_followed.avatar}}">
+        </ion-avatar>
+        <h2>{{followed.user_followed.nick_name}}</h2>
+      </ion-item>
+
+    </button>
+  </ion-list>
+  <div *ngIf="selectedItem" padding>
+    You navigated here from <b>{{selectedItem.title}}</b>
+  </div>
+</ion-content>

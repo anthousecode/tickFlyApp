@@ -15,6 +15,7 @@ import {FormsModule} from "@angular/forms";
 import {UserProfilePage} from "../pages/user-profile/user-profile";
 import {PostPreviewComponent} from "../components/post-preview/post-preview";
 import {FollowersPage} from "../pages/followers/followers";
+import {FollowedPage} from "../pages/followed/followed";
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {FollowersPage} from "../pages/followers/followers";
     ModalContentPage,
     UserProfilePage,
     PostPreviewComponent,
-    FollowersPage
+    FollowersPage,
+    FollowedPage
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,8 @@ import {FollowersPage} from "../pages/followers/followers";
     PostPage,
     ModalContentPage,
     UserProfilePage,
-    FollowersPage
+    FollowersPage,
+    FollowedPage
   ],
   providers: [
     StatusBar,

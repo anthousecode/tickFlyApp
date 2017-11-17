@@ -5,6 +5,7 @@ import {UserService} from "../../services/user.service";
 import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
 import {FollowersPage} from "../followers/followers";
+import {FollowedPage} from "../followed/followed";
 
 /**
  * Generated class for the UserProfilePage page.
@@ -116,7 +117,7 @@ export class UserProfilePage {
       .subscribe(
         response => {
           followedList = response.json().followed;
-          this.navCtrl.push(FollowersPage, {followedList: followedList});
+          this.navCtrl.push(FollowedPage, {followedList: followedList});
         },
         error => {
           console.log();
