@@ -1,0 +1,46 @@
+<!--
+  Generated template for the EditUserPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Редактирование профиля</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form (ngSubmit)="onChangeUser(f)" #f="ngForm">
+
+    <ion-list>
+
+      <!--<ion-avatar item-start>-->
+        <!--<img src="{{user?.avatar}}">-->
+      <!--</ion-avatar>-->
+      <!--<ion-item>-->
+        <!--<ion-input type="file" name="avatar" placeholder="Avatar"></ion-input>-->
+      <!--</ion-item>-->
+      <ion-item>
+        <ion-input type="text" name="nick_name" placeholder="Nickname" value="{{user?.nick_name}}" [ngModel]="nickname"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" name="first_name" placeholder="Firstname" value="{{user?.first_name}}" [ngModel]="firstname"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" name="last_name" placeholder="Lastname" value="{{user?.last_name}}" [ngModel]="lastname"></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-buttons>
+      <button ion-button color="danger" margin-bottom >Сохранить</button>
+    </ion-buttons>
+
+  </form>
+
+</ion-content>

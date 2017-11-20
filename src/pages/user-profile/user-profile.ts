@@ -6,6 +6,8 @@ import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
 import {FollowersPage} from "../followers/followers";
 import {FollowedPage} from "../followed/followed";
+import {EditUserPage} from "../edit-user/edit-user";
+import {ChangePasswordPage} from "../change-password/change-password";
 
 /**
  * Generated class for the UserProfilePage page.
@@ -136,5 +138,33 @@ export class UserProfilePage {
           console.log('error');
         }
       )
+  }
+
+  onEditUserPage() {
+    this.navCtrl.push(EditUserPage);
+  }
+
+  onChangePasswordPage() {
+    this.navCtrl.push(ChangePasswordPage);
+  }
+
+  showAlertUserEdit() {
+    let alert = this.alertCtrl.create({
+      buttons: [
+        {
+          text: 'Редактировать профиль',
+          handler: () => {
+            this.onEditUserPage();
+          }
+        },
+        {
+          text: 'Изменить пароль',
+          handler: () => {
+            this.onChangePasswordPage();
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 }

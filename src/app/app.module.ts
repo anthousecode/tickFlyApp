@@ -16,6 +16,8 @@ import {UserProfilePage} from "../pages/user-profile/user-profile";
 import {PostPreviewComponent} from "../components/post-preview/post-preview";
 import {FollowersPage} from "../pages/followers/followers";
 import {FollowedPage} from "../pages/followed/followed";
+import {EditUserPage} from "../pages/edit-user/edit-user";
+import {ChangePasswordPage} from "../pages/change-password/change-password";
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import {FollowedPage} from "../pages/followed/followed";
     UserProfilePage,
     PostPreviewComponent,
     FollowersPage,
-    FollowedPage
+    FollowedPage,
+    EditUserPage,
+    ChangePasswordPage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,9 @@ import {FollowedPage} from "../pages/followed/followed";
     ModalContentPage,
     UserProfilePage,
     FollowersPage,
-    FollowedPage
+    FollowedPage,
+    EditUserPage,
+    ChangePasswordPage
   ],
   providers: [
     StatusBar,

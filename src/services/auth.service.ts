@@ -21,11 +21,6 @@ export class AuthService {
 
   constructor(private http: Http, private toastCtrl: ToastController) {}
 
-  createAuthorizationHeader(headers: Headers) {
-    headers.append('Authorization', 'Bearer ' +
-      this.getToken());
-  }
-
   signin(email: string, password: string) {
     return this.http.post(this.API + `/api/sign-up`,
       {email: email, password: password},
@@ -77,6 +72,7 @@ export class AuthService {
       {headers: new Headers({'Authorization': 'Bearer ' + this.getToken()})})
       .subscribe(
         response => {
+          console.log(response.json().user.id_user);
           const idUser = response.json().user.id_user;
           console.log(response.json().user.id_user);
           localStorage.setItem("id_user", idUser);
@@ -93,6 +89,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("id_user");
   }
 
   getToken() {

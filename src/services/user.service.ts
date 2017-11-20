@@ -42,4 +42,37 @@ export class UserService {
       })})
   }
 
+  getEditProfile() {
+    return this.http.get( this.authService.API + `/api/v1/user/edit-profile`,
+      {headers: new Headers({
+        "Authorization": 'Bearer ' + this.authService.getToken()
+      })})
+  }
+
+  changeUser(nickname: string, firstname: string, lastname: string) {
+    return this.http.put(this.authService.API + `/api/v1/user/edit-profile`,
+      {
+        nickname: nickname,
+        first_name: firstname,
+        last_name: lastname
+      },
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })})
+  }
+
+  changePassword(oldPassword: string, newPassword: string, confirmationPassword: string) {
+    return this.http.put(this.authService.API + `/api/v1/user/change-password`,
+      {
+        old_password: oldPassword,
+        new_password: newPassword,
+        password_confirmation: confirmationPassword
+      },
+      {
+        headers: new Headers({
+        "Authorization": 'Bearer ' + this.authService.getToken()
+      })})
+  }
+
 }

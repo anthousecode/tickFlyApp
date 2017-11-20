@@ -74,7 +74,7 @@ export class MyApp {
   }
 
   onUserProfile() {
-    this.nav.setRoot(UserProfilePage, {userId: this.userId});
+    this.nav.setRoot(UserProfilePage, {userId: this.getUserId()});
   }
 
   logout() {
