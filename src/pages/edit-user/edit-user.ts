@@ -43,7 +43,8 @@ export class EditUserPage {
     this.userService.changeUser(
       form.value.nick_name,
       form.value.first_name,
-      form.value.last_name
+      form.value.last_name,
+      form.value.status
     ).subscribe(
       response => {
         console.log('Success');

@@ -49,12 +49,13 @@ export class UserService {
       })})
   }
 
-  changeUser(nickname: string, firstname: string, lastname: string) {
-    return this.http.put(this.authService.API + `/api/v1/user/edit-profile`,
+  changeUser(nickname: string, firstname: string, lastname: string, status: string) {
+    return this.http.put(this.authService.API + `/api/v1/user/update`,
       {
-        nickname: nickname,
+        nick_name: nickname,
         first_name: firstname,
-        last_name: lastname
+        last_name: lastname,
+        status: status
       },
       {
         headers: new Headers({
