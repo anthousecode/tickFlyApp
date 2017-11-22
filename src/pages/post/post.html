@@ -27,7 +27,12 @@
     </ion-item>
 
     <h2 padding class="post-title">{{post?.title}}</h2>
-    <img *ngFor="let picture of post?.media" src="{{picture['url_orign']}}">
+
+    <ion-slides pager>
+      <ion-slide *ngFor="let picture of post?.media">
+        <img src="{{picture['url_orign']}}">
+      </ion-slide>
+    </ion-slides>
 
     <ion-card-content>
       <p margin-bottom>{{post?.description}}</p>
@@ -41,9 +46,6 @@
           <div class="tickfly-currency">{{post?.summ_ticks}}</div>
         </button>
         <button ion-button small clear>
-          <ion-icon name="chatboxes"></ion-icon>
-        </button>
-        <button ion-button small clear>
           <ion-icon name="mail"></ion-icon>
         </button>
       </ion-buttons>
@@ -52,6 +54,21 @@
 
   <hr>
 
-    <div class="comments">Посмотреть все комментарии ({{post?.comments_count}})</div>
+    <div class="comments" *ngFor="let comment of comments">
+      <ion-item margin-bottom>
+        <ion-avatar item-start>
+          <img src="{{comment.user.avatar}}">
+        </ion-avatar>
+        <h2 float-left>{{comment.user.nick_name}}</h2>
+        <div class="comment">
+          <div class="date">
+            {{comment.format_date}}
+          </div>
+          <div>
+            {{comment.comment}}
+          </div>
+        </div>
+      </ion-item>
+    </div>
 
 </ion-content>

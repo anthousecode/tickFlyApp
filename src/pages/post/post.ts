@@ -17,6 +17,7 @@ import {CategoryPage} from "../category/category";
 export class PostPage {
 
   post;
+  comments = [];
 
   constructor(
     public navCtrl: NavController,
@@ -24,6 +25,7 @@ export class PostPage {
     public alertCtrl: AlertController
   ) {
     this.post = navParams.get('post');
+    this.comments = this.post.comments;
   }
 
   ionViewDidLoad() {

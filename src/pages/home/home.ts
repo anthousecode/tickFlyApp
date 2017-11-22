@@ -52,6 +52,7 @@ export class HomePage {
       .subscribe(
         response => {
           post = response.json().post;
+          console.log(post);
           this.navCtrl.push(PostPage, {post: post});
         },
         error => {
