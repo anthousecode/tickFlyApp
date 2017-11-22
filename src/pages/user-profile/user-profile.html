@@ -52,7 +52,7 @@
           <p>Публикации</p>
         </ion-col>
         <ion-col col-3 (click)="onFollowersPage(userId)">
-          <h3>{{user?.followers_count}}</h3>
+          <h3>{{followersCount}}</h3>
           <p>Подписчики</p>
         </ion-col>
         <ion-col col-3 (click)="onFollowedPage(userId)">
@@ -71,7 +71,7 @@
             <p>Публикации</p>
           </ion-col>
           <ion-col col-4 (click)="onFollowersPage(userId)">
-            <h3>{{user?.followers_count}}</h3>
+            <h3>{{followersCount}}</h3>
             <p>Подписчики</p>
           </ion-col>
           <ion-col col-4 (click)="onFollowedPage(userId)">
@@ -101,7 +101,7 @@
           <img style="width: 20px; margin-right: 5px;" src="assets/images/close2.svg" alt="TickFly">
           <div class="tickfly-currency">{{post?.tickCount}}</div>
         </button>
-        <button ion-button small clear>
+        <button ion-button small clear (click)="onPostPage(post?.postId)">
           <ion-icon name="chatboxes"></ion-icon>
         </button>
         <button ion-button small clear>

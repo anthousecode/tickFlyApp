@@ -4,6 +4,7 @@ import {PostPage} from "../post/post";
 import {User} from "../../shared/user";
 import {HttpService} from "../../services/http.service";
 import {AuthService} from "../../services/auth.service";
+import {UserProfilePage} from "../user-profile/user-profile";
 
 @Component({
   selector: 'page-home',
@@ -12,11 +13,9 @@ import {AuthService} from "../../services/auth.service";
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private httpService: HttpService) {
+  constructor(public navCtrl: NavController, private httpService: HttpService, private alertCtrl: AlertController) {
 
   }
-
-  users: User[] = [];
 
   posts = [];
 
@@ -58,6 +57,17 @@ export class HomePage {
           console.log(error);
         }
       );
+  }
+
+  showAlert() {
+    let alert = this.alertCtrl.create({
+      buttons: ['Подписаться', 'Поделиться', 'Пожаловаться']
+    });
+    alert.present();
+  }
+
+  onAuthorPage(userId) {
+    this.navCtrl.push(UserProfilePage, {userId: userId});
   }
 
 }

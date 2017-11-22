@@ -24,11 +24,13 @@ import {ChangePasswordPage} from "../change-password/change-password";
 })
 export class UserProfilePage {
 
-  userId;
+  userId: number;
   posts = [];
   profile;
   subscribe;
   user;
+  followersCount: number;
+
 
   constructor(
     public navCtrl: NavController,
@@ -69,6 +71,7 @@ export class UserProfilePage {
           let postsList = response.json().posts;
           this.profile = response.json().public;
           this.subscribe = response.json().subscribe;
+          this.followersCount = this.user.followers_count;
           for(let index in postsList){
             let post = postsList[index];
             this.posts.push({
@@ -133,6 +136,8 @@ export class UserProfilePage {
       .subscribe(
         response => {
           console.log(response.json());
+          this.followersCount = response.json().followers_count;
+          console.log(this.followersCount);
         },
         error => {
           console.log('error');
@@ -166,5 +171,9 @@ export class UserProfilePage {
       ]
     });
     alert.present();
+  }
+
+  onAuthorPage(userId) {
+    this.navCtrl.push(UserProfilePage, {userId: userId});
   }
 }
