@@ -18,6 +18,10 @@ import {FollowersPage} from "../pages/followers/followers";
 import {FollowedPage} from "../pages/followed/followed";
 import {EditUserPage} from "../pages/edit-user/edit-user";
 import {ChangePasswordPage} from "../pages/change-password/change-password";
+import { File } from '@ionic-native/file';
+import { Transfer } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera } from '@ionic-native/camera';
 
 
 @NgModule({
@@ -62,7 +66,11 @@ import {ChangePasswordPage} from "../pages/change-password/change-password";
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HttpService
+    HttpService,
+    File,
+    Transfer,
+    Camera,
+    FilePath
   ]
 })
 export class AppModule {}
