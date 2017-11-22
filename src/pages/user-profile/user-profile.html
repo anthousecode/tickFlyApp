@@ -108,7 +108,7 @@
           <ion-icon name="mail"></ion-icon>
         </button>
       </ion-buttons>
-      <div class="category">{{post?.categories[0].title}}</div>
+      <div class="category" (click)="onCategoryPage(post?.categories[0].id_category)">{{post?.categories[0].title}}</div>
     </div>
 
   </ion-card>

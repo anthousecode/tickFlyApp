@@ -23,4 +23,14 @@ export class HttpService{
     return this.http.get(this.authService.API + `/api/v1/post/by-id/` + postId,
       {headers: new Headers({"Authorization": 'Bearer ' + this.authService.getToken()})})
   }
+
+  getCategories() {
+    return this.http.get(this.authService.API + `/api/v1/category/`,
+      {headers: new Headers({"Authorization": 'Bearer ' + this.authService.getToken()})})
+  }
+
+  getCategory(categoryId) {
+    return this.http.get(this.authService.API + `/api/v1/category/post-by-cat/` + categoryId,
+      {headers: new Headers({"Authorization": 'Bearer ' + this.authService.getToken()})})
+  }
 }

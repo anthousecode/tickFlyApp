@@ -11,6 +11,7 @@ import {PostPage} from "../pages/post/post";
 import {HttpService} from "../services/http.service";
 import {AuthService} from "../services/auth.service";
 import {UserProfilePage} from "../pages/user-profile/user-profile";
+import {CategoryListPage} from "../pages/category-list/category-list";
 
 @Component({
   templateUrl: 'app.html',
@@ -42,7 +43,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Главная', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'Категории', component: CategoryListPage }
     ];
 
   }

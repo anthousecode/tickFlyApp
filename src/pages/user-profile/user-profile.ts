@@ -8,6 +8,7 @@ import {FollowersPage} from "../followers/followers";
 import {FollowedPage} from "../followed/followed";
 import {EditUserPage} from "../edit-user/edit-user";
 import {ChangePasswordPage} from "../change-password/change-password";
+import {CategoryPage} from "../category/category";
 
 /**
  * Generated class for the UserProfilePage page.
@@ -175,5 +176,9 @@ export class UserProfilePage {
 
   onAuthorPage(userId) {
     this.navCtrl.push(UserProfilePage, {userId: userId});
+  }
+
+  onCategoryPage(categoryId) {
+    this.navCtrl.push(CategoryPage, {categoryId: categoryId});
   }
 }

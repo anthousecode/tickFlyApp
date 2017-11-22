@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {CategoryPage} from "../category/category";
 
 /**
  * Generated class for the PostPage page.
@@ -34,6 +35,10 @@ export class PostPage {
       buttons: ['Подписаться', 'Поделиться', 'Пожаловаться']
     });
     alert.present();
+  }
+
+  onCategoryPage(categoryId) {
+    this.navCtrl.push(CategoryPage, {categoryId: categoryId});
   }
 
 }

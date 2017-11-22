@@ -5,6 +5,7 @@ import {User} from "../../shared/user";
 import {HttpService} from "../../services/http.service";
 import {AuthService} from "../../services/auth.service";
 import {UserProfilePage} from "../user-profile/user-profile";
+import {CategoryPage} from "../category/category";
 
 @Component({
   selector: 'page-home',
@@ -68,6 +69,10 @@ export class HomePage {
 
   onAuthorPage(userId) {
     this.navCtrl.push(UserProfilePage, {userId: userId});
+  }
+
+  onCategoryPage(categoryId) {
+    this.navCtrl.push(CategoryPage, {categoryId: categoryId});
   }
 
 }

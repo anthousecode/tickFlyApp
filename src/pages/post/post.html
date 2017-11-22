@@ -47,7 +47,7 @@
           <ion-icon name="mail"></ion-icon>
         </button>
       </ion-buttons>
-      <div class="category" *ngFor="let category of post?.categories">{{category.title}}</div>
+      <div class="category" *ngFor="let category of post?.categories" (click)="onCategoryPage(category.id_category)">{{category.title}}</div>
     </div>
 
   <hr>
