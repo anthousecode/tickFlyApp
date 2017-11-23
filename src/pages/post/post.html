@@ -54,21 +54,29 @@
 
   <hr>
 
-    <div class="comments" *ngFor="let comment of comments">
-      <ion-item margin-bottom>
-        <ion-avatar item-start>
-          <img src="{{comment.user.avatar}}">
-        </ion-avatar>
-        <h2 float-left>{{comment.user.nick_name}}</h2>
-        <div class="comment">
-          <div class="date">
-            {{comment.format_date}}
-          </div>
-          <div>
-            {{comment.comment}}
-          </div>
+  <div class="comments">
+    <ion-item *ngFor="let comment of comments" margin-bottom>
+      <ion-avatar item-start>
+        <img src="{{comment.user.avatar}}">
+      </ion-avatar>
+      <h2 float-left>{{comment.user.nick_name}}</h2>
+      <div class="comment">
+        <div class="date">
+          {{comment.format_date}}
         </div>
-      </ion-item>
-    </div>
+        <div>
+          {{comment.comment}}
+        </div>
+      </div>
+    </ion-item>
+  </div>
 
+  <ion-toolbar>
+    <form (ngSubmit)="onSetComment(f)" #f="ngForm">
+      <div class="comment-form">
+        <ion-input type="text" placeholder="" name="comment" ngModel="comment"></ion-input>
+        <button type="submit" class="comment-form-button"><ion-icon name="md-send" large></ion-icon></button>
+      </div>
+    </form>
+  </ion-toolbar>
 </ion-content>
