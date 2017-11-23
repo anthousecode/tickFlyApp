@@ -26,6 +26,7 @@ export class PostPage {
   ) {
     this.post = navParams.get('post');
     this.comments = this.post.comments;
+    console.log(this.post.media);
   }
 
   ionViewDidLoad() {

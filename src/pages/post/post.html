@@ -28,7 +28,7 @@
 
     <h2 padding class="post-title">{{post?.title}}</h2>
 
-    <ion-slides pager>
+    <ion-slides pager *ngIf="post?.media">
       <ion-slide *ngFor="let picture of post?.media">
         <img src="{{picture['url_orign']}}">
       </ion-slide>
