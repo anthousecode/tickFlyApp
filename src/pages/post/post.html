@@ -46,8 +46,8 @@
     <div class="post-footer">
       <ion-buttons>
         <button ion-button icon-left small clear>
-          <img style="width: 20px; margin-right: 5px;" src="assets/images/close2.svg" alt="TickFly">
-          <div class="tickfly-currency">{{post?.summ_ticks}}</div>
+          <img style="width: 20px; margin-right: 5px;" src="assets/images/tick.png" alt="TickFly">
+          <div class="tickfly-currency">{{tickCount ? tickCount : post?.summ_ticks}}</div>
         </button>
         <button ion-button small clear>
           <ion-icon name="mail"></ion-icon>
