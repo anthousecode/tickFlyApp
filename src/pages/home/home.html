@@ -45,9 +45,9 @@
 
     <div class="post-footer">
       <ion-buttons>
-        <button ion-button icon-left small clear>
+        <button ion-button icon-left small clear (click)="showTickAlert(post?.postId, post?.author.id_user)">
           <img style="width: 20px; margin-right: 5px;" src="assets/images/tick.png" alt="TickFly">
-          <div class="tickfly-currency">{{post?.tickCount}}</div>
+          <div class="tickfly-currency">{{tickCount ? tickCount : post?.tickCount}}</div>
         </button>
         <button ion-button small clear (click)="onPostPage(post?.postId)">
           <ion-icon name="chatboxes"></ion-icon>

@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PostPreviewComponent } from './post-preview/post-preview';
-import { HeaderComponent } from './header/header';
 @NgModule({
-	declarations: [PostPreviewComponent,
-    HeaderComponent],
+	declarations: [PostPreviewComponent],
 	imports: [],
-	exports: [PostPreviewComponent,
-    HeaderComponent]
+	exports: [PostPreviewComponent]
 })
 export class ComponentsModule {}

@@ -6,19 +6,26 @@ import {AuthService} from "../../services/auth.service";
 import {UserProfilePage} from "../user-profile/user-profile";
 import {CategoryPage} from "../category/category";
 import {CreatePostPage} from "../create-post/create-post";
+import {PostService} from "../../services/post.service";
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [HttpService, AuthService]
+  providers: [HttpService, AuthService, PostService]
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private httpService: HttpService, private alertCtrl: AlertController) {
+  constructor(
+    public navCtrl: NavController,
+    private httpService: HttpService,
+    private alertCtrl: AlertController,
+    private postService: PostService
+  ) {
 
   }
 
   posts = [];
+  currentPost;
 
   ngOnInit(){
     this.httpService.getPosts().subscribe(
@@ -78,6 +85,55 @@ export class HomePage {
 
   onCreatePostPage() {
     this.navCtrl.push(CreatePostPage);
+  }
+
+  showTickAlert(postId: number, userId: number) {
+    this.postService.getBalance()
+      .subscribe(
+        response => {
+          let balance = response.json().balance;
+          let prompt = this.alertCtrl.create({
+            title: 'Тик',
+            message: 'Количество тиков на Вашем счету ' + balance + '<p>Введите количество тиков</p>',
+            inputs: [
+              {
+                name: 'tick',
+                placeholder: 'Tick',
+                type: 'number'
+              },
+            ],
+            buttons: [
+              {
+                text: 'Отмена',
+                handler: data => {
+                  console.log('Cancel clicked');
+                }
+              },
+              {
+                text: 'Сохранить',
+                handler: data => {
+                  if(data.tick <= balance && data.tick && Number(data.tick) !== 0 ) {
+                    console.log('Saved clicked');
+                    this.postService.setTick(postId, userId, data.tick)
+                      .subscribe(
+                        response => {
+                          console.log(response.json());
+                          let tickCount = response.json().amount_ticks;
+                          this.currentPost = this.posts.find(x => x.postId == postId);
+                          this.currentPost.tickCount = tickCount;
+                          console.log(this.currentPost.tickCount);
+                        }
+                      );
+                  } else {
+                    return false;
+                  }
+                }
+              }
+            ]
+          });
+          prompt.present();
+        }
+      )
   }
 
 }
