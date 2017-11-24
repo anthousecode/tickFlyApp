@@ -4,7 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';import { StatusBar } from '@ionic-native/status-bar';
+import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {LoginPage, ModalContentPage} from "../pages/login/login";
 import {RegisterPage} from "../pages/register/register";
@@ -24,13 +24,13 @@ import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import {CategoryListPage} from "../pages/category-list/category-list";
 import {CategoryPage} from "../pages/category/category";
+import {CreatePostPage} from "../pages/create-post/create-post";
 
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
     LoginPage,
     RegisterPage,
     PostPage,
@@ -42,7 +42,8 @@ import {CategoryPage} from "../pages/category/category";
     EditUserPage,
     ChangePasswordPage,
     CategoryListPage,
-    CategoryPage
+    CategoryPage,
+    CreatePostPage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +56,6 @@ import {CategoryPage} from "../pages/category/category";
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
     LoginPage,
     RegisterPage,
     PostPage,
@@ -66,7 +66,8 @@ import {CategoryPage} from "../pages/category/category";
     EditUserPage,
     ChangePasswordPage,
     CategoryListPage,
-    CategoryPage
+    CategoryPage,
+    CreatePostPage
   ],
   providers: [
     StatusBar,

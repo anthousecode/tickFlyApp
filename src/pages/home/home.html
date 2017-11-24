@@ -7,7 +7,7 @@
       <button ion-button icon-end>
         <ion-icon name="search"></ion-icon>
       </button>
-      <button ion-button icon-end>
+      <button ion-button icon-end (click)="onCreatePostPage()">
         <ion-icon name="md-create"></ion-icon>
       </button>
       <button ion-button icon-end>
@@ -46,7 +46,7 @@
     <div class="post-footer">
       <ion-buttons>
         <button ion-button icon-left small clear>
-          <img style="width: 20px; margin-right: 5px;" src="assets/images/close2.svg" alt="TickFly">
+          <img style="width: 20px; margin-right: 5px;" src="assets/images/tick.png" alt="TickFly">
           <div class="tickfly-currency">{{post?.tickCount}}</div>
         </button>
         <button ion-button small clear (click)="onPostPage(post?.postId)">

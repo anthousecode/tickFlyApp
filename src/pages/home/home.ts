@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {AlertController, NavController} from 'ionic-angular';
 import {PostPage} from "../post/post";
-import {User} from "../../shared/user";
 import {HttpService} from "../../services/http.service";
 import {AuthService} from "../../services/auth.service";
 import {UserProfilePage} from "../user-profile/user-profile";
 import {CategoryPage} from "../category/category";
+import {CreatePostPage} from "../create-post/create-post";
 
 @Component({
   selector: 'page-home',
@@ -74,6 +74,10 @@ export class HomePage {
 
   onCategoryPage(categoryId) {
     this.navCtrl.push(CategoryPage, {categoryId: categoryId});
+  }
+
+  onCreatePostPage() {
+    this.navCtrl.push(CreatePostPage);
   }
 
 }
