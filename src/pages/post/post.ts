@@ -49,6 +49,10 @@ export class PostPage {
     this.navCtrl.push(CategoryPage, {categoryId: categoryId});
   }
 
+  concatTag(tag: string) {
+    return tag + ' ';
+  }
+
   onSetComment(form: NgForm) {
     console.log(form.value.comment);
     this.httpService.setComment(this.postId, form.value.comment)

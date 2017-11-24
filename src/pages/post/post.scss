@@ -14,4 +14,11 @@ page-post {
   .comment-form {
     display: flex;
   }
+
+  .tags {
+    .tag {
+      color: $secondary-blue;
+      background-color: #fff;
+    }
+  }
 }

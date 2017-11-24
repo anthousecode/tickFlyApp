@@ -39,6 +39,10 @@
       <p>{{post?.format_date}}</p>
     </ion-card-content>
 
+  <div class="tags">
+    <ion-badge class="tag" *ngFor="let tag of post?.tags">{{concatTag(tag.title)}}</ion-badge>
+  </div>
+
     <div class="post-footer">
       <ion-buttons>
         <button ion-button icon-left small clear>
@@ -49,7 +53,9 @@
           <ion-icon name="mail"></ion-icon>
         </button>
       </ion-buttons>
-      <div class="category" *ngFor="let category of post?.categories" (click)="onCategoryPage(category.id_category)">{{category.title}}</div>
+      <div class="category" *ngFor="let category of post?.categories" (click)="onCategoryPage(category.id_category)">
+        {{category.title}}
+      </div>
     </div>
 
   <hr>
