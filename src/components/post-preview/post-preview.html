@@ -1,12 +1,13 @@
 <!-- Generated template for the PostPreviewComponent component -->
-<ion-card>
+<ion-card *ngFor="let post of posts">
 
-  <ion-item>
+  <ion-item *ngIf="!(currentPage == 'UserProfilePage')">
     <ion-avatar item-start>
-      <img src="assets/images/default-avatar.jpg">
+      <img src="{{post?.author.avatar}}">
     </ion-avatar>
-    <h2 float-left></h2>
-    <h2 float-left></h2>
+    <h2 float-left (click)="onAuthorPage(post?.author.id_user)">
+      {{post?.author.nick_name}}
+    </h2>
     <ion-buttons end>
       <button class="more-icon" (click)="showAlert()" icon-end>
         <ion-icon name="more"></ion-icon>
@@ -14,28 +15,30 @@
     </ion-buttons>
   </ion-item>
 
-  <h2 padding class="post-title" (click)="onPostPage()">Lorem impsum dollor sit ammet</h2>
-  <img src="assets/images/boat.jpg">
+  <h2 padding class="post-title" (click)="onPostPage(post?.postId)">{{post?.title}}</h2>
+  <img src="{{post?.media[0]['url_orign']}}">
 
   <ion-card-content>
-    <p margin-bottom>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
-    <p>November 5</p>
+    <p margin-bottom>{{post?.description}}</p>
+    <p>{{post?.date}}</p>
   </ion-card-content>
 
   <div class="post-footer">
     <ion-buttons>
-      <button ion-button icon-left small clear>
-        <img style="width: 20px; margin-right: 5px;" src="assets/images/close2.svg" alt="TickFly">
-        <div class="tickfly-currency">4</div>
+      <button ion-button icon-left small clear
+              [disabled]="!publicProfile && currentPage == 'UserProfilePage'"
+              (click)="showTickAlert(post?.postId, currentPage == 'UserProfilePage' ? userId : post?.author.id_user)">
+        <img style="width: 20px; margin-right: 5px;" src="assets/images/tick.png" alt="TickFly">
+        <div class="tickfly-currency">{{tickCount ? tickCount : post?.tickCount}}</div>
       </button>
-      <button ion-button small clear>
+      <button ion-button small clear (click)="onPostPage(post?.postId)">
         <ion-icon name="chatboxes"></ion-icon>
       </button>
       <button ion-button small clear>
         <ion-icon name="mail"></ion-icon>
       </button>
     </ion-buttons>
-    <div class="category">Путешествия</div>
+    <div class="category" (click)="onCategoryPage(post?.categories[0].id_category)">{{post?.categories[0].title}}</div>
   </div>
 
 </ion-card>

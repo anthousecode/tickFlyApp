@@ -9,6 +9,7 @@ import {FollowedPage} from "../followed/followed";
 import {EditUserPage} from "../edit-user/edit-user";
 import {ChangePasswordPage} from "../change-password/change-password";
 import {CategoryPage} from "../category/category";
+import {PostService} from "../../services/post.service";
 
 /**
  * Generated class for the UserProfilePage page.
@@ -21,17 +22,16 @@ import {CategoryPage} from "../category/category";
 @Component({
   selector: 'page-user-profile',
   templateUrl: 'user-profile.html',
-  providers: [UserService]
+  providers: [UserService, PostService]
 })
 export class UserProfilePage {
 
   userId: number;
   posts = [];
-  profile;
+  public: boolean = true;
   subscribe;
   user;
   followersCount: number;
-
 
   constructor(
     public navCtrl: NavController,
@@ -70,7 +70,7 @@ export class UserProfilePage {
           console.log(response.json());
           this.user = response.json().user;
           let postsList = response.json().posts;
-          this.profile = response.json().public;
+          this.public = response.json().public;
           this.subscribe = response.json().subscribe;
           this.followersCount = this.user.followers_count;
           for(let index in postsList){
@@ -81,7 +81,7 @@ export class UserProfilePage {
               categories: post.categories,
               description: post.description,
               tags: post.tags,
-              tickCount: post.ticks_count,
+              tickCount: post.summ_ticks,
               date: post.format_date,
               media: post.media
             });
@@ -91,10 +91,6 @@ export class UserProfilePage {
           console.log(error);
         }
       );
-  }
-
-  getUserId() {
-    return localStorage.getItem('id_user');
   }
 
   showAlert() {
@@ -174,11 +170,11 @@ export class UserProfilePage {
     alert.present();
   }
 
-  onAuthorPage(userId) {
-    this.navCtrl.push(UserProfilePage, {userId: userId});
-  }
-
-  onCategoryPage(categoryId) {
-    this.navCtrl.push(CategoryPage, {categoryId: categoryId});
-  }
+  // onAuthorPage(userId) {
+  //   this.navCtrl.push(UserProfilePage, {userId: userId});
+  // }
+  //
+  // onCategoryPage(categoryId) {
+  //   this.navCtrl.push(CategoryPage, {categoryId: categoryId});
+  // }
 }

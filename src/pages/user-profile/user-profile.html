@@ -83,34 +83,6 @@
     </ion-grid>
   </ion-item>
 
-
-  <ion-card *ngFor="let post of posts">
-
-    <h2 padding class="post-title" (click)="onPostPage(post?.postId)">{{post?.title}}</h2>
-
-    <img src="{{post?.media[0]['url_orign']}}">
-
-    <ion-card-content>
-      <p margin-bottom>{{post?.description}}</p>
-      <p>{{post?.date}}</p>
-    </ion-card-content>
-
-    <div class="post-footer">
-      <ion-buttons>
-        <button ion-button icon-left small clear>
-          <img style="width: 20px; margin-right: 5px;" src="assets/images/tick.png" alt="TickFly">
-          <div class="tickfly-currency">{{tickCount ? tickCount : post?.tickCount}}</div>
-        </button>
-        <button ion-button small clear (click)="onPostPage(post?.postId)">
-          <ion-icon name="chatboxes"></ion-icon>
-        </button>
-        <button ion-button small clear>
-          <ion-icon name="mail"></ion-icon>
-        </button>
-      </ion-buttons>
-      <div class="category" (click)="onCategoryPage(post?.categories[0].id_category)">{{post?.categories[0].title}}</div>
-    </div>
-
-  </ion-card>
+  <post-preview [userId]="userId" [publicProfile]="public" [posts]="posts"></post-preview>
 
 </ion-content>

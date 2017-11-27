@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
+import {PostService} from "../../services/post.service";
 
 /**
  * Generated class for the CategoryPage page.
@@ -14,6 +15,7 @@ import {HttpService} from "../../services/http.service";
 @Component({
   selector: 'page-category',
   templateUrl: 'category.html',
+  providers: [PostService]
 })
 export class CategoryPage {
 
@@ -21,7 +23,7 @@ export class CategoryPage {
   category;
   posts = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private httpService: HttpService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private httpService: HttpService, private postService: PostService) {
     this.categoryId = this.navParams.get('categoryId');
   }
 
@@ -50,20 +52,6 @@ export class CategoryPage {
               author: post.user
             });
           }
-        },
-        error => {
-          console.log(error);
-        }
-      );
-  }
-
-  onPostPage(postId) {
-    let post;
-    this.httpService.getPost(postId)
-      .subscribe(
-        response => {
-          post = response.json().post;
-          this.navCtrl.push(PostPage, {post: post});
         },
         error => {
           console.log(error);
