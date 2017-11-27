@@ -36,7 +36,6 @@ export class UserProfilePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private authService: AuthService,
     private userService: UserService,
     public alertCtrl: AlertController,
     private httpService: HttpService
@@ -46,21 +45,6 @@ export class UserProfilePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProfilePage');
-  }
-
-  onPostPage(postId) {
-    let post;
-    this.httpService.getPost(postId)
-      .subscribe(
-        response => {
-          console.log(response.json().post);
-          post = response.json().post;
-          this.navCtrl.push(PostPage, {post: post});
-        },
-        error => {
-          console.log(error);
-        }
-      );
   }
 
   ngOnInit() {
@@ -169,12 +153,4 @@ export class UserProfilePage {
     });
     alert.present();
   }
-
-  // onAuthorPage(userId) {
-  //   this.navCtrl.push(UserProfilePage, {userId: userId});
-  // }
-  //
-  // onCategoryPage(categoryId) {
-  //   this.navCtrl.push(CategoryPage, {categoryId: categoryId});
-  // }
 }

@@ -3,6 +3,8 @@ import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angula
 import {CategoryPage} from "../category/category";
 import {NgForm} from "@angular/forms";
 import {HttpService} from "../../services/http.service";
+import {UserProfilePage} from "../user-profile/user-profile";
+import {PostService} from "../../services/post.service";
 
 /**
  * Generated class for the PostPage page.
@@ -15,23 +17,26 @@ import {HttpService} from "../../services/http.service";
 @Component({
   selector: 'page-post',
   templateUrl: 'post.html',
+  providers: [PostService]
 })
 export class PostPage {
 
   post;
   postId: number;
   comments = [];
+  currentPost: string;
+  posts = [];
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
-    private httpService: HttpService
+    private httpService: HttpService,
+    public postService: PostService
   ) {
     this.post = navParams.get('post');
     this.postId = this.post.id_post;
     this.comments = this.post.comments;
-    console.log(this.post.media);
   }
 
   ionViewDidLoad() {
@@ -66,6 +71,59 @@ export class PostPage {
           console.log('Error');
         }
       );
+  }
+
+  onAuthorPage(userId) {
+    this.navCtrl.push(UserProfilePage, {userId: userId});
+  }
+
+  showTickAlert(postId: number, userId: number) {
+    console.log(postId, userId);
+    this.postService.getBalance()
+      .subscribe(
+        response => {
+          let balance = response.json().balance;
+          let prompt = this.alertCtrl.create({
+            title: 'Тик',
+            message: 'Количество тиков на Вашем счету ' + balance + '<p>Введите количество тиков</p>',
+            inputs: [
+              {
+                name: 'tick',
+                placeholder: 'Tick',
+                type: 'number'
+              },
+            ],
+            buttons: [
+              {
+                text: 'Отмена',
+                handler: data => {
+                  console.log('Cancel clicked');
+                }
+              },
+              {
+                text: 'Сохранить',
+                handler: data => {
+                  if(data.tick <= balance && data.tick && Number(data.tick) !== 0 ) {
+                    console.log('Saved clicked');
+                    this.postService.setTick(postId, userId, data.tick)
+                      .subscribe(
+                        response => {
+                          console.log(response.json());
+                          let tickCount = response.json().amount_ticks;
+                          this.post.tickCount = tickCount;
+                          console.log(this.post.tickCount);
+                        }
+                      );
+                  } else {
+                    return false;
+                  }
+                }
+              }
+            ]
+          });
+          prompt.present();
+        }
+      )
   }
 
 }

@@ -2,7 +2,7 @@
 <ion-card *ngFor="let post of posts">
 
   <ion-item *ngIf="!(currentPage == 'UserProfilePage')">
-    <ion-avatar item-start>
+    <ion-avatar item-start (click)="onAuthorPage(post?.author.id_user)">
       <img src="{{post?.author.avatar}}">
     </ion-avatar>
     <h2 float-left (click)="onAuthorPage(post?.author.id_user)">

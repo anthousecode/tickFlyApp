@@ -39,10 +39,6 @@ export class PostPreviewComponent {
     this.currentPage = this.viewCtrl.name;
   }
 
-  ngOnInit(){
-    console.log(this.publicProfile);
-  }
-
   onPostPage(postId) {
     let post;
     this.httpService.getPost(postId)

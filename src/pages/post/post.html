@@ -15,10 +15,12 @@
 <ion-content padding>
 
     <ion-item margin-bottom>
-      <ion-avatar item-start>
+      <ion-avatar item-start (click)="onAuthorPage(post?.user.id_user)">
         <img src="{{post?.user?.avatar}}">
       </ion-avatar>
-      <h2 float-left>{{post?.user?.nick_name}}</h2>
+      <h2 float-left (click)="onAuthorPage(post?.user.id_user)">
+        {{post?.user?.nick_name}}
+      </h2>
       <ion-buttons end>
         <button class="more-icon" (click)="showAlert()" icon-end>
           <ion-icon name="more"></ion-icon>
@@ -45,9 +47,10 @@
 
     <div class="post-footer">
       <ion-buttons>
-        <button ion-button icon-left small clear>
+        <button ion-button icon-left small clear
+                (click)="showTickAlert(postId, post?.user.id_user)">
           <img style="width: 20px; margin-right: 5px;" src="assets/images/tick.png" alt="TickFly">
-          <div class="tickfly-currency">{{tickCount ? tickCount : post?.summ_ticks}}</div>
+          <div class="tickfly-currency">{{post?.tickCount ? post?.tickCount : post?.summ_ticks}}</div>
         </button>
         <button ion-button small clear>
           <ion-icon name="mail"></ion-icon>
