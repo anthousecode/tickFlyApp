@@ -52,4 +52,8 @@ export class HomePage {
     )
   }
 
+  onCreatePostPage() {
+    this.navCtrl.push(CreatePostPage);
+  }
+
 }

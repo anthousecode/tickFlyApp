@@ -96,7 +96,9 @@ export class AuthService {
     return localStorage.getItem("token");
   }
 
-  getUserId
+  getUserId() {
+    return localStorage.getItem("id_user");
+  }
 
   isLogin(): boolean {
     if (this.getToken()) {
