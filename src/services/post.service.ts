@@ -36,4 +36,17 @@ export class PostService {
       })})
   }
 
+  createPost(title: string, description: string, categories = [], tags: string) {
+    return this.http.post(this.authService.API + `/api/v1/post/save`,
+      {
+        title: title,
+        description: description,
+        cat_ids: categories,
+        tags: tags
+      },
+      {headers: new Headers({
+        "Authorization": 'Bearer ' + this.authService.getToken()
+      })})
+  }
+
 }

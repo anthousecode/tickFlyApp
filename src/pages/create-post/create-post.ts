@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {HttpService} from "../../services/http.service";
+import {PostService} from "../../services/post.service";
+import {NgForm} from "@angular/forms";
 
 /**
  * Generated class for the CreatePostPage page.
@@ -13,13 +15,19 @@ import {HttpService} from "../../services/http.service";
 @Component({
   selector: 'page-create-post',
   templateUrl: 'create-post.html',
+  providers: [PostService]
 })
 export class CreatePostPage {
-
+  public myModel = ''
   categories = [];
   selectedCategories = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public httpService: HttpService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public httpService: HttpService,
+    public postService: PostService
+  ) {
   }
 
   ionViewDidLoad() {
@@ -32,6 +40,7 @@ export class CreatePostPage {
     if(this.selectedCategories.length <= 2){
       console.log(this.selectedCategories);
     } else {
+      console.log(this.selectedCategories);
       return false;
     }
   }
@@ -53,4 +62,35 @@ export class CreatePostPage {
       );
   }
 
+  onCreatePost(form: NgForm) {
+    console.log(form.value.title);
+    console.log(form.value.description);
+    console.log(form.value.selectedCategories);
+    console.log(form.value.tags);
+
+    this.postService.createPost(
+      form.value.title,
+      form.value.description,
+      this.selectedCategories,
+      form.value.tags
+    )
+      .subscribe(
+        response => {
+          console.log(response.json());
+        },
+        error => {
+          console.log(error);
+        }
+      )
+  }
+
+  _keyPress(event: any) {
+    const pattern = /[а-яa-z1-9\\#\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+  }
 }

@@ -30,6 +30,7 @@
     "@ionic-native/status-bar": "3.12.1",
     "@ionic-native/transfer": "^3.14.0",
     "@ionic/storage": "2.0.1",
+    "angular2-text-mask": "^8.0.4",
     "auth0-js": "^8.10.1",
     "cordova-android": "6.3.0",
     "cordova-browser": "5.0.0",

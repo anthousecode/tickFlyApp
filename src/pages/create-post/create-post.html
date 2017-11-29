@@ -32,15 +32,14 @@
           <ion-input type="text" name="title" placeholder="Название" [ngModel]="title"></ion-input>
         </ion-item>
         <ion-item margin-bottom>
-          <ion-input type="text" name="description" placeholder="Описание" [ngModel]="description"></ion-input>
+          <ion-textarea type="text" name="description" placeholder="Описание" [ngModel]="description"></ion-textarea>
         </ion-item>
         <ion-item>
           <ion-label>Категории</ion-label>
           <ion-select name="selectedCategories" [(ngModel)]="selectedCategories"
                       (ionChange)="onChange(selectedCategories)" multiple="true">
             <ion-option *ngFor="let category of categories"
-                        (ionSelect)="onChange()"
-                        value="{{category.id_category}}"
+                        (ionSelect)="onChange()" value="{{category.id_category}}"
             >
               {{category.title}}
             </ion-option>
@@ -48,16 +47,13 @@
         </ion-item>
         <ion-item>
           <ion-item>
-            <ion-input type="text" name="tags" placeholder="Теги" [ngModel]="description"></ion-input>
+            <ion-input type="text" (keypress)="_keyPress($event)" name="tags" placeholder="Теги" [ngModel]="description"></ion-input>
           </ion-item>
         </ion-item>
-        <!--<ion-item margin-bottom>-->
-        <!--<ion-input type="password" placeholder="Повторите пароль" [ngModel]="repeatPassword"></ion-input>-->
-        <!--</ion-item>-->
 
       </ion-list>
       <ion-buttons text-center>
-        <button ion-button color="danger">Зарегистрироваться</button>
+        <button ion-button color="danger">Создать</button>
       </ion-buttons>
     </form>
   </div>
