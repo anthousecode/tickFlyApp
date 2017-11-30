@@ -49,4 +49,8 @@ export class PostService {
       })})
   }
 
+  getMorePosts(pageId) {
+    return this.http.get(this.authService.API + `/api/v1/post/?page=` + pageId,
+      {headers: new Headers({"Authorization": 'Bearer ' + this.authService.getToken()})})
+  }
 }
