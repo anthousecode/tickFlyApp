@@ -48,6 +48,7 @@
     <div class="post-footer">
       <ion-buttons>
         <button ion-button icon-left small clear
+                [disabled]="currentUserId == post?.user.id_user"
                 (click)="showTickAlert(postId, post?.user.id_user)">
           <img style="width: 20px; margin-right: 5px;" src="assets/images/tick.png" alt="TickFly">
           <div class="tickfly-currency">{{post?.tickCount ? post?.tickCount : post?.summ_ticks}}</div>
