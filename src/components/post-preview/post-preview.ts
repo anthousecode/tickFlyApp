@@ -29,7 +29,6 @@ export class PostPreviewComponent {
   currentPost;
   currentPage: string;
   user;
-  pageId: number = 0;
   currentUserId: number;
 
   constructor(
@@ -135,39 +134,39 @@ export class PostPreviewComponent {
       )
   }
 
-  doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
-
-    setTimeout(() => {
-      this.postService.getMorePosts(this.pageId).subscribe(
-        response => {
-          console.log(response.json());
-          let postsList = response.json().posts;
-          for(let index in postsList){
-            let post = postsList[index];
-            this.posts.push({
-              postId: post.id_post,
-              title: post.title,
-              categories: post.categories,
-              description: post.description,
-              tags: post.tags,
-              tickCount: post.summ_ticks,
-              date: post.format_date,
-              media: post.media,
-              author: post.user
-            });
-          }
-        },
-        error => {
-          console.log(error);
-        }
-      )
-
-      console.log('Async operation has ended');
-      infiniteScroll.complete();
-    }, 500);
-    this.pageId++;
-    console.log(this.pageId);
-  }
+  // doInfinite(infiniteScroll) {
+  //   console.log('Begin async operation');
+  //
+  //   setTimeout(() => {
+  //     this.postService.getMorePosts(this.pageId).subscribe(
+  //       response => {
+  //         console.log(response.json());
+  //         let postsList = response.json().posts;
+  //         for(let index in postsList){
+  //           let post = postsList[index];
+  //           this.posts.push({
+  //             postId: post.id_post,
+  //             title: post.title,
+  //             categories: post.categories,
+  //             description: post.description,
+  //             tags: post.tags,
+  //             tickCount: post.summ_ticks,
+  //             date: post.format_date,
+  //             media: post.media,
+  //             author: post.user
+  //           });
+  //         }
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       }
+  //     )
+  //
+  //     console.log('Async operation has ended');
+  //     infiniteScroll.complete();
+  //   }, 500);
+  //   this.pageId++;
+  //   console.log(this.pageId);
+  // }
 
 }

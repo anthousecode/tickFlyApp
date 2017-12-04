@@ -85,4 +85,8 @@
 
   <post-preview [userId]="userId" [publicProfile]="public" [posts]="posts"></post-preview>
 
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
 </ion-content>
