@@ -76,12 +76,11 @@
       "cordova-plugin-file": {},
       "cordova-plugin-filepath": {},
       "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "myreversedclientid"
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.528647109191-r00nahs7pp4rgu966jc2reb53l6gi12i"
       }
     },
     "platforms": [
       "ios",
-      "brЯowser",
       "android",
       "browser"
     ]
