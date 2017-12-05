@@ -9,6 +9,20 @@
     <ion-title>
       <ion-title>Пост</ion-title>
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-end>
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button ion-button icon-end (click)="onCreatePostPage()">
+        <ion-icon name="md-create"></ion-icon>
+      </button>
+      <button ion-button icon-end>
+        <ion-icon name="mail"></ion-icon>
+      </button>
+      <button class="slide-menu" ion-button menuToggle icon-end>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
