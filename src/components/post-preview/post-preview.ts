@@ -58,6 +58,7 @@ export class PostPreviewComponent {
   showAlert() {
     let alert = this.alertCtrl.create({
       buttons: ['Подписаться', 'Поделиться', 'Пожаловаться']
+
     });
     alert.present();
   }
