@@ -7,6 +7,7 @@ import {CreatePostPage} from "../../pages/create-post/create-post";
 import {HttpService} from "../../services/http.service";
 import {PostService} from "../../services/post.service";
 import {UserService} from "../../services/user.service";
+import {AuthService} from "../../services/auth.service";
 
 /**
  * Generated class for the PostPreviewComponent component.
@@ -28,16 +29,18 @@ export class PostPreviewComponent {
   currentPost;
   currentPage: string;
   user;
-  pageId: number = 0;
+  currentUserId: number;
 
   constructor(
     public navCtrl: NavController,
     private httpService: HttpService,
     private alertCtrl: AlertController,
     private postService: PostService,
-    public viewCtrl: ViewController
+    public viewCtrl: ViewController,
+    public authService: AuthService
   ) {
     this.currentPage = this.viewCtrl.name;
+    this.currentUserId = Number(this.authService.getUserId());
   }
 
   onPostPage(postId) {
@@ -73,6 +76,14 @@ export class PostPreviewComponent {
 
   onCreatePostPage() {
     this.navCtrl.push(CreatePostPage);
+  }
+
+  getAuthorId(post) {
+    if (this.currentPage == 'UserProfilePage') {
+      return this.userId;
+    } else {
+      return post.author.id_user;
+    }
   }
 
   showTickAlert(postId: number, userId: number) {
@@ -124,39 +135,39 @@ export class PostPreviewComponent {
       )
   }
 
-  doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
-
-    setTimeout(() => {
-      this.postService.getMorePosts(this.pageId).subscribe(
-        response => {
-          console.log(response.json());
-          let postsList = response.json().posts;
-          for(let index in postsList){
-            let post = postsList[index];
-            this.posts.push({
-              postId: post.id_post,
-              title: post.title,
-              categories: post.categories,
-              description: post.description,
-              tags: post.tags,
-              tickCount: post.summ_ticks,
-              date: post.format_date,
-              media: post.media,
-              author: post.user
-            });
-          }
-        },
-        error => {
-          console.log(error);
-        }
-      )
-
-      console.log('Async operation has ended');
-      infiniteScroll.complete();
-    }, 500);
-    this.pageId++;
-    console.log(this.pageId);
-  }
+  // doInfinite(infiniteScroll) {
+  //   console.log('Begin async operation');
+  //
+  //   setTimeout(() => {
+  //     this.postService.getMorePosts(this.pageId).subscribe(
+  //       response => {
+  //         console.log(response.json());
+  //         let postsList = response.json().posts;
+  //         for(let index in postsList){
+  //           let post = postsList[index];
+  //           this.posts.push({
+  //             postId: post.id_post,
+  //             title: post.title,
+  //             categories: post.categories,
+  //             description: post.description,
+  //             tags: post.tags,
+  //             tickCount: post.summ_ticks,
+  //             date: post.format_date,
+  //             media: post.media,
+  //             author: post.user
+  //           });
+  //         }
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       }
+  //     )
+  //
+  //     console.log('Async operation has ended');
+  //     infiniteScroll.complete();
+  //   }, 500);
+  //   this.pageId++;
+  //   console.log(this.pageId);
+  // }
 
 }

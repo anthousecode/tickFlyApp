@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {HttpService} from "../../services/http.service";
 import {PostService} from "../../services/post.service";
 import {NgForm} from "@angular/forms";
+import {HomePage} from "../home/home";
 
 /**
  * Generated class for the CreatePostPage page.
@@ -73,15 +74,15 @@ export class CreatePostPage {
       form.value.description,
       this.selectedCategories,
       form.value.tags
+    ).subscribe(
+      response => {
+        console.log(response.json());
+        this.onHomePage();
+      },
+      error => {
+        console.log(error);
+      }
     )
-      .subscribe(
-        response => {
-          console.log(response.json());
-        },
-        error => {
-          console.log(error);
-        }
-      )
   }
 
   _keyPress(event: any) {
@@ -92,5 +93,9 @@ export class CreatePostPage {
       // invalid character, prevent input
       event.preventDefault();
     }
+  }
+
+  onHomePage() {
+    this.navCtrl.setRoot(HomePage);
   }
 }

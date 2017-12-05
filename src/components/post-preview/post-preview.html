@@ -26,8 +26,8 @@
   <div class="post-footer">
       <ion-buttons class="buttons-wrap">
         <button ion-button icon-left small clear
-        [disabled]="!publicProfile && currentPage == 'UserProfilePage'"
-        (click)="showTickAlert(post?.postId, currentPage == 'UserProfilePage' ? userId : post?.author.id_user)">
+              [disabled]="currentUserId == getAuthorId(post)"
+              (click)="showTickAlert(post?.postId, getAuthorId(post))">
         <img style="width: 18px; margin:0 8px;" src="assets/images/tick.png" alt="TickFly">
         <div class="tickfly-currency">{{tickCount ? tickCount : post?.tickCount}}</div>
       </button>
@@ -45,7 +45,3 @@
 </div> 
 
 </ion-card>
-
-<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-  <ion-infinite-scroll-content></ion-infinite-scroll-content>
-</ion-infinite-scroll>

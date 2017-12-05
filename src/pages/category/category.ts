@@ -19,9 +19,10 @@ import {PostService} from "../../services/post.service";
 })
 export class CategoryPage {
 
-  categoryId: number;
+  categoryId: number = 0;
   category;
   posts = [];
+  pageId: number = 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private httpService: HttpService, private postService: PostService) {
     this.categoryId = this.navParams.get('categoryId');
@@ -57,6 +58,41 @@ export class CategoryPage {
           console.log(error);
         }
       );
+  }
+
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      this.postService.getMorePostsOnCategory(this.categoryId, this.pageId).subscribe(
+        response => {
+          console.log(response.json());
+          let postsList = response.json().posts;
+          for(let index in postsList){
+            let post = postsList[index];
+            this.posts.push({
+              postId: post.id_post,
+              title: post.title,
+              categories: post.categories,
+              description: post.description,
+              tags: post.tags,
+              tickCount: post.summ_ticks,
+              date: post.format_date,
+              media: post.media,
+              author: post.user
+            });
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      )
+
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
+    }, 500);
+    this.pageId++;
+    console.log(this.pageId);
   }
 
 }

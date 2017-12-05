@@ -5,6 +5,8 @@ import {NgForm} from "@angular/forms";
 import {HttpService} from "../../services/http.service";
 import {UserProfilePage} from "../user-profile/user-profile";
 import {PostService} from "../../services/post.service";
+import {AuthService} from "../../services/auth.service";
+import {CreatePostPage} from "../create-post/create-post";
 
 /**
  * Generated class for the PostPage page.
@@ -24,19 +26,21 @@ export class PostPage {
   post;
   postId: number;
   comments = [];
-  currentPost: string;
   posts = [];
+  currentUserId: number;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
     private httpService: HttpService,
-    public postService: PostService
+    public postService: PostService,
+    public authService: AuthService
   ) {
     this.post = navParams.get('post');
     this.postId = this.post.id_post;
     this.comments = this.post.comments;
+    this.currentUserId = Number(this.authService.getUserId());
   }
 
   ionViewDidLoad() {
@@ -124,6 +128,10 @@ export class PostPage {
           prompt.present();
         }
       )
+  }
+
+  onCreatePostPage() {
+    this.navCtrl.push(CreatePostPage);
   }
 
 }

@@ -43,22 +43,26 @@
         <!--<ion-input type="file" name="avatar" placeholder="Avatar"></ion-input>-->
       <!--</ion-item>-->
       <ion-item>
+        <ion-label>Никнейм</ion-label>
         <ion-input type="text" name="nick_name" placeholder="Nickname" value="{{user?.nick_name}}" [ngModel]="nickname"></ion-input>
       </ion-item>
       <ion-item>
+        <ion-label>Имя</ion-label>
         <ion-input type="text" name="first_name" placeholder="Имя" value="{{user?.first_name}}" [ngModel]="firstname"></ion-input>
       </ion-item>
       <ion-item>
+        <ion-label>Фамилия</ion-label>
         <ion-input type="text" name="last_name" placeholder="Фамилия" value="{{user?.last_name}}" [ngModel]="lastname"></ion-input>
       </ion-item>
       <ion-item>
+        <ion-label>Статус</ion-label>
         <ion-input type="text" name="status" placeholder="Статус" value="{{user?.status}}" [ngModel]="status"></ion-input>
       </ion-item>
 
     </ion-list>
 
-    <ion-buttons>
-      <button ion-button color="danger" margin-bottom >Сохранить</button>
+    <ion-buttons text-right>
+      <button ion-button color="danger" margin-bottom>Сохранить</button>
     </ion-buttons>
 
   </form>
