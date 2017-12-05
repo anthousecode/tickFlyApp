@@ -6,6 +6,7 @@ import {HttpService} from "../../services/http.service";
 import {UserProfilePage} from "../user-profile/user-profile";
 import {PostService} from "../../services/post.service";
 import {AuthService} from "../../services/auth.service";
+import {CreatePostPage} from "../create-post/create-post";
 
 /**
  * Generated class for the PostPage page.
@@ -127,6 +128,10 @@ export class PostPage {
           prompt.present();
         }
       )
+  }
+
+  onCreatePostPage() {
+    this.navCtrl.push(CreatePostPage);
   }
 
 }

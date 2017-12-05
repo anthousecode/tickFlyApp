@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
 import {PostService} from "../../services/post.service";
+import {CreatePostPage} from "../create-post/create-post";
 
 /**
  * Generated class for the CategoryPage page.
@@ -57,6 +58,10 @@ export class CategoryPage {
           console.log(error);
         }
       );
+  }
+
+  onCreatePostPage() {
+    this.navCtrl.push(CreatePostPage);
   }
 
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {CategoryPage} from "../category/category";
 import {HttpService} from "../../services/http.service";
+import {CreatePostPage} from "../create-post/create-post";
 
 /**
  * Generated class for the CategoryListPage page.
@@ -39,6 +40,10 @@ export class CategoryListPage {
     this.navCtrl.setRoot(CategoryPage, {
       categoryId: categoryId
     });
+  }
+
+  onCreatePostPage() {
+    this.navCtrl.push(CreatePostPage);
   }
 
 }
