@@ -7,6 +7,7 @@ import {UserProfilePage} from "../user-profile/user-profile";
 import {CategoryPage} from "../category/category";
 import {CreatePostPage} from "../create-post/create-post";
 import {PostService} from "../../services/post.service";
+import {SearchPage} from "../search/search";
 
 @Component({
   selector: 'page-home',
@@ -53,10 +54,6 @@ export class HomePage {
     )
   }
 
-  onCreatePostPage() {
-    this.navCtrl.push(CreatePostPage);
-  }
-
   doInfinite(infiniteScroll) {
     console.log('Begin async operation');
 
@@ -90,6 +87,14 @@ export class HomePage {
     }, 500);
     this.pageId++;
     console.log(this.pageId);
+  }
+
+  onCreatePostPage() {
+    this.navCtrl.push(CreatePostPage);
+  }
+
+  onSearchPage() {
+    this.navCtrl.push(SearchPage);
   }
 
 }
