@@ -79,7 +79,8 @@ export class CategoryPage {
               tickCount: post.summ_ticks,
               date: post.format_date,
               media: post.media,
-              author: post.user
+              author: post.user,
+              isTick: post.donate
             });
           }
         },

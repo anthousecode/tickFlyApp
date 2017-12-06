@@ -115,6 +115,7 @@ export class PostPage {
                           console.log(response.json());
                           let tickCount = response.json().amount_ticks;
                           this.post.tickCount = tickCount;
+                          this.post.isTick = true;
                           console.log(this.post.tickCount);
                         }
                       );

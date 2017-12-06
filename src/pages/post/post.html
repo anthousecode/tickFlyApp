@@ -64,12 +64,12 @@
   </ul>
 
   <ion-row class="post-footer">
-    <ion-col col-5> 
+    <ion-col col-5>
       <ion-buttons class="buttons-wrap">
         <button ion-button icon-left small clear
                 [disabled]="currentUserId == post?.user.id_user"
         (click)="showTickAlert(postId, post?.user.id_user)">
-        <img style="width: 20px; margin-right: 5px;" src="assets/images/tick.png" alt="TickFly">
+        <img style="width: 20px; margin-right: 5px;" src="assets/images/tick.png" alt="TickFly" class="{{post?.donate == true ? 'ticked' : ''}}">
         <div class="tickfly-currency">{{post?.tickCount ? post?.tickCount : post?.summ_ticks}}</div>
       </button>
       <button ion-button small clear>
@@ -77,7 +77,7 @@
       </button>
     </ion-buttons>
   </ion-col>
-  <ion-col col-7> 
+  <ion-col col-7>
     <ul class="category" >
       <li *ngFor="let category of post?.categories" (click)="onCategoryPage(category.id_category)">
         {{category.title}}
