@@ -59,7 +59,7 @@ ion-content {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-right: 15px;
+    // padding-right: 15px;
     // button {
     //   padding: 8px;
     //   font-size: 24px;
@@ -147,3 +147,25 @@ input[type=number]::-webkit-outer-spin-button {
 .no-padding {
   padding: 0px !important;
 }
+// .alert-wrapper {
+//   .alert-head,
+//   .alert-message {
+//     display: none;
+//   }
+//   .alert-button-group {
+//     padding: 0;
+//     justify-content: center;
+//     button {
+//       border-bottom: 1px solid #d2d2d2;
+//       border-left: 0;
+//       border-right: 0;
+//       border-top: 0;
+//       margin: 0;
+//       width: 100%;
+//     }
+// .alert-md .alert-button .button-inner {
+//   justify-content: center!important;
+//   }
+// }
+
+// }

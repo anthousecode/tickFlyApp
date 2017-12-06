@@ -1,4 +1,7 @@
 post-preview {
+  &:nth-child(odd) {
+    padding: 0;
+  }
   .ion-post-date {
     color: #a9a9a9;
     font-size: 12px;
@@ -16,7 +19,6 @@ post-preview {
   }
 
   ion-card {
-    margin: 0!important;
     width: auto!important;
     margin-bottom: 20px!important;
   }
@@ -54,6 +56,14 @@ post-preview {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    .test-like {
+      background-image: url("../assets/images/atlas_icons.svg");
+      background-repeat: no-repeat;
+      width: 24px;
+      height: 24px;
+      background-position: -44px -66px;
+      background-size: 90px;
+          }
     button {
       padding: 0 7px;
       font-size: 19px;
