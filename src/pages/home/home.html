@@ -4,7 +4,7 @@
       <img src="assets/images/logo.png" alt="TickFly">
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-end>
+      <button ion-button icon-end (click)="onSearchPage()">
         <ion-icon name="search"></ion-icon>
       </button>
       <button ion-button icon-end (click)="onCreatePostPage()">
@@ -23,5 +23,9 @@
 <ion-content padding>
 
   <post-preview [posts]="posts"></post-preview>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

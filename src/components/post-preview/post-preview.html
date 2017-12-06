@@ -20,15 +20,16 @@
 
   <ion-card-content>
     <p margin-bottom>{{post?.description}}</p>
-    <p>{{post?.date}}</p>
+    <p class="ion-post-date">{{post?.date}}</p>
   </ion-card-content>
 
   <div class="post-footer">
-    <ion-buttons>
-      <button ion-button icon-left small clear
+      <ion-buttons class="buttons-wrap">
+        <button ion-button icon-left small clear
               [disabled]="currentUserId == getAuthorId(post)"
               (click)="showTickAlert(post?.postId, getAuthorId(post))">
-        <img style="width: 20px; margin-right: 5px;" src="assets/images/tick.png" alt="TickFly">
+        <img style="width: 18px; margin:0 8px;" class="{{post?.isTick == true ? 'ticked' : ''}}"
+             src="assets/images/tick.png" alt="TickFly">
         <div class="tickfly-currency">{{tickCount ? tickCount : post?.tickCount}}</div>
       </button>
       <button ion-button small clear (click)="onPostPage(post?.postId)">
@@ -38,12 +39,10 @@
         <ion-icon name="mail"></ion-icon>
       </button>
     </ion-buttons>
-    <div class="category" (click)="onCategoryPage(post?.categories[0].id_category)">{{post?.categories[0].title}}</div>
-  </div>
+    <ul class="category">
+      <li (click)="onCategoryPage(post?.categories[0].id_category)">{{post?.categories[0].title}}
+      </li>
+    </ul>
+</div>
 
 </ion-card>
-
-
-<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-  <ion-infinite-scroll-content></ion-infinite-scroll-content>
-</ion-infinite-scroll>

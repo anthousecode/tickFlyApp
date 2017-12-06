@@ -1,12 +1,17 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AuthService} from "../../services/auth.service";
 import {UserService} from "../../services/user.service";
+import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
 import {FollowersPage} from "../followers/followers";
 import {FollowedPage} from "../followed/followed";
 import {EditUserPage} from "../edit-user/edit-user";
 import {ChangePasswordPage} from "../change-password/change-password";
+import {CategoryPage} from "../category/category";
 import {PostService} from "../../services/post.service";
+import {CreatePostPage} from "../create-post/create-post";
+import {SearchPage} from "../search/search";
 
 /**
  * Generated class for the UserProfilePage page.
@@ -29,11 +34,15 @@ export class UserProfilePage {
   subscribe;
   user;
   followersCount: number;
+  pageId: number = 0;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              private userService: UserService,
-              public alertCtrl: AlertController) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private userService: UserService,
+    public alertCtrl: AlertController,
+    public postService: PostService
+  ) {
     this.userId = this.navParams.get('userId');
   }
 
@@ -51,7 +60,7 @@ export class UserProfilePage {
           this.public = response.json().public;
           this.subscribe = response.json().subscribe;
           this.followersCount = this.user.followers_count;
-          for (let index in postsList) {
+          for(let index in postsList){
             let post = postsList[index];
             this.posts.push({
               postId: post.id_post,
@@ -61,7 +70,8 @@ export class UserProfilePage {
               tags: post.tags,
               tickCount: post.summ_ticks,
               date: post.format_date,
-              media: post.media
+              media: post.media,
+              isTick: post.donate
             });
           }
         },
@@ -146,5 +156,48 @@ export class UserProfilePage {
       ]
     });
     alert.present();
+  }
+
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      this.postService.getMorePostsOnCategory(this.userId, this.pageId).subscribe(
+        response => {
+          console.log(response.json());
+          let postsList = response.json().posts;
+          for(let index in postsList){
+            let post = postsList[index];
+            this.posts.push({
+              postId: post.id_post,
+              title: post.title,
+              categories: post.categories,
+              description: post.description,
+              tags: post.tags,
+              tickCount: post.summ_ticks,
+              date: post.format_date,
+              media: post.media,
+              author: post.user
+            });
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      )
+
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
+    }, 500);
+    this.pageId++;
+    console.log(this.pageId);
+  }
+
+  onCreatePostPage() {
+    this.navCtrl.push(CreatePostPage);
+  }
+
+  onSearchPage() {
+    this.navCtrl.push(SearchPage);
   }
 }

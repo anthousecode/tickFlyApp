@@ -7,6 +7,7 @@ import {UserProfilePage} from "../user-profile/user-profile";
 import {CategoryPage} from "../category/category";
 import {CreatePostPage} from "../create-post/create-post";
 import {PostService} from "../../services/post.service";
+import {SearchPage} from "../search/search";
 
 @Component({
   selector: 'page-home',
@@ -25,6 +26,7 @@ export class HomePage {
   }
 
   posts = [];
+  pageId: number = 0;
 
   ngOnInit(){
     this.httpService.getPosts().subscribe(
@@ -42,8 +44,10 @@ export class HomePage {
             tickCount: post.summ_ticks,
             date: post.format_date,
             media: post.media,
-            author: post.user
+            author: post.user,
+            isTick: post.donate
           });
+          console.log(post.donate);
         }
       },
       error => {
@@ -52,8 +56,47 @@ export class HomePage {
     )
   }
 
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      this.postService.getMorePostsOnHome(this.pageId).subscribe(
+        response => {
+          console.log(response.json());
+          let postsList = response.json().posts;
+          for(let index in postsList){
+            let post = postsList[index];
+            this.posts.push({
+              postId: post.id_post,
+              title: post.title,
+              categories: post.categories,
+              description: post.description,
+              tags: post.tags,
+              tickCount: post.summ_ticks,
+              date: post.format_date,
+              media: post.media,
+              author: post.user
+            });
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      )
+
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
+    }, 500);
+    this.pageId++;
+    console.log(this.pageId);
+  }
+
   onCreatePostPage() {
     this.navCtrl.push(CreatePostPage);
+  }
+
+  onSearchPage() {
+    this.navCtrl.push(SearchPage);
   }
 
 }

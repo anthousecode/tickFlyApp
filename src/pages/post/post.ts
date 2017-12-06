@@ -6,6 +6,8 @@ import {HttpService} from "../../services/http.service";
 import {UserProfilePage} from "../user-profile/user-profile";
 import {PostService} from "../../services/post.service";
 import {AuthService} from "../../services/auth.service";
+import {CreatePostPage} from "../create-post/create-post";
+import {SearchPage} from "../search/search";
 
 /**
  * Generated class for the PostPage page.
@@ -114,6 +116,7 @@ export class PostPage {
                           console.log(response.json());
                           let tickCount = response.json().amount_ticks;
                           this.post.tickCount = tickCount;
+                          this.post.isTick = true;
                           console.log(this.post.tickCount);
                         }
                       );
@@ -127,6 +130,14 @@ export class PostPage {
           prompt.present();
         }
       )
+  }
+
+  onCreatePostPage() {
+    this.navCtrl.push(CreatePostPage);
+  }
+
+  onSearchPage() {
+    this.navCtrl.push(SearchPage);
   }
 
 }
