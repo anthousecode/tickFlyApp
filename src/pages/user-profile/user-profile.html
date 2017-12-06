@@ -10,7 +10,7 @@
       <ion-title>Профиль</ion-title>
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-end>
+      <button ion-button icon-end (click)="onSearchPage()">
         <ion-icon name="search"></ion-icon>
       </button>
       <button ion-button icon-end (click)="onCreatePostPage()">
@@ -55,7 +55,7 @@
 </div>
 <ion-item class="no-padding">
   <ion-grid>
-    <ion-row class="user-indicators" *ngIf="!profile; else publicProfile" text-center>
+    <ion-row class="user-indicators" *ngIf="!public; else publicProfile" text-center>
       <ion-col col-3>
         <h3>{{user?.posts_count}}</h3>
         <p>публикации</p>

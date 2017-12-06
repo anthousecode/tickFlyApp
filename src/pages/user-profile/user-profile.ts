@@ -11,6 +11,7 @@ import {ChangePasswordPage} from "../change-password/change-password";
 import {CategoryPage} from "../category/category";
 import {PostService} from "../../services/post.service";
 import {CreatePostPage} from "../create-post/create-post";
+import {SearchPage} from "../search/search";
 
 /**
  * Generated class for the UserProfilePage page.
@@ -195,5 +196,9 @@ export class UserProfilePage {
 
   onCreatePostPage() {
     this.navCtrl.push(CreatePostPage);
+  }
+
+  onSearchPage() {
+    this.navCtrl.push(SearchPage);
   }
 }
