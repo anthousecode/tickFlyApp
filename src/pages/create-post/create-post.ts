@@ -4,6 +4,7 @@ import {HttpService} from "../../services/http.service";
 import {PostService} from "../../services/post.service";
 import {NgForm} from "@angular/forms";
 import {HomePage} from "../home/home";
+import {SearchPage} from "../search/search";
 
 /**
  * Generated class for the CreatePostPage page.
@@ -97,5 +98,9 @@ export class CreatePostPage {
 
   onHomePage() {
     this.navCtrl.setRoot(HomePage);
+  }
+
+  onSearchPage() {
+    this.navCtrl.push(SearchPage);
   }
 }

@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
 import {PostService} from "../../services/post.service";
+import {SearchPage} from "../search/search";
 
 /**
  * Generated class for the CategoryPage page.
@@ -94,6 +95,10 @@ export class CategoryPage {
     }, 500);
     this.pageId++;
     console.log(this.pageId);
+  }
+
+  onSearchPage() {
+    this.navCtrl.push(SearchPage);
   }
 
 }
