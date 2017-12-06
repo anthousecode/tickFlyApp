@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/filter';
 import {Http, Headers, Response, RequestOptions} from "@angular/http";
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
 import {ToastController} from "ionic-angular";
+import {GooglePlus} from "@ionic-native/google-plus";
 
 @Injectable()
 export class AuthService {
@@ -17,9 +18,10 @@ export class AuthService {
   //   scope: 'openid'
   // });
 
-  API = "http://localhost:8080";
+  API = "http://anthouse.company:8080";
 
-  constructor(private http: Http, private toastCtrl: ToastController) {}
+  constructor(private http: Http, private toastCtrl: ToastController, private googlePlus: GooglePlus) {
+  }
 
   signin(email: string, password: string) {
     return this.http.post(this.API + `/api/sign-up`,
@@ -68,7 +70,7 @@ export class AuthService {
   }
 
   getCurrentUserId() {
-    return this.http.get( this.API + `/api/user-info`,
+    return this.http.get(this.API + `/api/user-info`,
       {headers: new Headers({'Authorization': 'Bearer ' + this.getToken()})})
       .subscribe(
         response => {
@@ -81,6 +83,9 @@ export class AuthService {
   }
 
   signinGoogle() {
+    this.googlePlus.login({})
+      .then(res => console.log(res))
+      .catch(err => console.error(err));
     console.log('Google auth test');
     let htmlAlert;
     return this.http.get(this.API + '/api/google/authorize')

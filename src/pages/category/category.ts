@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
 import {PostService} from "../../services/post.service";
@@ -21,7 +21,7 @@ export class CategoryPage {
 
   categoryId: number;
   category;
-  posts = [];
+  posts;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private httpService: HttpService, private postService: PostService) {
     this.categoryId = this.navParams.get('categoryId');
@@ -38,7 +38,7 @@ export class CategoryPage {
           console.log(response.json());
           this.category = response.json().category;
           let postsList = response.json().posts;
-          for(let index in postsList){
+          for (let index in postsList) {
             let post = postsList[index];
             this.posts.push({
               postId: post.id_post,

@@ -1,14 +1,11 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
-import {AuthService} from "../../services/auth.service";
 import {UserService} from "../../services/user.service";
-import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
 import {FollowersPage} from "../followers/followers";
 import {FollowedPage} from "../followed/followed";
 import {EditUserPage} from "../edit-user/edit-user";
 import {ChangePasswordPage} from "../change-password/change-password";
-import {CategoryPage} from "../category/category";
 import {PostService} from "../../services/post.service";
 
 /**
@@ -33,13 +30,10 @@ export class UserProfilePage {
   user;
   followersCount: number;
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private userService: UserService,
-    public alertCtrl: AlertController,
-    private httpService: HttpService
-  ) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private userService: UserService,
+              public alertCtrl: AlertController) {
     this.userId = this.navParams.get('userId');
   }
 
@@ -57,7 +51,7 @@ export class UserProfilePage {
           this.public = response.json().public;
           this.subscribe = response.json().subscribe;
           this.followersCount = this.user.followers_count;
-          for(let index in postsList){
+          for (let index in postsList) {
             let post = postsList[index];
             this.posts.push({
               postId: post.id_post,
