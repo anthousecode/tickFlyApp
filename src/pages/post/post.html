@@ -28,79 +28,95 @@
 
 <ion-content padding>
 
-    <ion-item margin-bottom>
-      <ion-avatar item-start (click)="onAuthorPage(post?.user.id_user)">
-        <img src="{{post?.user?.avatar}}">
-      </ion-avatar>
-      <h2 float-left (click)="onAuthorPage(post?.user.id_user)">
-        {{post?.user?.nick_name}}
-      </h2>
-      <ion-buttons end>
-        <button class="more-icon" (click)="showAlert()" icon-end>
-          <ion-icon name="more"></ion-icon>
-        </button>
-      </ion-buttons>
-    </ion-item>
+  <ion-item margin-bottom>
+    <ion-avatar item-start (click)="onAuthorPage(post?.user.id_user)">
+      <img src="{{post?.user?.avatar}}">
+    </ion-avatar>
+    <h2 float-left (click)="onAuthorPage(post?.user.id_user)">
+      {{post?.user?.nick_name}}
+    </h2>
+    <ion-buttons end>
+      <button class="more-icon" (click)="showAlert()" icon-end>
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-item>
 
-    <h2 padding class="post-title">{{post?.title}}</h2>
+  <h2 padding class="post-title">{{post?.title}}</h2>
 
-    <ion-slides pager *ngIf="post?.media">
-      <ion-slide *ngFor="let picture of post?.media">
-        <img src="{{picture['url_orign']}}">
-      </ion-slide>
-    </ion-slides>
+  <ion-slides pager *ngIf="post?.media">
+    <ion-slide *ngFor="let picture of post?.media">
+      <img src="{{picture['url_orign']}}">
+    </ion-slide>
+  </ion-slides>
 
-    <ion-card-content>
-      <p margin-bottom>{{post?.description}}</p>
-      <p>{{post?.format_date}}</p>
-    </ion-card-content>
+  <ion-card-content>
+    <p margin-bottom>{{post?.description}}</p>
+    <p class="ion-post-date">{{post?.format_date}}</p>
+  </ion-card-content>
 
-  <div class="tags">
-    <ion-badge class="tag" *ngFor="let tag of post?.tags">{{concatTag(tag.title)}}</ion-badge>
-  </div>
+  <ul class="tags">
 
-    <div class="post-footer">
-      <ion-buttons>
+    <li *ngFor="let tag of post?.tags">
+      <ion-badge class="tag" >{{concatTag(tag.title)}}</ion-badge>
+    </li>
+
+  </ul>
+
+  <ion-row class="post-footer">
+    <ion-col col-5> 
+      <ion-buttons class="buttons-wrap">
         <button ion-button icon-left small clear
                 [disabled]="currentUserId == post?.user.id_user"
-                (click)="showTickAlert(postId, post?.user.id_user)">
-          <img style="width: 20px; margin-right: 5px;" src="assets/images/tick.png" alt="TickFly">
-          <div class="tickfly-currency">{{post?.tickCount ? post?.tickCount : post?.summ_ticks}}</div>
-        </button>
-        <button ion-button small clear>
-          <ion-icon name="mail"></ion-icon>
-        </button>
-      </ion-buttons>
-      <div class="category" *ngFor="let category of post?.categories" (click)="onCategoryPage(category.id_category)">
+        (click)="showTickAlert(postId, post?.user.id_user)">
+        <img style="width: 20px; margin-right: 5px;" src="assets/images/tick.png" alt="TickFly">
+        <div class="tickfly-currency">{{post?.tickCount ? post?.tickCount : post?.summ_ticks}}</div>
+      </button>
+      <button ion-button small clear>
+        <ion-icon name="mail"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-col>
+  <ion-col col-7> 
+    <ul class="category" >
+      <li *ngFor="let category of post?.categories" (click)="onCategoryPage(category.id_category)">
         {{category.title}}
-      </div>
-    </div>
+      </li>
+    </ul>
+  </ion-col>
+</ion-row>
+<ion-row>
 
-  <hr>
+</ion-row>
 
-  <div class="comments">
-    <ion-item *ngFor="let comment of comments" margin-bottom>
-      <ion-avatar item-start>
-        <img src="{{comment.user.avatar}}">
-      </ion-avatar>
+<hr>
+
+<div class="comments">
+  <ion-item  class="comments-item" *ngFor="let comment of comments" margin-bottom>
+
+    <ion-avatar item-start>
+      <img src="{{comment.user.avatar}}">
+    </ion-avatar>
+    <div class="comments-item-desription">
       <h2 float-left>{{comment.user.nick_name}}</h2>
-      <div class="comment">
-        <div class="date">
-          {{comment.format_date}}
-        </div>
-        <div>
-          {{comment.comment}}
-        </div>
-      </div>
-    </ion-item>
-  </div>
+      <p class="comments-item-some">
+        {{comment.comment}}
+      </p>
+      <p class="date">
+        {{comment.format_date}}
+      </p>
+    </div>
+  </ion-item>
+</div>
 
-  <ion-toolbar>
-    <form (ngSubmit)="onSetComment(f)" #f="ngForm">
-      <div class="comment-form">
-        <ion-input type="text" placeholder="" name="comment" ngModel="comment"></ion-input>
-        <button type="submit" class="comment-form-button"><ion-icon name="md-send" large></ion-icon></button>
-      </div>
-    </form>
-  </ion-toolbar>
+<ion-toolbar>
+  <form (ngSubmit)="onSetComment(f)" #f="ngForm">
+    <div class="comment-form">
+      <ion-input class="comment-form-input" type="text" placeholder="" name="comment" ngModel="comment"></ion-input>
+      <button type="submit" class="comment-form-button">
+        <ion-icon name="md-send" large></ion-icon>
+      </button>
+    </div>
+  </form>
+</ion-toolbar>
 </ion-content>

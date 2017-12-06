@@ -31,7 +31,7 @@
     <ion-avatar item-start>
       <img src="{{user?.avatar}}">
     </ion-avatar>
-    <div>
+    <div class="top-userprofile-info">
       <h2>{{user?.nick_name}}</h2>
       <ion-buttons end>
         <button class="more-icon" icon-end (click)="showAlertUserEdit()">
@@ -40,50 +40,57 @@
       </ion-buttons>
     </div>
     <button ion-button *ngIf="public && subscribe" color="light"
-            (click)="onToggleSubscribe(userId); subscribe = !subscribe">Отписаться</button>
+<!--     <button ion-button *ngIf="profile && subscribe" color="light"
     <button ion-button *ngIf="public && !subscribe" color="danger"
-            (click)="onToggleSubscribe(userId) ; subscribe = !subscribe">Подписаться</button>
-  </ion-item>
-  <ion-item class="no-padding">
-    <ion-grid>
-      <ion-row *ngIf="!profile; else publicProfile" text-center>
-        <ion-col col-3>
+  <button ion-button color="danger">Подписаться</button>
+  <!-- *ngIf="profile && !subscribe"  -->
+  <!--     (click)="onToggleSubscribe(userId) ; subscribe = !subscribe" -->
+</ion-item>
+<div class="top-userprofile-status">
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eius odit reiciendis temporibus doloremque voluptas quis, dignissimos animi eveniet est cum debitis. Minus libero dolores incidunt nemo labore, blanditiis possimus.
+  </p>
+</div>
+<ion-item class="no-padding">
+  <ion-grid>
+    <ion-row class="user-indicators" *ngIf="!profile; else publicProfile" text-center>
+      <ion-col col-3>
+        <h3>{{user?.posts_count}}</h3>
+        <p>публикации</p>
+      </ion-col>
+      <ion-col col-3 (click)="onFollowersPage(userId)">
+        <h3>{{followersCount}}</h3>
+        <p>подписчики</p>
+      </ion-col>
+      <ion-col col-3 (click)="onFollowedPage(userId)">
+        <h3>{{user?.followed_count}}</h3>
+        <p>подписки</p>
+      </ion-col>
+      <ion-col col-3>
+        <h3>{{user?.balance.amount}}</h3>
+        <p>тики</p>
+      </ion-col>
+    </ion-row>
+    <ng-template #publicProfile>
+      <ion-row text-center>
+        <ion-col col-4>
           <h3>{{user?.posts_count}}</h3>
-          <p>Публикации</p>
+          <p>публикации</p>
         </ion-col>
-        <ion-col col-3 (click)="onFollowersPage(userId)">
+        <ion-col col-4 (click)="onFollowersPage(userId)">
           <h3>{{followersCount}}</h3>
-          <p>Подписчики</p>
+          <p>подписчики</p>
         </ion-col>
-        <ion-col col-3 (click)="onFollowedPage(userId)">
+        <ion-col col-4 (click)="onFollowedPage(userId)">
           <h3>{{user?.followed_count}}</h3>
-          <p>Подписки</p>
-        </ion-col>
-        <ion-col col-3>
-          <h3>{{user?.balance.amount}}</h3>
-          <p>Тики</p>
+          <p>подписки</p>
         </ion-col>
       </ion-row>
-      <ng-template #publicProfile>
-        <ion-row text-center>
-          <ion-col col-4>
-            <h3>{{user?.posts_count}}</h3>
-            <p>Публикации</p>
-          </ion-col>
-          <ion-col col-4 (click)="onFollowersPage(userId)">
-            <h3>{{followersCount}}</h3>
-            <p>Подписчики</p>
-          </ion-col>
-          <ion-col col-4 (click)="onFollowedPage(userId)">
-            <h3>{{user?.followed_count}}</h3>
-            <p>Подписки</p>
-          </ion-col>
-        </ion-row>
-      </ng-template>
-    </ion-grid>
-  </ion-item>
+    </ng-template>
+  </ion-grid>
+</ion-item>
 
-  <post-preview [userId]="userId" [publicProfile]="public" [posts]="posts"></post-preview>
+<post-preview [userId]="userId" [publicProfile]="public" [posts]="posts"></post-preview>
 
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
