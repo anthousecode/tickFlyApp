@@ -139,6 +139,7 @@ export class UserProfilePage {
 
   showAlertUserEdit() {
     let alert = this.alertCtrl.create({
+      cssClass: 'alert-user-edit',
       buttons: [
         {
           text: 'Редактировать профиль',

@@ -61,6 +61,7 @@ export class PostPreviewComponent {
 
   showAlert() {
     let alert = this.alertCtrl.create({
+    cssClass: 'alert-capabilities',
       buttons: ['Подписаться', 'Поделиться', 'Пожаловаться']
 
     });
@@ -95,6 +96,7 @@ export class PostPreviewComponent {
           let prompt = this.alertCtrl.create({
             title: 'Тик',
             message: 'Количество тиков на Вашем счету ' + balance + '<p>Введите количество тиков</p>',
+            cssClass: 'alert-spend-tick',
             inputs: [
               {
                 name: 'tick',

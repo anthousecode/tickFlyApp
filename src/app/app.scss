@@ -26,7 +26,6 @@ $secondary-red: #d7565c;
 $secondary-blue: #1da1f2;
 $white: #f0f0f0;
 
-
 ion-header {
   ion-navbar {
     .toolbar-background-md, .toolbar-background-ios {
@@ -147,25 +146,82 @@ input[type=number]::-webkit-outer-spin-button {
 .no-padding {
   padding: 0px !important;
 }
-// .alert-wrapper {
-//   .alert-head,
-//   .alert-message {
-//     display: none;
-//   }
-//   .alert-button-group {
-//     padding: 0;
-//     justify-content: center;
-//     button {
-//       border-bottom: 1px solid #d2d2d2;
-//       border-left: 0;
-//       border-right: 0;
-//       border-top: 0;
-//       margin: 0;
-//       width: 100%;
-//     }
-// .alert-md .alert-button .button-inner {
-//   justify-content: center!important;
-//   }
-// }
 
-// }
+/* --== Alert Spend Tick ==--*/
+
+.alert-spend-tick {
+  .alert-head,
+  .alert-message {
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+    color: #000;
+    overflow-y: hidden;
+  }
+  .alert-button-group {
+    padding: 0;
+    justify-content: space-around;
+    button {
+      margin: 0;
+    }
+  }
+}
+/* --== /Alert Spend Tick ==--*/
+
+/* --== Alert Edit Profile and Alert Capabilities Post Preview  ==--*/
+
+.alert-user-edit, 
+.alert-capabilities {
+  .alert-head,
+  .alert-message {
+    display: none;
+  }
+  .alert-button-group {
+    padding: 0;
+    button {
+      margin: 0;
+      width: 100%; 
+      border-bottom: 1px solid #d4d4d4;
+      padding: 12px 6px;
+      &:last-child {
+        font-weight: normal;
+      }
+      span.button-inner {
+        justify-content: center;
+        color: #333;
+        font-size: 14px;
+        text-transform: capitalize;
+      }
+    }
+  }
+}
+
+/* --== /Alert Edit Profile  ==-- */
+.tf-post-label {
+  .input-wrapper {
+    ::-webkit-input-placeholder {
+      font-size: 13px;
+    }
+    ::-moz-placeholder {
+      font-size: 13px;
+    }
+    :-moz-placeholder {
+      font-size: 13px;
+    }
+    :-ms-input-placeholder {
+      font-size: 13px;
+    }
+    font-size: 15px;
+    ion-label {
+      color: #333;
+      font-size: 11px;
+    }
+    .select-placeholder {
+      font-size: 12px;
+    }
+    input,
+    textarea{
+      margin: 10px 5px 10px 0;
+    }
+  }
+}

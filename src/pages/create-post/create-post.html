@@ -24,7 +24,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="enter-block" padding>
+  <div class="enter-block tf-post-label" padding>
     <form (ngSubmit)="onCreatePost(f)" #f="ngForm">
       <ion-list>
 
@@ -38,7 +38,7 @@
         </ion-item>
         <ion-item>
           <ion-label stacked>Категории</ion-label>
-          <ion-select name="selectedCategories" [(ngModel)]="selectedCategories"
+          <ion-select placeholder="Выбрать" name="selectedCategories" [(ngModel)]="selectedCategories"
                       (ionChange)="onChange(selectedCategories)" multiple="true">
             <ion-option *ngFor="let category of categories"
                         (ionSelect)="onChange()" value="{{category.id_category}}"
