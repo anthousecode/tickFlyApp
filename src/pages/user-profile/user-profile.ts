@@ -69,7 +69,8 @@ export class UserProfilePage {
               tags: post.tags,
               tickCount: post.summ_ticks,
               date: post.format_date,
-              media: post.media
+              media: post.media,
+              isTick: post.donate
             });
           }
         },

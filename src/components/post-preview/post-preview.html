@@ -28,6 +28,8 @@
         <button class=" " ng-click="share()" ion-button icon-left small clear  
               [disabled]="currentUserId == getAuthorId(post)"
               (click)="showTickAlert(post?.postId, getAuthorId(post))">
+        <img style="width: 18px; margin:0 8px;" class="{{post?.isTick == true ? 'ticked' : ''}}"
+             src="assets/images/tick.png" alt="TickFly">
             <div class="test-like">
                 
               </div>
@@ -46,6 +48,6 @@
       <li (click)="onCategoryPage(post?.categories[0].id_category)">{{post?.categories[0].title}}
       </li>
     </ul>
-</div> 
+</div>
 
 </ion-card>

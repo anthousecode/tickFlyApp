@@ -25,6 +25,8 @@ import { Camera } from '@ionic-native/camera';
 import {CategoryListPage} from "../pages/category-list/category-list";
 import {CategoryPage} from "../pages/category/category";
 import {CreatePostPage} from "../pages/create-post/create-post";
+import {SearchPage} from "../pages/search/search";
+import {SearchPageModule} from "../pages/search/search.module";
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import {CreatePostPage} from "../pages/create-post/create-post";
     ChangePasswordPage,
     CategoryListPage,
     CategoryPage,
-    CreatePostPage
+    CreatePostPage,
+    SearchPage
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import {CreatePostPage} from "../pages/create-post/create-post";
     ChangePasswordPage,
     CategoryListPage,
     CategoryPage,
-    CreatePostPage
+    CreatePostPage,
+    SearchPage
   ],
   providers: [
     StatusBar,

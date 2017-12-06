@@ -7,6 +7,7 @@ import {UserProfilePage} from "../user-profile/user-profile";
 import {CategoryPage} from "../category/category";
 import {CreatePostPage} from "../create-post/create-post";
 import {PostService} from "../../services/post.service";
+import {SearchPage} from "../search/search";
 
 @Component({
   selector: 'page-home',
@@ -43,18 +44,16 @@ export class HomePage {
             tickCount: post.summ_ticks,
             date: post.format_date,
             media: post.media,
-            author: post.user
+            author: post.user,
+            isTick: post.donate
           });
+          console.log(post.donate);
         }
       },
       error => {
         console.log(error);
       }
     )
-  }
-
-  onCreatePostPage() {
-    this.navCtrl.push(CreatePostPage);
   }
 
   doInfinite(infiniteScroll) {
@@ -90,6 +89,14 @@ export class HomePage {
     }, 500);
     this.pageId++;
     console.log(this.pageId);
+  }
+
+  onCreatePostPage() {
+    this.navCtrl.push(CreatePostPage);
+  }
+
+  onSearchPage() {
+    this.navCtrl.push(SearchPage);
   }
 
 }
