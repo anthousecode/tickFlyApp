@@ -64,10 +64,28 @@ export class LoginPage {
   }
 
   signinGoogle() {
+
+
     console.log('test login');
     this.googlePlus.login({})
-      .then(res => console.log(res))
-      .catch(err => console.error(err));
+      .then(res => {
+
+        let toast = this.toastCtrl.create({
+          message: res,
+          duration: 3000,
+          position: 'top'
+        });
+        toast.present();
+      })
+      .catch(err => {
+        let toast = this.toastCtrl.create({
+          message: err,
+          duration: 3000,
+          position: 'top'
+        });
+        toast.present();
+
+      });
     // this.authService.signinGoogle().subscribe(
     //   response => {
     //     console.log('Success');
