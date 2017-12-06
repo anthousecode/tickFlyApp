@@ -11,8 +11,8 @@ export class SearchService {
 
   constructor(private http: Http, private authService: AuthService){ }
 
-  getSearchResult(searchQuery) {
-    return this.http.get(this.authService.API + `/api/v1/search?section=posts&q=` + searchQuery,
+  getSearchResult(section: string, searchQuery: string) {
+    return this.http.get(this.authService.API + `/api/v1/search?section=` + section + `&q=` + searchQuery,
       {headers: new Headers({"Authorization": 'Bearer ' + this.authService.getToken()})})
   }
 

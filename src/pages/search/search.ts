@@ -35,14 +35,21 @@ export class SearchPage {
   posts = [];
   pageNumber: number = 0;
   inputSearch: string;
+  section: string;
 
   doInfinite(infiniteScroll) {
     console.log('Begin async operation');
     let inputQuery: string = this.inputSearch;
-    let section: string = 'posts';
+    // let section: string = 'posts';
+    if(inputQuery.charAt(0) == '#') {
+      this.section = 'tags';
+      inputQuery = inputQuery.slice(1);
+    } else {
+      this.section = 'posts';
+    }
 
     setTimeout(() => {
-      this.postService.getMorePostsOnSearch(inputQuery, this.pageNumber, section).subscribe(
+      this.postService.getMorePostsOnSearch(inputQuery, this.pageNumber, this.section).subscribe(
         response => {
           console.log(response.json());
           let postsList = response.json().posts;
@@ -75,10 +82,18 @@ export class SearchPage {
 
   onInput(event: any) {
     let inputQuery: string = this.inputSearch;
+    // let section: string;
     this.posts = [];
     this.pageNumber = 0;
+    if(inputQuery.charAt(0) == '#') {
+      this.section = 'tags';
+      inputQuery = inputQuery.slice(1);
+    } else {
+      this.section = 'posts';
+    }
     console.log(inputQuery);
-    this.searchService.getSearchResult(inputQuery)
+    console.log(this.section);
+    this.searchService.getSearchResult(this.section, inputQuery)
       .subscribe(
         response => {
           console.log(response.json());
