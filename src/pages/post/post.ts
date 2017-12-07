@@ -30,6 +30,7 @@ export class PostPage {
   posts = [];
   currentUserId: number;
   isTick: boolean;
+  comment: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,

@@ -24,6 +24,10 @@ page-post {
       margin: 10px 0;
     }
   }
+  ion-toolbar {
+    position: fixed;
+    bottom: 0px;
+  }
   .toolbar-background {
     background-color: #c24849;
   }
