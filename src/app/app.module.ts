@@ -69,7 +69,8 @@ import {SearchPageModule} from "../pages/search/search.module";
     UserProfilePageModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
-    FormsModule
+    FormsModule,
+    SearchPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
