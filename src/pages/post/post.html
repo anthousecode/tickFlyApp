@@ -69,7 +69,7 @@
         <button ion-button icon-left small clear
         [disabled]="currentUserId == post?.user.id_user"
         (click)="showTickAlert(postId, post?.user.id_user)">
-        <div class="tik-like {{post?.isTick == true ? 'ticked' : ''}}">
+        <div class="tik-like {{isTick == true ? 'ticked' : ''}}">
         </div>
         <div class="tickfly-currency">{{post?.tickCount ? post?.tickCount : post?.summ_ticks}}</div>
       </button>
