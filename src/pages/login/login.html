@@ -15,18 +15,18 @@
 </ion-header>
 
 
-<ion-content padding>
-  <div class="enter-block" padding>
+<ion-content>
+  <div class="enter-block tf-post-label" padding>
     <form (ngSubmit)="onSignin(f)" #f="ngForm">
       <h4>вход</h4>
       <ion-list>
 
         <ion-item>
-          <ion-label>Email</ion-label>
+          <ion-label stacked>Email</ion-label>
           <ion-input type="email" name="email" placeholder="Email" [ngModel]="email"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label>Пароль</ion-label>
+          <ion-label stacked>Пароль</ion-label>
           <ion-input type="password" name="password" placeholder="Пароль" [ngModel]="password"></ion-input>
         </ion-item>
 

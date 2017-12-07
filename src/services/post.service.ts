@@ -60,7 +60,7 @@ export class PostService {
   }
 
   getMorePostsOnProfile(userId, pageNumber) {
-    return this.http.get(this.authService.API + `/api/v1/user/profile?id_user` + userId + `&page=` + pageNumber,
+    return this.http.get(this.authService.API + `/api/v1/user/profile?id_user=` + userId + `&page=` + pageNumber,
       {headers: new Headers({"Authorization": 'Bearer ' + this.authService.getToken()})})
   }
 

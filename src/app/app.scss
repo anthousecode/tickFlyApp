@@ -26,7 +26,6 @@ $secondary-red: #d7565c;
 $secondary-blue: #1da1f2;
 $white: #f0f0f0;
 
-
 ion-header {
   ion-navbar {
     .toolbar-background-md, .toolbar-background-ios {
@@ -59,7 +58,7 @@ ion-content {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-right: 15px;
+    // padding-right: 15px;
     // button {
     //   padding: 8px;
     //   font-size: 24px;
@@ -69,31 +68,54 @@ ion-content {
       font-size: 12px;
       color: #222;
     }
+    // .buttons-wrap {
+    //   order:1;
+    //   button {
+    //     height: auto;
+    //   }
+    // }
     .buttons-wrap {
       order:1;
-      button {
-        height: auto;
+      .tik-like {
+        background-image: url("../assets/images/atlas_icons2.svg");
+        background-repeat: no-repeat;
+        width: 24px;
+        height: 24px;
+        background-position: -21px -66px;
+        background-size: 89px;
       }
-    }
-    .category {
-      padding: 0;
-      list-style: none;
-      order:2;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      li {
-        padding: 3px 15px;
-        font-weight: bold;
-        font-size: 12px;
-        color: #fff;
-        background: #be494c;
-        border-radius: 2px;
-        margin: 1px 1px 0 0;
-      }
+      .ticked {
+       background-image: url("../assets/images/atlas_icons2.svg");
+       width: 24px;
+       height: 24px;
+       background-position: -44px -66px;
+     }
+     button {
+       height: auto;
+       padding: 0 7px;
+       font-size: 19px;
+       color: #808080;
+     }
+   }
+   .category {
+    padding: 0;
+    list-style: none;
+    order:2;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    li {
+      padding: 3px 15px;
+      font-weight: bold;
+      font-size: 12px;
+      color: #fff;
+      background: #be494c;
+      border-radius: 2px;
+      margin: 1px 1px 0 0;
     }
   }
+}
 }
 .header-ios {
   background: $secondary-red;
@@ -146,4 +168,86 @@ input[type=number]::-webkit-outer-spin-button {
 
 .no-padding {
   padding: 0px !important;
+}
+
+/* --== Alert Spend Tick ==--*/
+
+.alert-spend-tick {
+  .alert-head,
+  .alert-message {
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+    color: #000;
+    overflow-y: hidden;
+  }
+  .alert-button-group {
+    padding: 0;
+    justify-content: space-around;
+    button {
+      margin: 0;
+    }
+  }
+}
+/* --== /Alert Spend Tick ==--*/
+
+/* --== Alert Edit Profile and Alert Capabilities Post Preview  ==--*/
+
+.alert-user-edit, 
+.alert-capabilities {
+  .alert-head,
+  .alert-message {
+    display: none;
+  }
+  .alert-button-group {
+    padding: 0;
+    button {
+      margin: 0;
+      width: 100%; 
+      border-bottom: 1px solid #d4d4d4;
+      padding: 12px 6px;
+      &:last-child {
+        font-weight: normal;
+      }
+      .button-inner {
+        justify-content: center;
+        color: #333;
+        font-size: 14px;
+        text-transform: capitalize;
+      }
+    }
+  }
+}
+
+/* --== /Alert Edit Profile  ==-- */
+.tf-post-label {
+  .input-wrapper {
+    ::-webkit-input-placeholder {
+      font-size: 13px;
+    }
+    ::-moz-placeholder {
+      font-size: 13px;
+    }
+    :-moz-placeholder {
+      font-size: 13px;
+    }
+    :-ms-input-placeholder {
+      font-size: 13px;
+    }
+    font-size: 15px;
+    ion-label {
+      color: #333;
+      font-size: 11px;
+    }
+    .select-placeholder {
+      font-size: 12px;
+    }
+    input,
+    textarea{
+      margin: 10px 5px 10px 0;
+    }
+  }
+}
+.tick-title * {
+  color: #fff;
 }

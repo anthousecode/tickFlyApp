@@ -7,7 +7,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      <ion-title>Профиль</ion-title>
+      <ion-title class="tick-title">Профиль</ion-title>
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-end (click)="onSearchPage()">
@@ -74,7 +74,7 @@
       </ion-col>
     </ion-row>
     <ng-template #publicProfile>
-      <ion-row text-center>
+      <ion-row class="user-indicators-public" text-center>
         <ion-col col-4>
           <h3>{{user?.posts_count}}</h3>
           <p>публикации</p>

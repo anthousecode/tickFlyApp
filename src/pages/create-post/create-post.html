@@ -7,7 +7,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      <ion-title>Создать пост</ion-title>
+      <ion-title class="tick-title">Создать пост</ion-title>
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-end>
@@ -23,22 +23,22 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <div class="enter-block" padding>
+<ion-content>
+  <div class="enter-block tf-post-label" padding>
     <form (ngSubmit)="onCreatePost(f)" #f="ngForm">
       <ion-list>
 
-        <ion-item margin-bottom>
-          <ion-label>Название поста</ion-label>
+        <ion-item>
+          <ion-label stacked>Название поста</ion-label>
           <ion-input type="text" name="title" placeholder="Название" [ngModel]="title"></ion-input>
         </ion-item>
-        <ion-item margin-bottom>
-          <ion-label>Описание</ion-label>
+        <ion-item>
+          <ion-label stacked>Описание</ion-label>
           <ion-textarea type="text" name="description" placeholder="Описание" [ngModel]="description"></ion-textarea>
         </ion-item>
         <ion-item>
-          <ion-label>Категории</ion-label>
-          <ion-select name="selectedCategories" [(ngModel)]="selectedCategories"
+          <ion-label stacked>Категории</ion-label>
+          <ion-select placeholder="Выбрать" name="selectedCategories" [(ngModel)]="selectedCategories"
                       (ionChange)="onChange(selectedCategories)" multiple="true">
             <ion-option *ngFor="let category of categories"
                         (ionSelect)="onChange()" value="{{category.id_category}}"
@@ -48,7 +48,7 @@
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label>Теги</ion-label>
+          <ion-label stacked>Теги</ion-label>
           <ion-input type="text" (keypress)="_keyPress($event)" name="tags" placeholder="Теги" [ngModel]="description"></ion-input>
         </ion-item>
 

@@ -140,6 +140,7 @@ export class UserProfilePage {
 
   showAlertUserEdit() {
     let alert = this.alertCtrl.create({
+      cssClass: 'alert-user-edit',
       buttons: [
         {
           text: 'Редактировать профиль',
@@ -162,7 +163,7 @@ export class UserProfilePage {
     console.log('Begin async operation');
 
     setTimeout(() => {
-      this.postService.getMorePostsOnCategory(this.userId, this.pageId).subscribe(
+      this.postService.getMorePostsOnProfile(this.userId, this.pageId).subscribe(
         response => {
           console.log(response.json());
           let postsList = response.json().posts;
