@@ -67,9 +67,10 @@ export class LoginPage {
 
 
     console.log('test login');
-    this.googlePlus.login({})
+    this.googlePlus.login({
+      "webClientId": "61123529027-vrf9l1a8p8lcr847h9rj2r6c8r0mk1se.apps.googleusercontent.com"
+    })
       .then(res => {
-
         let toast = this.toastCtrl.create({
           message: res,
           duration: 3000,
