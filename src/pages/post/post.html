@@ -57,7 +57,7 @@
 
   <ul class="tags">
 
-    <li *ngFor="let tag of post?.tags">
+    <li *ngFor="let tag of post?.tags" (click)="onSearchPage(tag.title)">
       <ion-badge class="tag" >{{concatTag(tag.title)}}</ion-badge>
     </li>
 

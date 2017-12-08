@@ -19,6 +19,11 @@ import {SearchService} from "../../services/search.service";
 })
 export class SearchPage {
 
+  posts = [];
+  pageNumber: number = 0;
+  inputSearch: string;
+  section: string;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -26,21 +31,31 @@ export class SearchPage {
     public postService: PostService,
     public searchService: SearchService
   ) {
+    this.inputSearch = this.navParams.get('query');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
   }
 
-  posts = [];
-  pageNumber: number = 0;
-  inputSearch: string;
-  section: string;
+  ngOnInit() {
+    let inputQuery: string = this.inputSearch;
+    this.posts = [];
+    this.pageNumber = 0;
+    if(inputQuery.charAt(0) == '#') {
+      this.section = 'tags';
+      inputQuery = inputQuery.slice(1);
+    } else {
+      this.section = 'posts';
+    }
+    console.log(inputQuery);
+    console.log(this.section);
+    this.getSearchResults(this.section, inputQuery);
+  }
 
   doInfinite(infiniteScroll) {
     console.log('Begin async operation');
     let inputQuery: string = this.inputSearch;
-    // let section: string = 'posts';
     if(inputQuery.charAt(0) == '#') {
       this.section = 'tags';
       inputQuery = inputQuery.slice(1);
@@ -82,7 +97,6 @@ export class SearchPage {
 
   onInput(event: any) {
     let inputQuery: string = this.inputSearch;
-    // let section: string;
     this.posts = [];
     this.pageNumber = 0;
     if(inputQuery.charAt(0) == '#') {
@@ -93,7 +107,11 @@ export class SearchPage {
     }
     console.log(inputQuery);
     console.log(this.section);
-    this.searchService.getSearchResult(this.section, inputQuery)
+    this.getSearchResults(this.section, inputQuery);
+  }
+
+  getSearchResults(section, inputQuery) {
+    this.searchService.getSearchResult(section, inputQuery)
       .subscribe(
         response => {
           console.log(response.json());
@@ -116,7 +134,6 @@ export class SearchPage {
           console.log(error);
         }
       );
-
   }
 
 }
