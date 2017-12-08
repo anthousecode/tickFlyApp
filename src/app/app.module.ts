@@ -6,7 +6,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import {LoginPage, ModalContentPage} from "../pages/login/login";
+import {LoginPage} from "../pages/login/login";
 import {RegisterPage} from "../pages/register/register";
 import {PostPage} from "../pages/post/post";
 import {HttpModule} from "@angular/http";
@@ -48,7 +48,6 @@ import {SearchPageModule} from "../pages/search/search.module";
     // LoginPage,
     // RegisterPage,
     // PostPage,
-    ModalContentPage
   ],
   imports: [
     BrowserModule,
@@ -79,7 +78,6 @@ import {SearchPageModule} from "../pages/search/search.module";
     LoginPage,
     RegisterPage,
     PostPage,
-    ModalContentPage,
     UserProfilePage,
     FollowersPage,
     FollowedPage,

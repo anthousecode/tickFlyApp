@@ -111,24 +111,6 @@ export class AuthService {
     }
   }
 
-  presentSuccessToast() {
-    let toast = this.toastCtrl.create({
-      message: 'Вы были успешно авторизированы!',
-      duration: 3000,
-      position: 'top'
-    });
-    toast.present();
-  }
-
-  presentUnsuccessToast() {
-    let toast = this.toastCtrl.create({
-      message: 'Авторизация не выполнена!',
-      duration: 3000,
-      position: 'top'
-    });
-    toast.present();
-  }
-
   // signupFacebook(email: string, password: string) {
   //   return this.http.post(`${this.API}\api\facebook\authorize`)
   //     .subscribe();

@@ -10,6 +10,7 @@ import {Transfer, TransferObject} from "@ionic-native/transfer";
 import { Camera } from '@ionic-native/camera';
 import { File } from "@ionic-native/file";
 import {AuthService} from "../../services/auth.service";
+import {ToastService} from "../../services/toast.service";
 
 /**
  * Generated class for the EditUserPage page.
@@ -24,7 +25,7 @@ declare var cordova: any;
 @Component({
   selector: 'page-edit-user',
   templateUrl: 'edit-user.html',
-  providers: [UserService]
+  providers: [UserService, ToastService]
 })
 export class EditUserPage {
 
@@ -44,7 +45,8 @@ export class EditUserPage {
     public toastCtrl: ToastController,
     public platform: Platform,
     public loadingCtrl: LoadingController,
-    public authService: AuthService
+    public authService: AuthService,
+    public toastService: ToastService
   ) {
 
   }
@@ -74,9 +76,13 @@ export class EditUserPage {
     ).subscribe(
       response => {
         console.log('Success');
+        this.toastService.showToast('Ваши данные изменены!');
       },
       error => {
         console.log('Error');
+        let errors = error.json().errors;
+        let firstError = errors[Object.keys(errors)[0]];
+        this.toastService.showToast(firstError);
       }
     );
   }
