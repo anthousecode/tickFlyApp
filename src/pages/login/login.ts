@@ -10,13 +10,14 @@ import {NgForm} from "@angular/forms";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {HomePage} from "../home/home";
 import {GooglePlus} from "@ionic-native/google-plus";
+import {ToastService} from "../../services/toast.service";
 
 
 @IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [AuthService, GooglePlus],
+  providers: [AuthService, GooglePlus, ToastService],
 })
 export class LoginPage {
 
@@ -24,14 +25,17 @@ export class LoginPage {
 
   userData = null;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public authService: AuthService,
-              public alertCtrl: AlertController,
-              public modalCtrl: ModalController,
-              public _sanitizer: DomSanitizer,
-              public toastCtrl: ToastController,
-              public googlePlus: GooglePlus) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public authService: AuthService,
+    public alertCtrl: AlertController,
+    public modalCtrl: ModalController,
+    public _sanitizer: DomSanitizer,
+    public toastCtrl: ToastController,
+    public googlePlus: GooglePlus,
+    public toastService: ToastService
+  ) {
   }
 
   ionViewDidLoad() {
@@ -53,12 +57,14 @@ export class LoginPage {
       response => {
         console.log('Success');
         this.onHomePage();
-        this.authService.presentSuccessToast();
         this.authService.getCurrentUserId();
+        this.toastService.showToast('Вы успешно авторизированы!');
       },
       error => {
         console.log('Error');
-        this.authService.presentUnsuccessToast();
+        let errors = error.json().errors;
+        let firstError = errors[Object.keys(errors)[0]];
+        this.toastService.showToast(firstError);
       }
     );
   }
@@ -109,53 +115,4 @@ export class LoginPage {
   //   });
   //   prompt.present();
   // }
-
-  presentModal(html: string) {
-    let modal = this.modalCtrl.create(ModalContentPage, {html: html});
-    modal.present();
-  }
-
-}
-
-
-@Component({
-  template: `
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>
-          Google Auth
-        </ion-title>
-        <ion-buttons start>
-          <button ion-button (click)="dismiss()">
-            <span ion-text color="primary" showWhen="ios">Cancel</span>
-            <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
-          </button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <div [innerHtml]="htmlProperty"></div>
-    </ion-content>
-  `
-})
-
-export class ModalContentPage {
-
-  private _htmlProperty: string = '';
-
-  constructor(public platform: Platform,
-              public params: NavParams,
-              public viewCtrl: ViewController,
-              private _sanitizer: DomSanitizer) {
-    this._htmlProperty = params.get('html');
-  }
-
-  public get htmlProperty(): SafeHtml {
-    return this._sanitizer.bypassSecurityTrustHtml(this._htmlProperty);
-  }
-
-
-  dismiss() {
-    this.viewCtrl.dismiss();
-  }
 }

@@ -42,15 +42,17 @@ export class SearchPage {
     let inputQuery: string = this.inputSearch;
     this.posts = [];
     this.pageNumber = 0;
-    if(inputQuery.charAt(0) == '#') {
-      this.section = 'tags';
-      inputQuery = inputQuery.slice(1);
-    } else {
-      this.section = 'posts';
+    if(inputQuery != undefined) {
+      if (inputQuery.charAt(0) == '#') {
+        this.section = 'tags';
+        inputQuery = inputQuery.slice(1);
+      } else {
+        this.section = 'posts';
+      }
+      console.log(inputQuery);
+      console.log(this.section);
+      this.getSearchResults(this.section, inputQuery);
     }
-    console.log(inputQuery);
-    console.log(this.section);
-    this.getSearchResults(this.section, inputQuery);
   }
 
   doInfinite(infiniteScroll) {
