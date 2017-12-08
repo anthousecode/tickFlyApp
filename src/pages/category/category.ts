@@ -4,6 +4,7 @@ import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
 import {PostService} from "../../services/post.service";
 import {SearchPage} from "../search/search";
+import {CreatePostPage} from "../create-post/create-post";
 
 /**
  * Generated class for the CategoryPage page.
@@ -99,6 +100,10 @@ export class CategoryPage {
 
   onSearchPage() {
     this.navCtrl.push(SearchPage);
+  }
+
+  onCreatePostPage() {
+    this.navCtrl.push(CreatePostPage);
   }
 
 }

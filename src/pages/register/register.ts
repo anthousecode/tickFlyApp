@@ -5,6 +5,7 @@ import {AuthService} from "../../services/auth.service";
 import {MyApp} from "../../app/app.component";
 import {HomePage} from "../home/home";
 import {LoginPage} from "../login/login";
+import {ToastService} from "../../services/toast.service";
 
 /**
  * Generated class for the RegisterPage page.
@@ -17,10 +18,16 @@ import {LoginPage} from "../login/login";
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html',
+  providers: [ToastService]
 })
 export class RegisterPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public authService: AuthService,
+    public toastService: ToastService
+  ) {
   }
 
   ionViewDidLoad() {
@@ -37,12 +44,13 @@ export class RegisterPage {
         response => {
           console.log('Success');
           this.onHomePage();
-          this.authService.presentSuccessToast();
           this.authService.getCurrentUserId();
+          this.toastService.showToast('Вы успешно зарегистрированы!');
         },
         error => {
-          console.log('Error');
-          this.authService.presentUnsuccessToast();
+          let errors = error.json().errors;
+          let firstError = errors[Object.keys(errors)[0]];
+          this.toastService.showToast(firstError);
         }
       );
   }
