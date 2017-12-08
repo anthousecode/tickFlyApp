@@ -52,7 +52,7 @@ export class PostPage {
   showAlert() {
     let alert = this.alertCtrl.create({
       cssClass: 'alert-capabilities',
-      buttons: ['Подписаться', 'Поделиться', 'Пожаловаться']
+      buttons: ['Поделиться', 'Пожаловаться']
     });
     alert.present();
   }

@@ -16,21 +16,21 @@
 <ion-content>
 
 
-  <img src="/home/driver/tickFlyApp/src/assets/images/boat.jpg" style="width: 100%" [hidden]="lastImage === null">
-  <h3 [hidden]="lastImage !== null">Please Select Image!</h3>
+  <!--<img src="/home/driver/tickFlyApp/src/assets/images/boat.jpg" style="width: 100%" [hidden]="lastImage === null">-->
+  <!--<h3 [hidden]="lastImage !== null">Please Select Image!</h3>-->
 
-  <ion-footer>
-    <ion-toolbar color="primary">
-      <ion-buttons>
-        <button ion-button icon-left (click)="presentActionSheet()">
-          <ion-icon name="camera"></ion-icon>Select Image
-        </button>
-        <button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
-          <ion-icon name="cloud-upload"></ion-icon>Upload
-        </button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-footer>
+  <!--<ion-footer>-->
+    <!--<ion-toolbar color="primary">-->
+      <!--<ion-buttons>-->
+        <!--<button ion-button icon-left (click)="presentActionSheet()">-->
+          <!--<ion-icon name="camera"></ion-icon>Select Image-->
+        <!--</button>-->
+        <!--<button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">-->
+          <!--<ion-icon name="cloud-upload"></ion-icon>Upload-->
+        <!--</button>-->
+      <!--</ion-buttons>-->
+    <!--</ion-toolbar>-->
+  <!--</ion-footer>-->
   <div class="enter-block tf-post-label" padding>
     <form (ngSubmit)="onChangeUser(f)" #f="ngForm">
 
