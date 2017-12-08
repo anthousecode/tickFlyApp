@@ -25,7 +25,16 @@ $primary-blue: #3a549f;
 $secondary-red: #d7565c;
 $secondary-blue: #1da1f2;
 $white: #f0f0f0;
+$category-color: #c04a4a;
 
+
+ion-menu {
+  button {
+    .item-inner {
+      background-image: none!important;
+    }
+  }
+}
 ion-header {
   ion-navbar {
     .toolbar-background-md, .toolbar-background-ios {
@@ -44,6 +53,7 @@ ion-header {
   }
 }
 ion-content {
+
   ion-item {
     .more-icon {
       font-size: 18px;
@@ -110,7 +120,7 @@ ion-content {
       font-weight: bold;
       font-size: 12px;
       color: #fff;
-      background: #be494c;
+      background: $category-color;
       border-radius: 2px;
       margin: 1px 1px 0 0;
     }
@@ -222,22 +232,11 @@ input[type=number]::-webkit-outer-spin-button {
 /* --== /Alert Edit Profile  ==-- */
 .tf-post-label {
   .input-wrapper {
-    ::-webkit-input-placeholder {
-      font-size: 13px;
-    }
-    ::-moz-placeholder {
-      font-size: 13px;
-    }
-    :-moz-placeholder {
-      font-size: 13px;
-    }
-    :-ms-input-placeholder {
-      font-size: 13px;
-    }
     font-size: 15px;
     ion-label {
       color: #333;
-      font-size: 11px;
+      font-size: 11.5px;
+      font-weight: 600;
     }
     .select-placeholder {
       font-size: 12px;
@@ -250,4 +249,34 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .tick-title * {
   color: #fff;
+}
+.tick-hr {
+  border: 0;
+  height: 2px!important;
+  background-color: #fff!important;
+  color: #fff;
+}
+.tick-diamond {
+  background-image: url(../assets/images/Romb.svg);
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-position: center;
+  z-index: 0;
+  background-size: cover;
+}
+@media only screen and ( min-width: 650px ) {
+  .tick-wrapper {
+    margin: 0 auto;
+    max-width: 600px;
+    position: relative!important;
+    width: 100%;
+    ion-item {
+      padding: 0;
+    }
+
+  }
 }

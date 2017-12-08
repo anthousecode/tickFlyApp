@@ -18,7 +18,7 @@ export class AuthService {
   //   scope: 'openid'
   // });
 
-  API = "http://anthouse.company:8080";
+  API = "http://localhost:8080";
 
   constructor(private http: Http, private toastCtrl: ToastController, private googlePlus: GooglePlus) {
   }
