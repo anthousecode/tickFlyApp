@@ -25,17 +25,15 @@ export class LoginPage {
 
   userData = null;
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public authService: AuthService,
-    public alertCtrl: AlertController,
-    public modalCtrl: ModalController,
-    public _sanitizer: DomSanitizer,
-    public toastCtrl: ToastController,
-    public googlePlus: GooglePlus,
-    public toastService: ToastService
-  ) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public authService: AuthService,
+              public alertCtrl: AlertController,
+              public modalCtrl: ModalController,
+              public _sanitizer: DomSanitizer,
+              public toastCtrl: ToastController,
+              public googlePlus: GooglePlus,
+              public toastService: ToastService) {
   }
 
   ionViewDidLoad() {
@@ -74,11 +72,11 @@ export class LoginPage {
 
     console.log('test login');
     this.googlePlus.login({
-      "webClientId": "61123529027-vrf9l1a8p8lcr847h9rj2r6c8r0mk1se.apps.googleusercontent.com"
+      "webClientId": "61123529027-an619isno3lndv76lci95dam2pmrvgd4.apps.googleusercontent.com",
     })
       .then(res => {
         let toast = this.toastCtrl.create({
-          message: res,
+          message: "Success " + res,
           duration: 3000,
           position: 'top'
         });
@@ -86,7 +84,7 @@ export class LoginPage {
       })
       .catch(err => {
         let toast = this.toastCtrl.create({
-          message: err,
+          message: "Error " + err,
           duration: 3000,
           position: 'top'
         });

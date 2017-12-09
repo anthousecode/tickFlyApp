@@ -44,11 +44,7 @@ export class MyApp implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Ng on init in app");
-    console.log("Not ready on ", Date.now().toString());
-
     this.platform.ready().then(() => {
-      console.log("Ready on ", Date.now().toString());
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
