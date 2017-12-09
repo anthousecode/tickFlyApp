@@ -28,13 +28,12 @@ export class MyApp implements OnInit {
   userId = this.getUserId();
 
 
-  constructor(public platform: Platform,
-              public statusBar: StatusBar,
-              public splashScreen: SplashScreen,
-              public alertCtrl: AlertController,
-              private authService: AuthService,
-              public toastCtrl: ToastController) {
-
+  constructor(
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    private authService: AuthService
+  ) {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Главная', component: HomePage},
