@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {
-  AlertController, IonicPage, ModalController, Nav, NavController, NavParams, Platform, ToastController,
+  AlertController, IonicPage, MenuController, ModalController, Nav, NavController, NavParams, Platform, ToastController,
   ViewController
 } from 'ionic-angular';
 
@@ -21,21 +21,25 @@ import {ToastService} from "../../services/toast.service";
 })
 export class LoginPage {
 
-  rootPage: any = null;
-
-  userData = null;
+  rootPage: any;
+  userData;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public authService: AuthService,
-    public alertCtrl: AlertController,
-    public modalCtrl: ModalController,
-    public _sanitizer: DomSanitizer,
     public toastCtrl: ToastController,
     public googlePlus: GooglePlus,
-    public toastService: ToastService
+    public toastService: ToastService,
+    public menu: MenuController
   ) {
+    this.rootPage = null;
+    this.userData = null;
+  }
+
+  ngOnInit() {
+    this.menu.close();
+    this.menu.swipeEnable(false);
   }
 
   ionViewDidLoad() {
@@ -106,13 +110,4 @@ export class LoginPage {
     //   }
     // );
   }
-
-  // showPromptGoogle(html: string) {
-  //   let testString = this._sanitizer.bypassSecurityTrustHtml(html).toString();
-  //   let prompt = this.alertCtrl.create({
-  //     title: 'Login',
-  //     message: testString
-  //   });
-  //   prompt.present();
-  // }
 }
