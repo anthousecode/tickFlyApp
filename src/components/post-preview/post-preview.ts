@@ -30,7 +30,8 @@ export class PostPreviewComponent {
   currentPage: string;
   user;
   currentUserId: number;
-  isTick: boolean = false;
+  isTick: boolean;
+  shortDescription: string;
 
   constructor(
     public navCtrl: NavController,
@@ -42,6 +43,7 @@ export class PostPreviewComponent {
   ) {
     this.currentPage = this.viewCtrl.name;
     this.currentUserId = Number(this.authService.getUserId());
+    this.isTick = false;
   }
 
   onPostPage(postId) {
@@ -86,6 +88,11 @@ export class PostPreviewComponent {
     } else {
       return post.author.id_user;
     }
+  }
+
+  getShortDescription(description: string) {
+    let shortDescription = description.slice(0, 120) +  '...';
+    return shortDescription;
   }
 
   showTickAlert(postId: number, userId: number) {
