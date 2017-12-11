@@ -40,6 +40,8 @@ import {RegisterPageModule} from "../pages/register/register.module";
 import {UserProfilePageModule} from "../pages/user-profile/user-profile.module";
 import {SearchPage} from "../pages/search/search";
 import {SearchPageModule} from "../pages/search/search.module";
+import {SharingFollowersListPage} from "../pages/sharing-followers-list/sharing-followers-list";
+import {SharingFollowersListPageModule} from "../pages/sharing-followers-list/sharing-followers-list.module";
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import {SearchPageModule} from "../pages/search/search.module";
     IonicModule.forRoot(MyApp),
     HttpModule,
     FormsModule,
-    SearchPageModule
+    SearchPageModule,
+    SharingFollowersListPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

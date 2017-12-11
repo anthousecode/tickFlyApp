@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {PostPage} from "../../pages/post/post";
-import {AlertController, NavController, ViewController} from "ionic-angular";
+import {ActionSheetController, AlertController, ModalController, NavController, ViewController} from "ionic-angular";
 import {UserProfilePage} from "../../pages/user-profile/user-profile";
 import {CategoryPage} from "../../pages/category/category";
 import {CreatePostPage} from "../../pages/create-post/create-post";
@@ -8,6 +8,8 @@ import {HttpService} from "../../services/http.service";
 import {PostService} from "../../services/post.service";
 import {UserService} from "../../services/user.service";
 import {AuthService} from "../../services/auth.service";
+import {FollowersPage} from "../../pages/followers/followers";
+import {SharingFollowersListPage} from "../../pages/sharing-followers-list/sharing-followers-list";
 
 /**
  * Generated class for the PostPreviewComponent component.
@@ -31,7 +33,6 @@ export class PostPreviewComponent {
   user;
   currentUserId: number;
   isTick: boolean;
-  shortDescription: string;
 
   constructor(
     public navCtrl: NavController,
@@ -39,7 +40,8 @@ export class PostPreviewComponent {
     private alertCtrl: AlertController,
     private postService: PostService,
     public viewCtrl: ViewController,
-    public authService: AuthService
+    public authService: AuthService,
+    public modalCtrl: ModalController
   ) {
     this.currentPage = this.viewCtrl.name;
     this.currentUserId = Number(this.authService.getUserId());
@@ -144,6 +146,15 @@ export class PostPreviewComponent {
           prompt.present();
         }
       )
+  }
+
+
+  presentProfileModal() {
+    let profileModal = this.modalCtrl.create(SharingFollowersListPage);
+    profileModal.onDidDismiss(data => {
+      console.log(data);
+    });
+    profileModal.present();
   }
 
 }

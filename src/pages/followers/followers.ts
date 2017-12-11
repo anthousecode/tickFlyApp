@@ -18,7 +18,6 @@ export class FollowersPage {
 
   selectedItem: any;
   icons: string[];
-  items: Array<{ title: string, note: string, icon: string }>;
   followersList = [];
   followedList;
 
