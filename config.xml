@@ -85,9 +85,7 @@
     <allow-navigation href="http://192.168.0.132:8101" />
     <allow-navigation href="http://192.168.0.132:8100" />
     <allow-navigation href="http://192.168.61.1:8100" />
-    <engine name="ios" spec="4.5.1" />
-    <engine name="android" spec="6.3.0" />
-    <engine name="browser" spec="5.0.0" />
+    <engine name="android" spec="^6.3.0" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="cordova-plugin-statusbar" spec="^2.3.0" />
@@ -101,8 +99,6 @@
     <plugin name="cordova-plugin-camera" spec="^3.0.0" />
     <plugin name="cordova-plugin-file" spec="^5.0.0" />
     <plugin name="cordova-plugin-filepath" spec="^1.1.0" />
-    <plugin name="cordova-plugin-googleplus" spec="4.*">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.110624568195-5i9eide1tlt3lombnrt72j88j1s5evcq" />
-    </plugin>
     <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
+    <plugin name="cordova-plugin-googleplus" spec="^5.1.1" />
 </widget>

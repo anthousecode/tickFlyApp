@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {AlertController, NavController} from 'ionic-angular';
+import {AlertController, MenuController, NavController} from 'ionic-angular';
 import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
 import {AuthService} from "../../services/auth.service";
@@ -20,7 +20,8 @@ export class HomePage {
     public navCtrl: NavController,
     private httpService: HttpService,
     private alertCtrl: AlertController,
-    private postService: PostService
+    private postService: PostService,
+    public menu: MenuController
   ) {
 
   }
@@ -29,6 +30,7 @@ export class HomePage {
   pageId: number = 0;
 
   ngOnInit(){
+    this.menu.swipeEnable(true);
     this.httpService.getPosts().subscribe(
       response => {
         console.log(response.json());

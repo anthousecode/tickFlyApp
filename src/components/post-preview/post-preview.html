@@ -19,13 +19,13 @@
   <img *ngIf="post?.media[0]" src="{{post?.media[0]['url_orign']}}">
 
   <ion-card-content>
-    <p margin-bottom>{{post?.description}}</p>
+    <p margin-bottom>{{getShortDescription(post?.description)}}</p>
     <p class="ion-post-date">{{post?.date}}</p>
   </ion-card-content>
 
   <div class="post-footer">
     <ion-buttons class="buttons-wrap">
-      <button ion-button icon-left small clear  
+      <button ion-button icon-left small clear
       [disabled]="currentUserId == getAuthorId(post)"
       (click)="showTickAlert(post?.postId, getAuthorId(post))">
       <div class="tik-like {{post?.isTick == true ? 'ticked' : ''}}">

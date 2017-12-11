@@ -28,13 +28,12 @@ export class MyApp implements OnInit {
   userId = this.getUserId();
 
 
-  constructor(public platform: Platform,
-              public statusBar: StatusBar,
-              public splashScreen: SplashScreen,
-              public alertCtrl: AlertController,
-              private authService: AuthService,
-              public toastCtrl: ToastController) {
-
+  constructor(
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    private authService: AuthService
+  ) {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Главная', component: HomePage},
@@ -44,11 +43,7 @@ export class MyApp implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Ng on init in app");
-    console.log("Not ready on ", Date.now().toString());
-
     this.platform.ready().then(() => {
-      console.log("Ready on ", Date.now().toString());
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
