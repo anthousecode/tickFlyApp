@@ -41,7 +41,8 @@ export class PostPreviewComponent {
     private postService: PostService,
     public viewCtrl: ViewController,
     public authService: AuthService,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public userService: UserService
   ) {
     this.currentPage = this.viewCtrl.name;
     this.currentUserId = Number(this.authService.getUserId());
@@ -63,7 +64,7 @@ export class PostPreviewComponent {
       );
   }
 
-  showAlert() {
+  showAlert(postId) {
     let alert = this.alertCtrl.create({
     cssClass: 'alert-capabilities',
       buttons: [
@@ -76,7 +77,7 @@ export class PostPreviewComponent {
         {
           text: 'Пожаловаться',
           handler: () => {
-
+            this.presentComplaintPrompt(postId, this.userId);
           }
         }
       ]
@@ -168,6 +169,67 @@ export class PostPreviewComponent {
       console.log(data);
     });
     profileModal.present();
+  }
+
+
+
+  presentComplaintPrompt(postId, userId) {
+    let complaintReasons = [];
+    let reasonId: number;
+    this.userService.getComplaintReasons()
+      .subscribe(
+        response => {
+          let complaints = response.json().complaints;
+          for (let index in complaints) {
+            let reason = complaints[index];
+            console.log(reason);
+            complaintReasons.push({
+              id: reason.id,
+              label: reason.description,
+              type: 'radio',
+              handler: () => {
+                reasonId = reason.id;
+                console.log(reasonId);
+              }
+            })
+          }
+          console.log(complaintReasons);
+          let alert = this.alertCtrl.create({
+            title: 'Пожаловаться',
+            message: 'Укажите причину:',
+            inputs: complaintReasons,
+            buttons: [
+              {
+                text: 'Отмена',
+                role: 'cancel',
+                handler: data => {
+                  console.log('Cancel clicked');
+                }
+              },
+              {
+                text: 'Подтвердить',
+                handler: data => {
+                  console.log(data);
+                  this.userService.setComplaintReason(postId, userId, reasonId)
+                    .subscribe(
+                      response => {
+                        console.log(response.json());
+                      },
+                      error => {
+                        console.log(error);
+                      }
+                    )
+                }
+              }
+            ]
+          });
+          alert.present();
+        },
+        error =>{
+          console.log(error);
+        }
+      );
+
   }
 
 }

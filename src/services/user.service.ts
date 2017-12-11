@@ -16,41 +16,60 @@ export class UserService {
   API = "http://localhost:8080";
 
   getProfile(idUser) {
-    return this.http.get(this.authService.API + `/api/v1/user/profile?id_user=` + idUser,
-      {headers: new Headers({"Authorization": 'Bearer ' + this.authService.getToken()})})
+    return this.http.get(
+      this.authService.API + `/api/v1/user/profile?id_user=` + idUser,
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      })
   }
 
   getFollowers(idUser) {
-    return this.http.get(this.authService.API + `/api/v1/user/followers?id_user=` + idUser,
-      {headers: new Headers({
-        "Authorization": 'Bearer ' + this.authService.getToken()
-      })})
+    return this.http.get(
+      this.authService.API + `/api/v1/user/followers?id_user=` + idUser,
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      })
   }
 
   getFollowed(idUser) {
     return this.http.get(this.authService.API + `/api/v1/user/followed?id_user=` + idUser,
-      {headers: new Headers({
-        "Authorization": 'Bearer ' + this.authService.getToken()
-      })})
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      })
   }
 
   toggleSubscribe(idUser) {
-    return this.http.put(this.authService.API + `/api/v1/user/subscribe-unsubscribe`,
-      {id_user: idUser},
-      {headers: new Headers({
-        "Authorization": 'Bearer ' + this.authService.getToken()
-      })})
+    return this.http.put(
+      this.authService.API + `/api/v1/user/subscribe-unsubscribe`,
+      {
+        id_user: idUser
+      },
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      })
   }
 
   getEditProfile() {
-    return this.http.get( this.authService.API + `/api/v1/user/edit-profile`,
-      {headers: new Headers({
-        "Authorization": 'Bearer ' + this.authService.getToken()
-      })})
+    return this.http.get(
+      this.authService.API + `/api/v1/user/edit-profile`,
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      })
   }
 
   changeUser(nickname: string, firstname: string, lastname: string, status: string) {
-    return this.http.put(this.authService.API + `/api/v1/user/update`,
+    return this.http.put(
+      this.authService.API + `/api/v1/user/update`,
       {
         nick_name: nickname,
         first_name: firstname,
@@ -60,11 +79,13 @@ export class UserService {
       {
         headers: new Headers({
           "Authorization": 'Bearer ' + this.authService.getToken()
-        })})
+        })
+      })
   }
 
   changePassword(oldPassword: string, newPassword: string, confirmationPassword: string) {
-    return this.http.put(this.authService.API + `/api/v1/user/change-password`,
+    return this.http.put(
+      this.authService.API + `/api/v1/user/change-password`,
       {
         old_password: oldPassword,
         new_password: newPassword,
@@ -72,8 +93,38 @@ export class UserService {
       },
       {
         headers: new Headers({
-        "Authorization": 'Bearer ' + this.authService.getToken()
-      })})
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      })
   }
+
+  getComplaintReasons() {
+    return this.http.get(
+      this.authService.API + `/api/v1/complaint/get-description`,
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      }
+    )
+  }
+
+  setComplaintReason(postId, authorId, reasonId) {
+    console.log(authorId);
+    return this.http.post(
+      this.authService.API + `/api/v1/user/set-complaint`,
+      {
+        id_complaints: reasonId,
+        id_post: postId,
+        id_user: authorId
+      },
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      }
+    )
+  }
+
 
 }

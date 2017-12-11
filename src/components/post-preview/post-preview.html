@@ -9,7 +9,7 @@
       {{post?.author.nick_name}}
     </h2>
     <ion-buttons end>
-      <button class="more-icon" (click)="showAlert()" icon-end>
+      <button class="more-icon" (click)="showAlert(post?.postId)" icon-end>
         <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
@@ -40,7 +40,8 @@
     </button>
   </ion-buttons>
   <ul class="category">
-    <li (click)="onCategoryPage(post?.categories[0].id_category)">{{post?.categories[0].title}}
+    <li (click)="onCategoryPage(post?.categories[0].id_category)">
+      {{post?.categories[0].title}}
     </li>
   </ul>
 </div>
