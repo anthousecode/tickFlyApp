@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {CategoryPage} from "../category/category";
 import {NgForm} from "@angular/forms";
 import {HttpService} from "../../services/http.service";
@@ -8,6 +8,7 @@ import {PostService} from "../../services/post.service";
 import {AuthService} from "../../services/auth.service";
 import {CreatePostPage} from "../create-post/create-post";
 import {SearchPage} from "../search/search";
+import {SharingFollowersListPage} from "../sharing-followers-list/sharing-followers-list";
 
 /**
  * Generated class for the PostPage page.
@@ -32,12 +33,15 @@ export class PostPage {
   isTick: boolean;
   comment: string;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public alertCtrl: AlertController,
-              private httpService: HttpService,
-              public postService: PostService,
-              public authService: AuthService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public alertCtrl: AlertController,
+    private httpService: HttpService,
+    public postService: PostService,
+    public authService: AuthService,
+    public modalCtrl: ModalController
+  ) {
     this.post = navParams.get('post');
     this.postId = this.post.id_post;
     this.isTick = this.post.donate;
@@ -52,7 +56,21 @@ export class PostPage {
   showAlert() {
     let alert = this.alertCtrl.create({
       cssClass: 'alert-capabilities',
-      buttons: ['Поделиться', 'Пожаловаться']
+      buttons: [
+        {
+          text: 'Поделиться',
+          handler: () => {
+            this.presentProfileModal();
+          }
+        },
+        {
+          text: 'Пожаловаться',
+          handler: () => {
+
+          }
+        }
+      ]
+
     });
     alert.present();
   }
@@ -141,6 +159,14 @@ export class PostPage {
   onSearchPage(tag) {
     console.log(tag);
     this.navCtrl.push(SearchPage, {query: tag});
+  }
+
+  presentProfileModal() {
+    let profileModal = this.modalCtrl.create(SharingFollowersListPage);
+    profileModal.onDidDismiss(data => {
+      console.log(data);
+    });
+    profileModal.present();
   }
 
 }

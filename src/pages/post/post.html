@@ -73,7 +73,7 @@
         </div>
         <div class="tickfly-currency">{{post?.tickCount ? post?.tickCount : post?.summ_ticks}}</div>
       </button>
-      <button ion-button small clear>
+      <button ion-button small clear (click)="presentProfileModal()">
         <ion-icon name="mail"></ion-icon>
       </button>
     </ion-buttons>

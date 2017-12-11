@@ -66,7 +66,20 @@ export class PostPreviewComponent {
   showAlert() {
     let alert = this.alertCtrl.create({
     cssClass: 'alert-capabilities',
-      buttons: ['Поделиться', 'Пожаловаться']
+      buttons: [
+        {
+          text: 'Поделиться',
+          handler: () => {
+            this.presentProfileModal();
+          }
+        },
+        {
+          text: 'Пожаловаться',
+          handler: () => {
+
+          }
+        }
+      ]
 
     });
     alert.present();
