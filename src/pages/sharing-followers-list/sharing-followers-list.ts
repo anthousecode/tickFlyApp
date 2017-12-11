@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
+import {ShareService} from "../../services/share.service";
+import {AuthService} from "../../services/auth.service";
 
 /**
  * Generated class for the SharingFollowersListPage page.
@@ -12,14 +14,19 @@ import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular
 @Component({
   selector: 'page-sharing-followers-list',
   templateUrl: 'sharing-followers-list.html',
+  providers: [ShareService, AuthService]
 })
 export class SharingFollowersListPage {
 
   selectedItem: any;
   followersList = [];
-  followedList;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public viewCtrl: ViewController,
+    public shareService: ShareService
+  ) {
   }
 
   ionViewDidLoad() {
@@ -27,7 +34,16 @@ export class SharingFollowersListPage {
   }
 
   ngOnInit() {
-    
+    this.shareService.getFollowers()
+      .subscribe(
+        response => {
+          console.log(response.json());
+          this.followersList = response.json().subscribers;
+        },
+        error => {
+
+        }
+      )
   }
 
   closeModal() {
