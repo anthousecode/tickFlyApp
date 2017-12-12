@@ -30,6 +30,7 @@ export class PostPreviewComponent {
   @Input() categoryId: number;
   @Input() posts = [];
   currentPost;
+  indexOfCurrentPost: number;
   currentPage: string;
   user;
   currentUserId: number;
@@ -68,23 +69,42 @@ export class PostPreviewComponent {
 
   showPostAlert(postId, authorId) {
     let alert = this.alertCtrl.create({
-    cssClass: 'alert-capabilities',
+      cssClass: 'alert-capabilities',
       buttons: [
         {
           text: 'Поделиться',
+          cssClass: 'hidden',
           handler: () => {
             this.presentProfileModal();
           }
-        },
-        {
-          text: 'Пожаловаться',
-          handler: () => {
-            this.presentComplaintPrompt(postId, authorId);
-          }
         }
       ]
-
     });
+    if (this.currentUserId === authorId) {
+      alert.addButton({
+        text: 'Удалить',
+        handler: () => {
+          this.postService.deletePost(postId)
+            .subscribe(
+              response => {
+                console.log(response.json());
+                this.posts = this.posts.filter(x => x.postId !== postId);
+                this.toastService.showToast('Пост успешно удален!');
+              },
+              error => {
+                console.log(error);
+              }
+            );
+        }
+      });
+    } else {
+      alert.addButton({
+        text: 'Пожаловаться',
+        handler: () => {
+          this.presentComplaintPrompt(postId, authorId);
+        }
+      });
+    }
     alert.present();
   }
 
