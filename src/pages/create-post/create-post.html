@@ -41,8 +41,7 @@
           <ion-select placeholder="Выбрать" name="selectedCategories" [(ngModel)]="selectedCategories"
                       (ionChange)="onChange(selectedCategories)" multiple="true">
             <ion-option *ngFor="let category of categories"
-                        (ionSelect)="onChange()" value="{{category.id_category}}"
-            >
+                        (ionSelect)="onChange()" value="{{category.id_category}}">
               {{category.title}}
             </ion-option>
           </ion-select>

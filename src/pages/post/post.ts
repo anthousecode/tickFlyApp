@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {CategoryPage} from "../category/category";
 import {NgForm} from "@angular/forms";
 import {HttpService} from "../../services/http.service";
@@ -8,6 +8,9 @@ import {PostService} from "../../services/post.service";
 import {AuthService} from "../../services/auth.service";
 import {CreatePostPage} from "../create-post/create-post";
 import {SearchPage} from "../search/search";
+import {SharingFollowersListPage} from "../sharing-followers-list/sharing-followers-list";
+import {UserService} from "../../services/user.service";
+import {ToastService} from "../../services/toast.service";
 
 /**
  * Generated class for the PostPage page.
@@ -20,7 +23,7 @@ import {SearchPage} from "../search/search";
 @Component({
   selector: 'page-post',
   templateUrl: 'post.html',
-  providers: [PostService]
+  providers: [PostService, UserService, ToastService]
 })
 export class PostPage {
 
@@ -32,12 +35,17 @@ export class PostPage {
   isTick: boolean;
   comment: string;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public alertCtrl: AlertController,
-              private httpService: HttpService,
-              public postService: PostService,
-              public authService: AuthService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public alertCtrl: AlertController,
+    private httpService: HttpService,
+    public postService: PostService,
+    public authService: AuthService,
+    public modalCtrl: ModalController,
+    public userService: UserService,
+    public toastService: ToastService
+  ) {
     this.post = navParams.get('post');
     this.postId = this.post.id_post;
     this.isTick = this.post.donate;
@@ -49,10 +57,24 @@ export class PostPage {
     console.log('ionViewDidLoad PostPage');
   }
 
-  showAlert() {
+  showPostAlert(postId, authorId) {
     let alert = this.alertCtrl.create({
       cssClass: 'alert-capabilities',
-      buttons: ['Поделиться', 'Пожаловаться']
+      buttons: [
+        {
+          text: 'Поделиться',
+          handler: () => {
+            this.presentProfileModal();
+          }
+        },
+        {
+          text: 'Пожаловаться',
+          handler: () => {
+            this.presentComplaintPrompt(postId, authorId);
+          }
+        }
+      ]
+
     });
     alert.present();
   }
@@ -141,6 +163,75 @@ export class PostPage {
   onSearchPage(tag) {
     console.log(tag);
     this.navCtrl.push(SearchPage, {query: tag});
+  }
+
+  presentProfileModal() {
+    let profileModal = this.modalCtrl.create(SharingFollowersListPage);
+    profileModal.onDidDismiss(data => {
+      console.log(data);
+    });
+    profileModal.present();
+  }
+
+  presentComplaintPrompt(postId, authorId) {
+    console.log('userid ' + authorId);
+    let complaintReasons = [];
+    let reasonId: number;
+    this.userService.getComplaintReasons()
+      .subscribe(
+        response => {
+          let complaints = response.json().complaints;
+          for (let index in complaints) {
+            let reason = complaints[index];
+            console.log(reason);
+            complaintReasons.push({
+              id: reason.id,
+              label: reason.description,
+              type: 'radio',
+              handler: () => {
+                reasonId = reason.id;
+                console.log(reasonId);
+              }
+            })
+          }
+          console.log(complaintReasons);
+          let alert = this.alertCtrl.create({
+            title: 'Пожаловаться',
+            message: 'Укажите причину:',
+            inputs: complaintReasons,
+            buttons: [
+              {
+                text: 'Отмена',
+                role: 'cancel',
+                handler: data => {
+                  console.log('Cancel clicked');
+                }
+              },
+              {
+                text: 'Подтвердить',
+                handler: data => {
+                  console.log(data);
+                  this.userService.setComplaintReason(postId, authorId, reasonId)
+                    .subscribe(
+                      response => {
+                        console.log(response);
+                        this.toastService.showToast('Вы пожаловались на пользователя!');
+                      },
+                      error => {
+                        console.log(error);
+                      }
+                    )
+                }
+              }
+            ]
+          });
+          alert.present();
+        },
+        error =>{
+          console.log(error);
+        }
+      );
+
   }
 
 }

@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {PostPage} from "../../pages/post/post";
-import {AlertController, NavController, ViewController} from "ionic-angular";
+import {ActionSheetController, AlertController, ModalController, NavController, ViewController} from "ionic-angular";
 import {UserProfilePage} from "../../pages/user-profile/user-profile";
 import {CategoryPage} from "../../pages/category/category";
 import {CreatePostPage} from "../../pages/create-post/create-post";
@@ -8,6 +8,9 @@ import {HttpService} from "../../services/http.service";
 import {PostService} from "../../services/post.service";
 import {UserService} from "../../services/user.service";
 import {AuthService} from "../../services/auth.service";
+import {FollowersPage} from "../../pages/followers/followers";
+import {SharingFollowersListPage} from "../../pages/sharing-followers-list/sharing-followers-list";
+import {ToastService} from "../../services/toast.service";
 
 /**
  * Generated class for the PostPreviewComponent component.
@@ -18,7 +21,7 @@ import {AuthService} from "../../services/auth.service";
 @Component({
   selector: 'post-preview',
   templateUrl: 'post-preview.html',
-  providers: [UserService]
+  providers: [UserService, ToastService]
 })
 export class PostPreviewComponent {
 
@@ -31,7 +34,6 @@ export class PostPreviewComponent {
   user;
   currentUserId: number;
   isTick: boolean;
-  shortDescription: string;
 
   constructor(
     public navCtrl: NavController,
@@ -39,7 +41,10 @@ export class PostPreviewComponent {
     private alertCtrl: AlertController,
     private postService: PostService,
     public viewCtrl: ViewController,
-    public authService: AuthService
+    public authService: AuthService,
+    public modalCtrl: ModalController,
+    public userService: UserService,
+    public toastService: ToastService
   ) {
     this.currentPage = this.viewCtrl.name;
     this.currentUserId = Number(this.authService.getUserId());
@@ -61,10 +66,23 @@ export class PostPreviewComponent {
       );
   }
 
-  showAlert() {
+  showPostAlert(postId, authorId) {
     let alert = this.alertCtrl.create({
     cssClass: 'alert-capabilities',
-      buttons: ['Поделиться', 'Пожаловаться']
+      buttons: [
+        {
+          text: 'Поделиться',
+          handler: () => {
+            this.presentProfileModal();
+          }
+        },
+        {
+          text: 'Пожаловаться',
+          handler: () => {
+            this.presentComplaintPrompt(postId, authorId);
+          }
+        }
+      ]
 
     });
     alert.present();
@@ -144,6 +162,78 @@ export class PostPreviewComponent {
           prompt.present();
         }
       )
+  }
+
+
+  presentProfileModal() {
+    let profileModal = this.modalCtrl.create(SharingFollowersListPage);
+    profileModal.onDidDismiss(data => {
+      console.log(data);
+    });
+    profileModal.present();
+  }
+
+
+
+  presentComplaintPrompt(postId, authorId) {
+    console.log('userid ' + authorId);
+    let complaintReasons = [];
+    let reasonId: number;
+    this.userService.getComplaintReasons()
+      .subscribe(
+        response => {
+          let complaints = response.json().complaints;
+          for (let index in complaints) {
+            let reason = complaints[index];
+            console.log(reason);
+            complaintReasons.push({
+              id: reason.id,
+              label: reason.description,
+              type: 'radio',
+              handler: () => {
+                reasonId = reason.id;
+                console.log(reasonId);
+              }
+            })
+          }
+          console.log(complaintReasons);
+          let alert = this.alertCtrl.create({
+            title: 'Пожаловаться',
+            message: 'Укажите причину:',
+            inputs: complaintReasons,
+            buttons: [
+              {
+                text: 'Отмена',
+                role: 'cancel',
+                handler: data => {
+                  console.log('Cancel clicked');
+                }
+              },
+              {
+                text: 'Подтвердить',
+                handler: data => {
+                  console.log(data);
+                  this.userService.setComplaintReason(postId, authorId, reasonId)
+                    .subscribe(
+                      response => {
+                        console.log(response);
+                        this.toastService.showToast('Вы пожаловались на пользователя!');
+                      },
+                      error => {
+                        console.log(error);
+                      }
+                    )
+                }
+              }
+            ]
+          });
+          alert.present();
+        },
+        error =>{
+          console.log(error);
+        }
+      );
+
   }
 
 }

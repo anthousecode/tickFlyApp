@@ -36,7 +36,7 @@
       {{post?.user?.nick_name}}
     </h2>
     <ion-buttons end>
-      <button class="more-icon" (click)="showAlert()" icon-end>
+      <button class="more-icon" (click)="showPostAlert(postId, post?.user.id_user)" icon-end>
         <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
@@ -73,7 +73,7 @@
         </div>
         <div class="tickfly-currency">{{post?.tickCount ? post?.tickCount : post?.summ_ticks}}</div>
       </button>
-      <button ion-button small clear>
+      <button ion-button small clear (click)="presentProfileModal()">
         <ion-icon name="mail"></ion-icon>
       </button>
     </ion-buttons>
