@@ -129,7 +129,12 @@ export class PostPreviewComponent {
   }
 
   getShortDescription(description: string) {
-    let shortDescription = description.slice(0, 120) +  '...';
+    let shortDescription: string;
+    if(description.length >= 120) {
+      shortDescription = description.slice(0, 120) +  '...';
+    } else {
+      shortDescription = description;
+    }
     return shortDescription;
   }
 
