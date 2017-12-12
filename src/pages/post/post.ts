@@ -9,6 +9,8 @@ import {AuthService} from "../../services/auth.service";
 import {CreatePostPage} from "../create-post/create-post";
 import {SearchPage} from "../search/search";
 import {SharingFollowersListPage} from "../sharing-followers-list/sharing-followers-list";
+import {UserService} from "../../services/user.service";
+import {ToastService} from "../../services/toast.service";
 
 /**
  * Generated class for the PostPage page.
@@ -21,7 +23,7 @@ import {SharingFollowersListPage} from "../sharing-followers-list/sharing-follow
 @Component({
   selector: 'page-post',
   templateUrl: 'post.html',
-  providers: [PostService]
+  providers: [PostService, UserService, ToastService]
 })
 export class PostPage {
 
@@ -40,7 +42,9 @@ export class PostPage {
     private httpService: HttpService,
     public postService: PostService,
     public authService: AuthService,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public userService: UserService,
+    public toastService: ToastService
   ) {
     this.post = navParams.get('post');
     this.postId = this.post.id_post;
@@ -53,7 +57,7 @@ export class PostPage {
     console.log('ionViewDidLoad PostPage');
   }
 
-  showAlert() {
+  showPostAlert(postId, authorId) {
     let alert = this.alertCtrl.create({
       cssClass: 'alert-capabilities',
       buttons: [
@@ -66,7 +70,7 @@ export class PostPage {
         {
           text: 'Пожаловаться',
           handler: () => {
-
+            this.presentComplaintPrompt(postId, authorId);
           }
         }
       ]
@@ -167,6 +171,67 @@ export class PostPage {
       console.log(data);
     });
     profileModal.present();
+  }
+
+  presentComplaintPrompt(postId, authorId) {
+    console.log('userid ' + authorId);
+    let complaintReasons = [];
+    let reasonId: number;
+    this.userService.getComplaintReasons()
+      .subscribe(
+        response => {
+          let complaints = response.json().complaints;
+          for (let index in complaints) {
+            let reason = complaints[index];
+            console.log(reason);
+            complaintReasons.push({
+              id: reason.id,
+              label: reason.description,
+              type: 'radio',
+              handler: () => {
+                reasonId = reason.id;
+                console.log(reasonId);
+              }
+            })
+          }
+          console.log(complaintReasons);
+          let alert = this.alertCtrl.create({
+            title: 'Пожаловаться',
+            message: 'Укажите причину:',
+            inputs: complaintReasons,
+            buttons: [
+              {
+                text: 'Отмена',
+                role: 'cancel',
+                handler: data => {
+                  console.log('Cancel clicked');
+                }
+              },
+              {
+                text: 'Подтвердить',
+                handler: data => {
+                  console.log(data);
+                  this.userService.setComplaintReason(postId, authorId, reasonId)
+                    .subscribe(
+                      response => {
+                        console.log(response);
+                        this.toastService.showToast('Вы пожаловались на пользователя!');
+                      },
+                      error => {
+                        console.log(error);
+                      }
+                    )
+                }
+              }
+            ]
+          });
+          alert.present();
+        },
+        error =>{
+          console.log(error);
+        }
+      );
+
   }
 
 }

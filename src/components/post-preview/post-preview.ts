@@ -10,6 +10,7 @@ import {UserService} from "../../services/user.service";
 import {AuthService} from "../../services/auth.service";
 import {FollowersPage} from "../../pages/followers/followers";
 import {SharingFollowersListPage} from "../../pages/sharing-followers-list/sharing-followers-list";
+import {ToastService} from "../../services/toast.service";
 
 /**
  * Generated class for the PostPreviewComponent component.
@@ -20,7 +21,7 @@ import {SharingFollowersListPage} from "../../pages/sharing-followers-list/shari
 @Component({
   selector: 'post-preview',
   templateUrl: 'post-preview.html',
-  providers: [UserService]
+  providers: [UserService, ToastService]
 })
 export class PostPreviewComponent {
 
@@ -42,7 +43,8 @@ export class PostPreviewComponent {
     public viewCtrl: ViewController,
     public authService: AuthService,
     public modalCtrl: ModalController,
-    public userService: UserService
+    public userService: UserService,
+    public toastService: ToastService
   ) {
     this.currentPage = this.viewCtrl.name;
     this.currentUserId = Number(this.authService.getUserId());
@@ -64,7 +66,7 @@ export class PostPreviewComponent {
       );
   }
 
-  showAlert(postId) {
+  showPostAlert(postId, authorId) {
     let alert = this.alertCtrl.create({
     cssClass: 'alert-capabilities',
       buttons: [
@@ -77,7 +79,7 @@ export class PostPreviewComponent {
         {
           text: 'Пожаловаться',
           handler: () => {
-            this.presentComplaintPrompt(postId, this.userId);
+            this.presentComplaintPrompt(postId, authorId);
           }
         }
       ]
@@ -173,7 +175,8 @@ export class PostPreviewComponent {
 
 
 
-  presentComplaintPrompt(postId, userId) {
+  presentComplaintPrompt(postId, authorId) {
+    console.log('userid ' + authorId);
     let complaintReasons = [];
     let reasonId: number;
     this.userService.getComplaintReasons()
@@ -210,10 +213,11 @@ export class PostPreviewComponent {
                 text: 'Подтвердить',
                 handler: data => {
                   console.log(data);
-                  this.userService.setComplaintReason(postId, userId, reasonId)
+                  this.userService.setComplaintReason(postId, authorId, reasonId)
                     .subscribe(
                       response => {
-                        console.log(response.json());
+                        console.log(response);
+                        this.toastService.showToast('Вы пожаловались на пользователя!');
                       },
                       error => {
                         console.log(error);

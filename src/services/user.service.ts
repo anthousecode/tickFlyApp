@@ -110,7 +110,7 @@ export class UserService {
   }
 
   setComplaintReason(postId, authorId, reasonId) {
-    console.log(authorId);
+    console.log(postId + ' ' + authorId + ' ' + reasonId);
     return this.http.post(
       this.authService.API + `/api/v1/user/set-complaint`,
       {

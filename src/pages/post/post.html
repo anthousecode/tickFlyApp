@@ -36,7 +36,7 @@
       {{post?.user?.nick_name}}
     </h2>
     <ion-buttons end>
-      <button class="more-icon" (click)="showAlert()" icon-end>
+      <button class="more-icon" (click)="showPostAlert(postId, post?.user.id_user)" icon-end>
         <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
