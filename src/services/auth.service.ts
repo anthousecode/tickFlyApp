@@ -18,10 +18,21 @@ export class AuthService {
   //   scope: 'openid'
   // });
 
-  API = "http://localhost:8080";
-  // API = "http://ec2-54-186-176-148.us-west-2.compute.amazonaws.com:8080/";
+  // API = "http://localhost:8080";
+  API = "http://ec2-54-186-176-148.us-west-2.compute.amazonaws.com:8080/";
 
   constructor(private http: Http, private toastCtrl: ToastController, private googlePlus: GooglePlus) {
+  }
+
+  getHeaders(type) {
+    switch (type) {
+      case "auth":
+        return {headers: new Headers({"Authorization": 'Bearer ' + this.getToken()})};
+      case "xml":
+        return {headers: new Headers({"X-Requested-With": "XMLHttpRequest"})};
+      default:
+        return "";
+    }
   }
 
   signin(email: string, password: string) {

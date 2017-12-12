@@ -8,6 +8,7 @@ import {CategoryPage} from "../category/category";
 import {CreatePostPage} from "../create-post/create-post";
 import {PostService} from "../../services/post.service";
 import {SearchPage} from "../search/search";
+import {ChatListPage} from "../chat-list/chat-list";
 
 @Component({
   selector: 'page-home',
@@ -95,6 +96,10 @@ export class HomePage {
 
   onCreatePostPage() {
     this.navCtrl.push(CreatePostPage);
+  }
+
+  onChatsListPage() {
+    this.navCtrl.push(ChatListPage);
   }
 
   onSearchPage() {
