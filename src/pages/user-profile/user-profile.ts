@@ -81,13 +81,6 @@ export class UserProfilePage {
       );
   }
 
-  showAlert() {
-    let alert = this.alertCtrl.create({
-      buttons: ['Подписаться', 'Поделиться', 'Пожаловаться']
-    });
-    alert.present();
-  }
-
   onFollowersPage(userId) {
     let followersList;
     this.userService.getFollowers(userId)

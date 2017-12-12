@@ -11,6 +11,7 @@ import {SearchPage} from "../search/search";
 import {SharingFollowersListPage} from "../sharing-followers-list/sharing-followers-list";
 import {UserService} from "../../services/user.service";
 import {ToastService} from "../../services/toast.service";
+import {HomePage} from "../home/home";
 
 /**
  * Generated class for the PostPage page.
@@ -63,19 +64,39 @@ export class PostPage {
       buttons: [
         {
           text: 'Поделиться',
+          cssClass: 'hidden',
           handler: () => {
             this.presentProfileModal();
-          }
-        },
-        {
-          text: 'Пожаловаться',
-          handler: () => {
-            this.presentComplaintPrompt(postId, authorId);
           }
         }
       ]
 
     });
+    if (this.currentUserId === authorId) {
+      alert.addButton({
+        text: 'Удалить',
+        handler: () => {
+          this.postService.deletePost(postId)
+            .subscribe(
+              response => {
+                console.log(response.json());
+                this.navCtrl.setRoot(HomePage);
+                this.toastService.showToast('Пост успешно удален!');
+              },
+              error => {
+                console.log(error);
+              }
+            );
+        }
+      });
+    } else {
+      alert.addButton({
+        text: 'Пожаловаться',
+        handler: () => {
+          this.presentComplaintPrompt(postId, authorId);
+        }
+      });
+    }
     alert.present();
   }
 
@@ -174,7 +195,6 @@ export class PostPage {
   }
 
   presentComplaintPrompt(postId, authorId) {
-    console.log('userid ' + authorId);
     let complaintReasons = [];
     let reasonId: number;
     this.userService.getComplaintReasons()
