@@ -30,8 +30,8 @@ export class UserProfilePage {
 
   userId: number;
   posts = [];
-  public: boolean = true;
-  subscribe;
+  isPublic: boolean = true;
+  isSubscribe: boolean = false;
   user;
   followersCount: number;
   pageId: number = 0;
@@ -57,8 +57,8 @@ export class UserProfilePage {
           console.log(response.json());
           this.user = response.json().user;
           let postsList = response.json().posts;
-          this.public = response.json().public;
-          this.subscribe = response.json().subscribe;
+          this.isPublic = response.json().public;
+          this.isSubscribe = response.json().current_user_subscribe;
           this.followersCount = this.user.followers_count;
           for(let index in postsList){
             let post = postsList[index];
@@ -115,6 +115,7 @@ export class UserProfilePage {
         response => {
           console.log(response.json());
           this.followersCount = response.json().followers_count;
+          this.isSubscribe = response.json().subscribe;
           console.log(this.followersCount);
         },
         error => {

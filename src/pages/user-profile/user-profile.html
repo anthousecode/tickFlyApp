@@ -39,12 +39,12 @@
         </button>
       </ion-buttons>
     </div>
-    <button ion-button *ngIf="public && subscribe" color="light"
-            (click)="onToggleSubscribe(userId); subscribe = !subscribe">
+    <button ion-button *ngIf="isPublic && isSubscribe" color="light"
+            (click)="onToggleSubscribe(userId); ">
       Отписаться
     </button>
-    <button ion-button *ngIf="public && !subscribe"
-            (click)="onToggleSubscribe(userId) ; subscribe = !subscribe" color="danger">
+    <button ion-button *ngIf="isPublic && !isSubscribe"
+            (click)="onToggleSubscribe(userId) ;" color="danger">
       Подписаться
     </button>
 </ion-item>
