@@ -5,6 +5,9 @@ import {ChatService} from "../../services/chat.service";
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {LoaderService} from "../../services/loader.service";
+import {Socket} from 'ng-socket-io';
+import {Observable} from "rxjs/Observable";
+import {User} from "../../models/user";
 
 /**
  * Generated class for the ChatPage page.
@@ -23,36 +26,60 @@ export class ChatPage {
   chat: Chat;
   chatId: number;
   userId: number;
+  interlocutor: User;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public chatService: ChatService,
               public authService: AuthService,
-              public loadService: LoaderService) {
+              public loadService: LoaderService,
+              public socket: Socket) {
     this.chat = new Chat();
     this.chat.messages = [];
+    this.interlocutor = new User();
   }
 
   ionViewDidLoad() {
     this.userId = Number(this.authService.getUserId());
     this.chatId = this.navParams.get("chatId");
+
     this.getChat();
+    // this.socket.connect();
+    //
+    // this.getMessages().subscribe(message => {
+    //   console.log("Message");
+    //   // this.messages.push(message);
+    // });
+
   }
+
+  // getMessages() {
+  //   let observable = new Observable(observer => {
+  //     this.socket.on('message_4', (data) => {
+  //       observer.next(data);
+  //     });
+  //   });
+  //   return observable;
+  // }
 
   getChat() {
     this.loadService.showLoader();
     this.chatService.getChat(this.chatId).subscribe(
       response => {
-        console.log("chat:", response.json());
         this.chat.messages = response.json().messages.map(message => {
           message.userId = message.user_id;
           return message;
         });
+        let interlocutor = response.json().members.filter(member => {
+          return member.user.id_user != this.userId;
+        })[0];
 
-        this.chat.title = response.json().messages.filter(message => {
-          return message.user_id != this.userId;
-        })[0].user.nick_name;
-        console.log("title", this.chat.title);
+        this.interlocutor.id = interlocutor.user.id_user;
+        this.interlocutor.avatar = interlocutor.user.avatar;
+        this.interlocutor.firstName = interlocutor.user.first_name;
+        this.interlocutor.lastName = interlocutor.user.last_name;
+        this.interlocutor.nickname = interlocutor.user.nick_name;
+        this.interlocutor.email = interlocutor.user.email;
 
         this.loadService.hideLoader();
       },

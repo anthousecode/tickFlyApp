@@ -19,7 +19,7 @@
   </div>
   <div *ngIf="chats.length">
     <div *ngFor="let chat of chats"
-         (click)="onChatPage(chat.id)">
+         (click)="onChatPage(chat.id,chat.members)">
       <div class="chat-title">{{chat.title}}</div>
       <div class="chat-last-update">{{chat.updatedAt}}</div>
       <div class="chat-last-message">{{chat.lastMessage}}</div>

@@ -7,24 +7,28 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{chat.title}}</ion-title>
+    <ion-title>
+      <img src="{{interlocutor.avatar}}">
+      {{interlocutor.nickname}}
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <div *ngIf="!chat.messages.length">История сообщения пуста, пока</div>
-  <div *ngIf="chat.messages.length">
-    <div *ngFor="let message of chat.messages">
+  <div class="ion-content">
+    <div *ngIf="!chat.messages.length">История сообщения пуста, пока</div>
+    <div *ngIf="chat.messages.length">
+      <div *ngFor="let message of chat.messages">
       <span
         class="message-block"
         [ngClass]="(message.userId==userId)?'message-right':'message-left'">
         {{message.message}}
       </span>
+      </div>
     </div>
   </div>
-
   <ion-toolbar>
     <form (ngSubmit)="sendMessage(f)" #f="ngForm">
       <div class="comment-form">

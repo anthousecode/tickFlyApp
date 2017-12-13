@@ -85,7 +85,7 @@ export class ChatListPage {
     );
   }
 
-  onChatPage(chatId) {
+  onChatPage(chatId, members) {
     this.navCtrl.push(ChatPage, {chatId: chatId});
   }
 
