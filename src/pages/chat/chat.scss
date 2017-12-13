@@ -73,17 +73,19 @@ page-chat {
   }
 
   .message-block {
+    margin: 5px 0;
     padding: 5px;
     border-radius: 10px;
+    width: 80%;
   }
 
   .message-right {
-    background-color: #c6bd16;
-    text-align: right;
+    float: right;
+    background-color: #f7ce04;
   }
 
   .message-left {
-    background-color: cornflowerblue;
-    text-align: left;
+    float: left;
+    background-color: #00c5ed;
   }
 }

@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {IonicPage, NavController, NavParams} from "ionic-angular";
+import {IonicPage, LoadingController, NavController, NavParams} from "ionic-angular";
 import {Chat} from "../../models/chat";
 import {ChatsProvider} from "../../providers/chats/chats";
 import {ChatPage} from "../chat/chat";
@@ -7,6 +7,7 @@ import {ChatService} from "../../services/chat.service";
 import {AuthService} from "../../services/auth.service";
 import {User} from "../../models/user";
 import {ChatNewRecipientPage} from "../chat-new-recipient/chat-new-recipient";
+import {LoaderService} from "../../services/loader.service";
 
 /**
  * Generated class for the ChatListPage page.
@@ -19,7 +20,7 @@ import {ChatNewRecipientPage} from "../chat-new-recipient/chat-new-recipient";
 @Component({
   selector: 'page-chat-list',
   templateUrl: 'chat-list.html',
-  providers: [ChatService, AuthService]
+  providers: [ChatService, AuthService, LoaderService]
 })
 
 export class ChatListPage {
@@ -27,16 +28,18 @@ export class ChatListPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public chatProvider: ChatsProvider,
               public chatService: ChatService,
-              public authService: AuthService) {
+              public authService: AuthService,
+              public loadService: LoaderService,
+              public loadingCtrl: LoadingController) {
   }
 
   ngOnInit() {
-
+    this.chats = [];
   }
 
   getChats() {
+    this.loadService.showLoader();
     this.chatService.getChats().subscribe(
       response => {
         // console.log("Conversations", JSON.parse(response.text()).conversation);
@@ -53,12 +56,19 @@ export class ChatListPage {
               user.avatar = member.user.avatar;
               return user;
             });
+            chat.title = conversation.members.filter(member => {
+              return member.user.id_user != this.authService.getUserId();
+            })[0].user.nick_name;
+
+            console.log("Chat title:", chat.title);
             return chat;
           });
+        this.loadService.hideLoader();
         console.log(this.chats);
       },
       error => {
         console.log("Chats error:", error)
+        this.loadService.hideLoader();
       }
     );
   }
@@ -89,6 +99,7 @@ export class ChatListPage {
 
   ionViewDidEnter() {
     console.log("Chatlist entered");
+
     this.getChats();
   }
 

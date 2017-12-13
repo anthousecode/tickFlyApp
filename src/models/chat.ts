@@ -4,6 +4,7 @@ import {Message} from "./message";
 
 export class Chat {
   id?: number;
+  title?: string;
   createdAt?: string;
   deletedAt?: string;
   updatedAt?: string;

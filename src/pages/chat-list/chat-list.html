@@ -14,12 +14,17 @@
 
 
 <ion-content padding>
-  <div *ngFor="let chat of chats"
-       (click)="onChatPage(chat.id)">
-    <div>{{chat.members[1].nickname}}</div>
-    <div>{{chat.updatedAt}}</div>
-    <div>{{chat.lastMessage}}</div>
-    <hr>
+  <div *ngIf="!chats.length">
+    У вас нет начатых чатов
+  </div>
+  <div *ngIf="chats.length">
+    <div *ngFor="let chat of chats"
+         (click)="onChatPage(chat.id)">
+      <div class="chat-title">{{chat.title}}</div>
+      <div class="chat-last-update">{{chat.updatedAt}}</div>
+      <div class="chat-last-message">{{chat.lastMessage}}</div>
+      <hr>
+    </div>
   </div>
 
   <ion-fab bottom right>

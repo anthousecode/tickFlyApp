@@ -4,6 +4,7 @@ import {User} from "../../models/user";
 import {ChatService} from "../../services/chat.service";
 import {Chat} from "../../models/chat";
 import {ChatPage} from "../chat/chat";
+import {LoaderService} from "../../services/loader.service";
 
 /**
  * Generated class for the ChatNewRecipientPage page.
@@ -16,13 +17,16 @@ import {ChatPage} from "../chat/chat";
 @Component({
   selector: 'page-chat-new-recipient',
   templateUrl: 'chat-new-recipient.html',
-  providers: [ChatService]
+  providers: [ChatService, LoaderService]
 })
 export class ChatNewRecipientPage {
 
   chatCandidates: User[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public chatService: ChatService) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public chatService: ChatService,
+              public loadService: LoaderService) {
   }
 
   ionViewDidLoad() {
@@ -31,6 +35,7 @@ export class ChatNewRecipientPage {
   }
 
   getFollowers() {
+    this.loadService.showLoader();
     this.chatService.getFollowers().subscribe(
       response => {
         console.log("Followers:", response.json().followers);
@@ -40,9 +45,11 @@ export class ChatNewRecipientPage {
           user.nickname = follower.user_follower.nick_name;
           user.avatar = follower.user_follower.avatar;
           return user;
-        })
+        });
+        this.loadService.hideLoader();
       },
       error => {
+        this.loadService.hideLoader();
       }
     );
   }

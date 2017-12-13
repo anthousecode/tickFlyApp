@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Chat</ion-title>
+    <ion-title>{{chat.title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -22,7 +22,6 @@
         [ngClass]="(message.userId==userId)?'message-right':'message-left'">
         {{message.message}}
       </span>
-      <hr>
     </div>
   </div>
 

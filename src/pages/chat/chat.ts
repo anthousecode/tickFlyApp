@@ -4,6 +4,7 @@ import {Chat} from "../../models/chat";
 import {ChatService} from "../../services/chat.service";
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
+import {LoaderService} from "../../services/loader.service";
 
 /**
  * Generated class for the ChatPage page.
@@ -16,35 +17,30 @@ import {AuthService} from "../../services/auth.service";
 @Component({
   selector: 'page-chat',
   templateUrl: 'chat.html',
-  providers: [ChatService]
+  providers: [ChatService, LoaderService]
 })
 export class ChatPage {
   chat: Chat;
   chatId: number;
-  newMessage: string;
   userId: number;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public chatService: ChatService,
-              public authService: AuthService) {
+              public authService: AuthService,
+              public loadService: LoaderService) {
     this.chat = new Chat();
     this.chat.messages = [];
   }
 
-  onNgInit() {
-    this.userId = Number(this.authService.getUserId());
-    this.getChat();
-
-  }
-
   ionViewDidLoad() {
-    console.log("Chat entered, proceeding to data fetching");
+    this.userId = Number(this.authService.getUserId());
     this.chatId = this.navParams.get("chatId");
     this.getChat();
   }
 
   getChat() {
+    this.loadService.showLoader();
     this.chatService.getChat(this.chatId).subscribe(
       response => {
         console.log("chat:", response.json());
@@ -52,8 +48,16 @@ export class ChatPage {
           message.userId = message.user_id;
           return message;
         });
+
+        this.chat.title = response.json().messages.filter(message => {
+          return message.user_id != this.userId;
+        })[0].user.nick_name;
+        console.log("title", this.chat.title);
+
+        this.loadService.hideLoader();
       },
       error => {
+        this.loadService.hideLoader();
       }
     )
   }
