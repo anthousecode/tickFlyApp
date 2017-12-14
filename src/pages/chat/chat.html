@@ -17,7 +17,7 @@
 
 
 <ion-content padding>
-  <div class="ion-content">
+  <div padding>
     <div *ngIf="!chat.messages.length">История сообщения пуста, пока</div>
     <div *ngIf="chat.messages.length">
       <div *ngFor="let message of chat.messages">
@@ -29,6 +29,7 @@
       </div>
     </div>
   </div>
+  <br>
   <ion-toolbar>
     <form (ngSubmit)="sendMessage(f)" #f="ngForm">
       <div class="comment-form">

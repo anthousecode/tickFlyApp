@@ -37,30 +37,40 @@ export class ChatPage {
     this.chat = new Chat();
     this.chat.messages = [];
     this.interlocutor = new User();
+
   }
 
   ionViewDidLoad() {
     this.userId = Number(this.authService.getUserId());
     this.chatId = this.navParams.get("chatId");
 
+    this.socket.connect();
+    this.socket.on("init", (res) => {
+      console.log("INIT EBAT", res);
+    });
     this.getChat();
-    // this.socket.connect();
-    //
-    // this.getMessages().subscribe(message => {
-    //   console.log("Message");
-    //   // this.messages.push(message);
-    // });
 
   }
 
-  // getMessages() {
-  //   let observable = new Observable(observer => {
-  //     this.socket.on('message_4', (data) => {
-  //       observer.next(data);
-  //     });
-  //   });
-  //   return observable;
-  // }
+  ionViewDidLeave() {
+    this.socket.disconnect();
+  }
+
+  getMessages(userId) {
+    let observable = new Observable(observer => {
+      this.socket.on('message_' + userId, (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+
+  startListening(userId) {
+    this.getMessages(userId).subscribe(message => {
+      console.log("Message", message);
+    });
+    console.log("Subscribed to :" + userId);
+  }
 
   getChat() {
     this.loadService.showLoader();
@@ -80,8 +90,8 @@ export class ChatPage {
         this.interlocutor.lastName = interlocutor.user.last_name;
         this.interlocutor.nickname = interlocutor.user.nick_name;
         this.interlocutor.email = interlocutor.user.email;
-
         this.loadService.hideLoader();
+        this.startListening(this.interlocutor.id);
       },
       error => {
         this.loadService.hideLoader();

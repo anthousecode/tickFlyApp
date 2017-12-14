@@ -45,7 +45,6 @@ export class ChatListPage {
         // console.log("Conversations", JSON.parse(response.text()).conversation);
         this.chats = response.json()
           .conversation.map(conversation => {
-            console.log(conversation);
             let chat = new Chat();
             chat.id = conversation.chat_id;
             chat.updatedAt = conversation.updated_at;
@@ -60,7 +59,6 @@ export class ChatListPage {
               return member.user.id_user != this.authService.getUserId();
             })[0].user.nick_name;
 
-            console.log("Chat title:", chat.title);
             return chat;
           });
         this.loadService.hideLoader();
@@ -85,7 +83,7 @@ export class ChatListPage {
     );
   }
 
-  onChatPage(chatId, members) {
+  onChatPage(chatId) {
     this.navCtrl.push(ChatPage, {chatId: chatId});
   }
 
@@ -98,8 +96,6 @@ export class ChatListPage {
   }
 
   ionViewDidEnter() {
-    console.log("Chatlist entered");
-
     this.getChats();
   }
 
