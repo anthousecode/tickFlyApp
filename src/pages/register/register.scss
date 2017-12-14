@@ -39,4 +39,11 @@ page-register {
   }
 }
 }
+@media only screen and ( min-width: 650px ) {
+  .tick-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
 }

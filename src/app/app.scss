@@ -261,7 +261,7 @@ input[type=number]::-webkit-outer-spin-button {
 .tick-diamond {
   background-image: url(../assets/images/Romb.svg);
   background-repeat: no-repeat;
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
@@ -272,12 +272,18 @@ input[type=number]::-webkit-outer-spin-button {
 }
 @media only screen and ( min-width: 650px ) {
   .tick-wrapper {
+    margin-top: 4rem;
     margin: 0 auto;
-    max-width: 600px;
+    max-width: 655px;
     position: relative!important;
     width: 100%;
+    height: 100%;
+
     ion-item {
       padding: 0;
+    }
+    .tick-diamond {
+      background-size: contain;
     }
 
   }
