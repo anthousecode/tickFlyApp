@@ -25,10 +25,13 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <button  no-lines ion-item *ngFor="let category of categoryList" (click)="itemTapped($event, category.id_category)">
-      <ion-item no-lines class="top-userprofile no-padding">
-        <h2>{{category.title}}</h2>
-      </ion-item>
-    </button>
-  </ion-list>
+  <div class="tick-wrapper">
+    <ion-list>
+      <button ion-item *ngFor="let category of categoryList" (click)="itemTapped($event, category.id_category)">
+        <ion-item no-lines class="top-userprofile no-padding">
+          <h2>{{category.title}}</h2>
+        </ion-item>
+      </button>
+    </ion-list>
+  </div>
+</ion-content>

@@ -27,88 +27,89 @@
 </ion-header>
 
 <ion-content>
- <div padding>
-  <ion-item margin-bottom>
-    <ion-avatar item-start (click)="onAuthorPage(post?.user.id_user)">
-      <img src="{{post?.user?.avatar}}">
-    </ion-avatar>
-    <h2 float-left (click)="onAuthorPage(post?.user.id_user)">
-      {{post?.user?.nick_name}}
-    </h2>
-    <ion-buttons end>
-      <button class="more-icon" (click)="showPostAlert(postId, post?.user.id_user)" icon-end>
-        <ion-icon name="more"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-item>
+  <div class="tick-wrapper">
+   <div padding>
+    <ion-item margin-bottom>
+      <ion-avatar item-start (click)="onAuthorPage(post?.user.id_user)">
+        <img src="{{post?.user?.avatar}}">
+      </ion-avatar>
+      <h2 float-left (click)="onAuthorPage(post?.user.id_user)">
+        {{post?.user?.nick_name}}
+      </h2>
+      <ion-buttons end>
+        <button class="more-icon" (click)="showPostAlert(postId, post?.user.id_user)" icon-end>
+          <ion-icon name="more"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-item>
 
-  <h2 padding class="post-title">{{post?.title}}</h2>
+    <h2 padding class="post-title">{{post?.title}}</h2>
 
-  <ion-slides pager *ngIf="post?.media">
-    <ion-slide *ngFor="let picture of post?.media">
-      <img src="{{picture['url_orign']}}">
-    </ion-slide>
-  </ion-slides>
+    <ion-slides pager *ngIf="post?.media">
+      <ion-slide *ngFor="let picture of post?.media">
+        <img src="{{picture['url_orign']}}">
+      </ion-slide>
+    </ion-slides>
 
-  <ion-card-content>
-    <p margin-bottom>{{post?.description}}</p>
-    <p class="ion-post-date">{{post?.format_date}}</p>
-  </ion-card-content>
+    <ion-card-content>
+      <p margin-bottom>{{post?.description}}</p>
+      <p class="ion-post-date">{{post?.format_date}}</p>
+    </ion-card-content>
 
-  <ul class="tags">
+    <ul class="tags">
 
-    <li *ngFor="let tag of post?.tags" (click)="onSearchPage(tag.title)">
-      <ion-badge class="tag" >{{concatTag(tag.title)}}</ion-badge>
-    </li>
-
-  </ul>
-
-  <ion-row class="post-footer">
-    <ion-col col-5>
-      <ion-buttons class="buttons-wrap">
-        <button ion-button icon-left small clear
-        [disabled]="currentUserId == post?.user.id_user"
-        (click)="showTickAlert(postId, post?.user.id_user)">
-        <div class="tik-like {{isTick == true ? 'ticked' : ''}}">
-        </div>
-        <div class="tickfly-currency">{{post?.tickCount ? post?.tickCount : post?.summ_ticks}}</div>
-      </button>
-      <button ion-button small clear (click)="presentProfileModal()">
-        <ion-icon name="mail"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-col>
-  <ion-col col-7>
-    <ul class="category" >
-      <li *ngFor="let category of post?.categories" (click)="onCategoryPage(category.id_category)">
-        {{category.title}}
+      <li *ngFor="let tag of post?.tags" (click)="onSearchPage(tag.title)">
+        <ion-badge class="tag" >{{concatTag(tag.title)}}</ion-badge>
       </li>
+
     </ul>
-  </ion-col>
-</ion-row>
-<ion-row>
 
-</ion-row>
+    <ion-row class="post-footer">
+      <ion-col col-5>
+        <ion-buttons class="buttons-wrap">
+          <button ion-button icon-left small clear
+          [disabled]="currentUserId == post?.user.id_user"
+          (click)="showTickAlert(postId, post?.user.id_user)">
+          <div class="tik-like {{isTick == true ? 'ticked' : ''}}">
+          </div>
+          <div class="tickfly-currency">{{post?.tickCount ? post?.tickCount : post?.summ_ticks}}</div>
+        </button>
+        <button ion-button small clear (click)="presentProfileModal()">
+          <ion-icon name="mail"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-col>
+    <ion-col col-7>
+      <ul class="category" >
+        <li *ngFor="let category of post?.categories" (click)="onCategoryPage(category.id_category)">
+          {{category.title}}
+        </li>
+      </ul>
+    </ion-col>
+  </ion-row>
+  <ion-row>
 
-<hr>
+  </ion-row>
 
-<div class="comments">
-  <ion-item  class="comments-item" *ngFor="let comment of comments" margin-bottom>
+  <hr>
 
-    <ion-avatar item-start>
-      <img src="{{comment.user.avatar}}">
-    </ion-avatar>
-    <div class="comments-item-desription">
-      <h2 float-left>{{comment.user.nick_name}}</h2>
-      <p class="comments-item-some">
-        {{comment.comment}}
-      </p>
-      <p class="date">
-        {{comment.format_date}}
-      </p>
-    </div>
-  </ion-item>
-</div>
+  <div class="comments">
+    <ion-item  class="comments-item" *ngFor="let comment of comments" margin-bottom>
+
+      <ion-avatar item-start>
+        <img src="{{comment.user.avatar}}">
+      </ion-avatar>
+      <div class="comments-item-desription">
+        <h2 float-left>{{comment.user.nick_name}}</h2>
+        <p class="comments-item-some">
+          {{comment.comment}}
+        </p>
+        <p class="date">
+          {{comment.format_date}}
+        </p>
+      </div>
+    </ion-item>
+  </div>
 </div>
 <ion-toolbar>
   <form (ngSubmit)="onSetComment(f)" #f="ngForm">
@@ -120,4 +121,5 @@
     </div>
   </form>
 </ion-toolbar>
+</div>
 </ion-content>

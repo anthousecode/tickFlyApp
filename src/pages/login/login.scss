@@ -44,7 +44,7 @@ page-login {
     }
   }
 }
-}
+
 .tick-buttons-wrap {
   margin-top: 25px!important;
   width: 80%;
@@ -67,4 +67,13 @@ page-login {
       font-size: 14px;
     }
   }
+}
+@media only screen and ( min-width: 768px ) {
+  .tick-wrapper {
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
 }

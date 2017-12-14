@@ -25,11 +25,11 @@
 </ion-header>
 
 <ion-content>
+  <div class="tick-wrapper">
+    <post-preview [posts]="posts"></post-preview>
 
-  <post-preview [posts]="posts"></post-preview>
-
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
 </ion-content>

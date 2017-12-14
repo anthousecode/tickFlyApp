@@ -19,8 +19,8 @@
 
 
 <ion-content>
-
-  <ion-searchbar
+  <div class="tick-wrapper">
+    <ion-searchbar
     [(ngModel)]="inputSearch"
     [showCancelButton]="shouldShowCancel"
     (ionInput)="onInput($event)"
@@ -32,5 +32,5 @@
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-
+</div>
 </ion-content>
