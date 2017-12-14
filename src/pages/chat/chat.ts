@@ -8,6 +8,7 @@ import {LoaderService} from "../../services/loader.service";
 import {Socket} from 'ng-socket-io';
 import {Observable} from "rxjs/Observable";
 import {User} from "../../models/user";
+import {Message} from "../../models/message";
 
 /**
  * Generated class for the ChatPage page.
@@ -56,20 +57,25 @@ export class ChatPage {
     this.socket.disconnect();
   }
 
-  getMessages(userId) {
+  getMessages() {
     let observable = new Observable(observer => {
-      this.socket.on('message_' + userId, (data) => {
+      this.socket.on('message', (data) => {
         observer.next(data);
       });
     });
     return observable;
   }
 
-  startListening(userId) {
-    this.getMessages(userId).subscribe(message => {
-      console.log("Message", message);
+  startListening() {
+    this.getMessages().subscribe(data => {
+      console.log(data);
+      if (data['senderId'] == this.interlocutor.id && data['chatId'] == this.chatId) {
+        let msg = new Message();
+        msg.message = data['text'];
+        msg.message_type = "text";
+        this.chat.messages.push(msg);
+      }
     });
-    console.log("Subscribed to :" + userId);
   }
 
   getChat() {
@@ -91,7 +97,7 @@ export class ChatPage {
         this.interlocutor.nickname = interlocutor.user.nick_name;
         this.interlocutor.email = interlocutor.user.email;
         this.loadService.hideLoader();
-        this.startListening(this.interlocutor.id);
+        this.startListening();
       },
       error => {
         this.loadService.hideLoader();
@@ -99,12 +105,21 @@ export class ChatPage {
     )
   }
 
+  emitToRedis(message: string) {
+    this.socket.emit('add-message', {
+      text: message,
+      chatId: this.chatId,
+      senderId: this.userId
+    });
+  }
+
   sendMessage(form: NgForm) {
     console.log(form.value.message);
+
     this.chatService.sendMessage(this.chatId, form.value.message)
       .subscribe(
         response => {
-          console.log(response.json());
+          this.emitToRedis(form.value.message);
           this.chat.messages.push({
               userId: Number(this.userId),
               message: form.value.message

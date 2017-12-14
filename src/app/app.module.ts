@@ -47,10 +47,8 @@ import {ChatPage} from "../pages/chat/chat";
 import {ChatNewRecipientPage} from "../pages/chat-new-recipient/chat-new-recipient";
 import {ChatNewRecipientPageModule} from "../pages/chat-new-recipient/chat-new-recipient.module";
 import {SocketIoModule, SocketIoConfig} from "ng-socket-io";
-const config: SocketIoConfig = {
-  url: "redis://tickfly_pass@ec2-54-186-176-148.us-west-2.compute.amazonaws.com:6379/",
-  options: {password: "tickfly_pass"}
-};
+
+const config: SocketIoConfig = {url: "http://ec2-54-186-176-148.us-west-2.compute.amazonaws.com:3001/", options: {}};
 
 @NgModule({
   declarations: [
