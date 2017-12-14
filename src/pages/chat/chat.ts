@@ -1,73 +1,56 @@
-import {Component} from "@angular/core";
+import {Component, Provider} from "@angular/core";
 import {IonicPage, NavController, NavParams} from "ionic-angular";
 import {Chat} from "../../models/chat";
 import {ChatService} from "../../services/chat.service";
 import {NgForm} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {LoaderService} from "../../services/loader.service";
-import {Socket} from 'ng-socket-io';
-import {Observable} from "rxjs/Observable";
 import {User} from "../../models/user";
 import {Message} from "../../models/message";
-
-/**
- * Generated class for the ChatPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {SocketService} from "../../services/socket.service";
 
 @IonicPage()
 @Component({
   selector: 'page-chat',
   templateUrl: 'chat.html',
-  providers: [ChatService, LoaderService]
+  providers: [ChatService, LoaderService],
 })
 export class ChatPage {
   chat: Chat;
   chatId: number;
   userId: number;
   interlocutor: User;
+  messageListener;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public chatService: ChatService,
               public authService: AuthService,
               public loadService: LoaderService,
-              public socket: Socket) {
+              public socketService: SocketService) {
     this.chat = new Chat();
     this.chat.messages = [];
     this.interlocutor = new User();
-
   }
 
   ionViewDidLoad() {
     this.userId = Number(this.authService.getUserId());
     this.chatId = this.navParams.get("chatId");
-
-    this.socket.connect();
-    this.socket.on("init", (res) => {
-      console.log("INIT EBAT", res);
-    });
     this.getChat();
+  }
 
+  destroyListeners() {
+    this.messageListener.unsubscribe();
   }
 
   ionViewDidLeave() {
-    this.socket.disconnect();
-  }
-
-  getMessages() {
-    let observable = new Observable(observer => {
-      this.socket.on('message', (data) => {
-        observer.next(data);
-      });
-    });
-    return observable;
+    console.log("Listeners destroyed");
+    this.destroyListeners();
+    // this.socketService.disconnect();
   }
 
   startListening() {
-    this.getMessages().subscribe(data => {
+    this.messageListener = this.socketService.getMessages().subscribe(data => {
       console.log(data);
       if (data['senderId'] == this.interlocutor.id && data['chatId'] == this.chatId) {
         let msg = new Message();
@@ -77,6 +60,7 @@ export class ChatPage {
       }
     });
   }
+
 
   getChat() {
     this.loadService.showLoader();
@@ -105,13 +89,6 @@ export class ChatPage {
     )
   }
 
-  emitToRedis(message: string) {
-    this.socket.emit('add-message', {
-      text: message,
-      chatId: this.chatId,
-      senderId: this.userId
-    });
-  }
 
   sendMessage(form: NgForm) {
     console.log(form.value.message);
@@ -119,7 +96,7 @@ export class ChatPage {
     this.chatService.sendMessage(this.chatId, form.value.message)
       .subscribe(
         response => {
-          this.emitToRedis(form.value.message);
+          this.socketService.emitChatMessage(form.value.message, this.chatId, this.userId);
           this.chat.messages.push({
               userId: Number(this.userId),
               message: form.value.message

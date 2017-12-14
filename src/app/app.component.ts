@@ -1,5 +1,5 @@
 import {Component, Injectable, OnInit, ViewChild} from '@angular/core';
-import {AlertController, Nav, Platform, ToastController} from 'ionic-angular';
+import {Nav, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 
@@ -9,6 +9,8 @@ import {HttpService} from "../services/http.service";
 import {AuthService} from "../services/auth.service";
 import {UserProfilePage} from "../pages/user-profile/user-profile";
 import {CategoryListPage} from "../pages/category-list/category-list";
+import {SocketService} from "../services/socket.service";
+
 
 @Component({
   templateUrl: 'app.html',
@@ -28,12 +30,11 @@ export class MyApp implements OnInit {
   userId = this.getUserId();
 
 
-  constructor(
-    public platform: Platform,
-    public statusBar: StatusBar,
-    public splashScreen: SplashScreen,
-    private authService: AuthService
-  ) {
+  constructor(public platform: Platform,
+              public statusBar: StatusBar,
+              public splashScreen: SplashScreen,
+              private authService: AuthService,
+              private socketService: SocketService) {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Главная', component: HomePage},
@@ -48,7 +49,21 @@ export class MyApp implements OnInit {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.socketService.connect();
+      this.startListening();
     })
+  }
+
+  startListening() {
+    this.socketService.getMessages().subscribe(data => {
+      console.log(data);
+      // if (data['senderId'] == this.interlocutor.id && data['chatId'] == this.chatId) {
+      //   let msg = new Message();
+      //   msg.message = data['text'];
+      //   msg.message_type = "text";
+      //   this.chat.messages.push(msg);
+      // }
+    });
   }
 
   ngDoCheck() {
