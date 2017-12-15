@@ -10,6 +10,7 @@ import {AuthService} from "../services/auth.service";
 import {UserProfilePage} from "../pages/user-profile/user-profile";
 import {CategoryListPage} from "../pages/category-list/category-list";
 import {ShopPage} from "../pages/shop/shop";
+import {SocketService} from "../services/socket.service";
 
 
 @Component({

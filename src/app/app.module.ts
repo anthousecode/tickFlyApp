@@ -53,7 +53,6 @@ import {SocketIoConfig, SocketIoModule} from "ng-socket-io";
 import {SocketService} from "../services/socket.service";
 
 const config: SocketIoConfig = {url: "http://ec2-54-186-176-148.us-west-2.compute.amazonaws.com:3001/", options: {}};
-z
 @NgModule({
   declarations: [
     MyApp,
@@ -122,7 +121,7 @@ z
     Camera,
     FilePath,
     ChatsProvider,
-    SocketService
+    SocketService,
     Stripe
   ]
 })
