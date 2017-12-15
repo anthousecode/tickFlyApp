@@ -46,6 +46,9 @@ import {ChatPageModule} from "../pages/chat/chat.module";
 import {ChatPage} from "../pages/chat/chat";
 import {ChatNewRecipientPage} from "../pages/chat-new-recipient/chat-new-recipient";
 import {ChatNewRecipientPageModule} from "../pages/chat-new-recipient/chat-new-recipient.module";
+import {ShopPageModule} from "../pages/shop/shop.module";
+import {ShopPage} from "../pages/shop/shop";
+import {Stripe} from "@ionic-native/stripe";
 
 @NgModule({
   declarations: [
@@ -79,7 +82,8 @@ import {ChatNewRecipientPageModule} from "../pages/chat-new-recipient/chat-new-r
     SharingFollowersListPageModule,
     ChatListPageModule,
     ChatPageModule,
-    ChatNewRecipientPageModule
+    ChatNewRecipientPageModule,
+    ShopPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -99,6 +103,7 @@ import {ChatNewRecipientPageModule} from "../pages/chat-new-recipient/chat-new-r
     ChatListPage,
     ChatPage,
     ChatNewRecipientPage,
+    ShopPage
   ],
   providers: [
     StatusBar,
@@ -110,7 +115,8 @@ import {ChatNewRecipientPageModule} from "../pages/chat-new-recipient/chat-new-r
     Transfer,
     Camera,
     FilePath,
-    ChatsProvider
+    ChatsProvider,
+    Stripe
   ]
 })
 export class AppModule {

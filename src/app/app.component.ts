@@ -9,6 +9,7 @@ import {HttpService} from "../services/http.service";
 import {AuthService} from "../services/auth.service";
 import {UserProfilePage} from "../pages/user-profile/user-profile";
 import {CategoryListPage} from "../pages/category-list/category-list";
+import {ShopPage} from "../pages/shop/shop";
 
 @Component({
   templateUrl: 'app.html',
@@ -37,7 +38,8 @@ export class MyApp implements OnInit {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Главная', component: HomePage},
-      {title: 'Категории', component: CategoryListPage}
+      {title: 'Категории', component: CategoryListPage},
+      {title: 'Магазин тиков', component: ShopPage}
     ];
 
   }
