@@ -11,6 +11,7 @@ import {UserProfilePage} from "../pages/user-profile/user-profile";
 import {CategoryListPage} from "../pages/category-list/category-list";
 import {ShopPage} from "../pages/shop/shop";
 import {SocketService} from "../services/socket.service";
+import {ChatListPage} from "../pages/chat-list/chat-list";
 
 
 @Component({
@@ -30,6 +31,9 @@ export class MyApp implements OnInit {
 
   userId = this.getUserId();
 
+  newMessages: number = 0;
+
+  messagesLabel: string;
 
   constructor(public platform: Platform,
               public statusBar: StatusBar,
@@ -42,7 +46,6 @@ export class MyApp implements OnInit {
       {title: 'Категории', component: CategoryListPage},
       {title: 'Магазин тиков', component: ShopPage}
     ];
-
   }
 
   ngOnInit() {
@@ -59,6 +62,10 @@ export class MyApp implements OnInit {
   startListening() {
     this.socketService.getMessages().subscribe(data => {
       console.log(data);
+      if (data['data']['targetUserId'] == this.authService.getUserId()) {
+        this.newMessages += 1;
+        localStorage.setItem("unreadMessages", String(this.newMessages));
+      }
       // if (data['senderId'] == this.interlocutor.id && data['chatId'] == this.chatId) {
       //   let msg = new Message();
       //   msg.message = data['text'];
@@ -83,6 +90,10 @@ export class MyApp implements OnInit {
 
   onLoginPage() {
     this.nav.push(LoginPage);
+  }
+
+  onChatPage() {
+    this.nav.push(ChatListPage);
   }
 
   onUserProfile() {

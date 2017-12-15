@@ -194,9 +194,7 @@ export class EditUserPage {
       chunkedMode: false,
       httpMethod: "post",
       mimeType: "image/*",
-      params: {'fileName': this.lastImage},
       headers: {
-        'Content-Type': 'multipart/form-data',
         "Authorization": 'Bearer ' + this.authService.getToken()
       }
     };

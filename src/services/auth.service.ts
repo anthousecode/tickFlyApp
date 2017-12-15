@@ -82,7 +82,7 @@ export class AuthService {
   }
 
   getCurrentUserId() {
-    return this.http.get(this.API + `/api/user-info`,
+    return this.http.get(this.API + `/api/v1/user/user-info`,
       {headers: new Headers({'Authorization': 'Bearer ' + this.getToken()})})
       .subscribe(
         response => {

@@ -1,14 +1,9 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component} from '@angular/core';
 import {AlertController, MenuController, NavController} from 'ionic-angular';
-import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
 import {AuthService} from "../../services/auth.service";
-import {UserProfilePage} from "../user-profile/user-profile";
-import {CategoryPage} from "../category/category";
-import {CreatePostPage} from "../create-post/create-post";
 import {PostService} from "../../services/post.service";
-import {SearchPage} from "../search/search";
-import {ChatListPage} from "../chat-list/chat-list";
+import {SocketService} from "../../services/socket.service";
 
 @Component({
   selector: 'page-home',
@@ -16,27 +11,27 @@ import {ChatListPage} from "../chat-list/chat-list";
   providers: [HttpService, AuthService, PostService]
 })
 export class HomePage {
+  unreadMessages: number;
 
-  constructor(
-    public navCtrl: NavController,
-    private httpService: HttpService,
-    private alertCtrl: AlertController,
-    private postService: PostService,
-    public menu: MenuController
-  ) {
-
+  constructor(public navCtrl: NavController,
+              private httpService: HttpService,
+              private alertCtrl: AlertController,
+              private postService: PostService,
+              public menu: MenuController,
+              public socketService: SocketService,
+              public authService: AuthService) {
   }
 
   posts = [];
   pageId: number = 0;
 
-  ngOnInit(){
+  ngOnInit() {
     this.menu.swipeEnable(true);
     this.httpService.getPosts().subscribe(
       response => {
         console.log(response.json());
         let postsList = response.json().posts;
-        for(let index in postsList){
+        for (let index in postsList) {
           let post = postsList[index];
           this.posts.push({
             postId: post.id_post,
@@ -59,6 +54,15 @@ export class HomePage {
     )
   }
 
+  startListening() {
+    this.socketService.getMessages().subscribe(data => {
+      if (data['data']['targetUserId'] == this.authService.getUserId()) {
+        this.unreadMessages += 1;
+        localStorage.setItem("unreadMessages", String(this.unreadMessages));
+      }
+    })
+  }
+
   doInfinite(infiniteScroll) {
     console.log('Begin async operation');
 
@@ -67,7 +71,7 @@ export class HomePage {
         response => {
           console.log(response.json());
           let postsList = response.json().posts;
-          for(let index in postsList){
+          for (let index in postsList) {
             let post = postsList[index];
             this.posts.push({
               postId: post.id_post,
@@ -94,16 +98,16 @@ export class HomePage {
     console.log(this.pageId);
   }
 
-  onCreatePostPage() {
-    this.navCtrl.push(CreatePostPage);
-  }
-
-  onChatsListPage() {
-    this.navCtrl.push(ChatListPage);
-  }
-
-  onSearchPage() {
-    this.navCtrl.push(SearchPage);
-  }
+  // onCreatePostPage() {
+  //   this.navCtrl.push(CreatePostPage);
+  // }
+  //
+  // onChatsListPage() {
+  //   this.navCtrl.push(ChatListPage);
+  // }
+  //
+  // onSearchPage() {
+  //   this.navCtrl.push(SearchPage);
+  // }
 
 }
