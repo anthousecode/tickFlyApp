@@ -1,0 +1,57 @@
+<!--
+  Generated template for the ShopPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Магазин тиков</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-end (click)="onSearchPage()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button ion-button icon-end (click)="onCreatePostPage()">
+        <ion-icon name="md-create"></ion-icon>
+      </button>
+      <button ion-button icon-end (click)="onChatsListPage()">
+        <ion-icon name="mail"></ion-icon>
+      </button>
+      <button class="slide-menu" ion-button menuToggle icon-end>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div>
+    <ion-segment [(ngModel)]="payment">
+      <ion-segment-button value="input">
+        Ввод
+      </ion-segment-button>
+      <ion-segment-button value="withdraw">
+        Вывод
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="payment">
+    <ion-list *ngSwitchCase="'input'">
+      <ion-item>
+        <h2>Ввод</h2>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'withdraw'">
+      <ion-item>
+        <h2>Вывод</h2>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>

@@ -46,11 +46,14 @@ import {ChatPageModule} from "../pages/chat/chat.module";
 import {ChatPage} from "../pages/chat/chat";
 import {ChatNewRecipientPage} from "../pages/chat-new-recipient/chat-new-recipient";
 import {ChatNewRecipientPageModule} from "../pages/chat-new-recipient/chat-new-recipient.module";
+import {ShopPageModule} from "../pages/shop/shop.module";
+import {ShopPage} from "../pages/shop/shop";
+import {Stripe} from "@ionic-native/stripe";
 import {SocketIoConfig, SocketIoModule} from "ng-socket-io";
 import {SocketService} from "../services/socket.service";
 
 const config: SocketIoConfig = {url: "http://ec2-54-186-176-148.us-west-2.compute.amazonaws.com:3001/", options: {}};
-
+z
 @NgModule({
   declarations: [
     MyApp,
@@ -85,7 +88,8 @@ const config: SocketIoConfig = {url: "http://ec2-54-186-176-148.us-west-2.comput
     SharingFollowersListPageModule,
     ChatListPageModule,
     ChatPageModule,
-    ChatNewRecipientPageModule
+    ChatNewRecipientPageModule,
+    ShopPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -105,6 +109,7 @@ const config: SocketIoConfig = {url: "http://ec2-54-186-176-148.us-west-2.comput
     ChatListPage,
     ChatPage,
     ChatNewRecipientPage,
+    ShopPage
   ],
   providers: [
     StatusBar,
@@ -118,6 +123,7 @@ const config: SocketIoConfig = {url: "http://ec2-54-186-176-148.us-west-2.comput
     FilePath,
     ChatsProvider,
     SocketService
+    Stripe
   ]
 })
 export class AppModule {
