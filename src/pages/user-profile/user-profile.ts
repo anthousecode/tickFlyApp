@@ -63,7 +63,7 @@ export class UserProfilePage {
           for(let index in postsList){
             let post = postsList[index];
             this.posts.push({
-              postId: post.id_post,
+              postIll: post.id_post,
               title: post.title,
               categories: post.categories,
               description: post.description,

@@ -13,6 +13,7 @@
     "abd": "ionic cordova build android --debug --buildConfig=build.json --verbose",
     "abp": "ionic cordova build android --prod --buildConfig=build.json --verbose",
     "arr": "ionic cordova run android --release -lc --buildConfig=build.json --verbose",
+    "ard": "ionic cordova run android --debug -lc --buildConfig=build.json --verbose",
     "abr": "ionic cordova build android --release --buildConfig=build.json --verbose",
     "abpr": "ionic cordova build android --prod --release --buildConfig=build.json --verbose",
     "abrp": "ionic cordova build android --prod --release --buildConfig=build.json --verbose"

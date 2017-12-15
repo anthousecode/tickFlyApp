@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {
   ActionSheetController, IonicPage, Loading, LoadingController, NavController, NavParams, Platform,
   ToastController
 } from 'ionic-angular';
-import { UserService } from "../../services/user.service";
+import {UserService} from "../../services/user.service";
 import {NgForm} from "@angular/forms";
 import {FilePath} from "@ionic-native/file-path";
 import {Transfer, TransferObject} from "@ionic-native/transfer";
-import { Camera } from '@ionic-native/camera';
-import { File } from "@ionic-native/file";
+import {Camera} from '@ionic-native/camera';
+import {File} from "@ionic-native/file";
 import {AuthService} from "../../services/auth.service";
 import {ToastService} from "../../services/toast.service";
 
@@ -32,23 +32,22 @@ export class EditUserPage {
   user;
   lastImage: string = null;
   loading: Loading;
+  debugText: string;
+  options: string;
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private userService: UserService,
-    private camera: Camera,
-    private transfer: Transfer,
-    private file: File,
-    private filePath: FilePath,
-    public actionSheetCtrl: ActionSheetController,
-    public toastCtrl: ToastController,
-    public platform: Platform,
-    public loadingCtrl: LoadingController,
-    public authService: AuthService,
-    public toastService: ToastService
-  ) {
-
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private userService: UserService,
+              private camera: Camera,
+              private transfer: Transfer,
+              private file: File,
+              private filePath: FilePath,
+              public actionSheetCtrl: ActionSheetController,
+              public toastCtrl: ToastController,
+              public platform: Platform,
+              public loadingCtrl: LoadingController,
+              public authService: AuthService,
+              public toastService: ToastService) {
   }
 
   ionViewDidLoad() {
@@ -147,7 +146,7 @@ export class EditUserPage {
   private createFileName() {
     var d = new Date(),
       n = d.getTime(),
-      newFileName =  n + ".jpg";
+      newFileName = n + ".jpg";
     return newFileName;
   }
 
@@ -183,20 +182,23 @@ export class EditUserPage {
     var url = this.authService.API + '/api/v1/user/update-avatar';
 
     // File for Upload
-    // var targetPath = this.pathForImage(this.lastImage);
-    var targetPath = '/home/driver/tickFlyApp/src/assets/images/boat.jpg';
+    var targetPath = this.pathForImage(this.lastImage);
+    // var targetPath = '/home/driver/tickFlyApp/src/assets/images/boat.jpg';
 
     console.log(targetPath);
 
-    // File name only
-    var filename = this.lastImage;
-
     var options = {
-      fileKey: "file",
-      fileName: filename,
+      fileKey: "avatar",
+      // avatar: this.lastImage,
+      fileName: this.lastImage,
       chunkedMode: false,
-      mimeType: "multipart/form-data",
-      params : {'fileName': filename}
+      httpMethod: "post",
+      mimeType: "image/*",
+      params: {'fileName': this.lastImage},
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        "Authorization": 'Bearer ' + this.authService.getToken()
+      }
     };
 
     const fileTransfer: TransferObject = this.transfer.create();
@@ -208,15 +210,15 @@ export class EditUserPage {
 
     // Use the FileTransfer to upload the image
     fileTransfer.upload(targetPath, url, options).then(data => {
-      this.loading.dismissAll()
+      this.loading.dismissAll();
       this.presentToast('Image succesful uploaded.');
     }, err => {
-      this.loading.dismissAll()
-      this.presentToast('Error while uploading file.');
+      this.loading.dismissAll();
+      this.options = JSON.stringify(options);
+      this.debugText = JSON.stringify(err);
+      this.presentToast('Error while uploading file.' + JSON.stringify(err));
     });
   }
-
-
 
 
 }

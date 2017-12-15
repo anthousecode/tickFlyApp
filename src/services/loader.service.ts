@@ -6,6 +6,7 @@ export class LoaderService {
   loading: Loading;
 
   constructor(private loadingCtrl: LoadingController) {
+    this.loading = this.loadingCtrl.create();
   }
 
   showLoader(content: string = null) {

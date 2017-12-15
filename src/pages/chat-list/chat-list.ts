@@ -25,6 +25,7 @@ import {LoaderService} from "../../services/loader.service";
 
 export class ChatListPage {
   chats: Chat[];
+  isLoaded: boolean;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -38,8 +39,17 @@ export class ChatListPage {
     this.chats = [];
   }
 
+  loadChatsFromStorage() {
+    if (localStorage.getItem("chats") != "undefined") {
+      this.chats = JSON.parse(localStorage.getItem("chats"));
+      this.isLoaded = true;
+    }
+  }
+
   getChats() {
-    this.loadService.showLoader();
+    // this.loadService.showLoader();
+    this.loadChatsFromStorage();
+
     this.chatService.getChats().subscribe(
       response => {
         // console.log("Conversations", JSON.parse(response.text()).conversation);
@@ -61,11 +71,13 @@ export class ChatListPage {
 
             return chat;
           });
-        this.loadService.hideLoader();
-        console.log(this.chats);
+        this.isLoaded = true;
+        localStorage.setItem("chats", JSON.stringify(this.chats));
+        console.log("set chats from response");
+        // this.loadService.hideLoader();
       },
       error => {
-        console.log("Chats error:", error)
+        console.log("Chats error:", error);
         this.loadService.hideLoader();
       }
     );
