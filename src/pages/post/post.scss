@@ -29,7 +29,9 @@ page-post {
   }
   ion-toolbar {
     position: fixed;
-    bottom: 0px;
+    bottom: 0;
+    right: 0;
+    left: 0;
   }
   .toolbar-background {
     background-color: #c24849;
@@ -93,3 +95,6 @@ page-post {
 // }
 
 }
+// .tick-form-send {
+//   width: calc(100% - 20px);
+// }

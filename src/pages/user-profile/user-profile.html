@@ -40,20 +40,20 @@
           </button>
         </ion-buttons>
       </div>
-    <button ion-button *ngIf="isPublic && isSubscribe" color="light"
-            (click)="onToggleSubscribe(userId); ">
+      <button ion-button *ngIf="isPublic && isSubscribe" color="light"
+      (click)="onToggleSubscribe(userId); ">
       Отписаться
     </button>
     <button ion-button *ngIf="isPublic && !isSubscribe"
-            (click)="onToggleSubscribe(userId) ;" color="danger">
+    (click)="onToggleSubscribe(userId) ;" color="danger">
     Подписаться
   </button>
 </ion-item>
-<div class="top-userprofile-status">
+<ion-item text-wrap class="top-userprofile-status">
   <p>
-    {{user?.status}}
+  {{user?.status}}
   </p>
-</div>
+</ion-item>
 <ion-item class="no-padding">
   <ion-grid>
     <ion-row class="user-indicators" *ngIf="!public; else publicProfile" text-center>

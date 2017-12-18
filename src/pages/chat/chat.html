@@ -17,28 +17,30 @@
 
 
 <ion-content padding>
-  <div padding>
-    <div *ngIf="!chat.messages.length">История сообщения пуста, пока</div>
-    <div *ngIf="chat.messages.length">
-      <div *ngFor="let message of chat.messages">
-      <span
-        class="message-block"
-        [ngClass]="(message.userId==userId)?'message-right':'message-left'">
-        {{message.message}}
-      </span>
+  <div class="tick-wrapper">
+    <div padding>
+      <div *ngIf="!chat.messages.length">История сообщения пуста, пока</div>
+      <div *ngIf="chat.messages.length">
+        <div *ngFor="let message of chat.messages">
+          <span
+          class="message-block"
+          [ngClass]="(message.userId==userId)?'message-right':'message-left'">
+          {{message.message}}
+        </span>
       </div>
     </div>
   </div>
   <br>
   <ion-toolbar>
-    <form (ngSubmit)="sendMessage(f)" #f="ngForm">
+    <form class="tick-form-send" (ngSubmit)="sendMessage(f)" #f="ngForm">
       <div class="comment-form">
         <ion-input class="comment-form-input" type="text" placeholder="Напишите свое сообщение..." name="message"
-                   [ngModel]="message"></ion-input>
+        [ngModel]="message"></ion-input>
         <button type="submit" class="comment-form-button">
           <ion-icon name="md-send" large></ion-icon>
         </button>
       </div>
     </form>
   </ion-toolbar>
+</div>
 </ion-content>

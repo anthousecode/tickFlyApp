@@ -94,7 +94,7 @@
   <hr>
 
   <div class="comments">
-    <ion-item  class="comments-item" *ngFor="let comment of comments" margin-bottom>
+    <ion-item text-wrap class="comments-item" *ngFor="let comment of comments" margin-bottom>
 
       <ion-avatar item-start>
         <img src="{{comment.user.avatar}}">
@@ -112,7 +112,7 @@
   </div>
 </div>
 <ion-toolbar>
-  <form (ngSubmit)="onSetComment(f)" #f="ngForm">
+  <form class="tick-form-send" (ngSubmit)="onSetComment(f)" #f="ngForm">
     <div class="comment-form">
       <ion-input class="comment-form-input" type="text" placeholder="Коммент" name="comment" [ngModel]="comment"></ion-input>
       <button type="submit" class="comment-form-button">
