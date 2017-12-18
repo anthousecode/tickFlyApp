@@ -10,10 +10,6 @@ export class HttpService{
 
   constructor(private http: Http, private authService: AuthService){ }
 
-  getData(){
-    return this.http.get('user.json')
-  }
-
   getPosts() {
     return this.http.get(this.authService.API + `/api/v1/post/`,
       {headers: new Headers({"Authorization": 'Bearer ' + this.authService.getToken()})})
