@@ -26,7 +26,9 @@ page-chat {
   }
   ion-toolbar {
     position: fixed;
-    bottom: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
   .toolbar-background {
     background-color: #c24849;
@@ -45,6 +47,7 @@ page-chat {
       background-color: #c24849;
       color: #fff;
       font-size: 20px;
+      padding: 10px;
     }
 
   }
@@ -75,5 +78,8 @@ page-chat {
   ion-avatar img {
     width: 60px;
     height: 60px;
+  }
+  .tick-wrapper {
+    margin-bottom: 4rem;
   }
 }
