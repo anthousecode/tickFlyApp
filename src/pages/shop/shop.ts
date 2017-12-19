@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Stripe} from "@ionic-native/stripe";
 import {NgForm} from "@angular/forms";
 import {PaymentService} from "../../services/payment.service";
+import {PaymentSystemPage} from "../payment-system/payment-system";
 
 /**
  * Generated class for the ShopPage page.
@@ -22,9 +23,7 @@ export class ShopPage {
   payment: string;
   selectedItem: any;
   packageList = [];
-  paymentSystems: { title: string }[] = [
-    {'title': 'Stripe'}
-  ];
+  paymentSystems = [];
   selectedPackage;
   selectedPaymentSystem: string;
   code: string;
@@ -32,7 +31,6 @@ export class ShopPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private stripe: Stripe,
     public paymentService: PaymentService
   ) {
     this.payment = 'input';
@@ -40,22 +38,11 @@ export class ShopPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShopPage');
-    this.stripe.setPublishableKey('pk_test_hhK8GKGNzqm8BrzrQEDJaf0o');
-
-    let card = {
-      number: '4242424242424242',
-      expMonth: 12,
-      expYear: 2020,
-      cvc: '220'
-    };
-
-    this.stripe.createCardToken(card)
-      .then(token => console.log(token.id))
-      .catch(error => console.error(error));
   }
 
   ngOnInit() {
     this.getTickPackages();
+    this.getPaymentSystems();
   }
 
   segmentChanged(event) {
@@ -76,8 +63,21 @@ export class ShopPage {
       );
   }
 
-  onPaymentSystemPage(form: NgForm) {
+  getPaymentSystems() {
+    this.paymentService.getPaymentMethods()
+      .subscribe(
+        response => {
+          console.log(response.json());
+          this.paymentSystems = response.json().payment_systems;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
 
+  onPaymentSystemPage(code, amount, paymentSystem) {
+    this.navCtrl.push(PaymentSystemPage, { code: code, amount: amount, paymentSystem: paymentSystem });
   }
 
 }
