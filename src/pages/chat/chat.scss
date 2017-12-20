@@ -1,5 +1,55 @@
 page-chat {
-  .item-md, .item-ios {
+  .tick-header-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0 15px;
+  }
+  .message-time {
+    display: block;
+    color: #333;
+    font-size: 8.5px;
+    font-weight: bold;
+  }
+  .message-content {
+    border-radius: 6px;
+    margin: 5px 0;
+    position: relative;
+    border: 0.5px solid rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    p {
+      margin: 0;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+  }
+  .message-right {
+    justify-content: flex-end;
+    display: flex;
+    .message-content {
+      background-color: rgb(255, 96, 97);
+      margin-left: 40px;
+      color: #fff;
+    }
+    .message-time {
+      text-align: right;
+      color: #fff;
+    }
+  }
+  .message-left {
+    justify-content: flex-start;
+    display: flex;
+    .message-content {
+      background-color: #eaeaea;
+      margin-right: 40px;
+    }
+    .message-time {
+      text-align: left;
+    }
+  }
+  .item-md,
+  .item-ios {
     &.item-block {
       .item-inner {
         border-bottom: none;
@@ -33,25 +83,28 @@ page-chat {
   .toolbar-background {
     background-color: #c24849;
   }
-  .comment-form {
+  .message-form {
     display: flex;
     flex-direction: row;
-    &-input {
-      input {
-        background-color: #fff;
-        padding: 3px 6px;
-      }
+    .message-form-input {
+      background-color: #c24849;
+      padding: 6px;
+      margin: 0;
     }
-
     .comment-form-button {
       background-color: #c24849;
       color: #fff;
       font-size: 20px;
       padding: 10px;
     }
-
+    textarea {
+      background-color: #fff;
+      margin: 0;
+      padding: 2px 4px;
+      width: 100%;
+      resize: none;
+    }
   }
-
   .date {
     font-size: 10px;
     color: #9e9e9e;
@@ -73,13 +126,7 @@ page-chat {
       font-size: 19px;
       color: #808080;
     }
-  }
-
-  ion-avatar img {
-    width: 60px;
-    height: 60px;
-  }
-  .tick-wrapper {
-    margin-bottom: 4rem;
-  }
+  } // .tick-wrapper {
+  //   margin-bottom: 4rem;
+  // }
 }

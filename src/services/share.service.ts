@@ -21,4 +21,19 @@ export class ShareService {
       })})
   }
 
+  sharePost(postId, userId) {
+    return this.http.post(
+      this.authService.API + "/api/v1/chat/send-post",
+      {
+        id_post: postId,
+        receiver_id: userId,
+        message_type: "post"
+      },
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      })
+  }
+
 }
