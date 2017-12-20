@@ -47,7 +47,7 @@
       </ion-avatar>
       <div class="top-userprofile-info">
         <h2>{{user?.nick_name}}</h2>
-        <ion-buttons *ngIf="!public" end>
+        <ion-buttons *ngIf="!isPublic" end>
           <button class="more-icon" icon-end (click)="showAlertUserEdit()">
             <ion-icon name="more"></ion-icon>
           </button>
@@ -69,7 +69,7 @@
 </ion-item>
     <ion-item class="no-padding">
       <ion-grid>
-        <ion-row class="user-indicators" *ngIf="!public; else publicProfile" text-center>
+        <ion-row class="user-indicators" *ngIf="!isPublic; else publicProfile" text-center>
           <ion-col col-3>
             <h3>{{user?.posts_count}}</h3>
             <p>публикации</p>
