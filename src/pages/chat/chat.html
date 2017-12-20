@@ -5,36 +5,39 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-
-    <ion-title>
+    <div class="tick-header-info">
       <ion-avatar item-start>
-        <img src="{{interlocutor.avatar}}">
+        <img class="chat-avatar" src="{{interlocutor.avatar}}">
       </ion-avatar>
-      {{interlocutor.nickname}}
-    </ion-title>
+      <ion-title item-end class="tick-title">{{interlocutor.nickname}}</ion-title>
+    </div>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
   <div class="tick-wrapper">
-    <div padding>
+    <div>
       <div *ngIf="!chat.messages.length">История сообщения пуста, пока</div>
-      <div *ngIf="chat.messages.length">
+      <div class="message-wrap" *ngIf="chat.messages.length">
         <div *ngFor="let message of chat.messages">
-          <span
-          class="message-block"
-          [ngClass]="(message.userId==userId)?'message-right':'message-left'">
-          {{message.message}}
-        </span>
+          <div class="message-block" [ngClass]="(message.userId==userId)?'message-right':'message-left'">
+            <div class="message-content">
+              <p>
+                {{message.message}}
+              </p>
+              <span class="message-time">
+                {{message.format_time}}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <br>
-  <ion-toolbar>
+    <br>
+
+    <!--   <ion-toolbar>
     <form class="tick-form-send" (ngSubmit)="sendMessage(f)" #f="ngForm">
       <div class="comment-form">
         <ion-input class="comment-form-input" type="text" placeholder="Напишите свое сообщение..." name="message"
@@ -44,6 +47,18 @@
         </button>
       </div>
     </form>
-  </ion-toolbar>
-</div>
+  </ion-toolbar> -->
+  </div>
 </ion-content>
+<ion-footer no-border [style.height]="showEmojiPicker ? '255px' : '50px'">
+  <ion-toolbar>
+    <form class="tick-form-send" (ngSubmit)="sendMessage(f)" #f="ngForm">
+      <div class="message-form">
+        <ion-textarea class="message-form-input" type="text" placeholder="Напишите свое сообщение..." name="message" [ngModel]="message"></ion-textarea>
+        <button type="submit" class="comment-form-button">
+          <ion-icon name="md-send" large></ion-icon>
+        </button>
+      </div>
+    </form>
+  </ion-toolbar>
+</ion-footer>

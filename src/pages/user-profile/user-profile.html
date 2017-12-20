@@ -33,7 +33,7 @@
       [search]="true"
       [createPost]="true"
       [menu]="true">
-      <ion-title>Профиль</ion-title>
+      <ion-title class="tick-title">Профиль</ion-title>
     </header-main>
   </ion-navbar>
 </ion-header>
@@ -43,10 +43,10 @@
   <div class="tick-wrapper">
     <ion-item class="top-userprofile no-padding">
       <ion-avatar item-start>
-        <img src="{{user?.avatar}}">
+        <img class="chat-avatar" src="{{user?.avatar}}">
       </ion-avatar>
       <div class="top-userprofile-info">
-        <h2>{{user?.nick_name}}</h2>
+        <h2 text-wrap>{{user?.nick_name}}</h2>
         <ion-buttons *ngIf="!isPublic" end>
           <button class="more-icon" icon-end (click)="showAlertUserEdit()">
             <ion-icon name="more"></ion-icon>

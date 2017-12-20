@@ -7,29 +7,38 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Start a chat</ion-title>
+    <ion-title class="tick-title">Start a chat</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
   <div class="tick-wrapper">
-    <ion-list>
-      <button ion-item *ngFor="let follower of chatCandidates"
-              (click)="createChat(follower.id)">
-        <ion-item  no-lines class="top-userprofile no-padding">
-          <ion-avatar item-start>
-            <img src="{{follower.avatar}}">
-          </ion-avatar>
-          <h2>{{follower.nickname}}</h2>
-        </ion-item>
+    <ion-item-sliding *ngFor="let follower of chatCandidates"
+    (click)="createChat(follower.id)">
+    <ion-item>
+      <ion-avatar item-start>
+        <img class="chat-avatar" src="{{follower.avatar}}">
+      </ion-avatar>
+      <h2>{{follower.nickname}}</h2>
+    </ion-item>
+  </ion-item-sliding>
+<!--   <ion-list>
+    <button ion-item *ngFor="let follower of chatCandidates"
+    (click)="createChat(follower.id)">
+    <ion-item  no-lines class="top-userprofile no-padding">
+      <ion-avatar item-start>
+        <img src="{{follower.avatar}}">
+      </ion-avatar>
+      <h2>{{follower.nickname}}</h2>
+    </ion-item>
 
-      </button>
-    </ion-list>
-    <!--<div *ngIf="selectedItem" padding>-->
-      <!--You navigated here from <b>{{selectedItem.title}}</b>-->
-    <!--</div>-->
-  </div>
+  </button>
+</ion-list> -->
+<!--<div *ngIf="selectedItem" padding>-->
+  <!--You navigated here from <b>{{selectedItem.title}}</b>-->
+  <!--</div>-->
+</div>
 </ion-content>
 
 

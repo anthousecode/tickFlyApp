@@ -16,13 +16,17 @@ page-user-profile {
     &-status {
       font-size: 12px;
     }
-  }
-  .item-md, .item-ios {
-    ion-avatar img {
-      width: 60px;
-      height: 60px;
-    }
-  }
+    img {
+     width: 60px;
+     height: 60px;
+   }
+ }
+  // .item-md, .item-ios {
+  //   ion-avatar img {
+  //     width: 60px;
+  //     height: 60px;
+  //   }
+  // }
 
   ion-content {
     ion-item {
@@ -74,7 +78,7 @@ page-user-profile {
   }
   .buttons-wrap {
     button {
-      padding: 0 7px!important;
+      padding: 0 4px!important;
       font-size: 19px!important;
       color: #808080;
     }
