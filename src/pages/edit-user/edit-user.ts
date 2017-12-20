@@ -189,7 +189,6 @@ export class EditUserPage {
 
     var options = {
       fileKey: "avatar",
-      // avatar: this.lastImage,
       fileName: this.lastImage,
       chunkedMode: false,
       httpMethod: "post",
@@ -202,19 +201,19 @@ export class EditUserPage {
     const fileTransfer: TransferObject = this.transfer.create();
 
     this.loading = this.loadingCtrl.create({
-      content: 'Uploading...',
+      content: 'Загрузка...',
     });
     this.loading.present();
 
     // Use the FileTransfer to upload the image
     fileTransfer.upload(targetPath, url, options).then(data => {
       this.loading.dismissAll();
-      this.presentToast('Image succesful uploaded.');
+      this.presentToast('Аватар успешно изменен!');
     }, err => {
       this.loading.dismissAll();
       this.options = JSON.stringify(options);
       this.debugText = JSON.stringify(err);
-      this.presentToast('Error while uploading file.' + JSON.stringify(err));
+      this.presentToast('Ошибка загрузки изображения!' + JSON.stringify(err));
     });
   }
 
