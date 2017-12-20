@@ -74,7 +74,7 @@ export class PostPreviewComponent {
           text: 'Поделиться',
           cssClass: 'hidden',
           handler: () => {
-            this.presentProfileModal();
+            this.presentProfileModal(postId);
           }
         }
       ]
@@ -189,8 +189,8 @@ export class PostPreviewComponent {
   }
 
 
-  presentProfileModal() {
-    let profileModal = this.modalCtrl.create(SharingFollowersListPage);
+  presentProfileModal(postId) {
+    let profileModal = this.modalCtrl.create(SharingFollowersListPage, {postId:postId});
     profileModal.onDidDismiss(data => {
       console.log(data);
     });
