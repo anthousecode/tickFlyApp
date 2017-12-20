@@ -20,7 +20,7 @@ export class PaymentService {
 
   getPaymentMethods() {
     return this.http.get(
-      this.authService.API + `/api/v1/payments`,
+      this.authService.API + `/api/v1/shop/get-payment-methods`,
       {
         headers: new Headers({
           "Authorization": 'Bearer ' + this.authService.getToken()

@@ -54,12 +54,9 @@
 
   <div [ngSwitch]="payment">
     <ion-list *ngSwitchCase="'input'">
-
-      <form (ngSubmit)="onPaymentSystemPage(f)" #f="ngForm">
         <ion-item>
             <ion-label stacked>Выберите пакет тиков</ion-label>
-            <ion-select placeholder="Выбрать" name="selectedPackage" [(ngModel)]="selectedPackage"
-                        (ionChange)="onChange()">
+            <ion-select placeholder="Выбрать" name="selectedPackage" [(ngModel)]="selectedPackage">
               <ion-option *ngFor="let package of packageList" value="{{package.cost}}" multiple="false">
                 {{package.amount_ticks.amount + ' тиков за ' + package.cost + ' ' + code}}
               </ion-option>
@@ -75,13 +72,10 @@
             </ion-option>
           </ion-select>
         </ion-item>
-
-        <ion-buttons text-right>
-          <button ion-button color="danger">Продолжить</button>
+        <ion-buttons text-right >
+          <button ion-button color="danger" (click)="onPaymentSystemPage(code, selectedPackage, selectedPaymentSystem)"
+                  [disabled]="selectedPackage === undefined || selectedPaymentSystem === undefined">Продолжить</button>
         </ion-buttons>
-
-      </form>
-
     </ion-list>
 
     <ion-list *ngSwitchCase="'withdraw'">
