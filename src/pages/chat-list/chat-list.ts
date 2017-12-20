@@ -58,6 +58,7 @@ export class ChatListPage {
             let chat = new Chat();
             chat.id = conversation.chat_id;
             chat.lastMessage = conversation.last_message.message;
+            chat.timeLastMassage = conversation.last_message.format_time;
             chat.updatedAt = conversation.updated_at;
             chat.unreadMessages = conversation.unread_message;
             chat.members = conversation.members.map(member => {
@@ -66,12 +67,16 @@ export class ChatListPage {
               user.avatar = member.user.avatar;
               return user;
             });
+            chat.avatar = conversation.members.filter(member => {
+              return member.user.id_user != this.authService.getUserId();
+            })[0].user.avatar;
             chat.title = conversation.members.filter(member => {
               return member.user.id_user != this.authService.getUserId();
             })[0].user.nick_name;
 
             return chat;
           });
+        console.log(response.json().conversation);
         this.isLoaded = true;
         localStorage.setItem("chats", JSON.stringify(this.chats));
         console.log("set chats from response");

@@ -13,5 +13,7 @@ export class Chat {
   unreadMessages?: number;
   members?: User[];
   messages?: Message[];
+  avatar?: string;
+  timeLastMassage?: string;
 }
 
