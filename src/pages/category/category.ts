@@ -99,12 +99,4 @@ export class CategoryPage {
     console.log(this.pageId);
   }
 
-  onSearchPage() {
-    this.navCtrl.push(SearchPage);
-  }
-
-  onCreatePostPage() {
-    this.navCtrl.push(CreatePostPage);
-  }
-
 }

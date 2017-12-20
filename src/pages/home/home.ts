@@ -98,16 +98,4 @@ export class HomePage {
     console.log(this.pageId);
   }
 
-  // onCreatePostPage() {
-  //   this.navCtrl.push(CreatePostPage);
-  // }
-  //
-  // onChatsListPage() {
-  //   this.navCtrl.push(ChatListPage);
-  // }
-  //
-  // onSearchPage() {
-  //   this.navCtrl.push(SearchPage);
-  // }
-
 }

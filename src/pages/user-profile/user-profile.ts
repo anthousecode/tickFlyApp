@@ -187,12 +187,4 @@ export class UserProfilePage {
     this.pageId++;
     console.log(this.pageId);
   }
-
-  onCreatePostPage() {
-    this.navCtrl.push(CreatePostPage);
-  }
-
-  onSearchPage() {
-    this.navCtrl.push(SearchPage);
-  }
 }

@@ -104,8 +104,4 @@ export class CreatePostPage {
   onHomePage() {
     this.navCtrl.setRoot(HomePage);
   }
-
-  onSearchPage() {
-    this.navCtrl.push(SearchPage);
-  }
 }

@@ -43,12 +43,4 @@ export class CategoryListPage {
     });
   }
 
-  onCreatePostPage() {
-    this.navCtrl.push(CreatePostPage);
-  }
-
-  onSearchPage() {
-    this.navCtrl.push(SearchPage);
-  }
-
 }

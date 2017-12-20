@@ -177,15 +177,6 @@ export class PostPage {
       )
   }
 
-  onCreatePostPage() {
-    this.navCtrl.push(CreatePostPage);
-  }
-
-  onSearchPage(tag) {
-    console.log(tag);
-    this.navCtrl.push(SearchPage, {query: tag});
-  }
-
   presentProfileModal() {
     let profileModal = this.modalCtrl.create(SharingFollowersListPage);
     profileModal.onDidDismiss(data => {
