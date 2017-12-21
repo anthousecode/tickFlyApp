@@ -61,6 +61,7 @@ export class EditUserPage {
       .subscribe(
         response => {
           this.user = response.json().user;
+          console.log(this.user);
         },
         error => {
           console.log(error);

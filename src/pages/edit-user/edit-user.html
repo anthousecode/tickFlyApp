@@ -55,18 +55,21 @@
       </form>
     </div>
 
-    <img src="{{pathForImage(lastImage)}}" style="width: 100%; height: 100%;" [hidden]="lastImage === null">
-    <h3 [hidden]="lastImage !== null">Пожалуйства, выберите изображение!</h3>
+    <ion-avatar item-start (click)="presentActionSheet()">
+      <img src="{{pathForImage(lastImage)}}" style="width: 100%; height: 100%;" [hidden]="lastImage === null">
+    </ion-avatar>
+    <div [hidden]="lastImage !== null">
+      <ion-avatar item-start (click)="presentActionSheet()">
+        <img class="chat-avatar" src="{{user?.avatar}}">
+      </ion-avatar>
+    </div>
 
     <ion-footer>
       <ion-toolbar color="primary">
         <ion-buttons>
-          <button ion-button icon-left (click)="presentActionSheet()">
-           Изменить аватар
-          </button>
-          <button ion-button icon-left (click)="uploadImage()" [disabled]="lastImage === null">
+          <button ion-button icon-center (click)="uploadImage()" [disabled]="lastImage === null">
             <ion-icon name="cloud-upload"></ion-icon>
-            Сохранить
+            Изменить аватар
           </button>
         </ion-buttons>
       </ion-toolbar>

@@ -50,12 +50,11 @@ export class PaymentSystemPage {
   onClickPay() {
     this.stripe.setPublishableKey('pk_test_hhK8GKGNzqm8BrzrQEDJaf0o');
 
-    this.loadService.showLoader();
-
     console.log(this.expMonthAndYear);
     let splitString = this.expMonthAndYear.split('-');
     let expMonth = splitString[1];
     let expYear = splitString[0];
+    let message: string = '';
 
     console.log(expMonth);
     console.log(expYear);
@@ -71,9 +70,10 @@ export class PaymentSystemPage {
 
       console.log('Popolnen schet');
 
+      this.loadService.showLoader();
+
       this.stripe.createCardToken(card)
         .then(token => {
-          let message: string = '';
           console.log(token.id);
           this.paymentService.doPayment(token.id, this.amount, this.code)
             .subscribe(
@@ -93,7 +93,12 @@ export class PaymentSystemPage {
               }
             );
         })
-        .catch(error => console.error(error));
+        .catch(error => {
+          console.error(error);
+          this.loadService.hideLoader();
+          message = error.json().message;
+          this.toastService.showToast(message);
+        });
   }
 
 
