@@ -7,14 +7,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{paymentSystem}}</ion-title>
+    <ion-title class="tick-title">{{paymentSystem}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <div class="tick-wrapper tf-post-label">
     <ion-list class="tick-no-border">
       <ion-item>
         <ion-label stacked>Номер карты</ion-label>
@@ -31,10 +31,9 @@
     </ion-list>
 
     <ion-buttons text-right>
-      <button ion-button color="danger" margin-bottom (click)="onClickPay()"
-              [disabled]="cardNumber === undefined || expMonthAndYear === undefined || cvc === undefined">
-        {{'Оплатить ' + amount + ' ' +  code}}
+      <button ion-button color="danger" margin-bottom (click)="onClickPay()" [disabled]="cardNumber === undefined || expMonthAndYear === undefined || cvc === undefined">
+        {{'Оплатить ' + amount + ' ' + code}}
       </button>
     </ion-buttons>
-
+  </div>
 </ion-content>
