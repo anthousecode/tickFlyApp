@@ -29,7 +29,7 @@ export class MyApp implements OnInit {
 
   pages: Array<{ title: string, component: any }>;
 
-  userId = this.getUserId();
+  userId = this.authService.getUserId();
 
   newMessages: number = 0;
 
@@ -103,9 +103,5 @@ export class MyApp implements OnInit {
   logout() {
     this.authService.logout();
     this.onLoginPage();
-  }
-
-  getUserId() {
-    return localStorage.getItem('id_user');
   }
 }

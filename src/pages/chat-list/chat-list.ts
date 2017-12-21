@@ -40,7 +40,7 @@ export class ChatListPage {
   }
 
   loadChatsFromStorage() {
-    if (localStorage.getItem("chats") != "undefined") {
+    if (localStorage.getItem("chats")) {
       this.chats = JSON.parse(localStorage.getItem("chats"));
       this.isLoaded = true;
     }
