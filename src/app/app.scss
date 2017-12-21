@@ -242,7 +242,7 @@ input[type=number]::-webkit-outer-spin-button {
       font-weight: 600;
     }
     .select-placeholder {
-      font-size: 12px;
+      font-size: 11px;
     }
     input,
     textarea{
@@ -284,7 +284,9 @@ input[type=number]::-webkit-outer-spin-button {
   }
   input,
   textarea,
-  ion-select {
+  ion-select,
+  ion-datetime
+  {
     background-color: rgba(241, 241, 241, 0.6);
     padding: 5px!important;
     width: 100%!important;
