@@ -12,7 +12,7 @@ export class LoaderService {
   showLoader(content: string = null) {
     this.loading = this.loadingCtrl.create({
       spinner: 'dots',
-      content: content ? content : 'Loading, Please Wait...'
+      content: content ? content : 'Загрузка, пожалуйста, подождите...'
     });
     this.loading.present();
   }

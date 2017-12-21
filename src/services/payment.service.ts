@@ -28,4 +28,19 @@ export class PaymentService {
       })
   }
 
+  doPayment(stripeToken, price, currency) {
+    return this.http.post(
+      this.authService.API + `/api/v1/payments/stripe/pay`,
+      {
+        stripeToken: stripeToken,
+        price: price,
+        currency: currency
+      },
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      })
+  }
+
 }
