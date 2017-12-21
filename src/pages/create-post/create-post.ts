@@ -6,6 +6,7 @@ import {NgForm} from "@angular/forms";
 import {HomePage} from "../home/home";
 import {SearchPage} from "../search/search";
 import {ToastService} from "../../services/toast.service";
+import {LoaderService} from "../../services/loader.service";
 
 /**
  * Generated class for the CreatePostPage page.
@@ -18,7 +19,7 @@ import {ToastService} from "../../services/toast.service";
 @Component({
   selector: 'page-create-post',
   templateUrl: 'create-post.html',
-  providers: [PostService, ToastService]
+  providers: [PostService, ToastService, LoaderService]
 })
 export class CreatePostPage {
   public myModel = ''
@@ -30,7 +31,8 @@ export class CreatePostPage {
     public navParams: NavParams,
     public httpService: HttpService,
     public postService: PostService,
-    public toastService: ToastService
+    public toastService: ToastService,
+    public loadService: LoaderService
   ) {
   }
 
@@ -67,6 +69,7 @@ export class CreatePostPage {
   }
 
   onCreatePost(form: NgForm) {
+    this.loadService.showLoader();
     console.log(form.value.title);
     console.log(form.value.description);
     console.log(form.value.selectedCategories);
@@ -81,9 +84,11 @@ export class CreatePostPage {
       response => {
         console.log(response.json());
         this.onHomePage();
+        this.loadService.hideLoader();
         this.toastService.showToast('Пост успешно создан!');
       },
       error => {
+        this.loadService.hideLoader();
         let errors = error.json().errors;
         let firstError = errors[Object.keys(errors)[0]];
         this.toastService.showToast(firstError);

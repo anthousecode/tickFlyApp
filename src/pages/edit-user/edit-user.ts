@@ -11,6 +11,7 @@ import {Camera} from '@ionic-native/camera';
 import {File} from "@ionic-native/file";
 import {AuthService} from "../../services/auth.service";
 import {ToastService} from "../../services/toast.service";
+import {LoaderService} from "../../services/loader.service";
 
 /**
  * Generated class for the EditUserPage page.
@@ -25,7 +26,7 @@ declare var cordova: any;
 @Component({
   selector: 'page-edit-user',
   templateUrl: 'edit-user.html',
-  providers: [UserService, ToastService]
+  providers: [UserService, ToastService, LoaderService]
 })
 export class EditUserPage {
 
@@ -47,7 +48,8 @@ export class EditUserPage {
               public platform: Platform,
               public loadingCtrl: LoadingController,
               public authService: AuthService,
-              public toastService: ToastService) {
+              public toastService: ToastService,
+              public loadService: LoaderService) {
   }
 
   ionViewDidLoad() {
@@ -67,6 +69,7 @@ export class EditUserPage {
   }
 
   onChangeUser(form: NgForm) {
+    this.loadService.showLoader();
     this.userService.changeUser(
       form.value.nick_name,
       form.value.first_name,
@@ -75,10 +78,12 @@ export class EditUserPage {
     ).subscribe(
       response => {
         console.log('Success');
+        this.loadService.hideLoader();
         this.toastService.showToast('Ваши данные изменены!');
       },
       error => {
         console.log('Error');
+        this.loadService.hideLoader();
         let errors = error.json().errors;
         let firstError = errors[Object.keys(errors)[0]];
         this.toastService.showToast(firstError);

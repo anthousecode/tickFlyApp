@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {UserService} from "../../services/user.service";
 import {NgForm} from "@angular/forms";
 import {ToastService} from "../../services/toast.service";
+import {LoaderService} from "../../services/loader.service";
 
 /**
  * Generated class for the ChangePasswordPage page.
@@ -15,7 +16,7 @@ import {ToastService} from "../../services/toast.service";
 @Component({
   selector: 'page-change-password',
   templateUrl: 'change-password.html',
-  providers: [UserService, ToastService]
+  providers: [UserService, ToastService, LoaderService]
 })
 export class ChangePasswordPage {
 
@@ -23,7 +24,8 @@ export class ChangePasswordPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private userService: UserService,
-    public toastService: ToastService
+    public toastService: ToastService,
+    public loadService: LoaderService
   ) {
   }
 
@@ -45,6 +47,7 @@ export class ChangePasswordPage {
   }
 
   onChangePassword(form: NgForm) {
+    this.loadService.showLoader();
     this.userService.changePassword(
       form.value.old_password,
       form.value.new_password,
@@ -52,10 +55,12 @@ export class ChangePasswordPage {
     ).subscribe(
       response => {
         console.log('Success');
+        this.loadService.hideLoader();
         this.toastService.showToast('Пароль успешно изменен!');
       },
       error => {
         console.log('Error');
+        this.loadService.hideLoader();
         let errors = error.json().errors;
         let firstError = errors[Object.keys(errors)[0]];
         this.toastService.showToast(firstError);

@@ -5,6 +5,7 @@ import {HttpService} from "../../services/http.service";
 import {PostService} from "../../services/post.service";
 import {SearchPage} from "../search/search";
 import {CreatePostPage} from "../create-post/create-post";
+import {LoaderService} from "../../services/loader.service";
 
 /**
  * Generated class for the CategoryPage page.
@@ -17,7 +18,7 @@ import {CreatePostPage} from "../create-post/create-post";
 @Component({
   selector: 'page-category',
   templateUrl: 'category.html',
-  providers: [PostService]
+  providers: [PostService, LoaderService]
 })
 export class CategoryPage {
 
@@ -26,7 +27,13 @@ export class CategoryPage {
   posts = [];
   pageId: number = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private httpService: HttpService, private postService: PostService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private httpService: HttpService,
+    private postService: PostService,
+    public loadService: LoaderService
+  ) {
     this.categoryId = this.navParams.get('categoryId');
   }
 
@@ -35,6 +42,7 @@ export class CategoryPage {
   }
 
   ngOnInit() {
+    this.loadService.showLoader();
     this.httpService.getCategory(this.categoryId)
       .subscribe(
         response => {
@@ -56,9 +64,11 @@ export class CategoryPage {
               isTick: post.donate
             });
           }
+          this.loadService.hideLoader();
         },
         error => {
           console.log(error);
+          this.loadService.hideLoader();
         }
       );
   }

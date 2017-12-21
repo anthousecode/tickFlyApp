@@ -11,13 +11,14 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {HomePage} from "../home/home";
 import {GooglePlus} from "@ionic-native/google-plus";
 import {ToastService} from "../../services/toast.service";
+import {LoaderService} from "../../services/loader.service";
 
 
 @IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [AuthService, GooglePlus, ToastService],
+  providers: [AuthService, GooglePlus, ToastService, LoaderService]
 })
 export class LoginPage {
 
@@ -31,7 +32,8 @@ export class LoginPage {
     public toastCtrl: ToastController,
     public googlePlus: GooglePlus,
     public toastService: ToastService,
-    public menu: MenuController
+    public menu: MenuController,
+    public loadService: LoaderService
   ) {
     this.rootPage = null;
     this.userData = null;
@@ -55,6 +57,7 @@ export class LoginPage {
   }
 
   onSignin(form: NgForm) {
+    this.loadService.showLoader();
     console.log(form.value.email);
     console.log(form.value.password);
     this.authService.signin(form.value.email, form.value.password).subscribe(
@@ -62,10 +65,12 @@ export class LoginPage {
         console.log('Success');
         this.onHomePage();
         this.authService.getCurrentUserId();
+        this.loadService.hideLoader();
         this.toastService.showToast('Вы успешно авторизированы!');
       },
       error => {
         console.log('Error');
+        this.loadService.hideLoader();
         let errors = error.json().errors;
         let firstError = errors[Object.keys(errors)[0]];
         this.toastService.showToast(firstError);

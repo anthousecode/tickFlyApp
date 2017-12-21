@@ -4,6 +4,7 @@ import {CategoryPage} from "../category/category";
 import {HttpService} from "../../services/http.service";
 import {CreatePostPage} from "../create-post/create-post";
 import {SearchPage} from "../search/search";
+import {LoaderService} from "../../services/loader.service";
 
 /**
  * Generated class for the CategoryListPage page.
@@ -16,22 +17,30 @@ import {SearchPage} from "../search/search";
 @Component({
   selector: 'page-category-list',
   templateUrl: 'category-list.html',
+  providers: [LoaderService]
 })
 export class CategoryListPage {
   categoryList;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private httpService: HttpService) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private httpService: HttpService,
+    public loadService: LoaderService
+  ) {
   }
 
   ngOnInit() {
+    this.loadService.showLoader();
     this.httpService.getCategories()
       .subscribe(
         response => {
           this.categoryList = response.json().category;
           console.log(response.json());
+          this.loadService.hideLoader();
         },
         error => {
-
+          this.loadService.hideLoader();
         }
       );
   }

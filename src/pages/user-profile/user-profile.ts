@@ -12,6 +12,7 @@ import {CategoryPage} from "../category/category";
 import {PostService} from "../../services/post.service";
 import {CreatePostPage} from "../create-post/create-post";
 import {SearchPage} from "../search/search";
+import {LoaderService} from "../../services/loader.service";
 
 /**
  * Generated class for the UserProfilePage page.
@@ -24,7 +25,7 @@ import {SearchPage} from "../search/search";
 @Component({
   selector: 'page-user-profile',
   templateUrl: 'user-profile.html',
-  providers: [UserService, PostService]
+  providers: [UserService, PostService, LoaderService]
 })
 export class UserProfilePage {
 
@@ -41,7 +42,8 @@ export class UserProfilePage {
     public navParams: NavParams,
     private userService: UserService,
     public alertCtrl: AlertController,
-    public postService: PostService
+    public postService: PostService,
+    public loadService: LoaderService
   ) {
     this.userId = this.navParams.get('userId');
   }
@@ -51,6 +53,7 @@ export class UserProfilePage {
   }
 
   ngOnInit() {
+    this.loadService.showLoader();
     this.userService.getProfile(this.userId)
       .subscribe(
         response => {
@@ -74,9 +77,11 @@ export class UserProfilePage {
               isTick: post.donate
             });
           }
+          this.loadService.hideLoader();
         },
         error => {
           console.log(error);
+          this.loadService.hideLoader();
         }
       );
   }

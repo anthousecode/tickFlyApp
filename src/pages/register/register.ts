@@ -6,6 +6,7 @@ import {MyApp} from "../../app/app.component";
 import {HomePage} from "../home/home";
 import {LoginPage} from "../login/login";
 import {ToastService} from "../../services/toast.service";
+import {LoaderService} from "../../services/loader.service";
 
 /**
  * Generated class for the RegisterPage page.
@@ -18,7 +19,7 @@ import {ToastService} from "../../services/toast.service";
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html',
-  providers: [ToastService]
+  providers: [ToastService, LoaderService]
 })
 export class RegisterPage {
 
@@ -26,7 +27,8 @@ export class RegisterPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public authService: AuthService,
-    public toastService: ToastService
+    public toastService: ToastService,
+    public loadService: LoaderService
   ) {
   }
 
@@ -39,15 +41,18 @@ export class RegisterPage {
   }
 
   onSignup(form: NgForm) {
+    this.loadService.showLoader();
     this.authService.signup(form.value.nickname, form.value.email, form.value.password)
       .subscribe(
         response => {
           console.log('Success');
           this.onHomePage();
           this.authService.getCurrentUserId();
+          this.loadService.hideLoader();
           this.toastService.showToast('Вы успешно зарегистрированы!');
         },
         error => {
+          this.loadService.hideLoader();
           let errors = error.json().errors;
           let firstError = errors[Object.keys(errors)[0]];
           this.toastService.showToast(firstError);

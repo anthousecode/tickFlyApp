@@ -4,11 +4,12 @@ import {HttpService} from "../../services/http.service";
 import {AuthService} from "../../services/auth.service";
 import {PostService} from "../../services/post.service";
 import {SocketService} from "../../services/socket.service";
+import {LoaderService} from "../../services/loader.service";
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [HttpService, AuthService, PostService]
+  providers: [HttpService, AuthService, PostService, LoaderService]
 })
 export class HomePage {
   unreadMessages: number;
@@ -19,7 +20,8 @@ export class HomePage {
               private postService: PostService,
               public menu: MenuController,
               public socketService: SocketService,
-              public authService: AuthService) {
+              public authService: AuthService,
+              public loadService: LoaderService) {
   }
 
   posts = [];
@@ -27,6 +29,7 @@ export class HomePage {
 
   ngOnInit() {
     this.menu.swipeEnable(true);
+    this.loadService.showLoader();
     this.httpService.getPosts().subscribe(
       response => {
         console.log(response.json());
@@ -47,9 +50,11 @@ export class HomePage {
           });
           console.log(post.donate);
         }
+        this.loadService.hideLoader();
       },
       error => {
         console.log(error);
+        this.loadService.hideLoader();
       }
     )
   }

@@ -10,6 +10,7 @@ import {UserService} from "../../services/user.service";
 import {AuthService} from "../../services/auth.service";
 import {SharingFollowersListPage} from "../../pages/sharing-followers-list/sharing-followers-list";
 import {ToastService} from "../../services/toast.service";
+import {LoaderService} from "../../services/loader.service";
 
 /**
  * Generated class for the PostPreviewComponent component.
@@ -20,7 +21,7 @@ import {ToastService} from "../../services/toast.service";
 @Component({
   selector: 'post-preview',
   templateUrl: 'post-preview.html',
-  providers: [UserService, ToastService]
+  providers: [UserService, ToastService, LoaderService]
 })
 export class PostPreviewComponent {
 
@@ -44,7 +45,8 @@ export class PostPreviewComponent {
     public authService: AuthService,
     public modalCtrl: ModalController,
     public userService: UserService,
-    public toastService: ToastService
+    public toastService: ToastService,
+    public loadService: LoaderService
   ) {
     this.currentPage = this.viewCtrl.name;
     this.currentUserId = Number(this.authService.getUserId());
@@ -52,6 +54,7 @@ export class PostPreviewComponent {
   }
 
   onPostPage(postId) {
+    this.loadService.showLoader();
     let post;
     this.httpService.getPost(postId)
       .subscribe(
@@ -59,9 +62,11 @@ export class PostPreviewComponent {
           post = response.json().post;
           console.log(post);
           this.navCtrl.push(PostPage, {post: post});
+          this.loadService.hideLoader();
         },
         error => {
           console.log(error);
+          this.loadService.hideLoader();
         }
       );
   }
