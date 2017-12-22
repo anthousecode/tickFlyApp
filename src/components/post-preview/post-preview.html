@@ -5,14 +5,16 @@
     <ion-avatar item-start (click)="onAuthorPage(post?.author.id_user)">
       <img class="chat-avatar" src="{{post?.author.avatar}}">
     </ion-avatar>
-    <h2 float-left (click)="onAuthorPage(post?.author.id_user)">
-      {{post?.author.nick_name}}
-    </h2>
-    <ion-buttons end>
-      <button class="more-icon" (click)="showPostAlert(post?.postId, post?.author.id_user)" icon-end>
-        <ion-icon name="more"></ion-icon>
-      </button>
-    </ion-buttons>
+    <div class="top-userprofile-info">
+      <h2 text-wrap (click)="onAuthorPage(post?.author.id_user)">
+        {{post?.author.nick_name}}
+      </h2>
+      <ion-buttons  end>
+        <button class="more-icon" (click)="showPostAlert(post?.postId, post?.author.id_user)" icon-end>
+          <ion-icon name="more"></ion-icon>
+        </button>
+      </ion-buttons>
+    </div>
   </ion-item>
 
   <h2 padding class="post-title" (click)="onPostPage(post?.postId)">{{post?.title}}</h2>

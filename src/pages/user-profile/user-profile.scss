@@ -4,15 +4,7 @@ page-user-profile {
     .item-inner {
       border-bottom: none !important;
     }
-    &-info {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      h2 {
-        font-size: 15px;
-      }
-    }
+
     &-status {
       font-size: 12px;
     }

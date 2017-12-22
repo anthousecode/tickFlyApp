@@ -298,8 +298,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 /* --==  Chat Style ==-- */
 .chat-avatar {
-  width: 50px!important;  
-  height: 50px!important;
+  width: 60px!important;  
+  height: 60px!important;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -308,7 +308,15 @@ input[type=number]::-webkit-outer-spin-button {
   border: 0;
   border-width: 0!important;
 }
-
+.top-userprofile-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  h2 {
+    font-size: 15px;
+  }
+}
 @media only screen and ( min-width: 650px ) {
   .tick-wrapper {
     margin-top: 4rem;

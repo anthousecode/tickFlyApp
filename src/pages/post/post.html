@@ -8,13 +8,13 @@
 <ion-header>
   <ion-navbar>
     <header-main
-      [messages]="true"
-      [search]="true"
-      [createPost]="true"
-      [menu]="false">
-      <ion-title class="tick-title">{{post?.title}}</ion-title>
-    </header-main>
-  </ion-navbar>
+    [messages]="true"
+    [search]="true"
+    [createPost]="true"
+    [menu]="false">
+    <ion-title class="tick-title">{{post?.title}}</ion-title>
+  </header-main>
+</ion-navbar>
 </ion-header>
 
 <ion-content>
@@ -22,19 +22,21 @@
    <div padding>
     <ion-item margin-bottom>
       <ion-avatar item-start (click)="onAuthorPage(post?.user.id_user)">
-        <img src="{{post?.user?.avatar}}">
+        <img class="chat-avatar"  src="{{post?.user?.avatar}}">
       </ion-avatar>
-      <h2 float-left (click)="onAuthorPage(post?.user.id_user)">
-        {{post?.user?.nick_name}}
-      </h2>
-      <ion-buttons end>
-        <button class="more-icon" (click)="showPostAlert(postId, post?.user.id_user)" icon-end>
-          <ion-icon name="more"></ion-icon>
-        </button>
-      </ion-buttons>
+      <div class="top-userprofile-info">
+        <h2 text-wrap  (click)="onAuthorPage(post?.user.id_user)">
+          {{post?.user?.nick_name}}
+        </h2>
+        <ion-buttons end>
+          <button class="more-icon" (click)="showPostAlert(postId, post?.user.id_user)" icon-end>
+            <ion-icon name="more"></ion-icon>
+          </button>
+        </ion-buttons>
+      </div>
     </ion-item>
 
-    <h2 padding class="post-title">{{post?.title}}</h2>
+    <h2 padding text-wrap class="post-title">{{post?.title}}</h2>
 
     <ion-slides pager *ngIf="post?.media">
       <ion-slide *ngFor="let picture of post?.media">
@@ -102,15 +104,18 @@
     </ion-item>
   </div>
 </div>
-<ion-toolbar>
-  <form class="tick-form-send" (ngSubmit)="onSetComment(f)" #f="ngForm">
-    <div class="comment-form">
-      <ion-input class="comment-form-input" type="text" placeholder="Коммент" name="comment" [ngModel]="comment"></ion-input>
-      <button type="submit" class="comment-form-button">
-        <ion-icon name="md-send" large></ion-icon>
-      </button>
-    </div>
-  </form>
-</ion-toolbar>
 </div>
 </ion-content>
+<ion-footer no-border [style.height]="showEmojiPicker ? '255px' : '50px'">
+  <ion-toolbar>
+    <form class="tick-form-send" (ngSubmit)="onSetComment(f)" #f="ngForm">
+      <div class="comment-form">
+        <ion-input class="comment-form-input" type="text" placeholder="Коммент" name="comment" [ngModel]="comment"></ion-input>
+        <button type="submit" class="comment-form-button">
+          <ion-icon name="md-send" large></ion-icon>
+        </button>
+      </div>
+    </form>
+  </ion-toolbar>
+</ion-footer>
+

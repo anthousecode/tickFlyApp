@@ -13,11 +13,10 @@ page-chat {
     font-weight: bold;
   }
   .message-content {
-    border-radius: 6px;
+    border-radius: 40px;
     margin: 5px 0;
     position: relative;
-    border: 0.5px solid rgba(0, 0, 0, 0.2);
-    padding: 8px;
+    padding: 6px 17px 3px 15px;
     p {
       margin: 0;
       font-size: 13px;
@@ -28,21 +27,21 @@ page-chat {
     justify-content: flex-end;
     display: flex;
     .message-content {
-      background-color: rgb(255, 96, 97);
-      margin-left: 40px;
-      color: #fff;
+    background-color: #dadada;
+    margin-left: 40px;
+    color: #333;
     }
     .message-time {
       text-align: right;
-      color: #fff;
     }
   }
   .message-left {
     justify-content: flex-start;
     display: flex;
     .message-content {
-      background-color: #eaeaea;
-      margin-right: 40px;
+      background-color: transparent;
+    margin-right: 40px;
+    border: 0.5px solid rgba(0, 0, 0, 0.2);
     }
     .message-time {
       text-align: left;
