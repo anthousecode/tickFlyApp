@@ -245,4 +245,9 @@ export class PostPage {
 
   }
 
+  onSearchPage(tag) {
+    console.log(tag);
+    this.navCtrl.push(SearchPage, {query: tag});
+  }
+
 }

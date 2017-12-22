@@ -95,22 +95,22 @@ export class EditUserPage {
 
   public presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Select Image Source',
+      title: 'Выберите изображение',
       buttons: [
         {
-          text: 'Load from Library',
+          text: 'Загрузить из галереи',
           handler: () => {
             this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
         {
-          text: 'Use Camera',
+          text: 'Камера',
           handler: () => {
             this.takePicture(this.camera.PictureSourceType.CAMERA);
           }
         },
         {
-          text: 'Cancel',
+          text: 'Отмена',
           role: 'cancel'
         }
       ]
@@ -144,7 +144,7 @@ export class EditUserPage {
         this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
       }
     }, (err) => {
-      this.presentToast('Error while selecting image.');
+      this.presentToast('Ошибка при выборе изображения!');
     });
   }
 
