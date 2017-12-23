@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {HttpService} from "../../services/http.service";
 import {PostService} from "../../services/post.service";
 import {NgForm} from "@angular/forms";
@@ -7,6 +7,7 @@ import {HomePage} from "../home/home";
 import {SearchPage} from "../search/search";
 import {ToastService} from "../../services/toast.service";
 import {LoaderService} from "../../services/loader.service";
+import {MultiImageUpload} from "../../components/multi-image-upload/multi-image-upload";
 
 /**
  * Generated class for the CreatePostPage page.
@@ -25,6 +26,8 @@ export class CreatePostPage {
   public myModel = ''
   categories = [];
   selectedCategories = [];
+  @ViewChild(MultiImageUpload) multiImageUpload: MultiImageUpload;
+  protected uploadFinished = false;
 
   constructor(
     public navCtrl: NavController,
@@ -83,6 +86,7 @@ export class CreatePostPage {
     ).subscribe(
       response => {
         console.log(response.json());
+        this.onSubmitUploadImages();
         this.onHomePage();
         this.loadService.hideLoader();
         this.toastService.showToast('Пост успешно создан!');
@@ -108,5 +112,20 @@ export class CreatePostPage {
 
   onHomePage() {
     this.navCtrl.setRoot(HomePage);
+  }
+
+
+
+  onSubmitUploadImages() {
+    if (this.multiImageUpload.images.length >= 4) {
+      this.toastService.showToast("Вы не можете добавить больше 5-ти изображений");
+      return;
+    }
+
+    this.multiImageUpload.uploadImages().then((images) => {
+      this.uploadFinished = true;
+      console.dir(images);
+    }).catch(() => {
+    });
   }
 }
