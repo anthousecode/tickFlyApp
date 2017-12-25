@@ -78,6 +78,8 @@ export class CreatePostPage {
     console.log(form.value.selectedCategories);
     console.log(form.value.tags);
 
+    console.log('Before Create Post');
+
     this.postService.createPost(
       form.value.title,
       form.value.description,
@@ -85,14 +87,17 @@ export class CreatePostPage {
       form.value.tags
     ).subscribe(
       response => {
-        console.log(response.json());
-        this.onSubmitUploadImages();
+        let postId = response.json().id_post;
+        console.log('postID in request ' + response.json().id_post);
+        console.log('Create Post Success');
+        this.onSubmitUploadImages(postId);
         this.onHomePage();
         this.loadService.hideLoader();
         this.toastService.showToast('Пост успешно создан!');
       },
       error => {
         this.loadService.hideLoader();
+        console.log('Create Post Failed');
         let errors = error.json().errors;
         let firstError = errors[Object.keys(errors)[0]];
         this.toastService.showToast(firstError);
@@ -116,16 +121,14 @@ export class CreatePostPage {
 
 
 
-  onSubmitUploadImages() {
-    if (this.multiImageUpload.images.length >= 4) {
-      this.toastService.showToast("Вы не можете добавить больше 5-ти изображений");
-      return;
-    }
-
-    this.multiImageUpload.uploadImages().then((images) => {
+  onSubmitUploadImages(postId: number) {
+    console.log('postId in onSubmitUploadImages ' + postId);
+    this.multiImageUpload.uploadImages(postId).then((images) => {
       this.uploadFinished = true;
       console.dir(images);
+      console.log('onSubmitUploadImages success');
     }).catch(() => {
+      console.log('onSubmitUploadImages failed');
     });
   }
 }

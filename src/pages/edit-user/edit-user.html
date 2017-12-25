@@ -23,13 +23,14 @@
         <ion-avatar item-start (click)="presentActionSheet()">
           <img class="chat-avatar" src="{{user?.avatar}}">
         </ion-avatar>
+        <p>Сменить аватар</p>
       </div>
-      <ion-buttons>
-        <button ion-button icon-center (click)="uploadImage()" [disabled]="lastImage === null">
-          <ion-icon name="cloud-upload"></ion-icon>
-          Изменить аватар
-        </button>
-      </ion-buttons>
+      <!--<ion-buttons>-->
+        <!--<button ion-button icon-center (click)="uploadImage()" [disabled]="lastImage === null">-->
+          <!--<ion-icon name="cloud-upload"></ion-icon>-->
+          <!--Изменить аватар-->
+        <!--</button>-->
+      <!--</ion-buttons>-->
       <form (ngSubmit)="onChangeUser(f)" #f="ngForm">
 
         <ion-list class="tick-no-border">

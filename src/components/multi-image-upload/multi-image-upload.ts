@@ -6,15 +6,16 @@ import {File} from "@ionic-native/file";
 import {FilePath} from "@ionic-native/file-path";
 import {TransferObject} from "@ionic-native/transfer";
 import {ToastService} from "../../services/toast.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
     selector: 'multi-image-upload',
     templateUrl: 'multi-image-upload.html',
-    providers: [Camera, File, FilePath, Platform]
+    providers: [Camera, File, FilePath, Platform, AuthService]
 })
 
 export class MultiImageUpload {
-    public serverUrl = "http://jquery-file-upload.appspot.com/";
+    public serverUrl = this.authService.API + `/api/v1/post/save-media`;
 
     public isUploading = false;
     public uploadingProgress = {};
@@ -28,15 +29,16 @@ export class MultiImageUpload {
       private actionSheetCtrl: ActionSheetController,
       private camera: Camera,
       private file: File,
-      public toastService: ToastService
+      public toastService: ToastService,
+      public authService: AuthService
     ) {
     }
 
-    public uploadImages(): Promise<Array<any>> {
+    public uploadImages(postId: number): Promise<Array<any>> {
         return new Promise((resolve, reject) => {
             this.isUploading = true;
             Promise.all(this.images.map(image => {
-                return this.uploadImage(image);
+                return this.uploadImage(image, postId);
             }))
                 .then(resolve)
                 .catch(reason => {
@@ -124,24 +126,50 @@ export class MultiImageUpload {
     }
 
 
-    private uploadImage(targetPath) {
+    private uploadImage(targetPath, postId) {
         return new Promise((resolve, reject) => {
             this.uploadingProgress[targetPath] = 0;
+            console.log('uploadImage Begin');
 
             if (window['cordova']) {
+              console.log('uploadImage Begin Cordova');
                 let options = {
-                    fileKey: "files[]",
-                    fileName: targetPath,
-                    chunkedMode: false,
-                    mimeType: "multipart/form-data",
+                  fileKey: "post_media",
+                  fileName: targetPath,
+                  chunkedMode: false,
+                  httpMethod: "post",
+                  mimeType: "image/*",
+                  params: {
+                      id_post: postId
+                  },
+                  headers: {
+                    "Authorization": 'Bearer ' + this.authService.getToken()
+                  }
                 };
+              console.log('uploadImage After Options created');
+              console.log('serverUrl ' + this.serverUrl);
+              console.log('fileKey ' + options.fileKey);
+              console.log('fileName ' + options.fileName);
+              console.log('chunkedMode ' + options.chunkedMode);
+              console.log('httpMethod ' + options.httpMethod);
+              console.log('mimeType ' + options.mimeType);
+              console.log('id_post ' + options.params.id_post);
+              console.log('headers ' + options.headers);
                 const fileTransfer = new TransferObject();
                 this.uploadingHandler[targetPath] = fileTransfer;
 
+                console.log('Before File Transfer Upload');
                 fileTransfer.upload(targetPath, this.serverUrl, options).then(data => {
                     resolve(JSON.parse(data.response));
-                    console.log('cccccooonsole');
-                }).catch(err => {
+                    console.log('Success FileTransfer Upload');
+                }).catch(error => {
+                  console.log('Failed FileTransfer Upload');
+                  console.log('code ' + error.code);
+                  console.log('source ' + error.source);
+                  console.log('target ' + error.target);
+                  console.log('http_status ' + error.http_status);
+                  console.log('body ' + error.body);
+                  console.log('exception ' + error.exception);
                   this.toastService.showToast('Ошибка загрузки изображения!');
                 });
 

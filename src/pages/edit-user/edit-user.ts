@@ -71,6 +71,9 @@ export class EditUserPage {
 
   onChangeUser(form: NgForm) {
     this.loadService.showLoader();
+    if(this.lastImage !== null) {
+      this.uploadImage();
+    }
     this.userService.changeUser(
       form.value.nick_name,
       form.value.first_name,
@@ -189,7 +192,6 @@ export class EditUserPage {
 
     // File for Upload
     var targetPath = this.pathForImage(this.lastImage);
-    // var targetPath = '/home/driver/tickFlyApp/src/assets/images/boat.jpg';
 
     console.log(targetPath);
 
