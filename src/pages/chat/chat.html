@@ -24,9 +24,13 @@
         <div *ngFor="let message of chat.messages">
           <div class="message-block" [ngClass]="(message.userId==userId)?'message-right':'message-left'">
             <div class="message-content">
-              <p>
+              <p *ngIf="message.message_type == 'text'">
                 {{message.message}}
               </p>
+              <div *ngIf="message.message_type == 'post'" (click)="onPostPage(message.message.id_post)">
+                <p><b>Запись на стене</b></p>
+                <p>{{message.message.title}}</p>
+              </div>
               <span class="message-time">
                 {{message.createdAt}}
               </span>

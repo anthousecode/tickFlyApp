@@ -6,7 +6,7 @@ export class Message {
   userId?: number;
   createdAt?: string;
   media?: string[];   // not sure if string but dunno
-  message?: string;
+  message?: {};
   user?: User;
   message_type?: string;
   read?: boolean;

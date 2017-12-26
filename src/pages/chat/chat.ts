@@ -8,12 +8,14 @@ import {LoaderService} from "../../services/loader.service";
 import {User} from "../../models/user";
 import {Message} from "../../models/message";
 import {SocketService} from "../../services/socket.service";
+import {PostPage} from "../post/post";
+import {HttpService} from "../../services/http.service";
 
 @IonicPage()
 @Component({
   selector: 'page-chat',
   templateUrl: 'chat.html',
-  providers: [ChatService, LoaderService],
+  providers: [ChatService, LoaderService, HttpService],
 })
 export class ChatPage {
   chat: Chat;
@@ -28,7 +30,8 @@ export class ChatPage {
               public chatService: ChatService,
               public authService: AuthService,
               public loadService: LoaderService,
-              public socketService: SocketService) {
+              public socketService: SocketService,
+              public httpService: HttpService) {
     this.chat = new Chat();
     this.chat.messages = [];
     this.interlocutor = new User();
@@ -86,6 +89,10 @@ export class ChatPage {
         this.chat.messages = response.json().messages.map(message => {
           message.userId = message.user_id;
           message.createdAt = message.format_time;
+          message.message_type = message.message_type;
+          message.message = message.message;
+          console.log(message.message_type);
+          console.log(message.message);
           return message;
         });
         localStorage.setItem(lStorageKey, JSON.stringify(this.chat.messages));
@@ -134,6 +141,25 @@ export class ChatPage {
         },
         error => {
           console.log('Error');
+        }
+      );
+  }
+
+
+  onPostPage(postId) {
+    this.loadService.showLoader();
+    let post;
+    this.httpService.getPost(postId)
+      .subscribe(
+        response => {
+          post = response.json().post;
+          console.log(post);
+          this.navCtrl.push(PostPage, {post: post});
+          this.loadService.hideLoader();
+        },
+        error => {
+          console.log(error);
+          this.loadService.hideLoader();
         }
       );
   }

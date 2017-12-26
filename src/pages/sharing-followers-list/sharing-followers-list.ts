@@ -18,7 +18,7 @@ import {ToastService} from "../../services/toast.service";
   providers: [ShareService, AuthService, ToastService]
 })
 export class SharingFollowersListPage {
-
+  postId: number;
   selectedItem: any;
   followersList = [];
 
@@ -29,6 +29,7 @@ export class SharingFollowersListPage {
     public shareService: ShareService,
     public toastService: ToastService
   ) {
+    this.postId = this.navParams.get('postId');
   }
 
   ionViewDidLoad() {
@@ -53,9 +54,7 @@ export class SharingFollowersListPage {
   }
 
   itemTapped(event, idUser) {
-    console.log(this.navParams.get('postId'));
-    console.log(idUser);
-    this.shareService.sharePost(this.navParams.get('postId'), idUser)
+    this.shareService.sharePost(this.postId, idUser)
     .subscribe(
       response => {
         this.closeModal();
