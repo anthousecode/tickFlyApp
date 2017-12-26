@@ -91,9 +91,21 @@ export class CreatePostPage {
         console.log('postID in request ' + response.json().id_post);
         console.log('Create Post Success');
         this.onSubmitUploadImages(postId);
-        this.onHomePage();
-        this.loadService.hideLoader();
-        this.toastService.showToast('Пост успешно создан!');
+          // .then(result => {
+          //   console.log('success');
+          //   this.onHomePage();
+          //   this.loadService.hideLoader();
+          //   this.toastService.showToast('Пост успешно создан!');
+          // },
+          // error => {
+          //   console.log('error');
+          //   this.onHomePage();
+          //   this.loadService.hideLoader();
+          //   this.toastService.showToast('Пост успешно создан!');
+          // })
+        // this.onHomePage();
+        // this.loadService.hideLoader();
+        // this.toastService.showToast('Пост успешно создан!');
       },
       error => {
         this.loadService.hideLoader();
@@ -122,13 +134,30 @@ export class CreatePostPage {
 
 
   onSubmitUploadImages(postId: number) {
-    console.log('postId in onSubmitUploadImages ' + postId);
-    this.multiImageUpload.uploadImages(postId).then((images) => {
-      this.uploadFinished = true;
-      console.dir(images);
-      console.log('onSubmitUploadImages success');
-    }).catch(() => {
-      console.log('onSubmitUploadImages failed');
-    });
+    // return new Promise((resolve, reject) => {
+      console.log('postId in onSubmitUploadImages ' + postId);
+      this.multiImageUpload.uploadImages(postId).then((images) => {
+        this.uploadFinished = true;
+        console.dir(images);
+        console.log('onSubmitUploadImages success');
+        this.onHomePage();
+        this.loadService.hideLoader();
+        this.toastService.showToast('Пост успешно создан!');
+      }).catch(() => {
+        console.log('onSubmitUploadImages failed');
+        this.onHomePage();
+        this.loadService.hideLoader();
+        this.toastService.showToast('Пост успешно создан!');
+      });
+    // })
+    //   .then(() => {
+    //   this.onHomePage();
+    //   this.loadService.hideLoader();
+    //   this.toastService.showToast('Пост успешно создан!');
+    // }).catch(() => {
+    //   this.onHomePage();
+    //   this.loadService.hideLoader();
+    //   this.toastService.showToast('Пост успешно создан!');
+    // });
   }
 }

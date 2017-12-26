@@ -18,7 +18,7 @@
   </ion-item>
 
   <h2 padding class="post-title" (click)="onPostPage(post?.postId)">{{post?.title}}</h2>
-  <img *ngIf="post?.media[0]" src="{{post?.media[0]['url_orign']}}">
+  <img *ngIf="post?.media[0]" src="{{post?.media[0]['url_thumb']}}">
 
   <ion-card-content>
     <p margin-bottom>{{getShortDescription(post?.description)}}</p>

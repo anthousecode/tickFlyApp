@@ -7,11 +7,12 @@ import {FilePath} from "@ionic-native/file-path";
 import {TransferObject} from "@ionic-native/transfer";
 import {ToastService} from "../../services/toast.service";
 import {AuthService} from "../../services/auth.service";
+import {LoaderService} from "../../services/loader.service";
 
 @Component({
     selector: 'multi-image-upload',
     templateUrl: 'multi-image-upload.html',
-    providers: [Camera, File, FilePath, Platform, AuthService]
+    providers: [Camera, File, FilePath, Platform, AuthService, LoaderService]
 })
 
 export class MultiImageUpload {
@@ -30,7 +31,8 @@ export class MultiImageUpload {
       private camera: Camera,
       private file: File,
       public toastService: ToastService,
-      public authService: AuthService
+      public authService: AuthService,
+      public loadService: LoaderService
     ) {
     }
 
@@ -147,14 +149,14 @@ export class MultiImageUpload {
                   }
                 };
               console.log('uploadImage After Options created');
-              console.log('serverUrl ' + this.serverUrl);
-              console.log('fileKey ' + options.fileKey);
-              console.log('fileName ' + options.fileName);
-              console.log('chunkedMode ' + options.chunkedMode);
-              console.log('httpMethod ' + options.httpMethod);
-              console.log('mimeType ' + options.mimeType);
-              console.log('id_post ' + options.params.id_post);
-              console.log('headers ' + options.headers);
+              // console.log('serverUrl ' + this.serverUrl);
+              // console.log('fileKey ' + options.fileKey);
+              // console.log('fileName ' + options.fileName);
+              // console.log('chunkedMode ' + options.chunkedMode);
+              // console.log('httpMethod ' + options.httpMethod);
+              // console.log('mimeType ' + options.mimeType);
+              // console.log('id_post ' + options.params.id_post);
+              // console.log('headers ' + options.headers);
                 const fileTransfer = new TransferObject();
                 this.uploadingHandler[targetPath] = fileTransfer;
 
@@ -171,6 +173,7 @@ export class MultiImageUpload {
                   console.log('body ' + error.body);
                   console.log('exception ' + error.exception);
                   this.toastService.showToast('Ошибка загрузки изображения!');
+                  this.loadService.hideLoader();
                 });
 
                 fileTransfer.onProgress(event2 => {
