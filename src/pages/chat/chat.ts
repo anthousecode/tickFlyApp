@@ -62,7 +62,7 @@ export class ChatPage {
         let msg = new Message();
         msg.message = messageData['text'];
         msg.userId = messageData['senderId'];
-        msg.message_type = "text";
+        msg.messageType = "text";
         msg.createdAt = messageData['createdAt']
         this.chat.messages.push(msg);
         console.log('push to array');
@@ -89,8 +89,9 @@ export class ChatPage {
         this.chat.messages = response.json().messages.map(message => {
           message.userId = message.user_id;
           message.createdAt = message.format_time;
-          message.message_type = message.message_type;
-          message.message = message.message;
+          message.messageType = message.message_type;
+
+          // message.message = message.message;
           console.log(message.message_type);
           console.log(message.message);
           return message;
@@ -133,7 +134,8 @@ export class ChatPage {
           this.chat.messages.push({
               userId: Number(this.userId),
               message: form.value.message,
-              createdAt: currentDatetime
+              createdAt: currentDatetime,
+              messageType: 'text'
             }
           );
           form.reset();
