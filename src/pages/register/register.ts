@@ -41,6 +41,7 @@ export class RegisterPage {
   }
 
   onSignup(form: NgForm) {
+    console.log('signup');
     this.loadService.showLoader();
     this.authService.signup(form.value.nickname, form.value.email, form.value.password)
       .subscribe(
@@ -52,6 +53,7 @@ export class RegisterPage {
           this.toastService.showToast('Вы успешно зарегистрированы!');
         },
         error => {
+          console.log('Error');
           this.loadService.hideLoader();
           let errors = error.json().errors;
           let firstError = errors[Object.keys(errors)[0]];

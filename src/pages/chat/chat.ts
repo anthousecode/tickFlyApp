@@ -49,21 +49,33 @@ export class ChatPage {
   }
 
   startListening() {
+    console.log('startListening');
     this.messageListener = this.socketService.getMessages().subscribe(data => {
       // TODO: KEK LEL TOP TIER MEMES
       let messageData = data['data'];
-      if (messageData['senderId'] == this.interlocutor.id && data['chatId'] == this.chatId) {
+      console.log('startListening');
+      console.log('senderID ' + messageData['senderId']);
+      console.log('interlocator ' + this.interlocutor.id);
+      console.log('data chatID ' + data['chatID']);
+      console.log('chatID ' + this.chatId);
+      // if (messageData['senderId'] == this.interlocutor.id && data['chatId'] == this.chatId) {
+      if (messageData['senderId'] == this.interlocutor.id && messageData['chatId'] == this.chatId) {
         let msg = new Message();
         msg.message = messageData['text'];
         msg.userId = messageData['senderId'];
         msg.message_type = "text";
+        msg.createdAt = messageData['createdAt']
         this.chat.messages.push(msg);
+        console.log('push to array');
       }
     });
+    this.chat.messages = this.chat.messages.reverse();
+    console.log(this.chat.messages);
   }
 
 
   getChat() {
+    console.log('getChat');
     const lStorageKey = "chatMessages_" + this.chatId;
     if (localStorage.getItem(lStorageKey)) {
       this.chat.messages = JSON.parse(localStorage.getItem(lStorageKey));
@@ -75,6 +87,7 @@ export class ChatPage {
       response => {
         this.chat.messages = response.json().messages.map(message => {
           message.userId = message.user_id;
+          message.createdAt = message.format_time;
           return message;
         });
         localStorage.setItem(lStorageKey, JSON.stringify(this.chat.messages));
@@ -95,19 +108,26 @@ export class ChatPage {
         this.loadService.hideLoader();
       }
     )
+    this.chat.messages = this.chat.messages.reverse();
+    console.log(this.chat.messages);
   }
 
 
   sendMessage(form: NgForm) {
     console.log(form.value.message);
 
+    let currentdate = new Date();
+    let currentDatetime = currentdate.getHours() + ":" + (currentdate.getMinutes()<10?'0':'') + currentdate.getMinutes() ;
+    console.log('datetime');
+    console.log(currentDatetime);
     this.chatService.sendMessage(this.chatId, form.value.message)
       .subscribe(
         response => {
-          this.socketService.emitChatMessage(form.value.message, this.chatId, this.userId, this.interlocutor.id);
+          this.socketService.emitChatMessage(form.value.message, this.chatId, this.userId, this.interlocutor.id, currentDatetime);
           this.chat.messages.push({
               userId: Number(this.userId),
-              message: form.value.message
+              message: form.value.message,
+              createdAt: currentDatetime
             }
           );
           form.reset();

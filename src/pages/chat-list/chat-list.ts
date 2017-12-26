@@ -49,12 +49,14 @@ export class ChatListPage {
   getChats() {
     // this.loadService.showLoader();
     this.loadChatsFromStorage();
-
+    console.log('getChats');
     this.chatService.getChats().subscribe(
       response => {
-        // console.log("Conversations", JSON.parse(response.text()).conversation);
+        console.log('getChats subscribe');
+        console.log("Conversations", JSON.parse(response.text()).conversation);
         this.chats = response.json()
           .conversation.map(conversation => {
+            console.log('conversations');
             let chat = new Chat();
             chat.id = conversation.chat_id;
             chat.lastMessage = conversation.last_message.message;
@@ -110,10 +112,10 @@ export class ChatListPage {
   }
 
   ionViewDidLoad() {
-
   }
 
   ionViewDidEnter() {
+    console.log('ionViewDidEnter');
     this.getChats();
   }
 
