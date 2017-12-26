@@ -195,7 +195,7 @@ export class PostPreviewComponent {
 
 
   presentProfileModal(postId) {
-    let profileModal = this.modalCtrl.create(SharingFollowersListPage, {postId:postId});
+    let profileModal = this.modalCtrl.create(SharingFollowersListPage, {postId: postId});
     profileModal.onDidDismiss(data => {
       console.log(data);
     });
