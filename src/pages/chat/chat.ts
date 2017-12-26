@@ -1,5 +1,5 @@
-import {Component, Provider} from "@angular/core";
-import {IonicPage, NavController, NavParams} from "ionic-angular";
+import {Component, Provider, ViewChild} from "@angular/core";
+import {Content, IonicPage, NavController, NavParams} from "ionic-angular";
 import {Chat} from "../../models/chat";
 import {ChatService} from "../../services/chat.service";
 import {NgForm} from "@angular/forms";
@@ -21,6 +21,7 @@ export class ChatPage {
   userId: number;
   interlocutor: User;
   messageListener;
+  @ViewChild(Content) content: Content;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -37,6 +38,7 @@ export class ChatPage {
     this.userId = Number(this.authService.getUserId());
     this.chatId = this.navParams.get("chatId");
     this.getChat();
+    this.scrollToBottom();
   }
 
   destroyListeners() {
@@ -53,12 +55,6 @@ export class ChatPage {
     this.messageListener = this.socketService.getMessages().subscribe(data => {
       // TODO: KEK LEL TOP TIER MEMES
       let messageData = data['data'];
-      console.log('startListening');
-      console.log('senderID ' + messageData['senderId']);
-      console.log('interlocator ' + this.interlocutor.id);
-      console.log('data chatID ' + data['chatID']);
-      console.log('chatID ' + this.chatId);
-      // if (messageData['senderId'] == this.interlocutor.id && data['chatId'] == this.chatId) {
       if (messageData['senderId'] == this.interlocutor.id && messageData['chatId'] == this.chatId) {
         let msg = new Message();
         msg.message = messageData['text'];
@@ -67,10 +63,12 @@ export class ChatPage {
         msg.createdAt = messageData['createdAt']
         this.chat.messages.push(msg);
         console.log('push to array');
+        this.scrollToBottom();
       }
     });
     this.chat.messages = this.chat.messages.reverse();
     console.log(this.chat.messages);
+    this.scrollToBottom();
   }
 
 
@@ -103,6 +101,7 @@ export class ChatPage {
         this.interlocutor.email = interlocutor.user.email;
         this.loadService.hideLoader();
         this.startListening();
+        this.scrollToBottom();
       },
       error => {
         this.loadService.hideLoader();
@@ -131,10 +130,22 @@ export class ChatPage {
             }
           );
           form.reset();
+          this.scrollToBottom();
         },
         error => {
           console.log('Error');
         }
       );
+  }
+
+
+
+  scrollToBottom() {
+    console.log('scrooll to bottom');
+    setTimeout(() => {
+      if (this.content.scrollToBottom) {
+        this.content.scrollToBottom();
+      }
+    }, 400)
   }
 }
