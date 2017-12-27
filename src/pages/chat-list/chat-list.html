@@ -25,7 +25,7 @@
             <ion-avatar item-start>
               <img class="chat-avatar" src="{{chat.avatar}}">
             </ion-avatar>
-            <h2>{{chat.title}}</h2>
+            <h2 text-wrap>{{chat.title}}</h2>
             <p>{{chat.lastMessage}}</p>
             <ion-note item-end>
               <ion-badge class="chat-badge" *ngIf="chat.unreadMessages > 0">{{chat.unreadMessages}}</ion-badge>
