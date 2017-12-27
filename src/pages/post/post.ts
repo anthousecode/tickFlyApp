@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {AlertController, IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {AlertController, Content, IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {CategoryPage} from "../category/category";
 import {NgForm} from "@angular/forms";
 import {HttpService} from "../../services/http.service";
@@ -35,6 +35,7 @@ export class PostPage {
   currentUserId: number;
   isTick: boolean;
   comment: string;
+  @ViewChild(Content) content: Content;
 
   constructor(
     public navCtrl: NavController,
@@ -116,6 +117,7 @@ export class PostPage {
           console.log(response.json());
           this.comments.push(response.json().comment);
           form.reset();
+          this.scrollToBottom();
         },
         error => {
           console.log('Error');
@@ -248,6 +250,16 @@ export class PostPage {
   onSearchPage(tag) {
     console.log(tag);
     this.navCtrl.push(SearchPage, {query: tag});
+  }
+
+
+  scrollToBottom() {
+    console.log('scrooll to bottom');
+    setTimeout(() => {
+      if (this.content.scrollToBottom) {
+        this.content.scrollToBottom();
+      }
+    }, 400)
   }
 
 }

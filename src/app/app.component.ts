@@ -22,18 +22,13 @@ import {ChatListPage} from "../pages/chat-list/chat-list";
 @Injectable()
 export class MyApp implements OnInit {
   @ViewChild(Nav) nav: Nav;
-
   rootPage: any = LoginPage;
-
   logged: boolean = false;
-
   pages: Array<{ title: string, component: any }>;
-
   userId = this.authService.getUserId();
-
   newMessages: number = 0;
-
   messagesLabel: string;
+  split = new Date().toString().split(" ");
 
   constructor(public platform: Platform,
               public statusBar: StatusBar,
@@ -46,6 +41,7 @@ export class MyApp implements OnInit {
       {title: 'Категории', component: CategoryListPage},
       {title: 'Магазин тиков', component: ShopPage}
     ];
+    console.log('Timezone ' + this.split[this.split.length - 2] + " " + this.split[this.split.length - 1]);
   }
 
   ngOnInit() {
