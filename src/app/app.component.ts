@@ -13,11 +13,12 @@ import {ShopPage} from "../pages/shop/shop";
 import {SocketService} from "../services/socket.service";
 import {ChatListPage} from "../pages/chat-list/chat-list";
 import {PaymentService} from "../services/payment.service";
+import {CommonService} from "../services/common.service";
 
 
 @Component({
   templateUrl: 'app.html',
-  providers: [HttpService, AuthService, PaymentService]
+  providers: [HttpService, AuthService, PaymentService, CommonService]
 })
 
 @Injectable()
@@ -29,21 +30,21 @@ export class MyApp implements OnInit {
   userId = this.authService.getUserId();
   newMessages: number = 0;
   messagesLabel: string;
-  split = new Date().toString().split(" ");
+  timezone;
 
   constructor(public platform: Platform,
               public statusBar: StatusBar,
               public splashScreen: SplashScreen,
               private authService: AuthService,
               private socketService: SocketService,
-              private paymentService: PaymentService) {
+              private paymentService: PaymentService,
+              private commonService: CommonService) {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Главная', component: HomePage},
       {title: 'Категории', component: CategoryListPage},
       {title: 'Магазин тиков', component: ShopPage}
     ];
-    console.log('Timezone ' + this.split[this.split.length - 2] + " " + this.split[this.split.length - 1]);
   }
 
   ngOnInit() {
@@ -55,6 +56,7 @@ export class MyApp implements OnInit {
       this.socketService.connect();
       this.startListening();
       this.getTickPackages();
+      this.setTimezone();
     })
   }
 
@@ -79,6 +81,19 @@ export class MyApp implements OnInit {
     if (this.logged == true) {
       this.rootPage = HomePage;
     }
+  }
+
+  setTimezone() {
+    this.timezone = new Date().toString().split(" ");
+    this.timezone = this.timezone[this.timezone.length - 2];
+    console.log(this.timezone);
+    this.commonService.setTimezone(this.timezone)
+      .subscribe( response => {
+        console.log(response);
+      },
+        error => {
+        console.log(error);
+      });
   }
 
   getTickPackages() {
