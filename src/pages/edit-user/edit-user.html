@@ -17,13 +17,13 @@
   <div class="tick-wrapper">
     <div class="enter-block tf-post-label" padding>
       <ion-avatar item-start (click)="presentActionSheet()">
-        <img src="{{pathForImage(lastImage)}}" style="width: 100%; height: 100%;" [hidden]="lastImage === null">
+        <img class="edit-avatar" src="{{pathForImage(lastImage)}}" style="width: 100%; height: 100%;" [hidden]="lastImage === null">
       </ion-avatar>
       <div [hidden]="lastImage !== null">
         <ion-avatar item-start (click)="presentActionSheet()">
-          <img class="chat-avatar" src="{{user?.avatar}}">
+          <img class="edit-avatar" src="{{user?.avatar}}">
         </ion-avatar>
-        <p>Сменить аватар</p>
+        <p text-center>Сменить аватар</p>
       </div>
       <!--<ion-buttons>-->
         <!--<button ion-button icon-center (click)="uploadImage()" [disabled]="lastImage === null">-->
