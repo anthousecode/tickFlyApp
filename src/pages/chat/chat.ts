@@ -23,6 +23,7 @@ export class ChatPage {
   userId: number;
   interlocutor: User;
   messageListener;
+  unreadMessageCount;
   @ViewChild(Content) content: Content;
 
   constructor(public navCtrl: NavController,
@@ -90,8 +91,6 @@ export class ChatPage {
           message.userId = message.user_id;
           message.createdAt = message.format_time;
           message.messageType = message.message_type;
-
-          // message.message = message.message;
           console.log(message.message_type);
           console.log(message.message);
           return message;
@@ -100,6 +99,9 @@ export class ChatPage {
         let interlocutor = response.json().members.filter(member => {
           return member.user.id_user != this.userId;
         })[0];
+
+        this.unreadMessageCount = response.json().count_unread_message;
+        localStorage.setItem("unreadMessages", this.unreadMessageCount);
 
         this.interlocutor.id = interlocutor.user.id_user;
         this.interlocutor.avatar = interlocutor.user.avatar;

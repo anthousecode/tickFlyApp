@@ -29,6 +29,7 @@ export class MyApp implements OnInit {
   pages: Array<{ title: string, component: any }>;
   userId = this.authService.getUserId();
   newMessages: number = 0;
+  newMessageCount: number = 0;
   messagesLabel: string;
   timezone;
 
@@ -62,6 +63,7 @@ export class MyApp implements OnInit {
 
   startListening() {
     this.socketService.getMessages().subscribe(data => {
+      console.log('AppComponent Listener ');
       console.log(data);
       if (data['data']['targetUserId'] == this.authService.getUserId()) {
         this.newMessages += 1;
@@ -81,6 +83,7 @@ export class MyApp implements OnInit {
     if (this.logged == true) {
       this.rootPage = HomePage;
     }
+    this.newMessageCount = Number(localStorage.getItem("unreadMessages"));
   }
 
   setTimezone() {

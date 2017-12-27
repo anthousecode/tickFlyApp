@@ -59,8 +59,10 @@ export class ChatListPage {
             console.log('conversations');
             let chat = new Chat();
             chat.id = conversation.chat_id;
-            chat.lastMessage = conversation.last_message.message;
-            chat.timeLastMassage = conversation.last_message.format_time;
+            if(conversation.last_message != null) {
+              chat.lastMessage = conversation.last_message.message;
+              chat.timeLastMassage = conversation.last_message.format_time;
+            }
             chat.updatedAt = conversation.updated_at;
             chat.unreadMessages = conversation.unread_message;
             chat.members = conversation.members.map(member => {

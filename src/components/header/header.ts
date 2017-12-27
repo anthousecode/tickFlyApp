@@ -20,10 +20,15 @@ export class HeaderComponent {
   @Input() createPost: boolean;
   @Input() messages: boolean;
   @Input() menu: boolean;
+  unreadMessages;
 
   constructor(public navCtrl: NavController) {
     console.log('Hello HeaderComponent Component');
     this.text = 'Hello World';
+  }
+
+  ngDoCheck() {
+    this.getUnreadMessages()
   }
 
   onCreatePostPage() {
@@ -36,6 +41,10 @@ export class HeaderComponent {
 
   onSearchPage() {
     this.navCtrl.push(SearchPage);
+  }
+
+  getUnreadMessages() {
+    this.unreadMessages = localStorage.getItem('unreadMessages');
   }
 
 }
