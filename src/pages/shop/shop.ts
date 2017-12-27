@@ -22,7 +22,7 @@ export class ShopPage {
 
   payment: string;
   selectedItem: any;
-  packageList = [];
+  packageList;
   paymentSystems = [];
   selectedPackage;
   selectedPaymentSystem: string;
@@ -50,17 +50,22 @@ export class ShopPage {
   }
 
   getTickPackages() {
-    this.paymentService.getPaymentPackages()
-      .subscribe(
-        response => {
-          console.log(response.json());
-          this.packageList = response.json().packages[0].cost_ticks;
-          this.code = response.json().packages[0].code;
-        },
-        error => {
-          console.log(error);
-        }
-      );
+    if(localStorage.getItem("packageList") && localStorage.getItem("code")) {
+      this.packageList = JSON.parse(localStorage.getItem("packageList"));
+      this.code = localStorage.getItem("code");
+    } else {
+      this.paymentService.getPaymentPackages()
+        .subscribe(
+          response => {
+            console.log(response.json());
+            this.packageList = response.json().packages[0].cost_ticks;
+            this.code = response.json().packages[0].code;
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    }
   }
 
   getPaymentSystems() {

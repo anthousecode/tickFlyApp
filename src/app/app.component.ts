@@ -12,11 +12,12 @@ import {CategoryListPage} from "../pages/category-list/category-list";
 import {ShopPage} from "../pages/shop/shop";
 import {SocketService} from "../services/socket.service";
 import {ChatListPage} from "../pages/chat-list/chat-list";
+import {PaymentService} from "../services/payment.service";
 
 
 @Component({
   templateUrl: 'app.html',
-  providers: [HttpService, AuthService]
+  providers: [HttpService, AuthService, PaymentService]
 })
 
 @Injectable()
@@ -34,7 +35,8 @@ export class MyApp implements OnInit {
               public statusBar: StatusBar,
               public splashScreen: SplashScreen,
               private authService: AuthService,
-              private socketService: SocketService) {
+              private socketService: SocketService,
+              private paymentService: PaymentService) {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Главная', component: HomePage},
@@ -52,6 +54,7 @@ export class MyApp implements OnInit {
       this.splashScreen.hide();
       this.socketService.connect();
       this.startListening();
+      this.getTickPackages();
     })
   }
 
@@ -76,6 +79,22 @@ export class MyApp implements OnInit {
     if (this.logged == true) {
       this.rootPage = HomePage;
     }
+  }
+
+  getTickPackages() {
+    this.paymentService.getPaymentPackages()
+      .subscribe(
+        response => {
+          console.log(response.json());
+          let packageList = response.json().packages[0].cost_ticks;
+          let code = response.json().packages[0].code;
+          localStorage.setItem("packageList", JSON.stringify(packageList));
+          localStorage.setItem("code", JSON.stringify(code));
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
   openPage(page) {
