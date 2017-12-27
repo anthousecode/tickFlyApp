@@ -46,9 +46,8 @@ export class UserService {
 
   toggleSubscribe(idUser) {
     return this.http.put(
-      this.authService.API + `/api/v1/user/subscribe-unsubscribe`,
+      this.authService.API + `/api/v1/user/subscribe-unsubscribe/` + idUser,
       {
-        id_user: idUser
       },
       {
         headers: new Headers({
