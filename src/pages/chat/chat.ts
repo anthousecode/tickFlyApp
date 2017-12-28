@@ -91,8 +91,6 @@ export class ChatPage {
           message.userId = message.user_id;
           message.createdAt = message.format_time;
           message.messageType = message.message_type;
-          console.log(message.message_type);
-          console.log(message.message);
           return message;
         });
         localStorage.setItem(lStorageKey, JSON.stringify(this.chat.messages));
@@ -101,6 +99,7 @@ export class ChatPage {
         })[0];
 
         this.unreadMessageCount = response.json().count_unread_message;
+        console.log(response.json());
         localStorage.setItem("unreadMessages", this.unreadMessageCount);
 
         this.interlocutor.id = interlocutor.user.id_user;

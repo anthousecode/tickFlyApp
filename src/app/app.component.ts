@@ -66,8 +66,9 @@ export class MyApp implements OnInit {
       console.log('AppComponent Listener ');
       console.log(data);
       if (data['data']['targetUserId'] == this.authService.getUserId()) {
-        this.newMessages += 1;
-        localStorage.setItem("unreadMessages", String(this.newMessages));
+        this.newMessageCount += 1;
+        console.log('newMessageCount ' + this.newMessageCount);
+        localStorage.setItem("unreadMessages", String(this.newMessageCount));
       }
       // if (data['senderId'] == this.interlocutor.id && data['chatId'] == this.chatId) {
       //   let msg = new Message();
@@ -89,7 +90,6 @@ export class MyApp implements OnInit {
   setTimezone() {
     this.timezone = new Date().toString().split(" ");
     this.timezone = this.timezone[this.timezone.length - 2];
-    console.log(this.timezone);
     this.commonService.setTimezone(this.timezone)
       .subscribe( response => {
         console.log(response);
