@@ -6,8 +6,7 @@ import {PaymentSystemPage} from "../payment-system/payment-system";
 
 @NgModule({
   declarations: [
-    ShopPage,
-    PaymentSystemPage
+    ShopPage
   ],
   entryComponents: [
     PaymentSystemPage
