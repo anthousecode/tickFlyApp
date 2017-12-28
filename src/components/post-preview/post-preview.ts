@@ -51,6 +51,7 @@ export class PostPreviewComponent {
     this.currentPage = this.viewCtrl.name;
     this.currentUserId = Number(this.authService.getUserId());
     this.isTick = false;
+    console.log('POST' + this.posts);
   }
 
   onPostPage(postId) {

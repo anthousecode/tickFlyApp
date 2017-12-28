@@ -46,7 +46,8 @@ export class HomePage {
             date: post.format_date,
             media: post.media,
             author: post.user,
-            isTick: post.donate
+            isTick: post.donate,
+            commentsCount: post.comments_count
           });
           console.log(post.donate);
         }

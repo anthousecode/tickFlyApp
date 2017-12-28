@@ -74,7 +74,8 @@ export class UserProfilePage {
               tickCount: post.summ_ticks,
               date: post.format_date,
               media: post.media,
-              isTick: post.donate
+              isTick: post.donate,
+              commentsCount: post.comments_count
             });
           }
           this.loadService.hideLoader();
