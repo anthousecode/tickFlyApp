@@ -106,8 +106,9 @@ export class MyApp implements OnInit {
           console.log(response.json());
           let packageList = response.json().packages[0].cost_ticks;
           let code = response.json().packages[0].code;
+          console.log("code " + code);
           localStorage.setItem("packageList", JSON.stringify(packageList));
-          localStorage.setItem("code", JSON.stringify(code));
+          localStorage.setItem("code", code);
         },
         error => {
           console.log(error);

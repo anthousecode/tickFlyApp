@@ -80,7 +80,7 @@ export class PaymentSystemPage {
               response => {
                 console.log(response.json());
                 message = response.json().message;
-                this.toastService.showToast(message);
+                this.toastService.showToast(message, 30000);
                 this.loadService.hideLoader();
                 this.onUserProfile();
 
@@ -89,7 +89,7 @@ export class PaymentSystemPage {
                 console.log(error);
                 message = error.json().message;
                 this.loadService.hideLoader();
-                this.toastService.showToast(message);
+                this.toastService.showToast(message, 30000);
               }
             );
         })

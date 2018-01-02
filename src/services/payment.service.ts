@@ -29,6 +29,7 @@ export class PaymentService {
   }
 
   doPayment(stripeToken, price, currency) {
+    console.log('currency ' + currency);
     return this.http.post(
       this.authService.API + `/api/v1/payments/stripe/pay`,
       {

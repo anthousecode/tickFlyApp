@@ -7,10 +7,11 @@ export class ToastService {
   constructor(private toastCtrl: ToastController) { }
 
 
-  showToast(message: string) {
+  showToast(message: string, duration?: number) {
+    duration = duration ? duration : 3000;
     let toast = this.toastCtrl.create({
       message: message,
-      duration: 3000,
+      duration: duration,
       position: 'top'
     });
 
