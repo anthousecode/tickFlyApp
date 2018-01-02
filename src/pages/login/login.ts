@@ -3,6 +3,7 @@ import {
   AlertController, IonicPage, MenuController, ModalController, Nav, NavController, NavParams, Platform, ToastController,
   ViewController
 } from 'ionic-angular';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 
 import {RegisterPage} from "../register/register";
 import {AuthService} from "../../services/auth.service";
@@ -18,7 +19,7 @@ import {LoaderService} from "../../services/loader.service";
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [AuthService, GooglePlus, ToastService, LoaderService]
+  providers: [AuthService, GooglePlus, ToastService, LoaderService, Facebook]
 })
 export class LoginPage {
 
@@ -33,7 +34,8 @@ export class LoginPage {
     public googlePlus: GooglePlus,
     public toastService: ToastService,
     public menu: MenuController,
-    public loadService: LoaderService
+    public loadService: LoaderService,
+    private fb: Facebook
   ) {
     this.rootPage = null;
     this.userData = null;
@@ -79,11 +81,10 @@ export class LoginPage {
   }
 
   signinGoogle() {
-
-
     console.log('test login');
     this.googlePlus.login({
       "webClientId": "61123529027-an619isno3lndv76lci95dam2pmrvgd4.apps.googleusercontent.com",
+      'offline': true
     })
       .then(res => {
         let toast = this.toastCtrl.create({
@@ -92,6 +93,7 @@ export class LoginPage {
           position: 'top'
         });
         toast.present();
+        console.log(res);
       })
       .catch(err => {
         let toast = this.toastCtrl.create({
@@ -100,7 +102,7 @@ export class LoginPage {
           position: 'top'
         });
         toast.present();
-
+        console.log(err);
       });
     // this.authService.signinGoogle().subscribe(
     //   response => {
@@ -114,5 +116,27 @@ export class LoginPage {
     //     console.log('Error');
     //   }
     // );
+  }
+
+
+  signinFacebook() {
+    this.fb.login(['public_profile', 'user_friends', 'email'])
+      .then((res: FacebookLoginResponse) => {
+        console.log('Logged into Facebook!', res);
+        let accessToken = res.authResponse.accessToken;
+        console.log(accessToken);
+        this.authService.signinFacebook(accessToken)
+          .subscribe( response => {
+            let token = response.json().access_token;
+            localStorage.setItem("token", token);
+            this.onHomePage();
+            this.authService.getCurrentUserId();
+            this.toastService.showToast('Вы успешно авторизированы!');
+          },
+          error => {
+            console.log('error');
+          })
+      })
+      .catch(e => console.log('Error logging into Facebook', e));
   }
 }

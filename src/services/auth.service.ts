@@ -123,10 +123,9 @@ export class AuthService {
     }
   }
 
-  // signupFacebook(email: string, password: string) {
-  //   return this.http.post(`${this.API}\api\facebook\authorize`)
-  //     .subscribe();
-  // }
+  signinFacebook(facebookToken: string) {
+    return this.http.get(this.API + '/api/sign-up-facebook?access_token=' + facebookToken)
+  }
 
   // signin(email: string, password: string) {
   //   return this.http.post( `${this.API}\api\signin',
