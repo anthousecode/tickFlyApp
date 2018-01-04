@@ -82,42 +82,32 @@ export class LoginPage {
 
   signinGoogle() {
     console.log('test login');
-    this.googlePlus.login({
-      "webClientId": "61123529027-an619isno3lndv76lci95dam2pmrvgd4.apps.googleusercontent.com",
-      'offline': true
-    })
+    this.googlePlus.login({})
+    // this.googlePlus.trySilentLogin({
+    //   "webClientId": "1069051362186-c9dvj0j6cgv69ki9giqtu75gr16r132o.apps.googleusercontent.com"
+    // })
+    //   this.googlePlus.getSigningCertificateFingerprint()
       .then(res => {
-        let toast = this.toastCtrl.create({
-          message: "Success " + res,
-          duration: 3000,
-          position: 'top'
-        });
-        toast.present();
-        console.log(res);
+        console.log(JSON.stringify(res));
+        this.authService.signinGoogle(res.email, res.userId, res.displayName, res.familyName, res.givenName)
+          .subscribe(response => {
+            console.log('SUCCESS')
+            console.log(response.json().access_token);
+            let token = response.json().access_token;
+            localStorage.setItem("token", token);
+            this.onHomePage();
+            this.authService.getCurrentUserId();
+            this.toastService.showToast('Вы успешно авторизированы!');
+          },
+          error => {
+            console.log('error' + error);
+          })
+
       })
       .catch(err => {
-        let toast = this.toastCtrl.create({
-          message: "Error " + err,
-          duration: 3000,
-          position: 'top'
-        });
-        toast.present();
-        console.log(err);
+        console.log(JSON.stringify(err));
       });
-    // this.authService.signinGoogle().subscribe(
-    //   response => {
-    //     console.log('Success');
-    //     console.log(response.text());
-    //     let htmlAlert = response.text();
-    //     this.presentModal(htmlAlert);
-    //     // this.showPromptGoogle(htmlAlert);
-    //   },
-    //   error => {
-    //     console.log('Error');
-    //   }
-    // );
   }
-
 
   signinFacebook() {
     this.fb.login(['public_profile', 'user_friends', 'email'])
@@ -134,7 +124,7 @@ export class LoginPage {
             this.toastService.showToast('Вы успешно авторизированы!');
           },
           error => {
-            console.log('error');
+            console.log(error);
           })
       })
       .catch(e => console.log('Error logging into Facebook', e));

@@ -94,13 +94,12 @@ export class AuthService {
       )
   }
 
-  signinGoogle() {
-    this.googlePlus.login({})
-      .then(res => console.log(res))
-      .catch(err => console.error(err));
-    console.log('Google auth test');
-    let htmlAlert;
-    return this.http.get(this.API + '/api/google/authorize')
+  signinGoogle(email: string, userId: number, displayName: string, familyName: string, givenName: string) {
+    console.log(email);
+    return this.http.get(this.API + '/api/sign-up-google?email=' + email + '&userId=' + userId +
+      '&displayName=' + displayName + '&familyName=' + familyName + '&givenName=' + givenName,
+      {
+    })
   }
 
 
@@ -126,11 +125,5 @@ export class AuthService {
   signinFacebook(facebookToken: string) {
     return this.http.get(this.API + '/api/sign-up-facebook?access_token=' + facebookToken)
   }
-
-  // signin(email: string, password: string) {
-  //   return this.http.post( `${this.API}\api\signin',
-  //     {email: email, password: password})
-  //     .subscribe();
-  // }
 
 }
