@@ -4,6 +4,7 @@ import {Stripe} from "@ionic-native/stripe";
 import {NgForm} from "@angular/forms";
 import {PaymentService} from "../../services/payment.service";
 import {PaymentSystemPage} from "../payment-system/payment-system";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
 
 /**
  * Generated class for the ShopPage page.
@@ -16,7 +17,7 @@ import {PaymentSystemPage} from "../payment-system/payment-system";
 @Component({
   selector: 'page-shop',
   templateUrl: 'shop.html',
-  providers: [PaymentService]
+  providers: [PaymentService, InAppBrowser]
 })
 export class ShopPage {
 

@@ -35,12 +35,16 @@
     "@ionic-native/file-path": "^4.5.2",
     "@ionic-native/file-transfer": "^4.5.2",
     "@ionic-native/google-plus": "^4.5.2",
+    "@ionic-native/in-app-browser": "^4.5.2",
+    "@ionic-native/paypal": "^4.5.2",
     "@ionic-native/splash-screen": "3.12.1",
     "@ionic-native/status-bar": "^4.5.2",
     "@ionic-native/stripe": "^4.5.2",
     "@ionic-native/transfer": "^3.14.0",
     "@ionic/storage": "2.0.1",
     "angular2-text-mask": "^8.0.4",
+    "card.io.cordova.mobilesdk": "^2.1.0",
+    "com.paypal.cordova.mobilesdk": "^3.5.0",
     "cordova-android": "6.3.0",
     "cordova-plugin-camera": "^3.0.0",
     "cordova-plugin-device": "^1.1.7",
@@ -48,6 +52,7 @@
     "cordova-plugin-file": "^5.0.0",
     "cordova-plugin-file-transfer": "^1.7.0",
     "cordova-plugin-filepath": "^1.1.0",
+    "cordova-plugin-googleplus": "^5.1.1",
     "cordova-plugin-inappbrowser": "^1.7.2",
     "cordova-plugin-splashscreen": "^4.1.0",
     "cordova-plugin-statusbar": "^2.3.0",
@@ -59,8 +64,7 @@
     "reflect-metadata": "^0.1.10",
     "rxjs": "5.4.0",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.12",
-    "cordova-plugin-googleplus": "^5.1.1"
+    "zone.js": "0.8.12"
   },
   "devDependencies": {
     "@ionic/app-scripts": "2.1.4",
@@ -79,11 +83,12 @@
       "cordova-plugin-file": {},
       "cordova-plugin-filepath": {},
       "cordova-plugin-splashscreen": {},
+      "cordova-plugin-googleplus": {},
       "cordova-plugin-facebook4": {
         "APP_ID": "1759865127623327",
         "APP_NAME": "LaravelAuth"
       },
-      "cordova-plugin-googleplus": {}
+      "com.paypal.cordova.mobilesdk": {}
     },
     "platforms": [
       "android"
