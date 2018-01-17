@@ -75,6 +75,7 @@ export class UserProfilePage {
               date: post.format_date,
               media: post.media,
               isTick: post.donate,
+              author: post.user,
               commentsCount: post.comments_count
             });
           }

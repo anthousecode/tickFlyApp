@@ -34,6 +34,7 @@
       <button ion-button color="danger" margin-bottom (click)="onClickPay()" [disabled]="cardNumber === undefined || expMonthAndYear === undefined || cvc === undefined">
         {{'Оплатить ' + amount + ' ' + code}}
       </button>
+      <button ion-button (click)="onCreatePayPal()">Paypal оплата</button>
     </ion-buttons>
   </div>
 </ion-content>

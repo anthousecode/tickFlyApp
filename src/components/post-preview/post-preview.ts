@@ -25,12 +25,11 @@ import {LoaderService} from "../../services/loader.service";
 })
 export class PostPreviewComponent {
 
-  @Input() publicProfile: number;
+  @Input() publicProfile: boolean;
   @Input() userId: number;
   @Input() categoryId: number;
   @Input() posts = [];
   currentPost;
-  indexOfCurrentPost: number;
   currentPage: string;
   user;
   currentUserId: number;

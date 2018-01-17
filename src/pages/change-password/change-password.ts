@@ -61,9 +61,8 @@ export class ChangePasswordPage {
       error => {
         console.log('Error');
         this.loadService.hideLoader();
-        let errors = error.json().errors;
-        let firstError = errors[Object.keys(errors)[0]];
-        this.toastService.showToast(firstError);
+        let errors = error.json().message;
+        this.toastService.showToast(errors);
       }
     );
   }

@@ -7,6 +7,7 @@ import {PaymentService} from "../../services/payment.service";
 import {LoaderService} from "../../services/loader.service";
 import {UserProfilePage} from "../user-profile/user-profile";
 import {AuthService} from "../../services/auth.service";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
 
 /**
  * Generated class for the PaymentSystemPage page.
@@ -19,7 +20,7 @@ import {AuthService} from "../../services/auth.service";
 @Component({
   selector: 'page-payment-system',
   templateUrl: 'payment-system.html',
-  providers: [ToastService, PaymentService, LoaderService]
+  providers: [ToastService, PaymentService, LoaderService, InAppBrowser]
 })
 export class PaymentSystemPage {
   code: string;
@@ -36,19 +37,22 @@ export class PaymentSystemPage {
     public toastService: ToastService,
     public paymentService: PaymentService,
     public loadService: LoaderService,
-    public authService: AuthService
+    public authService: AuthService,
+    public iab: InAppBrowser,
   ) {
     this.paymentSystem = navParams.get('paymentSystem');
     this.code = navParams.get('code');
     this.amount = this.navParams.get('amount');
   }
 
+  browser = this.iab.create('http://anthouse.company/');
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShopPage');
   }
 
   onClickPay() {
-    this.stripe.setPublishableKey('pk_test_hhK8GKGNzqm8BrzrQEDJaf0o');
+    this.stripe.setPublishableKey('pk_live_AqtvkkG9viIkYNpODmItEp60');
 
     console.log(this.expMonthAndYear);
     let splitString = this.expMonthAndYear.split('-');
@@ -80,7 +84,7 @@ export class PaymentSystemPage {
               response => {
                 console.log(response.json());
                 message = response.json().message;
-                this.toastService.showToast(message, 30000);
+                this.toastService.showToast(message, 15000);
                 this.loadService.hideLoader();
                 this.onUserProfile();
 
@@ -89,7 +93,7 @@ export class PaymentSystemPage {
                 console.log(error);
                 message = error.json().message;
                 this.loadService.hideLoader();
-                this.toastService.showToast(message, 30000);
+                this.toastService.showToast(message, 15000);
               }
             );
         })
@@ -107,7 +111,7 @@ export class PaymentSystemPage {
       .then( res => {
         console.log(res);
       })
-      .catch(error => {
+      .catch((error: any) => {
         console.log(error);
         this.toastService.showToast('Неверный номер карты!');
       });
@@ -116,7 +120,7 @@ export class PaymentSystemPage {
       .then( res => {
         console.log(res);
       })
-      .catch(error => {
+      .catch((error: any) => {
         console.log(error);
         this.toastService.showToast('Неверная дата!');
       });
@@ -125,7 +129,7 @@ export class PaymentSystemPage {
       .then( res => {
         console.log(res);
       })
-      .catch(error => {
+      .catch((error: any) => {
         console.log(error);
         this.toastService.showToast('Неверный cvc!');
       });

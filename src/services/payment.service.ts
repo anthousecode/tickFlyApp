@@ -44,4 +44,18 @@ export class PaymentService {
       })
   }
 
+  getPaymentSystemUrl(amount, currency, tickCount) {
+    return this.http.post(
+      this.authService.API + `/api/v1/payments/paypal/create`,
+      {
+        amount: amount,
+        currency: currency
+      },
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+    })
+  }
+
 }

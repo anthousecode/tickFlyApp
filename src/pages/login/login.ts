@@ -110,6 +110,7 @@ export class LoginPage {
   }
 
   signinFacebook() {
+    console.log('signinFacebook Begin');
     this.fb.login(['public_profile', 'user_friends', 'email'])
       .then((res: FacebookLoginResponse) => {
         console.log('Logged into Facebook!', res);
@@ -119,12 +120,14 @@ export class LoginPage {
           .subscribe( response => {
             let token = response.json().access_token;
             localStorage.setItem("token", token);
+            console.log('signinFacebookSuccess');
+
             this.onHomePage();
             this.authService.getCurrentUserId();
             this.toastService.showToast('Вы успешно авторизированы!');
           },
           error => {
-            console.log(error);
+            console.log(JSON.stringify(error));
           })
       })
       .catch(e => console.log('Error logging into Facebook', e));

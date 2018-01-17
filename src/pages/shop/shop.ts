@@ -4,6 +4,8 @@ import {Stripe} from "@ionic-native/stripe";
 import {NgForm} from "@angular/forms";
 import {PaymentService} from "../../services/payment.service";
 import {PaymentSystemPage} from "../payment-system/payment-system";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
+import {UserProfilePage} from "../user-profile/user-profile";
 
 /**
  * Generated class for the ShopPage page.
@@ -16,7 +18,7 @@ import {PaymentSystemPage} from "../payment-system/payment-system";
 @Component({
   selector: 'page-shop',
   templateUrl: 'shop.html',
-  providers: [PaymentService]
+  providers: [PaymentService, InAppBrowser]
 })
 export class ShopPage {
 
@@ -31,7 +33,8 @@ export class ShopPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public paymentService: PaymentService
+    public paymentService: PaymentService,
+    public iab: InAppBrowser
   ) {
     this.payment = 'input';
   }
@@ -81,8 +84,48 @@ export class ShopPage {
       );
   }
 
-  onPaymentSystemPage(code, amount, paymentSystem) {
-    this.navCtrl.push(PaymentSystemPage, { code: code, amount: amount, paymentSystem: paymentSystem });
+  // onPaymentSystemPage(code, amount, paymentSystem) {
+  //   this.navCtrl.push(PaymentSystemPage, { code: code, amount: amount, paymentSystem: paymentSystem });
+  // }
+
+
+  openBrowserForPayment() {
+    let browser = this.iab.create('http://upyachka.com', '', {location: 'no', hardwareback: 'no'});
+    browser.on('exit').subscribe(
+      response => {
+        console.log(response);
+        this.navCtrl.push(UserProfilePage);
+      },
+      error => {
+        console.log(error);
+      })
   }
 
+
+  onPaymentSystemPage(code, selectedPackage) {
+    console.log('code ' + code);
+    let tickCount = selectedPackage.split(':')[0];
+    let amount = selectedPackage.split(':')[1];
+    console.log('tickCount ' + tickCount);
+    console.log('amount ' + amount);
+    this.paymentService.getPaymentSystemUrl(amount, 'RUB', tickCount).subscribe(
+      response => {
+        let approvalLink = response.json().approval_link;
+        console.log(approvalLink);
+        let browser = this.iab.create(approvalLink, '', {location: 'no', hardwareback: 'no'});
+        browser.on('exit').subscribe(
+          response => {
+            console.log(response);
+            this.navCtrl.push(UserProfilePage);
+          },
+          error => {
+          console.log(error);
+        })
+        // browser.hide();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 }

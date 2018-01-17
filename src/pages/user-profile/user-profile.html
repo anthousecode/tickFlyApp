@@ -40,11 +40,9 @@
         Подписаться
       </button>
     </ion-item>
-<ion-item text-wrap class="top-userprofile-status">
-      <p>
-    {{user?.status}}
-      </p>
-</ion-item>
+  <ion-item text-wrap class="top-userprofile-status">
+    <p>{{user?.status}}</p>
+  </ion-item>
     <ion-item class="no-padding">
       <ion-grid>
         <ion-row class="user-indicators" *ngIf="!isPublic; else publicProfile" text-center>
@@ -84,7 +82,7 @@
       </ion-grid>
     </ion-item>
 
-    <post-preview [userId]="userId" [publicProfile]="public" [posts]="posts"></post-preview>
+    <post-preview [userId]="userId" [publicProfile]="isPublic" [posts]="posts"></post-preview>
 
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
