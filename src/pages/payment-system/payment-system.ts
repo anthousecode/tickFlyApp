@@ -8,7 +8,6 @@ import {LoaderService} from "../../services/loader.service";
 import {UserProfilePage} from "../user-profile/user-profile";
 import {AuthService} from "../../services/auth.service";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
-import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
 
 /**
  * Generated class for the PaymentSystemPage page.
@@ -21,7 +20,7 @@ import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal
 @Component({
   selector: 'page-payment-system',
   templateUrl: 'payment-system.html',
-  providers: [ToastService, PaymentService, LoaderService, InAppBrowser, PayPal]
+  providers: [ToastService, PaymentService, LoaderService, InAppBrowser]
 })
 export class PaymentSystemPage {
   code: string;
@@ -40,7 +39,6 @@ export class PaymentSystemPage {
     public loadService: LoaderService,
     public authService: AuthService,
     public iab: InAppBrowser,
-    private payPal: PayPal
   ) {
     this.paymentSystem = navParams.get('paymentSystem');
     this.code = navParams.get('code');
@@ -139,62 +137,6 @@ export class PaymentSystemPage {
 
   onUserProfile() {
     this.navCtrl.setRoot(UserProfilePage, {userId: this.authService.getUserId()});
-  }
-
-
-  onCreatePayPal() {
-    console.log('paypal');
-    this.payPal.init({
-      PayPalEnvironmentProduction: 'AQ6IFw2QOX3japFtrq6MoIuVPI4he4BW3r80PKfi36YlTzAlX9d9AdRsE-35b7CtyJN5KSi8homcXgka',
-      PayPalEnvironmentSandbox: 'EDIworK4fsDiuPYXm-ZxDjf_fUVqSpGFo2xVDBMoKtzwYIv6QDqNu7siaTA7lzGQZzbveIVFSuAznTeO'
-    }).then(() => {
-      // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
-      this.payPal.version().then(res => console.log(JSON.stringify(res)));
-      this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
-        // Only needed if you get an "Internal Service Error" after PayPal login!
-        //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
-      })).then(res => {
-        console.log(JSON.stringify(res));
-        let payment = new PayPalPayment('3.33', 'USD', 'Description', 'sale');
-        console.log(JSON.stringify(payment));
-        // this.payPal.renderFuturePaymentUI().then(res => {
-        //   console.log('success '+ res);
-        // })
-        this.payPal.renderSinglePaymentUI(payment).then(res => {
-          console.log(JSON.stringify(res));
-          console.log('success');
-          // Successfully paid
-
-          // Example sandbox response
-          //
-          // {
-          //   "client": {
-          //     "environment": "sandbox",
-          //     "product_name": "PayPal iOS SDK",io
-          //     "paypal_sdk_version": "2.16.0",
-          //     "platform": "iOS"
-          //   },
-          //   "response_type": "payment",
-          //   "response": {
-          //     "id": "PAY-1AB23456CD789012EF34GHIJ",
-          //     "state": "approved",
-          //     "create_time": "2016-10-03T13:33:33Z",
-          //     "intent": "sale"
-          //   }
-          // }
-        }, error => {
-          console.log(JSON.stringify(error));
-          // Error or render dialog closed without being successful
-          console.log('Error or render dialog closed without being successful');
-        });
-      }, () => {
-        // Error in configuration
-        console.log('Error in configuration');
-      });
-    }, () => {
-      // Error in initialization, maybe PayPal isn't supported or something else
-      console.log('Error in initialization, maybe PayPal isn\'t supported or something else');
-    })
   }
 
 }

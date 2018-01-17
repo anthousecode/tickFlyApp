@@ -29,25 +29,35 @@
 
     <div class="tf-post-label" [ngSwitch]="payment">
       <ion-list class="tick-no-border" *ngSwitchCase="'input'">
-        <ion-item>
-          <ion-label stacked>Выберите пакет тиков</ion-label>
-          <ion-select placeholder="Выбрать" name="selectedPackage" [(ngModel)]="selectedPackage">
-            <ion-option *ngFor="let package of packageList" value="{{package.cost}}" multiple="false">
-              {{package.amount_ticks.amount + ' тиков за ' + package.cost + ' ' + code}}
-            </ion-option>
-          </ion-select>
-        </ion-item>
+          <p>Для добавления тиков необходимо нажать на кнопку (Пополнение счета),
+            далее указать количество тиков и выбрать систему оплаты.</p>
 
-        <ion-item>
-          <ion-label stacked>Выберите cистему оплаты</ion-label>
-          <ion-select placeholder="Выбрать" name="selectedPaymentSystem" [(ngModel)]="selectedPaymentSystem" multiple="false">
-            <ion-option *ngFor="let paymentSystem of paymentSystems" value="{{paymentSystem.title}}">
-              {{paymentSystem.title}}
-            </ion-option>
-          </ion-select>
-        </ion-item>
+
+
+
+        <!--<ion-item>-->
+          <!--<ion-label stacked>Выберите пакет тиков</ion-label>-->
+          <!--<ion-select placeholder="Выбрать" name="selectedPackage" [(ngModel)]="selectedPackage">-->
+            <!--<ion-option *ngFor="let package of packageList" value="{{package.amount_ticks.amount + ':' + package.cost}}" multiple="false">-->
+              <!--{{package.amount_ticks.amount + ' тиков за ' + package.cost + ' ' + code}}-->
+            <!--</ion-option>-->
+          <!--</ion-select>-->
+        <!--</ion-item>-->
+
+        <!--<ion-item>-->
+          <!--<ion-label stacked>Выберите cистему оплаты</ion-label>-->
+          <!--<ion-select placeholder="Выбрать" name="selectedPaymentSystem" [(ngModel)]="selectedPaymentSystem" multiple="false">-->
+            <!--<ion-option *ngFor="let paymentSystem of paymentSystems" value="{{paymentSystem.title}}">-->
+              <!--{{paymentSystem.title}}-->
+            <!--</ion-option>-->
+          <!--</ion-select>-->
+        <!--</ion-item>-->
         <ion-buttons text-right>
-          <button ion-button color="danger" (click)="onPaymentSystemPage(code, selectedPackage, selectedPaymentSystem)" [disabled]="selectedPackage === undefined || selectedPaymentSystem === undefined">Продолжить</button>
+          <!--<button ion-button color="danger" (click)="onPaymentSystemPage(code, selectedPackage, selectedPaymentSystem)"
+          [disabled]="selectedPackage === undefined || selectedPaymentSystem === undefined">Продолжить</button>-->
+          <button ion-button color="danger" (click)="openBrowserForPayment()">
+            Пополнение счета
+          </button>
         </ion-buttons>
       </ion-list>
 
