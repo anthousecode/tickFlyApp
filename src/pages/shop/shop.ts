@@ -106,17 +106,13 @@ export class ShopPage {
       );
   }
 
-  // onPaymentSystemPage(code, amount, paymentSystem) {
-  //   this.navCtrl.push(PaymentSystemPage, { code: code, amount: amount, paymentSystem: paymentSystem });
-  // }
-
-
   openBrowserForPayment() {
-    let browser = this.iab.create('http://upyachka.com', '', {location: 'no', hardwareback: 'no'});
+    let browser = this.iab.create(this.authService.API + '/shop?id_user=' + this.userId, '',
+      {location: 'no', hardwareback: 'no'});
     browser.on('exit').subscribe(
       response => {
         console.log(response);
-        this.navCtrl.push(UserProfilePage);
+        this.navCtrl.push(UserProfilePage, {userId: this.authService.getUserId()});
       },
       error => {
         console.log(error);
@@ -143,7 +139,6 @@ export class ShopPage {
           error => {
           console.log(error);
         })
-        // browser.hide();
       },
       error => {
         console.log(error);
