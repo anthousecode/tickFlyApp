@@ -63,7 +63,8 @@
     "reflect-metadata": "^0.1.10",
     "rxjs": "5.4.0",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.12"
+    "zone.js": "0.8.12",
+    "cordova-browser": "5.0.3"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.7",
@@ -86,12 +87,12 @@
       "cordova-plugin-facebook4": {
         "APP_ID": "1759865127623327",
         "APP_NAME": "LaravelAuth"
-      },
-      "cordova-plugin-googleplus": {}
+      }
     },
     "platforms": [
       "android",
-      "ios"
+      "ios",
+      "browser"
     ]
   }
 }
