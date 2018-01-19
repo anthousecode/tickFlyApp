@@ -10,6 +10,7 @@ import {Message} from "../../models/message";
 import {SocketService} from "../../services/socket.service";
 import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
+import {UserProfilePage} from "../user-profile/user-profile";
 
 @IonicPage()
 @Component({
@@ -176,5 +177,9 @@ export class ChatPage {
         this.content.scrollToBottom();
       }
     }, 400)
+  }
+
+  onUserprofilePage() {
+    this.navCtrl.push(UserProfilePage, {userId: this.interlocutor.id});
   }
 }

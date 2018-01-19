@@ -132,7 +132,7 @@ export class MyApp implements OnInit {
   }
 
   onUserProfile() {
-    this.nav.setRoot(UserProfilePage, {userId: this.authService.getUserId()});
+    this.nav.setRoot(UserProfilePage, {userId: this.userId});
   }
 
   logout() {

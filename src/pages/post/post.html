@@ -89,11 +89,11 @@
   <div class="comments">
     <ion-item text-wrap class="comments-item" *ngFor="let comment of comments" margin-bottom>
 
-      <ion-avatar item-start>
+      <ion-avatar item-start (click)="onUserprofilePage(comment.user.id_user)">
         <img src="{{comment.user.avatar}}">
       </ion-avatar>
       <div class="comments-item-desription">
-        <h2 float-left>{{comment.user.nick_name}}</h2>
+        <h2 float-left (click)="onUserprofilePage(comment.user.id_user)">{{comment.user.nick_name}}</h2>
         <p class="comments-item-some">
           {{comment.comment}}
         </p>
