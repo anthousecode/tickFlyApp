@@ -136,7 +136,7 @@ export class PaymentSystemPage {
   }
 
   onUserProfile() {
-    this.navCtrl.setRoot(UserProfilePage, {userId: this.authService.getUserId()});
+    this.navCtrl.push(UserProfilePage, {userId: this.authService.getUserId()});
   }
 
 }

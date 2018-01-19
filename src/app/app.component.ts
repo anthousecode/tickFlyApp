@@ -42,7 +42,6 @@ export class MyApp implements OnInit {
               private commonService: CommonService) {
     // used for an example of ngFor and navigation
     this.pages = [
-      {title: 'Главная', component: HomePage},
       {title: 'Категории', component: CategoryListPage},
       {title: 'Магазин тиков', component: ShopPage}
     ];
@@ -120,7 +119,11 @@ export class MyApp implements OnInit {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.nav.push(page.component);
+  }
+
+  onHomePage() {
+    this.nav.setRoot(HomePage);
   }
 
   onLoginPage() {
@@ -132,7 +135,7 @@ export class MyApp implements OnInit {
   }
 
   onUserProfile() {
-    this.nav.setRoot(UserProfilePage, {userId: this.userId});
+    this.nav.push(UserProfilePage, {userId: this.userId});
   }
 
   logout() {

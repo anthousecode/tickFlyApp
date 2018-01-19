@@ -31,7 +31,7 @@ export class FollowedPage {
 
   itemTapped(event, idUser) {
     console.log(idUser);
-    this.navCtrl.setRoot(UserProfilePage, {
+    this.navCtrl.push(UserProfilePage, {
       userId: idUser
     });
   }
