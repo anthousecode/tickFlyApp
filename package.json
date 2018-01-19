@@ -44,6 +44,7 @@
     "angular2-text-mask": "^8.0.4",
     "com.paypal.cordova.mobilesdk": "^3.5.0",
     "cordova-android": "6.3.0",
+    "cordova-browser": "5.0.3",
     "cordova-ios": "4.5.4",
     "cordova-plugin-camera": "^3.0.0",
     "cordova-plugin-device": "^1.1.7",
@@ -63,8 +64,7 @@
     "reflect-metadata": "^0.1.10",
     "rxjs": "5.4.0",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.12",
-    "cordova-browser": "5.0.3"
+    "zone.js": "0.8.12"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.7",
@@ -83,7 +83,9 @@
       "cordova-plugin-file": {},
       "cordova-plugin-filepath": {},
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-googleplus": {},
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.1069051362186-aeovo30csmqbbo2g6mmlf1lihreetl3b"
+      },
       "cordova-plugin-facebook4": {
         "APP_ID": "1759865127623327",
         "APP_NAME": "LaravelAuth"
