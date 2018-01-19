@@ -6,6 +6,9 @@ import {PaymentService} from "../../services/payment.service";
 import {PaymentSystemPage} from "../payment-system/payment-system";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {UserProfilePage} from "../user-profile/user-profile";
+import {UserService} from "../../services/user.service";
+import {AuthService} from "../../services/auth.service";
+import {LoaderService} from "../../services/loader.service";
 
 /**
  * Generated class for the ShopPage page.
@@ -18,7 +21,7 @@ import {UserProfilePage} from "../user-profile/user-profile";
 @Component({
   selector: 'page-shop',
   templateUrl: 'shop.html',
-  providers: [PaymentService, InAppBrowser]
+  providers: [PaymentService, InAppBrowser, UserService, AuthService, LoaderService]
 })
 export class ShopPage {
 
@@ -29,14 +32,20 @@ export class ShopPage {
   selectedPackage;
   selectedPaymentSystem: string;
   code: string;
+  tickCount: number;
+  userId: number;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public paymentService: PaymentService,
-    public iab: InAppBrowser
+    public iab: InAppBrowser,
+    public userService: UserService,
+    public authService: AuthService,
+    public loadService: LoaderService,
   ) {
     this.payment = 'input';
+    this.userId = Number(this.authService.getUserId());
   }
 
   ionViewDidLoad() {
@@ -46,6 +55,19 @@ export class ShopPage {
   ngOnInit() {
     this.getTickPackages();
     this.getPaymentSystems();
+    this.loadService.showLoader();
+    this.userService.getProfile(this.userId)
+      .subscribe(
+        response => {
+          console.log(response.json());
+          this.tickCount = response.json().user.balance.amount;
+          this.loadService.hideLoader();
+        },
+        error => {
+          console.log(error);
+          this.loadService.hideLoader();
+        }
+      );
   }
 
   segmentChanged(event) {
@@ -84,17 +106,13 @@ export class ShopPage {
       );
   }
 
-  // onPaymentSystemPage(code, amount, paymentSystem) {
-  //   this.navCtrl.push(PaymentSystemPage, { code: code, amount: amount, paymentSystem: paymentSystem });
-  // }
-
-
   openBrowserForPayment() {
-    let browser = this.iab.create('http://upyachka.com', '', {location: 'no', hardwareback: 'no'});
+    let browser = this.iab.create(this.authService.API + '/shop?id_user=' + this.userId, '',
+      {location: 'no', hardwareback: 'no'});
     browser.on('exit').subscribe(
       response => {
         console.log(response);
-        this.navCtrl.push(UserProfilePage);
+        this.navCtrl.push(UserProfilePage, {userId: this.authService.getUserId()});
       },
       error => {
         console.log(error);
@@ -121,7 +139,6 @@ export class ShopPage {
           error => {
           console.log(error);
         })
-        // browser.hide();
       },
       error => {
         console.log(error);

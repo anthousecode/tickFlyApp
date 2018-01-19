@@ -27,7 +27,7 @@ export class MyApp implements OnInit {
   rootPage: any = LoginPage;
   logged: boolean = false;
   pages: Array<{ title: string, component: any }>;
-  userId = this.authService.getUserId();
+  userId: number;
   newMessages: number = 0;
   newMessageCount: number = 0;
   messagesLabel: string;
@@ -46,6 +46,7 @@ export class MyApp implements OnInit {
       {title: 'Категории', component: CategoryListPage},
       {title: 'Магазин тиков', component: ShopPage}
     ];
+    this.userId = Number(this.authService.getUserId());
   }
 
   ngOnInit() {
