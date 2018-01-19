@@ -88,6 +88,7 @@
     <allow-navigation href="http://192.168.61.1:8100" />
     <allow-navigation href="http://192.168.0.128:8100" />
     <allow-navigation href="http://192.168.0.128:8101" />
+    <preference name="SplashShowOnlyFirstTime" value="false" />
     <engine name="android" spec="6.3.0" />
     <engine name="browser" spec="5.0.3" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
