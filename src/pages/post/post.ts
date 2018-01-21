@@ -262,4 +262,8 @@ export class PostPage {
     }, 400)
   }
 
+  onUserprofilePage(userId) {
+    this.navCtrl.push(UserProfilePage, {userId: userId});
+  }
+
 }

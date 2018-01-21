@@ -47,7 +47,7 @@ export class CategoryListPage {
 
   itemTapped(event, categoryId) {
     console.log(categoryId);
-    this.navCtrl.setRoot(CategoryPage, {
+    this.navCtrl.push(CategoryPage, {
       categoryId: categoryId
     });
   }
