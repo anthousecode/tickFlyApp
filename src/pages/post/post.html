@@ -40,7 +40,7 @@
 
     <ion-slides pager *ngIf="post?.media">
       <ion-slide *ngFor="let picture of post?.media">
-        <img src="{{picture['url_thumb']}}">
+        <img  src="{{picture['url_thumb']}}">
       </ion-slide>
     </ion-slides>
 
@@ -61,12 +61,12 @@
       <ion-col col-5>
         <ion-buttons class="buttons-wrap">
           <button ion-button icon-left small clear
-          [disabled]="currentUserId == post?.user.id_user"
-          (click)="showTickAlert(postId, post?.user.id_user)">
-          <div class="tik-like {{isTick == true ? 'ticked' : ''}}">
-          </div>
-          <div class="tickfly-currency">{{post?.tickCount ? post?.tickCount : post?.summ_ticks}}</div>
-        </button>
+            [disabled]="currentUserId == post?.user.id_user"
+            (click)="showTickAlert(postId, post?.user.id_user)">
+            <div class="tik-like {{isTick == true ? 'ticked' : ''}}">
+            </div>
+            <div class="tickfly-currency">{{post?.tickCount ? post?.tickCount : post?.summ_ticks}}</div>
+          </button>
         <button ion-button small clear (click)="presentProfileModal(post?.postId)">
           <ion-icon name="mail"></ion-icon>
         </button>
@@ -89,11 +89,11 @@
   <div class="comments">
     <ion-item text-wrap class="comments-item" *ngFor="let comment of comments" margin-bottom>
 
-      <ion-avatar item-start>
+      <ion-avatar item-start (click)="onUserprofilePage(comment.user.id_user)">
         <img src="{{comment.user.avatar}}">
       </ion-avatar>
       <div class="comments-item-desription">
-        <h2 float-left>{{comment.user.nick_name}}</h2>
+        <h2 float-left (click)="onUserprofilePage(comment.user.id_user)">{{comment.user.nick_name}}</h2>
         <p class="comments-item-some">
           {{comment.comment}}
         </p>

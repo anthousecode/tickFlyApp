@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {User} from "../../models/user";
 import {ChatService} from "../../services/chat.service";
-import {Chat} from "../../models/chat";
 import {ChatPage} from "../chat/chat";
 import {LoaderService} from "../../services/loader.service";
 
@@ -30,7 +29,6 @@ export class ChatNewRecipientPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ChatNewRecipientPage');
     this.getFollowers();
   }
 
@@ -38,7 +36,6 @@ export class ChatNewRecipientPage {
     this.loadService.showLoader();
     this.chatService.getFollowers().subscribe(
       response => {
-        console.log("Followers:", response.json().followers);
         this.chatCandidates = response.json().followers.map(follower => {
           let user = new User();
           user.id = follower.user_follower.id_user;
@@ -57,7 +54,6 @@ export class ChatNewRecipientPage {
   createChat(userId) {
     this.chatService.createChat(userId).subscribe(
       response => {
-        console.log("Creation result", response.json());
         const chatId = response.json().chat_id;
         this.navCtrl.push(ChatPage, {chatId: chatId});
       },

@@ -48,9 +48,9 @@ import {ChatNewRecipientPage} from "../pages/chat-new-recipient/chat-new-recipie
 import {ChatNewRecipientPageModule} from "../pages/chat-new-recipient/chat-new-recipient.module";
 import {ShopPageModule} from "../pages/shop/shop.module";
 import {ShopPage} from "../pages/shop/shop";
-import {Stripe} from "@ionic-native/stripe";
 import {SocketIoConfig, SocketIoModule} from "ng-socket-io";
 import {SocketService} from "../services/socket.service";
+import {PaymentSystemPageModule} from "../pages/payment-system/payment-system.module";
 
 const config: SocketIoConfig = {url: "http://ec2-54-186-176-148.us-west-2.compute.amazonaws.com:3001/", options: {}};
 @NgModule({
@@ -88,7 +88,8 @@ const config: SocketIoConfig = {url: "http://ec2-54-186-176-148.us-west-2.comput
     ChatListPageModule,
     ChatPageModule,
     ChatNewRecipientPageModule,
-    ShopPageModule
+    ShopPageModule,
+    PaymentSystemPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -121,8 +122,7 @@ const config: SocketIoConfig = {url: "http://ec2-54-186-176-148.us-west-2.comput
     Camera,
     FilePath,
     ChatsProvider,
-    SocketService,
-    Stripe
+    SocketService
   ]
 })
 export class AppModule {

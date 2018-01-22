@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserService} from "../../services/user.service";
 import {NgForm} from "@angular/forms";
 import {ToastService} from "../../services/toast.service";
@@ -20,30 +20,15 @@ import {LoaderService} from "../../services/loader.service";
 })
 export class ChangePasswordPage {
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private userService: UserService,
-    public toastService: ToastService,
-    public loadService: LoaderService
-  ) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ChangePasswordPage');
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private userService: UserService,
+              public toastService: ToastService,
+              public loadService: LoaderService) {
   }
 
   ngOnInit() {
-    this.userService.getEditProfile()
-      .subscribe(
-        response => {
-          console.log(response.json());
-          // this.user = response.json().user;
-        },
-        error => {
-          console.log(error);
-        }
-      );
+    this.userService.getEditProfile();
   }
 
   onChangePassword(form: NgForm) {
@@ -54,16 +39,13 @@ export class ChangePasswordPage {
       form.value.confirmation_password
     ).subscribe(
       response => {
-        console.log('Success');
         this.loadService.hideLoader();
         this.toastService.showToast('Пароль успешно изменен!');
       },
       error => {
-        console.log('Error');
         this.loadService.hideLoader();
-        let errors = error.json().errors;
-        let firstError = errors[Object.keys(errors)[0]];
-        this.toastService.showToast(firstError);
+        let errors = error.json().message;
+        this.toastService.showToast(errors);
       }
     );
   }

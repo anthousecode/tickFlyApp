@@ -18,6 +18,12 @@
 
 <ion-content>
   <div class="tick-wrapper">
+    <ion-card *ngIf="posts === undefined || posts.length == 0">
+      <ion-card-content>
+        В этой категории нет новостей
+      </ion-card-content>
+    </ion-card>
+
     <post-preview [posts]="posts"></post-preview>
 
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">

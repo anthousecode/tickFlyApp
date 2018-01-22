@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, ViewController} from 'ionic-angular';
 import {ShareService} from "../../services/share.service";
 import {AuthService} from "../../services/auth.service";
@@ -22,29 +22,21 @@ export class SharingFollowersListPage {
   selectedItem: any;
   followersList = [];
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public viewCtrl: ViewController,
-    public shareService: ShareService,
-    public toastService: ToastService
-  ) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public viewCtrl: ViewController,
+              public shareService: ShareService,
+              public toastService: ToastService) {
     this.postId = this.navParams.get('postId');
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SharingFollowersListPage');
   }
 
   ngOnInit() {
     this.shareService.getFollowers()
       .subscribe(
         response => {
-          console.log(response.json());
           this.followersList = response.json().subscribers;
         },
         error => {
-
         }
       )
   }
@@ -55,15 +47,15 @@ export class SharingFollowersListPage {
 
   itemTapped(event, idUser) {
     this.shareService.sharePost(this.postId, idUser)
-    .subscribe(
-      response => {
-        this.closeModal();
-        this.toastService.showToast('Вы успешно поделились постом!');
-      },
-      error => {
+      .subscribe(
+        response => {
+          this.closeModal();
+          this.toastService.showToast('Вы успешно поделились постом!');
+        },
+        error => {
 
-      }
-    )
+        }
+      )
   }
 
 }

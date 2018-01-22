@@ -25,29 +25,26 @@ import {LoaderService} from "../../services/loader.service";
 })
 export class PostPreviewComponent {
 
-  @Input() publicProfile: number;
+  @Input() publicProfile: boolean;
   @Input() userId: number;
   @Input() categoryId: number;
   @Input() posts = [];
   currentPost;
-  indexOfCurrentPost: number;
   currentPage: string;
   user;
   currentUserId: number;
   isTick: boolean;
 
-  constructor(
-    public navCtrl: NavController,
-    private httpService: HttpService,
-    private alertCtrl: AlertController,
-    private postService: PostService,
-    public viewCtrl: ViewController,
-    public authService: AuthService,
-    public modalCtrl: ModalController,
-    public userService: UserService,
-    public toastService: ToastService,
-    public loadService: LoaderService
-  ) {
+  constructor(public navCtrl: NavController,
+              private httpService: HttpService,
+              private alertCtrl: AlertController,
+              private postService: PostService,
+              public viewCtrl: ViewController,
+              public authService: AuthService,
+              public modalCtrl: ModalController,
+              public userService: UserService,
+              public toastService: ToastService,
+              public loadService: LoaderService) {
     this.currentPage = this.viewCtrl.name;
     this.currentUserId = Number(this.authService.getUserId());
     this.isTick = false;
@@ -60,12 +57,10 @@ export class PostPreviewComponent {
       .subscribe(
         response => {
           post = response.json().post;
-          console.log(post);
           this.navCtrl.push(PostPage, {post: post});
           this.loadService.hideLoader();
         },
         error => {
-          console.log(error);
           this.loadService.hideLoader();
         }
       );
@@ -91,12 +86,10 @@ export class PostPreviewComponent {
           this.postService.deletePost(postId)
             .subscribe(
               response => {
-                console.log(response.json());
                 this.posts = this.posts.filter(x => x.postId !== postId);
                 this.toastService.showToast('Пост успешно удален!');
               },
               error => {
-                console.log(error);
               }
             );
         }
@@ -134,8 +127,8 @@ export class PostPreviewComponent {
 
   getShortDescription(description: string) {
     let shortDescription: string;
-    if(description.length >= 120) {
-      shortDescription = description.slice(0, 120) +  '...';
+    if (description.length >= 120) {
+      shortDescription = description.slice(0, 120) + '...';
     } else {
       shortDescription = description;
     }
@@ -162,23 +155,19 @@ export class PostPreviewComponent {
               {
                 text: 'Отмена',
                 handler: data => {
-                  console.log('Cancel clicked');
                 }
               },
               {
                 text: 'Сохранить',
                 handler: data => {
-                  if(data.tick <= balance && data.tick && Number(data.tick) !== 0 ) {
-                    console.log('Saved clicked');
+                  if (data.tick <= balance && data.tick && Number(data.tick) !== 0) {
                     this.postService.setTick(postId, userId, data.tick)
                       .subscribe(
                         response => {
-                          console.log(response.json());
                           let tickCount = response.json().amount_ticks;
                           this.currentPost = this.posts.find(x => x.postId == postId);
                           this.currentPost.tickCount = tickCount;
                           this.currentPost.isTick = true;
-                          console.log(this.currentPost.tickCount);
                         }
                       );
                   } else {
@@ -197,15 +186,11 @@ export class PostPreviewComponent {
   presentProfileModal(postId) {
     let profileModal = this.modalCtrl.create(SharingFollowersListPage, {postId: postId});
     profileModal.onDidDismiss(data => {
-      console.log(data);
     });
     profileModal.present();
   }
 
-
-
   presentComplaintPrompt(postId, authorId) {
-    console.log('userid ' + authorId);
     let complaintReasons = [];
     let reasonId: number;
     this.userService.getComplaintReasons()
@@ -214,18 +199,15 @@ export class PostPreviewComponent {
           let complaints = response.json().complaints;
           for (let index in complaints) {
             let reason = complaints[index];
-            console.log(reason);
             complaintReasons.push({
               id: reason.id,
               label: reason.description,
               type: 'radio',
               handler: () => {
                 reasonId = reason.id;
-                console.log(reasonId);
               }
             })
           }
-          console.log(complaintReasons);
           let alert = this.alertCtrl.create({
             title: 'Пожаловаться',
             message: 'Укажите причину:',
@@ -235,21 +217,17 @@ export class PostPreviewComponent {
                 text: 'Отмена',
                 role: 'cancel',
                 handler: data => {
-                  console.log('Cancel clicked');
                 }
               },
               {
                 text: 'Подтвердить',
                 handler: data => {
-                  console.log(data);
                   this.userService.setComplaintReason(postId, authorId, reasonId)
                     .subscribe(
                       response => {
-                        console.log(response);
                         this.toastService.showToast('Вы пожаловались на пользователя!');
                       },
                       error => {
-                        console.log(error);
                       }
                     )
                 }
@@ -258,8 +236,7 @@ export class PostPreviewComponent {
           });
           alert.present();
         },
-        error =>{
-          console.log(error);
+        error => {
         }
       );
 

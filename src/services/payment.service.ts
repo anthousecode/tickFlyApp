@@ -6,16 +6,17 @@ import {AuthService} from "./auth.service";
 @Injectable()
 export class PaymentService {
 
-  constructor(private http: Http, private authService: AuthService){ }
+  constructor(private http: Http, private authService: AuthService) {
+  }
 
   getPaymentPackages() {
     return this.http.get(
-    this.authService.API + `/api/v1/shop/get-pack-ticks`,
-    {
-      headers: new Headers({
-        "Authorization": 'Bearer ' + this.authService.getToken()
+      this.authService.API + `/api/v1/shop/get-pack-ticks`,
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
       })
-    })
   }
 
   getPaymentMethods() {
@@ -34,6 +35,20 @@ export class PaymentService {
       {
         stripeToken: stripeToken,
         price: price,
+        currency: currency
+      },
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      })
+  }
+
+  getPaymentSystemUrl(amount, currency, tickCount) {
+    return this.http.post(
+      this.authService.API + `/api/v1/payments/paypal/create`,
+      {
+        amount: amount,
         currency: currency
       },
       {

@@ -1,13 +1,11 @@
 import {Injectable} from "@angular/core";
 import {AlertController, ToastController} from "ionic-angular";
-import {Headers, Http} from "@angular/http";
+import {Http} from "@angular/http";
 import {AuthService} from "./auth.service";
 
 @Injectable()
 export class ChatService {
   constructor(private http: Http,
-              private toastCtrl: ToastController,
-              private alertCtrl: AlertController,
               private authService: AuthService) {
   }
 

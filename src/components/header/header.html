@@ -17,7 +17,9 @@
       <button
         *ngIf="messages"
         ion-button icon-end (click)="onChatsListPage()">
-        <ion-icon name="mail">{{unreadMessages}}</ion-icon>
+        <ion-icon name="mail">
+          <ion-badge class="header-badge" *ngIf="unreadMessages > 0" item-end>{{unreadMessages}}</ion-badge>
+        </ion-icon>
       </button>
       <button
         *ngIf="menu"

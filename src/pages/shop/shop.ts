@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {Stripe} from "@ionic-native/stripe";
-import {NgForm} from "@angular/forms";
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {PaymentService} from "../../services/payment.service";
-import {PaymentSystemPage} from "../payment-system/payment-system";
+import {InAppBrowser} from "@ionic-native/in-app-browser";
+import {UserProfilePage} from "../user-profile/user-profile";
+import {UserService} from "../../services/user.service";
+import {AuthService} from "../../services/auth.service";
+import {LoaderService} from "../../services/loader.service";
 
 /**
  * Generated class for the ShopPage page.
@@ -16,68 +18,104 @@ import {PaymentSystemPage} from "../payment-system/payment-system";
 @Component({
   selector: 'page-shop',
   templateUrl: 'shop.html',
-  providers: [PaymentService]
+  providers: [PaymentService, InAppBrowser, UserService, AuthService, LoaderService]
 })
 export class ShopPage {
 
   payment: string;
   selectedItem: any;
-  packageList = [];
+  packageList;
   paymentSystems = [];
-  selectedPackage;
-  selectedPaymentSystem: string;
   code: string;
+  tickCount: number;
+  userId: number;
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public paymentService: PaymentService
-  ) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public paymentService: PaymentService,
+              public iab: InAppBrowser,
+              public userService: UserService,
+              public authService: AuthService,
+              public loadService: LoaderService,) {
     this.payment = 'input';
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ShopPage');
+    this.userId = Number(this.authService.getUserId());
   }
 
   ngOnInit() {
     this.getTickPackages();
     this.getPaymentSystems();
+    this.loadService.showLoader();
+    this.userService.getProfile(this.userId)
+      .subscribe(
+        response => {
+          this.tickCount = response.json().user.balance.amount;
+          this.loadService.hideLoader();
+        },
+        error => {
+          this.loadService.hideLoader();
+        }
+      );
   }
 
   segmentChanged(event) {
-    console.log(event);
   }
 
   getTickPackages() {
-    this.paymentService.getPaymentPackages()
-      .subscribe(
-        response => {
-          console.log(response.json());
-          this.packageList = response.json().packages[0].cost_ticks;
-          this.code = response.json().packages[0].code;
-        },
-        error => {
-          console.log(error);
-        }
-      );
+    if (localStorage.getItem("packageList") && localStorage.getItem("code")) {
+      this.packageList = JSON.parse(localStorage.getItem("packageList"));
+      this.code = localStorage.getItem("code");
+    } else {
+      this.paymentService.getPaymentPackages()
+        .subscribe(
+          response => {
+            this.packageList = response.json().packages[0].cost_ticks;
+            this.code = response.json().packages[0].code;
+          },
+          error => {
+          }
+        );
+    }
   }
 
   getPaymentSystems() {
     this.paymentService.getPaymentMethods()
       .subscribe(
         response => {
-          console.log(response.json());
           this.paymentSystems = response.json().payment_systems;
         },
         error => {
-          console.log(error);
         }
       );
   }
 
-  onPaymentSystemPage(code, amount, paymentSystem) {
-    this.navCtrl.push(PaymentSystemPage, { code: code, amount: amount, paymentSystem: paymentSystem });
+  openBrowserForPayment() {
+    let browser = this.iab.create(this.authService.API + '/shop?id_user=' + this.userId, '',
+      {location: 'no', hardwareback: 'no'});
+    browser.on('exit').subscribe(
+      response => {
+        this.navCtrl.push(UserProfilePage, {userId: this.authService.getUserId()});
+      },
+      error => {
+      })
   }
 
+
+  onPaymentSystemPage(code, selectedPackage) {
+    let tickCount = selectedPackage.split(':')[0];
+    let amount = selectedPackage.split(':')[1];
+    this.paymentService.getPaymentSystemUrl(amount, 'RUB', tickCount).subscribe(
+      response => {
+        let approvalLink = response.json().approval_link;
+        let browser = this.iab.create(approvalLink, '', {location: 'no', hardwareback: 'no'});
+        browser.on('exit').subscribe(
+          response => {
+            this.navCtrl.push(UserProfilePage);
+          },
+          error => {
+          })
+      },
+      error => {
+      }
+    );
+  }
 }

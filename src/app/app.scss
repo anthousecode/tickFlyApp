@@ -76,9 +76,10 @@ ion-content {
     //   font-size: 24px;
     //   color: #808080;
     // }
-    .tickfly-currency {
+    .tickfly-currency, .comments-count {
       font-size: 12px;
       color: #222;
+      margin-left: 4px;
     }
     // .buttons-wrap {
     //   order:1;
@@ -130,7 +131,7 @@ ion-content {
 }
 }
 .header-ios {
-  background: $secondary-red;
+  background: $primary-red;
   color: $white;
 }
 
@@ -205,7 +206,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* --== Alert Edit Profile and Alert Capabilities Post Preview  ==--*/
 
-.alert-user-edit, 
+.alert-user-edit,
 .alert-capabilities {
   .alert-head,
   .alert-message {
@@ -215,7 +216,7 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 0;
     button {
       margin: 0;
-      width: 100%; 
+      width: 100%;
       border-bottom: 1px solid #d4d4d4;
       padding: 12px 6px;
       &:last-child {
@@ -282,6 +283,11 @@ input[type=number]::-webkit-outer-spin-button {
   .item-inner {
     padding: 0!important;
   }
+  .img-responsive {
+    max-width: 100%;
+    display: block;
+    height: auto
+  }
   input,
   textarea,
   ion-select,
@@ -298,10 +304,11 @@ input[type=number]::-webkit-outer-spin-button {
 }
 /* --==  Chat Style ==-- */
 .chat-avatar {
-  width: 60px!important;  
-  height: 60px!important;
+  width: 80px!important;
+  height: 80px!important;
   border-radius: 50%;
   overflow: hidden;
+  object-fit: cover;
 }
 .toolbar-background,
 .toolbar-background-ios {
@@ -334,4 +341,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
 
   }
+}
+@media only screen and ( min-width: 650px ) {
+
 }

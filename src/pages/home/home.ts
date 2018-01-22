@@ -32,7 +32,6 @@ export class HomePage {
     this.loadService.showLoader();
     this.httpService.getPosts().subscribe(
       response => {
-        console.log(response.json());
         let postsList = response.json().posts;
         for (let index in postsList) {
           let post = postsList[index];
@@ -46,14 +45,13 @@ export class HomePage {
             date: post.format_date,
             media: post.media,
             author: post.user,
-            isTick: post.donate
+            isTick: post.donate,
+            commentsCount: post.comments_count
           });
-          console.log(post.donate);
         }
         this.loadService.hideLoader();
       },
       error => {
-        console.log(error);
         this.loadService.hideLoader();
       }
     )
@@ -69,12 +67,9 @@ export class HomePage {
   }
 
   doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
-
     setTimeout(() => {
       this.postService.getMorePostsOnHome(this.pageId).subscribe(
         response => {
-          console.log(response.json());
           let postsList = response.json().posts;
           for (let index in postsList) {
             let post = postsList[index];
@@ -93,15 +88,11 @@ export class HomePage {
           }
         },
         error => {
-          console.log(error);
         }
-      )
-
-      console.log('Async operation has ended');
+      );
       infiniteScroll.complete();
     }, 500);
     this.pageId++;
-    console.log(this.pageId);
   }
 
 }

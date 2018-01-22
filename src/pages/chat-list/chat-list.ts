@@ -1,7 +1,6 @@
 import {Component} from "@angular/core";
 import {IonicPage, LoadingController, NavController, NavParams} from "ionic-angular";
 import {Chat} from "../../models/chat";
-import {ChatsProvider} from "../../providers/chats/chats";
 import {ChatPage} from "../chat/chat";
 import {ChatService} from "../../services/chat.service";
 import {AuthService} from "../../services/auth.service";
@@ -47,20 +46,17 @@ export class ChatListPage {
   }
 
   getChats() {
-    // this.loadService.showLoader();
     this.loadChatsFromStorage();
-    console.log('getChats');
     this.chatService.getChats().subscribe(
       response => {
-        console.log('getChats subscribe');
-        console.log("Conversations", JSON.parse(response.text()).conversation);
         this.chats = response.json()
           .conversation.map(conversation => {
-            console.log('conversations');
             let chat = new Chat();
             chat.id = conversation.chat_id;
-            chat.lastMessage = conversation.last_message.message;
-            chat.timeLastMassage = conversation.last_message.format_time;
+            if (conversation.last_message != null) {
+              chat.lastMessage = conversation.last_message.message;
+              chat.timeLastMassage = conversation.last_message.format_time;
+            }
             chat.updatedAt = conversation.updated_at;
             chat.unreadMessages = conversation.unread_message;
             chat.members = conversation.members.map(member => {
@@ -78,14 +74,10 @@ export class ChatListPage {
 
             return chat;
           });
-        console.log(response.json().conversation);
         this.isLoaded = true;
         localStorage.setItem("chats", JSON.stringify(this.chats));
-        console.log("set chats from response");
-        // this.loadService.hideLoader();
       },
       error => {
-        console.log("Chats error:", error);
         this.loadService.hideLoader();
       }
     );
@@ -94,11 +86,9 @@ export class ChatListPage {
   createChat(targetUserId) {
     this.chatService.createChat(targetUserId).subscribe(
       response => {
-        console.log("Created chat:", response);
 
       },
       error => {
-        console.log("Chat creation error:", error)
       }
     );
   }
@@ -115,7 +105,6 @@ export class ChatListPage {
   }
 
   ionViewDidEnter() {
-    console.log('ionViewDidEnter');
     this.getChats();
   }
 

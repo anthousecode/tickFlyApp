@@ -7,11 +7,14 @@
 
   <ion-content>
     <ion-list no-lines>
+      <button menuClose ion-item (click)="onHomePage()">
+        Главная
+      </button>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
       <button menuClose ion-item (click)="onChatPage()">
-        Сообщения ({{newMessages}})
+        Сообщения ({{newMessageCount}})
       </button>
       <button menuClose ion-item (click)="onUserProfile(userId)">
         Профиль

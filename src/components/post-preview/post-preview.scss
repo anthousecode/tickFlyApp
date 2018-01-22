@@ -45,10 +45,11 @@ post-preview {
       align-items: center;
       padding-right: 15px;
 
-      .tickfly-currency {
-        font-size: 14px;
+      .tickfly-currency, .comments-count {
+        font-size: 12px;
         color: #222;
       }
+
       .category {
         order: 2;
         padding: 0;

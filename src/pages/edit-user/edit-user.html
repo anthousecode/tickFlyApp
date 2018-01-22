@@ -14,23 +14,15 @@
 
 
 <ion-content>
-  <div class="tick-wrapper">
+  <div class="tick-wrapper" [hidden]="user === undefined">
     <div class="enter-block tf-post-label" padding>
-      <ion-avatar item-start (click)="presentActionSheet()">
-        <img src="{{pathForImage(lastImage)}}" style="width: 100%; height: 100%;" [hidden]="lastImage === null">
-      </ion-avatar>
-      <div [hidden]="lastImage !== null">
+      <div>
         <ion-avatar item-start (click)="presentActionSheet()">
-          <img class="chat-avatar" src="{{user?.avatar}}">
+          <img *ngIf="lastImage === null" class="edit-avatar" src="{{user?.avatar}}">
+          <img *ngIf="lastImage !== null" class="edit-avatar" src="{{pathForImage(lastImage)}}">
         </ion-avatar>
-        <p>Сменить аватар</p>
+        <p text-center>Сменить аватар</p>
       </div>
-      <!--<ion-buttons>-->
-        <!--<button ion-button icon-center (click)="uploadImage()" [disabled]="lastImage === null">-->
-          <!--<ion-icon name="cloud-upload"></ion-icon>-->
-          <!--Изменить аватар-->
-        <!--</button>-->
-      <!--</ion-buttons>-->
       <form (ngSubmit)="onChangeUser(f)" #f="ngForm">
 
         <ion-list class="tick-no-border">
