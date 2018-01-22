@@ -120,7 +120,7 @@ export class MyApp implements OnInit {
   }
 
   onUserProfile() {
-    this.nav.push(UserProfilePage, {userId: this.userId});
+    this.nav.push(UserProfilePage, {userId: Number(this.authService.getUserId())});
   }
 
   logout() {
