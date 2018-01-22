@@ -1,10 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
 import {PostService} from "../../services/post.service";
-import {SearchPage} from "../search/search";
-import {CreatePostPage} from "../create-post/create-post";
 import {LoaderService} from "../../services/loader.service";
 
 /**

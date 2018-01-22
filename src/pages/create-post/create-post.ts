@@ -1,10 +1,9 @@
 import {Component, ViewChild} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {HttpService} from "../../services/http.service";
 import {PostService} from "../../services/post.service";
 import {NgForm} from "@angular/forms";
 import {HomePage} from "../home/home";
-import {SearchPage} from "../search/search";
 import {ToastService} from "../../services/toast.service";
 import {LoaderService} from "../../services/loader.service";
 import {MultiImageUpload} from "../../components/multi-image-upload/multi-image-upload";
@@ -23,7 +22,7 @@ import {MultiImageUpload} from "../../components/multi-image-upload/multi-image-
   providers: [PostService, ToastService, LoaderService]
 })
 export class CreatePostPage {
-  public myModel = ''
+  public myModel = '';
   categories = [];
   selectedCategories = [];
   @ViewChild(MultiImageUpload) multiImageUpload: MultiImageUpload;

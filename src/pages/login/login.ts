@@ -1,14 +1,10 @@
-import {Component, ViewChild} from '@angular/core';
-import {
-  AlertController, IonicPage, MenuController, ModalController, Nav, NavController, NavParams, Platform, ToastController,
-  ViewController
-} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, MenuController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Facebook, FacebookLoginResponse} from '@ionic-native/facebook';
 
 import {RegisterPage} from "../register/register";
 import {AuthService} from "../../services/auth.service";
 import {NgForm} from "@angular/forms";
-import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {HomePage} from "../home/home";
 import {GooglePlus} from "@ionic-native/google-plus";
 import {ToastService} from "../../services/toast.service";

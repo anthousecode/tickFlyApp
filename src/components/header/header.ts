@@ -27,7 +27,7 @@ export class HeaderComponent {
   }
 
   ngDoCheck() {
-    this.getUnreadMessages()
+    this.getUnreadMessages();
   }
 
   onCreatePostPage() {

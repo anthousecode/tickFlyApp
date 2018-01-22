@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {AlertController, Content, IonicPage, ModalController, NavController, NavParams} from 'ionic-angular';
 import {CategoryPage} from "../category/category";
 import {NgForm} from "@angular/forms";
@@ -6,7 +6,6 @@ import {HttpService} from "../../services/http.service";
 import {UserProfilePage} from "../user-profile/user-profile";
 import {PostService} from "../../services/post.service";
 import {AuthService} from "../../services/auth.service";
-import {CreatePostPage} from "../create-post/create-post";
 import {SearchPage} from "../search/search";
 import {SharingFollowersListPage} from "../sharing-followers-list/sharing-followers-list";
 import {UserService} from "../../services/user.service";

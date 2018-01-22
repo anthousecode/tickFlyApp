@@ -1,17 +1,11 @@
 import {Component} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
-import {AuthService} from "../../services/auth.service";
 import {UserService} from "../../services/user.service";
-import {PostPage} from "../post/post";
-import {HttpService} from "../../services/http.service";
 import {FollowersPage} from "../followers/followers";
 import {FollowedPage} from "../followed/followed";
 import {EditUserPage} from "../edit-user/edit-user";
 import {ChangePasswordPage} from "../change-password/change-password";
-import {CategoryPage} from "../category/category";
 import {PostService} from "../../services/post.service";
-import {CreatePostPage} from "../create-post/create-post";
-import {SearchPage} from "../search/search";
 import {LoaderService} from "../../services/loader.service";
 
 /**

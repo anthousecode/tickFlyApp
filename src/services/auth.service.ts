@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/filter';
-import {Http, Headers, Response, RequestOptions} from "@angular/http";
+import {Http, Headers, Response} from "@angular/http";
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
 import {ToastController} from "ionic-angular";
@@ -11,7 +11,7 @@ export class AuthService {
   // API = "http://localhost:8080";
   API = "http://ec2-54-186-176-148.us-west-2.compute.amazonaws.com:8080/";
 
-  constructor(private http: Http, private toastCtrl: ToastController, private googlePlus: GooglePlus) {
+  constructor(private http: Http) {
   }
 
   getHeaders(type) {

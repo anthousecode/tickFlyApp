@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {DomSanitizer} from "@angular/platform-browser";
-import {ActionSheetController, AlertController, Platform, ToastController} from "ionic-angular";
+import {ActionSheetController, Platform} from "ionic-angular";
 import {Camera, CameraOptions} from "@ionic-native/camera";
 import {File} from "@ionic-native/file";
 import {FilePath} from "@ionic-native/file-path";
@@ -28,7 +28,6 @@ export class MultiImageUpload {
   constructor(private sanitization: DomSanitizer,
               private actionSheetCtrl: ActionSheetController,
               private camera: Camera,
-              private file: File,
               public toastService: ToastService,
               public authService: AuthService,
               public loadService: LoaderService) {

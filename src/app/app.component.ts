@@ -30,7 +30,6 @@ export class MyApp implements OnInit {
   userId: number;
   newMessages: number = 0;
   newMessageCount: number = 0;
-  messagesLabel: string;
   timezone;
 
   constructor(public platform: Platform,

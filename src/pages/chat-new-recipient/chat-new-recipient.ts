@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {User} from "../../models/user";
 import {ChatService} from "../../services/chat.service";
-import {Chat} from "../../models/chat";
 import {ChatPage} from "../chat/chat";
 import {LoaderService} from "../../services/loader.service";
 

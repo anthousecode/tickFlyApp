@@ -1,9 +1,6 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {Stripe} from "@ionic-native/stripe";
-import {NgForm} from "@angular/forms";
 import {PaymentService} from "../../services/payment.service";
-import {PaymentSystemPage} from "../payment-system/payment-system";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {UserProfilePage} from "../user-profile/user-profile";
 import {UserService} from "../../services/user.service";
@@ -29,8 +26,6 @@ export class ShopPage {
   selectedItem: any;
   packageList;
   paymentSystems = [];
-  selectedPackage;
-  selectedPaymentSystem: string;
   code: string;
   tickCount: number;
   userId: number;

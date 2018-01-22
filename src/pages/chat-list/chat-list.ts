@@ -1,7 +1,6 @@
 import {Component} from "@angular/core";
 import {IonicPage, LoadingController, NavController, NavParams} from "ionic-angular";
 import {Chat} from "../../models/chat";
-import {ChatsProvider} from "../../providers/chats/chats";
 import {ChatPage} from "../chat/chat";
 import {ChatService} from "../../services/chat.service";
 import {AuthService} from "../../services/auth.service";
