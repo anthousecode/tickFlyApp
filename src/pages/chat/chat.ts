@@ -51,12 +51,10 @@ export class ChatPage {
   }
 
   ionViewDidLeave() {
-    console.log("Listeners destroyed");
     this.destroyListeners();
   }
 
   startListening() {
-    console.log('startListening');
     this.messageListener = this.socketService.getMessages().subscribe(data => {
       // TODO: KEK LEL TOP TIER MEMES
       let messageData = data['data'];
@@ -67,18 +65,15 @@ export class ChatPage {
         msg.messageType = "text";
         msg.createdAt = messageData['createdAt']
         this.chat.messages.push(msg);
-        console.log('push to array');
         this.scrollToBottom();
       }
     });
     this.chat.messages = this.chat.messages.reverse();
-    console.log(this.chat.messages);
     this.scrollToBottom();
   }
 
 
   getChat() {
-    console.log('getChat');
     const lStorageKey = "chatMessages_" + this.chatId;
     if (localStorage.getItem(lStorageKey)) {
       this.chat.messages = JSON.parse(localStorage.getItem(lStorageKey));
@@ -100,7 +95,6 @@ export class ChatPage {
         })[0];
 
         this.unreadMessageCount = response.json().count_unread_message;
-        console.log(response.json());
         localStorage.setItem("unreadMessages", this.unreadMessageCount);
 
         this.interlocutor.id = interlocutor.user.id_user;
@@ -118,17 +112,12 @@ export class ChatPage {
       }
     )
     this.chat.messages = this.chat.messages.reverse();
-    console.log(this.chat.messages);
   }
 
 
   sendMessage(form: NgForm) {
-    console.log(form.value.message);
-
     let currentdate = new Date();
-    let currentDatetime = currentdate.getHours() + ":" + (currentdate.getMinutes()<10?'0':'') + currentdate.getMinutes() ;
-    console.log('datetime');
-    console.log(currentDatetime);
+    let currentDatetime = currentdate.getHours() + ":" + (currentdate.getMinutes() < 10 ? '0' : '') + currentdate.getMinutes();
     this.chatService.sendMessage(this.chatId, form.value.message)
       .subscribe(
         response => {
@@ -144,7 +133,6 @@ export class ChatPage {
           this.scrollToBottom();
         },
         error => {
-          console.log('Error');
         }
       );
   }
@@ -157,21 +145,17 @@ export class ChatPage {
       .subscribe(
         response => {
           post = response.json().post;
-          console.log(post);
           this.navCtrl.push(PostPage, {post: post});
           this.loadService.hideLoader();
         },
         error => {
-          console.log(error);
           this.loadService.hideLoader();
         }
       );
   }
 
 
-
   scrollToBottom() {
-    console.log('scrooll to bottom');
     setTimeout(() => {
       if (this.content.scrollToBottom) {
         this.content.scrollToBottom();

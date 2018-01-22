@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {CategoryPage} from "../category/category";
 import {HttpService} from "../../services/http.service";
 import {CreatePostPage} from "../create-post/create-post";
@@ -22,12 +22,10 @@ import {LoaderService} from "../../services/loader.service";
 export class CategoryListPage {
   categoryList;
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private httpService: HttpService,
-    public loadService: LoaderService
-  ) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private httpService: HttpService,
+              public loadService: LoaderService) {
   }
 
   ngOnInit() {
@@ -36,7 +34,6 @@ export class CategoryListPage {
       .subscribe(
         response => {
           this.categoryList = response.json().category;
-          console.log(response.json());
           this.loadService.hideLoader();
         },
         error => {
@@ -46,7 +43,6 @@ export class CategoryListPage {
   }
 
   itemTapped(event, categoryId) {
-    console.log(categoryId);
     this.navCtrl.push(CategoryPage, {
       categoryId: categoryId
     });

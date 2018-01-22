@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {AuthService} from "../../services/auth.service";
 import {UserService} from "../../services/user.service";
@@ -37,19 +37,13 @@ export class UserProfilePage {
   followersCount: number;
   pageId: number = 0;
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private userService: UserService,
-    public alertCtrl: AlertController,
-    public postService: PostService,
-    public loadService: LoaderService
-  ) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private userService: UserService,
+              public alertCtrl: AlertController,
+              public postService: PostService,
+              public loadService: LoaderService) {
     this.userId = this.navParams.get('userId');
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UserProfilePage');
   }
 
   ngOnInit() {
@@ -57,13 +51,12 @@ export class UserProfilePage {
     this.userService.getProfile(this.userId)
       .subscribe(
         response => {
-          console.log(response.json());
           this.user = response.json().user;
           let postsList = response.json().posts;
           this.isPublic = response.json().public;
           this.isSubscribe = response.json().current_user_subscribe;
           this.followersCount = this.user.followers_count;
-          for(let index in postsList){
+          for (let index in postsList) {
             let post = postsList[index];
             this.posts.push({
               postId: post.id_post,
@@ -82,7 +75,6 @@ export class UserProfilePage {
           this.loadService.hideLoader();
         },
         error => {
-          console.log(error);
           this.loadService.hideLoader();
         }
       );
@@ -97,7 +89,6 @@ export class UserProfilePage {
           this.navCtrl.push(FollowersPage, {followersList: followersList});
         },
         error => {
-          console.log();
         }
       );
   }
@@ -111,7 +102,6 @@ export class UserProfilePage {
           this.navCtrl.push(FollowedPage, {followedList: followedList});
         },
         error => {
-          console.log();
         }
       );
   }
@@ -120,13 +110,10 @@ export class UserProfilePage {
     this.userService.toggleSubscribe(userId)
       .subscribe(
         response => {
-          console.log(response.json());
           this.followersCount = response.json().followers_count;
           this.isSubscribe = response.json().subscribe;
-          console.log(this.followersCount);
         },
         error => {
-          console.log('error');
         }
       )
   }
@@ -161,14 +148,11 @@ export class UserProfilePage {
   }
 
   doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
-
     setTimeout(() => {
       this.postService.getMorePostsOnProfile(this.userId, this.pageId).subscribe(
         response => {
-          console.log(response.json());
           let postsList = response.json().posts;
-          for(let index in postsList){
+          for (let index in postsList) {
             let post = postsList[index];
             this.posts.push({
               postId: post.id_post,
@@ -184,14 +168,10 @@ export class UserProfilePage {
           }
         },
         error => {
-          console.log(error);
         }
-      )
-
-      console.log('Async operation has ended');
+      );
       infiniteScroll.complete();
     }, 500);
     this.pageId++;
-    console.log(this.pageId);
   }
 }

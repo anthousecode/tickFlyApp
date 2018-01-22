@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/filter';
 import {Http, Headers, Response, RequestOptions} from "@angular/http";
 import 'rxjs/add/operator/map';
@@ -9,7 +9,8 @@ import {AuthService} from "./auth.service";
 @Injectable()
 export class SearchService {
 
-  constructor(private http: Http, private authService: AuthService){ }
+  constructor(private http: Http, private authService: AuthService) {
+  }
 
   getSearchResult(section: string, searchQuery: string) {
     return this.http.get(this.authService.API + `/api/v1/search?section=` + section + `&q=` + searchQuery,

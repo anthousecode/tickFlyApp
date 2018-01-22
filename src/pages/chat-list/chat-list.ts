@@ -47,19 +47,14 @@ export class ChatListPage {
   }
 
   getChats() {
-    // this.loadService.showLoader();
     this.loadChatsFromStorage();
-    console.log('getChats');
     this.chatService.getChats().subscribe(
       response => {
-        console.log('getChats subscribe');
-        console.log("Conversations", JSON.parse(response.text()).conversation);
         this.chats = response.json()
           .conversation.map(conversation => {
-            console.log('conversations');
             let chat = new Chat();
             chat.id = conversation.chat_id;
-            if(conversation.last_message != null) {
+            if (conversation.last_message != null) {
               chat.lastMessage = conversation.last_message.message;
               chat.timeLastMassage = conversation.last_message.format_time;
             }
@@ -80,14 +75,10 @@ export class ChatListPage {
 
             return chat;
           });
-        console.log(response.json().conversation);
         this.isLoaded = true;
         localStorage.setItem("chats", JSON.stringify(this.chats));
-        console.log("set chats from response");
-        // this.loadService.hideLoader();
       },
       error => {
-        console.log("Chats error:", error);
         this.loadService.hideLoader();
       }
     );
@@ -96,11 +87,9 @@ export class ChatListPage {
   createChat(targetUserId) {
     this.chatService.createChat(targetUserId).subscribe(
       response => {
-        console.log("Created chat:", response);
 
       },
       error => {
-        console.log("Chat creation error:", error)
       }
     );
   }
@@ -117,7 +106,6 @@ export class ChatListPage {
   }
 
   ionViewDidEnter() {
-    console.log('ionViewDidEnter');
     this.getChats();
   }
 

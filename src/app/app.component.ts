@@ -63,19 +63,10 @@ export class MyApp implements OnInit {
 
   startListening() {
     this.socketService.getMessages().subscribe(data => {
-      console.log('AppComponent Listener ');
-      console.log(data);
       if (data['data']['targetUserId'] == this.authService.getUserId()) {
         this.newMessageCount += 1;
-        console.log('newMessageCount ' + this.newMessageCount);
         localStorage.setItem("unreadMessages", String(this.newMessageCount));
       }
-      // if (data['senderId'] == this.interlocutor.id && data['chatId'] == this.chatId) {
-      //   let msg = new Message();
-      //   msg.message = data['text'];
-      //   msg.message_type = "text";
-      //   this.chat.messages.push(msg);
-      // }
     });
   }
 
@@ -91,27 +82,22 @@ export class MyApp implements OnInit {
     this.timezone = new Date().toString().split(" ");
     this.timezone = this.timezone[this.timezone.length - 2];
     this.commonService.setTimezone(this.timezone)
-      .subscribe( response => {
-        console.log(response);
-      },
+      .subscribe(response => {
+        },
         error => {
-        console.log(error);
-      });
+        });
   }
 
   getTickPackages() {
     this.paymentService.getPaymentPackages()
       .subscribe(
         response => {
-          console.log(response.json());
           let packageList = response.json().packages[0].cost_ticks;
           let code = response.json().packages[0].code;
-          console.log("code " + code);
           localStorage.setItem("packageList", JSON.stringify(packageList));
           localStorage.setItem("code", code);
         },
         error => {
-          console.log(error);
         }
       );
   }

@@ -37,26 +37,20 @@ export class PostPage {
   comment: string;
   @ViewChild(Content) content: Content;
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public alertCtrl: AlertController,
-    private httpService: HttpService,
-    public postService: PostService,
-    public authService: AuthService,
-    public modalCtrl: ModalController,
-    public userService: UserService,
-    public toastService: ToastService
-  ) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public alertCtrl: AlertController,
+              private httpService: HttpService,
+              public postService: PostService,
+              public authService: AuthService,
+              public modalCtrl: ModalController,
+              public userService: UserService,
+              public toastService: ToastService) {
     this.post = navParams.get('post');
     this.postId = this.post.id_post;
     this.isTick = this.post.donate;
     this.comments = this.post.comments;
     this.currentUserId = Number(this.authService.getUserId());
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PostPage');
   }
 
   showPostAlert(postId, authorId) {
@@ -80,12 +74,10 @@ export class PostPage {
           this.postService.deletePost(postId)
             .subscribe(
               response => {
-                console.log(response.json());
                 this.navCtrl.setRoot(HomePage);
                 this.toastService.showToast('Пост успешно удален!');
               },
               error => {
-                console.log(error);
               }
             );
         }
@@ -110,17 +102,14 @@ export class PostPage {
   }
 
   onSetComment(form: NgForm) {
-    console.log(form.value.comment);
     this.httpService.setComment(this.postId, form.value.comment)
       .subscribe(
         response => {
-          console.log(response.json());
           this.comments.push(response.json().comment);
           form.reset();
           this.scrollToBottom();
         },
         error => {
-          console.log('Error');
         }
       );
   }
@@ -130,7 +119,6 @@ export class PostPage {
   }
 
   showTickAlert(postId: number, userId: number) {
-    console.log(postId, userId);
     this.postService.getBalance()
       .subscribe(
         response => {
@@ -149,22 +137,18 @@ export class PostPage {
               {
                 text: 'Отмена',
                 handler: data => {
-                  console.log('Cancel clicked');
                 }
               },
               {
                 text: 'Сохранить',
                 handler: data => {
                   if (data.tick <= balance && data.tick && Number(data.tick) !== 0) {
-                    console.log('Saved clicked');
                     this.postService.setTick(postId, userId, data.tick)
                       .subscribe(
                         response => {
-                          console.log(response.json());
                           let tickCount = response.json().amount_ticks;
                           this.post.tickCount = tickCount;
                           this.isTick = true;
-                          console.log(this.post.tickCount);
                         }
                       );
                   } else {
@@ -182,7 +166,6 @@ export class PostPage {
   presentProfileModal(postId) {
     let profileModal = this.modalCtrl.create(SharingFollowersListPage, {postId: postId});
     profileModal.onDidDismiss(data => {
-      console.log(data);
     });
     profileModal.present();
   }
@@ -196,18 +179,15 @@ export class PostPage {
           let complaints = response.json().complaints;
           for (let index in complaints) {
             let reason = complaints[index];
-            console.log(reason);
             complaintReasons.push({
               id: reason.id,
               label: reason.description,
               type: 'radio',
               handler: () => {
                 reasonId = reason.id;
-                console.log(reasonId);
               }
             })
           }
-          console.log(complaintReasons);
           let alert = this.alertCtrl.create({
             title: 'Пожаловаться',
             message: 'Укажите причину:',
@@ -217,21 +197,17 @@ export class PostPage {
                 text: 'Отмена',
                 role: 'cancel',
                 handler: data => {
-                  console.log('Cancel clicked');
                 }
               },
               {
                 text: 'Подтвердить',
                 handler: data => {
-                  console.log(data);
                   this.userService.setComplaintReason(postId, authorId, reasonId)
                     .subscribe(
                       response => {
-                        console.log(response);
                         this.toastService.showToast('Вы пожаловались на пользователя!');
                       },
                       error => {
-                        console.log(error);
                       }
                     )
                 }
@@ -240,21 +216,18 @@ export class PostPage {
           });
           alert.present();
         },
-        error =>{
-          console.log(error);
+        error => {
         }
       );
 
   }
 
   onSearchPage(tag) {
-    console.log(tag);
     this.navCtrl.push(SearchPage, {query: tag});
   }
 
 
   scrollToBottom() {
-    console.log('scrooll to bottom');
     setTimeout(() => {
       if (this.content.scrollToBottom) {
         this.content.scrollToBottom();

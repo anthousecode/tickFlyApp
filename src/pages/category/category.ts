@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
 import {PostService} from "../../services/post.service";
@@ -27,18 +27,12 @@ export class CategoryPage {
   posts = [];
   pageId: number = 0;
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private httpService: HttpService,
-    private postService: PostService,
-    public loadService: LoaderService
-  ) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private httpService: HttpService,
+              private postService: PostService,
+              public loadService: LoaderService) {
     this.categoryId = this.navParams.get('categoryId');
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CategoryPage');
   }
 
   ngOnInit() {
@@ -46,10 +40,9 @@ export class CategoryPage {
     this.httpService.getCategory(this.categoryId)
       .subscribe(
         response => {
-          console.log(response.json());
           this.category = response.json().category;
           let postsList = response.json().posts;
-          for(let index in postsList){
+          for (let index in postsList) {
             let post = postsList[index];
             this.posts.push({
               postId: post.id_post,
@@ -68,21 +61,17 @@ export class CategoryPage {
           this.loadService.hideLoader();
         },
         error => {
-          console.log(error);
           this.loadService.hideLoader();
         }
       );
   }
 
   doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
-
     setTimeout(() => {
       this.postService.getMorePostsOnCategory(this.categoryId, this.pageId).subscribe(
         response => {
-          console.log(response.json());
           let postsList = response.json().posts;
-          for(let index in postsList){
+          for (let index in postsList) {
             let post = postsList[index];
             this.posts.push({
               postId: post.id_post,
@@ -99,15 +88,11 @@ export class CategoryPage {
           }
         },
         error => {
-          console.log(error);
         }
-      )
-
-      console.log('Async operation has ended');
+      );
       infiniteScroll.complete();
     }, 500);
     this.pageId++;
-    console.log(this.pageId);
   }
 
 }

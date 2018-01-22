@@ -16,9 +16,11 @@ export class ShareService {
 
   getFollowers() {
     return this.http.get(this.authService.API + `/api/v1/chat/share-post`,
-      {headers: new Headers({
-        "Authorization": 'Bearer ' + this.authService.getToken()
-      })})
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      })
   }
 
   sharePost(postId, userId) {

@@ -14,7 +14,7 @@
 
 
 <ion-content>
-  <div class="tick-wrapper">
+  <div class="tick-wrapper" [hidden]="user === undefined">
     <div class="enter-block tf-post-label" padding>
       <div>
         <ion-avatar item-start (click)="presentActionSheet()">

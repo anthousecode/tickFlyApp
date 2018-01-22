@@ -8,16 +8,6 @@ import {GooglePlus} from "@ionic-native/google-plus";
 
 @Injectable()
 export class AuthService {
-
-  // auth0 = new auth0.WebAuth({
-  //   clientID: 'vFEhteNfA7RsmLqu6d1MOv5yK66njgg6',
-  //   domain: 'app-dev.eu.auth0.com',
-  //   responseType: 'token id_token',
-  //   audience: 'https:/API = "http://localhost:8080";/app-dev.eu.auth0.com/userinfo',
-  //   redirectUri: 'http://localhost:8080/callback',
-  //   scope: 'openid'
-  // });
-
   // API = "http://localhost:8080";
   API = "http://ec2-54-186-176-148.us-west-2.compute.amazonaws.com:8080/";
 
@@ -44,7 +34,6 @@ export class AuthService {
           const token = response.json().access_token;
           const base64Url = token.split(".")[1];
           const base64 = base64Url.replace("-", "+").replace("_", "/");
-          console.log(JSON.parse(window.atob(base64)));
           return {
             token: token,
             decoded: JSON.parse(window.atob(base64))
@@ -67,7 +56,6 @@ export class AuthService {
           const token = response.json().access_token;
           const base64Url = token.split(".")[1];
           const base64 = base64Url.replace("-", "+").replace("_", "/");
-          console.log(JSON.parse(window.atob(base64)));
           return {
             token: token,
             decoded: JSON.parse(window.atob(base64))
@@ -86,20 +74,16 @@ export class AuthService {
       {headers: new Headers({'Authorization': 'Bearer ' + this.getToken()})})
       .subscribe(
         response => {
-          console.log(response.json().user.id_user);
           const idUser = response.json().user.id_user;
-          console.log(response.json().user.id_user);
           localStorage.setItem("id_user", idUser);
         }
       )
   }
 
   signinGoogle(email: string, userId: number, displayName: string, familyName: string, givenName: string) {
-    console.log(email);
     return this.http.get(this.API + '/api/sign-up-google?email=' + email + '&userId=' + userId +
       '&displayName=' + displayName + '&familyName=' + familyName + '&givenName=' + givenName,
-      {
-    })
+      {})
   }
 
 

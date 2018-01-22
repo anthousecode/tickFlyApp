@@ -6,12 +6,10 @@ import {AuthService} from "./auth.service";
 
 @Injectable()
 export class PostService {
-  constructor(
-    private http: Http,
-    private toastCtrl: ToastController,
-    private alertCtrl: AlertController,
-    private authService: AuthService
-  ) {
+  constructor(private http: Http,
+              private toastCtrl: ToastController,
+              private alertCtrl: AlertController,
+              private authService: AuthService) {
 
   }
 

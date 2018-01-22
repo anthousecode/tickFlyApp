@@ -6,12 +6,12 @@ import {AuthService} from "./auth.service";
 @Injectable()
 export class CommonService {
 
-  constructor(private http: Http, private authService: AuthService){ }
+  constructor(private http: Http, private authService: AuthService) {
+  }
 
   setTimezone(timezone) {
     return this.http.put(this.authService.API + `/api/v1/user/update-timezone/` + timezone,
-      {
-      },
+      {},
       {
         headers: new Headers({"Authorization": 'Bearer ' + this.authService.getToken()})
       })

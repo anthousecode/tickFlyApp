@@ -23,17 +23,11 @@ import {LoaderService} from "../../services/loader.service";
 })
 export class RegisterPage {
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public authService: AuthService,
-    public toastService: ToastService,
-    public loadService: LoaderService
-  ) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public authService: AuthService,
+              public toastService: ToastService,
+              public loadService: LoaderService) {
   }
 
   onHomePage() {
@@ -41,19 +35,16 @@ export class RegisterPage {
   }
 
   onSignup(form: NgForm) {
-    console.log('signup');
     this.loadService.showLoader();
     this.authService.signup(form.value.nickname, form.value.email, form.value.password)
       .subscribe(
         response => {
-          console.log('Success');
           this.onHomePage();
           this.authService.getCurrentUserId();
           this.loadService.hideLoader();
           this.toastService.showToast('Вы успешно зарегистрированы!');
         },
         error => {
-          console.log('Error');
           this.loadService.hideLoader();
           let errors = error.json().errors;
           let firstError = errors[Object.keys(errors)[0]];
