@@ -18,7 +18,7 @@
 
 
 <ion-content padding>
-  <div class="tick-wrapper">
+  <div class="tick-wrapper" [hidden]="user === undefined">
     <ion-item class="top-userprofile no-padding">
       <ion-avatar item-start>
         <img class="chat-avatar" src="{{user?.avatar}}">
