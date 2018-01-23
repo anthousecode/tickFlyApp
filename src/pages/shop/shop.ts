@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {Stripe} from "@ionic-native/stripe";
 import {NgForm} from "@angular/forms";
 import {PaymentService} from "../../services/payment.service";
 import {PaymentSystemPage} from "../payment-system/payment-system";
