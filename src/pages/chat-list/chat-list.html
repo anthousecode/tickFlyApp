@@ -20,7 +20,8 @@
         У вас нет начатых чатов
       </div>
       <div *ngIf="chats.length">
-        <ion-item-sliding class="tick-chat-list" *ngFor="let chat of chats" (click)="onChatPage(chat.id,chat.members)">
+        <ion-item-sliding class="tick-chat-list" *ngFor="let chat of chats"
+                          (click)="onChatPage(chat.id, chat.avatar, chat.title, chat.members)">
           <ion-item>
             <ion-avatar item-start>
               <img class="chat-avatar" src="{{chat.avatar}}">

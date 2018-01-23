@@ -14,11 +14,12 @@ import {SocketService} from "../services/socket.service";
 import {ChatListPage} from "../pages/chat-list/chat-list";
 import {PaymentService} from "../services/payment.service";
 import {CommonService} from "../services/common.service";
+import {ChatService} from "../services/chat.service";
 
 
 @Component({
   templateUrl: 'app.html',
-  providers: [HttpService, AuthService, PaymentService, CommonService]
+  providers: [HttpService, AuthService, PaymentService, CommonService, ChatService]
 })
 
 @Injectable()
@@ -38,7 +39,8 @@ export class MyApp implements OnInit {
               private authService: AuthService,
               private socketService: SocketService,
               private paymentService: PaymentService,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private chatService: ChatService) {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Категории', component: CategoryListPage},
@@ -54,8 +56,8 @@ export class MyApp implements OnInit {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.socketService.connect();
+      this.getUnreadMessages();
       this.startListening();
-      this.getTickPackages();
       this.setTimezone();
     })
   }
@@ -63,6 +65,7 @@ export class MyApp implements OnInit {
   startListening() {
     this.socketService.getMessages().subscribe(data => {
       if (data['data']['targetUserId'] == this.authService.getUserId()) {
+        console.log(this.newMessageCount);
         this.newMessageCount += 1;
         localStorage.setItem("unreadMessages", String(this.newMessageCount));
       }
@@ -75,6 +78,15 @@ export class MyApp implements OnInit {
       this.rootPage = HomePage;
     }
     this.newMessageCount = Number(localStorage.getItem("unreadMessages"));
+  }
+
+  getUnreadMessages() {
+    this.chatService.getChats().subscribe(
+      response => {
+        let unreadMessage = JSON.parse(response.text()).count_unread_message;
+        localStorage.setItem("unreadMessages", unreadMessage);
+      }
+    );
   }
 
   setTimezone() {
