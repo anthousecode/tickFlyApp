@@ -105,8 +105,8 @@ export class ChatListPage {
     );
   }
 
-  onChatPage(chatId) {
-    this.navCtrl.push(ChatPage, {chatId: chatId});
+  onChatPage(chatId, chatAvatar, chatTitle) {
+    this.navCtrl.push(ChatPage, {chatId: chatId, chatAvatar: chatAvatar, chatTitle: chatTitle});
   }
 
   onNewChatPage() {

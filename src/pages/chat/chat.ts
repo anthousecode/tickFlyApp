@@ -21,6 +21,8 @@ import {UserProfilePage} from "../user-profile/user-profile";
 export class ChatPage {
   chat: Chat;
   chatId: number;
+  chatAvatar: string;
+  chatTitle: string;
   userId: number;
   interlocutor: User;
   messageListener;
@@ -42,6 +44,8 @@ export class ChatPage {
   ionViewDidLoad() {
     this.userId = Number(this.authService.getUserId());
     this.chatId = this.navParams.get("chatId");
+    this.chatAvatar = this.navParams.get("chatAvatar");
+    this.chatTitle = this.navParams.get("chatTitle");
     this.getChat();
     this.scrollToBottom();
   }
