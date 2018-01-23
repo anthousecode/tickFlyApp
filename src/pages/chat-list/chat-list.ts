@@ -8,6 +8,7 @@ import {AuthService} from "../../services/auth.service";
 import {User} from "../../models/user";
 import {ChatNewRecipientPage} from "../chat-new-recipient/chat-new-recipient";
 import {LoaderService} from "../../services/loader.service";
+import {SocketService} from "../../services/socket.service";
 
 /**
  * Generated class for the ChatListPage page.
@@ -32,11 +33,13 @@ export class ChatListPage {
               public chatService: ChatService,
               public authService: AuthService,
               public loadService: LoaderService,
-              public loadingCtrl: LoadingController) {
+              public loadingCtrl: LoadingController,
+              public socketService: SocketService) {
   }
 
   ngOnInit() {
     this.chats = [];
+    this.startListening();
   }
 
   loadChatsFromStorage() {
@@ -44,6 +47,21 @@ export class ChatListPage {
       this.chats = JSON.parse(localStorage.getItem("chats"));
       this.isLoaded = true;
     }
+  }
+
+  startListening() {
+    this.socketService.getMessages().subscribe(data => {
+      console.log('ChatListComponent Listener ');
+      console.log(data);
+      let messageData = data['data'];
+      let chatId = messageData['chatId'];
+      let updatedChat = this.chats.filter(chat => {
+        return chat.id == chatId;
+      })[0];
+      updatedChat.timeLastMassage = messageData['createdAt'];
+      updatedChat.lastMessage = messageData['text'];
+      updatedChat.unreadMessages += 1;
+    });
   }
 
   getChats() {
