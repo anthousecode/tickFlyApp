@@ -5,6 +5,7 @@ import {AuthService} from "../../services/auth.service";
 import {PostService} from "../../services/post.service";
 import {SocketService} from "../../services/socket.service";
 import {LoaderService} from "../../services/loader.service";
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'page-home',
@@ -13,6 +14,9 @@ import {LoaderService} from "../../services/loader.service";
 })
 export class HomePage {
   unreadMessages: number;
+  posts = [];
+  pageId: number = 0;
+  timezone;
 
   constructor(public navCtrl: NavController,
               private httpService: HttpService,
@@ -21,11 +25,9 @@ export class HomePage {
               public menu: MenuController,
               public socketService: SocketService,
               public authService: AuthService,
-              public loadService: LoaderService) {
+              public loadService: LoaderService,
+              private commonService: CommonService) {
   }
-
-  posts = [];
-  pageId: number = 0;
 
   ngOnInit() {
     this.menu.swipeEnable(true);
@@ -64,6 +66,16 @@ export class HomePage {
         localStorage.setItem("unreadMessages", String(this.unreadMessages));
       }
     })
+  }
+
+  setTimezone() {
+    this.timezone = new Date().toString().split(" ");
+    this.timezone = this.timezone[this.timezone.length - 2];
+    this.commonService.setTimezone(this.timezone)
+      .subscribe(response => {
+        },
+        error => {
+        });
   }
 
   doInfinite(infiniteScroll) {
