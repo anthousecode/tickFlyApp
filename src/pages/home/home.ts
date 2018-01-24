@@ -82,6 +82,7 @@ export class HomePage {
     setTimeout(() => {
       this.postService.getMorePostsOnHome(this.pageId).subscribe(
         response => {
+          console.log(response.json());
           let postsList = response.json().posts;
           for (let index in postsList) {
             let post = postsList[index];
@@ -95,7 +96,8 @@ export class HomePage {
               date: post.format_date,
               media: post.media,
               author: post.user,
-              isTick: post.donate
+              isTick: post.donate,
+              commentsCount: post.comments_count
             });
           }
         },

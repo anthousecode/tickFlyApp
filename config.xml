@@ -107,4 +107,5 @@
         <variable name="APP_NAME" value="LaravelAuth" />
     </plugin>
     <plugin name="com.paypal.cordova.mobilesdk" spec="^3.5.0" />
+    <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
 </widget>
