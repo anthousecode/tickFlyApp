@@ -1,5 +1,5 @@
 import {Component, Injectable, OnInit, ViewChild} from '@angular/core';
-import {Nav, Platform} from 'ionic-angular';
+import {AlertController, Nav, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 
@@ -15,11 +15,12 @@ import {ChatListPage} from "../pages/chat-list/chat-list";
 import {PaymentService} from "../services/payment.service";
 import {CommonService} from "../services/common.service";
 import {ChatService} from "../services/chat.service";
+import {Network} from "@ionic-native/network";
 
 
 @Component({
   templateUrl: 'app.html',
-  providers: [HttpService, AuthService, PaymentService, CommonService, ChatService]
+  providers: [HttpService, AuthService, PaymentService, CommonService, ChatService, Network]
 })
 
 @Injectable()
@@ -40,7 +41,9 @@ export class MyApp implements OnInit {
               private socketService: SocketService,
               private paymentService: PaymentService,
               private commonService: CommonService,
-              private chatService: ChatService) {
+              private chatService: ChatService,
+              private network: Network,
+              private alertCtrl: AlertController) {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Категории', component: CategoryListPage},
@@ -55,10 +58,14 @@ export class MyApp implements OnInit {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.socketService.connect();
-      this.getUnreadMessages();
-      this.startListening();
-      this.setTimezone();
+      if(this.network.type == 'none') {
+        this.presentInternetCheckAlert();
+      } else {
+        this.socketService.connect();
+        this.getUnreadMessages();
+        this.startListening();
+        this.setTimezone();
+      }
     })
   }
 
@@ -111,6 +118,21 @@ export class MyApp implements OnInit {
         error => {
         }
       );
+  }
+
+  presentInternetCheckAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Внимание!',
+      message: 'Ваше устройство не подключено к интеренету. Для дальнейшего использования подключите устрйосвто к интернету и перезапустите приложение',
+      buttons: ['OK']
+    });
+    alert.present();
+    alert.onDidDismiss(res => {
+      setTimeout(() => {
+        this.platform.exitApp();
+      }),
+        500
+    });
   }
 
   openPage(page) {
