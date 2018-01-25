@@ -46,14 +46,17 @@ export class SharingFollowersListPage {
   }
 
   itemTapped(event, idUser) {
+    console.log('chosen follower postId ' + this.postId);
+    console.log('chosen follower idUser ' + idUser);
     this.shareService.sharePost(this.postId, idUser)
       .subscribe(
         response => {
+          console.log(response.json());
           this.closeModal();
           this.toastService.showToast('Вы успешно поделились постом!');
         },
         error => {
-
+          console.log(error.json());
         }
       )
   }

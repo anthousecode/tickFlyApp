@@ -62,6 +62,7 @@ export class ChatPage {
     this.messageListener = this.socketService.getMessages().subscribe(data => {
       // TODO: KEK LEL TOP TIER MEMES
       let messageData = data['data'];
+      console.log(messageData);
       if (messageData['senderId'] == this.interlocutor.id && messageData['chatId'] == this.chatId) {
         let msg = new Message();
         msg.message = messageData['text'];
