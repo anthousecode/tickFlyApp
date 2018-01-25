@@ -101,6 +101,6 @@ export class LoginPage {
             error => {
             })
       })
-      .catch(e => console.log('Error logging into Facebook', e));
+      .catch(e => console.log('Error logging into Facebook', JSON.stringify(e)));
   }
 }
