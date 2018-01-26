@@ -47,8 +47,7 @@ export class UserService {
   toggleSubscribe(idUser) {
     return this.http.put(
       this.authService.API + `/api/v1/user/subscribe-unsubscribe/` + idUser,
-      {
-      },
+      {},
       {
         headers: new Headers({
           "Authorization": 'Bearer ' + this.authService.getToken()
@@ -109,7 +108,6 @@ export class UserService {
   }
 
   setComplaintReason(postId, authorId, reasonId) {
-    console.log(postId + ' ' + authorId + ' ' + reasonId);
     return this.http.post(
       this.authService.API + `/api/v1/user/set-complaint`,
       {

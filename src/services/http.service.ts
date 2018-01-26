@@ -4,11 +4,12 @@ import {Headers} from "@angular/http";
 import {AuthService} from "./auth.service";
 
 @Injectable()
-export class HttpService{
+export class HttpService {
 
   posts = [];
 
-  constructor(private http: Http, private authService: AuthService){ }
+  constructor(private http: Http, private authService: AuthService) {
+  }
 
   getPosts() {
     return this.http.get(this.authService.API + `/api/v1/post/`,

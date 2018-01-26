@@ -21,6 +21,8 @@ import {UserProfilePage} from "../user-profile/user-profile";
 export class ChatPage {
   chat: Chat;
   chatId: number;
+  chatAvatar: string;
+  chatTitle: string;
   userId: number;
   interlocutor: User;
   messageListener;
@@ -42,6 +44,8 @@ export class ChatPage {
   ionViewDidLoad() {
     this.userId = Number(this.authService.getUserId());
     this.chatId = this.navParams.get("chatId");
+    this.chatAvatar = this.navParams.get("chatAvatar");
+    this.chatTitle = this.navParams.get("chatTitle");
     this.getChat();
     this.scrollToBottom();
   }
@@ -51,15 +55,14 @@ export class ChatPage {
   }
 
   ionViewDidLeave() {
-    console.log("Listeners destroyed");
     this.destroyListeners();
   }
 
   startListening() {
-    console.log('startListening');
     this.messageListener = this.socketService.getMessages().subscribe(data => {
       // TODO: KEK LEL TOP TIER MEMES
       let messageData = data['data'];
+      console.log(messageData);
       if (messageData['senderId'] == this.interlocutor.id && messageData['chatId'] == this.chatId) {
         let msg = new Message();
         msg.message = messageData['text'];
@@ -67,18 +70,15 @@ export class ChatPage {
         msg.messageType = "text";
         msg.createdAt = messageData['createdAt']
         this.chat.messages.push(msg);
-        console.log('push to array');
         this.scrollToBottom();
       }
     });
     this.chat.messages = this.chat.messages.reverse();
-    console.log(this.chat.messages);
     this.scrollToBottom();
   }
 
 
   getChat() {
-    console.log('getChat');
     const lStorageKey = "chatMessages_" + this.chatId;
     if (localStorage.getItem(lStorageKey)) {
       this.chat.messages = JSON.parse(localStorage.getItem(lStorageKey));
@@ -100,7 +100,6 @@ export class ChatPage {
         })[0];
 
         this.unreadMessageCount = response.json().count_unread_message;
-        console.log(response.json());
         localStorage.setItem("unreadMessages", this.unreadMessageCount);
 
         this.interlocutor.id = interlocutor.user.id_user;
@@ -118,17 +117,12 @@ export class ChatPage {
       }
     )
     this.chat.messages = this.chat.messages.reverse();
-    console.log(this.chat.messages);
   }
 
 
   sendMessage(form: NgForm) {
-    console.log(form.value.message);
-
     let currentdate = new Date();
-    let currentDatetime = currentdate.getHours() + ":" + (currentdate.getMinutes()<10?'0':'') + currentdate.getMinutes() ;
-    console.log('datetime');
-    console.log(currentDatetime);
+    let currentDatetime = currentdate.getHours() + ":" + (currentdate.getMinutes() < 10 ? '0' : '') + currentdate.getMinutes();
     this.chatService.sendMessage(this.chatId, form.value.message)
       .subscribe(
         response => {
@@ -144,7 +138,6 @@ export class ChatPage {
           this.scrollToBottom();
         },
         error => {
-          console.log('Error');
         }
       );
   }
@@ -157,21 +150,17 @@ export class ChatPage {
       .subscribe(
         response => {
           post = response.json().post;
-          console.log(post);
           this.navCtrl.push(PostPage, {post: post});
           this.loadService.hideLoader();
         },
         error => {
-          console.log(error);
           this.loadService.hideLoader();
         }
       );
   }
 
 
-
   scrollToBottom() {
-    console.log('scrooll to bottom');
     setTimeout(() => {
       if (this.content.scrollToBottom) {
         this.content.scrollToBottom();

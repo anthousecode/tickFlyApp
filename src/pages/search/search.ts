@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {HttpService} from "../../services/http.service";
 import {PostService} from "../../services/post.service";
 import {SearchService} from "../../services/search.service";
@@ -24,41 +24,32 @@ export class SearchPage {
   inputSearch: string;
   section: string;
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public httpService: HttpService,
-    public postService: PostService,
-    public searchService: SearchService
-  ) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public httpService: HttpService,
+              public postService: PostService,
+              public searchService: SearchService) {
     this.inputSearch = this.navParams.get('query');
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SearchPage');
   }
 
   ngOnInit() {
     let inputQuery: string = this.inputSearch;
     this.posts = [];
     this.pageNumber = 0;
-    if(inputQuery != undefined) {
+    if (inputQuery != undefined) {
       if (inputQuery.charAt(0) == '#') {
         this.section = 'tags';
         inputQuery = inputQuery.slice(1);
       } else {
         this.section = 'posts';
       }
-      console.log(inputQuery);
-      console.log(this.section);
       this.getSearchResults(this.section, inputQuery);
     }
   }
 
   doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
     let inputQuery: string = this.inputSearch;
-    if(inputQuery.charAt(0) == '#') {
+    if (inputQuery.charAt(0) == '#') {
       this.section = 'tags';
       inputQuery = inputQuery.slice(1);
     } else {
@@ -68,9 +59,8 @@ export class SearchPage {
     setTimeout(() => {
       this.postService.getMorePostsOnSearch(inputQuery, this.pageNumber, this.section).subscribe(
         response => {
-          console.log(response.json());
           let postsList = response.json().posts;
-          for(let index in postsList){
+          for (let index in postsList) {
             let post = postsList[index];
             this.posts.push({
               postId: post.id_post,
@@ -87,29 +77,23 @@ export class SearchPage {
           }
         },
         error => {
-          console.log(error);
         }
-      )
-
-      console.log('Async operation has ended');
+      );
       infiniteScroll.complete();
     }, 500);
     this.pageNumber++;
-    console.log(this.pageNumber);
   }
 
   onInput(event: any) {
     let inputQuery: string = this.inputSearch;
     this.posts = [];
     this.pageNumber = 0;
-    if(inputQuery.charAt(0) == '#') {
+    if (inputQuery.charAt(0) == '#') {
       this.section = 'tags';
       inputQuery = inputQuery.slice(1);
     } else {
       this.section = 'posts';
     }
-    console.log(inputQuery);
-    console.log(this.section);
     this.getSearchResults(this.section, inputQuery);
   }
 
@@ -119,7 +103,7 @@ export class SearchPage {
         response => {
           console.log(response.json());
           let postsList = response.json().posts;
-          for(let index in postsList){
+          for (let index in postsList) {
             let post = postsList[index];
             this.posts.push({
               postId: post.id_post,
@@ -130,12 +114,12 @@ export class SearchPage {
               date: post.format_date,
               media: post.media,
               author: post.user,
-              isTick: post.donate
+              isTick: post.donate,
+              commentsCount: post.comments_count
             });
           }
         },
         error => {
-          console.log(error);
         }
       );
   }
