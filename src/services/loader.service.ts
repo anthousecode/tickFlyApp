@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Loading, LoadingController, ToastController} from 'ionic-angular';
+import {Loading, LoadingController} from 'ionic-angular';
 
 @Injectable()
 export class LoaderService {

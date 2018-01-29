@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/filter';
-import {Http, Headers, Response, RequestOptions} from "@angular/http";
+import {Http, Headers} from "@angular/http";
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
-import {ToastController} from "ionic-angular";
-import {GooglePlus} from "@ionic-native/google-plus";
 import {AuthService} from "./auth.service";
 
 @Injectable()
@@ -16,9 +14,11 @@ export class ShareService {
 
   getFollowers() {
     return this.http.get(this.authService.API + `/api/v1/chat/share-post`,
-      {headers: new Headers({
-        "Authorization": 'Bearer ' + this.authService.getToken()
-      })})
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      })
   }
 
   sharePost(postId, userId) {

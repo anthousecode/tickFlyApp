@@ -1,5 +1,5 @@
 import {Component, Injectable, OnInit, ViewChild} from '@angular/core';
-import {Nav, Platform} from 'ionic-angular';
+import {AlertController, Nav, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 
@@ -14,11 +14,13 @@ import {SocketService} from "../services/socket.service";
 import {ChatListPage} from "../pages/chat-list/chat-list";
 import {PaymentService} from "../services/payment.service";
 import {CommonService} from "../services/common.service";
+import {ChatService} from "../services/chat.service";
+import {Network} from "@ionic-native/network";
 
 
 @Component({
   templateUrl: 'app.html',
-  providers: [HttpService, AuthService, PaymentService, CommonService]
+  providers: [HttpService, AuthService, PaymentService, CommonService, ChatService, Network]
 })
 
 @Injectable()
@@ -30,7 +32,6 @@ export class MyApp implements OnInit {
   userId: number;
   newMessages: number = 0;
   newMessageCount: number = 0;
-  messagesLabel: string;
   timezone;
 
   constructor(public platform: Platform,
@@ -39,7 +40,10 @@ export class MyApp implements OnInit {
               private authService: AuthService,
               private socketService: SocketService,
               private paymentService: PaymentService,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private chatService: ChatService,
+              private network: Network,
+              private alertCtrl: AlertController) {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Категории', component: CategoryListPage},
@@ -54,28 +58,24 @@ export class MyApp implements OnInit {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.socketService.connect();
-      this.startListening();
-      this.getTickPackages();
-      this.setTimezone();
+      if(this.network.type == 'none') {
+        this.presentInternetCheckAlert();
+      } else {
+        this.socketService.connect();
+        this.getUnreadMessages();
+        this.startListening();
+        this.setTimezone();
+      }
     })
   }
 
   startListening() {
     this.socketService.getMessages().subscribe(data => {
-      console.log('AppComponent Listener ');
-      console.log(data);
       if (data['data']['targetUserId'] == this.authService.getUserId()) {
+        console.log(this.newMessageCount);
         this.newMessageCount += 1;
-        console.log('newMessageCount ' + this.newMessageCount);
         localStorage.setItem("unreadMessages", String(this.newMessageCount));
       }
-      // if (data['senderId'] == this.interlocutor.id && data['chatId'] == this.chatId) {
-      //   let msg = new Message();
-      //   msg.message = data['text'];
-      //   msg.message_type = "text";
-      //   this.chat.messages.push(msg);
-      // }
     });
   }
 
@@ -87,33 +87,52 @@ export class MyApp implements OnInit {
     this.newMessageCount = Number(localStorage.getItem("unreadMessages"));
   }
 
+  getUnreadMessages() {
+    this.chatService.getChats().subscribe(
+      response => {
+        let unreadMessage = JSON.parse(response.text()).count_unread_message;
+        localStorage.setItem("unreadMessages", unreadMessage);
+      }
+    );
+  }
+
   setTimezone() {
     this.timezone = new Date().toString().split(" ");
     this.timezone = this.timezone[this.timezone.length - 2];
     this.commonService.setTimezone(this.timezone)
-      .subscribe( response => {
-        console.log(response);
-      },
+      .subscribe(response => {
+        },
         error => {
-        console.log(error);
-      });
+        });
   }
 
   getTickPackages() {
     this.paymentService.getPaymentPackages()
       .subscribe(
         response => {
-          console.log(response.json());
           let packageList = response.json().packages[0].cost_ticks;
           let code = response.json().packages[0].code;
-          console.log("code " + code);
           localStorage.setItem("packageList", JSON.stringify(packageList));
           localStorage.setItem("code", code);
         },
         error => {
-          console.log(error);
         }
       );
+  }
+
+  presentInternetCheckAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Внимание!',
+      message: 'Ваше устройство не подключено к интеренету. Для дальнейшего использования подключите устрйосвто к интернету и перезапустите приложение',
+      buttons: ['OK']
+    });
+    alert.present();
+    alert.onDidDismiss(res => {
+      setTimeout(() => {
+        this.platform.exitApp();
+      }),
+        500
+    });
   }
 
   openPage(page) {

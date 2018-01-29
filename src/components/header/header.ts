@@ -23,12 +23,11 @@ export class HeaderComponent {
   unreadMessages;
 
   constructor(public navCtrl: NavController) {
-    console.log('Hello HeaderComponent Component');
     this.text = 'Hello World';
   }
 
   ngDoCheck() {
-    this.getUnreadMessages()
+    this.getUnreadMessages();
   }
 
   onCreatePostPage() {

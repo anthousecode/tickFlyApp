@@ -5,6 +5,7 @@ import {AuthService} from "../../services/auth.service";
 import {PostService} from "../../services/post.service";
 import {SocketService} from "../../services/socket.service";
 import {LoaderService} from "../../services/loader.service";
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'page-home',
@@ -13,6 +14,9 @@ import {LoaderService} from "../../services/loader.service";
 })
 export class HomePage {
   unreadMessages: number;
+  posts = [];
+  pageId: number = 0;
+  timezone;
 
   constructor(public navCtrl: NavController,
               private httpService: HttpService,
@@ -21,18 +25,15 @@ export class HomePage {
               public menu: MenuController,
               public socketService: SocketService,
               public authService: AuthService,
-              public loadService: LoaderService) {
+              public loadService: LoaderService,
+              private commonService: CommonService) {
   }
-
-  posts = [];
-  pageId: number = 0;
 
   ngOnInit() {
     this.menu.swipeEnable(true);
     this.loadService.showLoader();
     this.httpService.getPosts().subscribe(
       response => {
-        console.log(response.json());
         let postsList = response.json().posts;
         for (let index in postsList) {
           let post = postsList[index];
@@ -49,12 +50,10 @@ export class HomePage {
             isTick: post.donate,
             commentsCount: post.comments_count
           });
-          console.log(post.donate);
         }
         this.loadService.hideLoader();
       },
       error => {
-        console.log(error);
         this.loadService.hideLoader();
       }
     )
@@ -69,9 +68,17 @@ export class HomePage {
     })
   }
 
-  doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
+  setTimezone() {
+    this.timezone = new Date().toString().split(" ");
+    this.timezone = this.timezone[this.timezone.length - 2];
+    this.commonService.setTimezone(this.timezone)
+      .subscribe(response => {
+        },
+        error => {
+        });
+  }
 
+  doInfinite(infiniteScroll) {
     setTimeout(() => {
       this.postService.getMorePostsOnHome(this.pageId).subscribe(
         response => {
@@ -89,20 +96,17 @@ export class HomePage {
               date: post.format_date,
               media: post.media,
               author: post.user,
-              isTick: post.donate
+              isTick: post.donate,
+              commentsCount: post.comments_count
             });
           }
         },
         error => {
-          console.log(error);
         }
-      )
-
-      console.log('Async operation has ended');
+      );
       infiniteScroll.complete();
     }, 500);
     this.pageId++;
-    console.log(this.pageId);
   }
 
 }

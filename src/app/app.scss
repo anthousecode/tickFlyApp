@@ -159,6 +159,7 @@ ion-content {
 
 
 .toolbar-ios {
+  max-height:80px!important;
   & ion-title {
     position: relative;
     padding: 0px!important;

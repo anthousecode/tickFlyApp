@@ -1,11 +1,11 @@
 import {Injectable} from "@angular/core";
-import { ToastController } from 'ionic-angular';
+import {ToastController} from 'ionic-angular';
 
 @Injectable()
 export class ToastService {
 
-  constructor(private toastCtrl: ToastController) { }
-
+  constructor(private toastCtrl: ToastController) {
+  }
 
   showToast(message: string, duration?: number) {
     duration = duration ? duration : 3000;
@@ -16,7 +16,6 @@ export class ToastService {
     });
 
     toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
     });
 
     toast.present();

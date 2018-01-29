@@ -52,26 +52,23 @@ export class EditUserPage {
               public loadService: LoaderService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EditUserPage');
-  }
-
   ngOnInit() {
+    this.loadService.showLoader();
     this.userService.getEditProfile()
       .subscribe(
         response => {
           this.user = response.json().user;
-          console.log(this.user);
+          this.loadService.hideLoader();
         },
         error => {
-          console.log(error);
+          this.loadService.hideLoader();
         }
       );
   }
 
   onChangeUser(form: NgForm) {
     this.loadService.showLoader();
-    if(this.lastImage !== null) {
+    if (this.lastImage !== null) {
       this.uploadImage();
     }
     this.userService.changeUser(
@@ -81,12 +78,10 @@ export class EditUserPage {
       form.value.status
     ).subscribe(
       response => {
-        console.log('Success');
         this.loadService.hideLoader();
         this.toastService.showToast('Ваши данные изменены!');
       },
       error => {
-        console.log('Error');
         this.loadService.hideLoader();
         let errors = error.json().errors;
         let firstError = errors[Object.keys(errors)[0]];
@@ -192,8 +187,6 @@ export class EditUserPage {
 
     // File for Upload
     var targetPath = this.pathForImage(this.lastImage);
-
-    console.log(targetPath);
 
     var options = {
       fileKey: "avatar",
