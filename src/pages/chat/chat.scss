@@ -5,9 +5,16 @@ page-chat {
     align-items: center;
     justify-content: center;
     margin: 0 15px;
+    .toolbar-title {
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      align-items: center;
+    }
     .chat-avatar {
       width:50px!important;
       height:50px!important;
+      margin-right: 15px;
     }
   }
   .message-time {

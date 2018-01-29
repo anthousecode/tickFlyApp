@@ -7,10 +7,10 @@
 <ion-header>
   <ion-navbar>
     <div class="tick-header-info" (click)="onUserprofilePage()">
-      <ion-avatar item-start>
+      <ion-title item-end class="tick-title">
         <img class="chat-avatar" src="{{chatAvatar}}">
-      </ion-avatar>
-      <ion-title item-end class="tick-title">{{chatTitle}}</ion-title>
+        {{chatTitle}}
+      </ion-title>
     </div>
   </ion-navbar>
 </ion-header>
