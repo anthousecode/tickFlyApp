@@ -48,7 +48,7 @@
     "cordova-android": "6.3.0",
     "cordova-browser": "5.0.3",
     "cordova-ios": "4.5.4",
-    "cordova-plugin-camera": "^3.0.0",
+    "cordova-plugin-camera": "^4.0.2",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-facebook4": "^1.9.1",
     "cordova-plugin-file": "^5.0.0",
@@ -81,7 +81,6 @@
       "cordova-plugin-device": {},
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-file-transfer": {},
-      "cordova-plugin-camera": {},
       "cordova-plugin-file": {},
       "cordova-plugin-filepath": {},
       "cordova-plugin-splashscreen": {},
@@ -93,6 +92,10 @@
       },
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.722625625123-lp03ktdoqkncep9dbi07juasgb9d7shu"
+      },
+      "cordova-plugin-camera": {
+        "CAMERA_USAGE_DESCRIPTION": "To get photos",
+        "PHOTOLIBRARY_USAGE_DESCRIPTION": "To get photos fro post and for avatar"
       }
     },
     "platforms": [

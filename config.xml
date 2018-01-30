@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.anthouse.tickfly" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.Anthouse.Tickfly" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>TickFly</name>
     <description>TickFly</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">AntHouse</author>
@@ -82,6 +82,15 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
         <icon height="1024" src="resources/ios/icon/icon-1024.png" width="1024" />
+        <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
+            <string>need camera access to take pictures</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
+            <string>need to photo library access to get pictures from there</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
+            <string>need to photo library access to save pictures there</string>
+        </edit-config>
     </platform>
     <allow-navigation href="http://192.168.0.132:8101" />
     <allow-navigation href="http://192.168.0.132:8100" />
@@ -95,7 +104,6 @@
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.2" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
-    <plugin name="cordova-plugin-camera" spec="^3.0.0" />
     <plugin name="cordova-plugin-file" spec="^5.0.0" />
     <plugin name="cordova-plugin-filepath" spec="^1.1.0" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
@@ -106,6 +114,10 @@
     </plugin>
     <plugin name="cordova-plugin-googleplus" spec="~5.2.1">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.722625625123-lp03ktdoqkncep9dbi07juasgb9d7shu" />
+    </plugin>
+    <plugin name="cordova-plugin-camera" spec="^4.0.2">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value="To get photos" />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="To get photos fro post and for avatar" />
     </plugin>
     <engine name="android" spec="6.3.0" />
     <engine name="ios" spec="4.5.4" />
