@@ -78,10 +78,12 @@ export class LoginPage {
               this.toastService.showToast('Вы успешно авторизированы!');
             },
             error => {
+              console.log(JSON.stringify(error.json()));
             })
 
       })
       .catch(err => {
+        console.log(JSON.stringify(err));
       });
   }
 
