@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.Anthouse.Tickfly" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ant.house.tickfly" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>TickFly</name>
     <description>TickFly</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">AntHouse</author>
@@ -91,6 +91,7 @@
         <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
             <string>need to photo library access to save pictures there</string>
         </edit-config>
+        <preference name="KeychainAccessibility" value="WhenUnlocked" />
     </platform>
     <allow-navigation href="http://192.168.0.132:8101" />
     <allow-navigation href="http://192.168.0.132:8100" />
@@ -112,14 +113,14 @@
         <variable name="APP_ID" value="140600353301646" />
         <variable name="APP_NAME" value="TickFly" />
     </plugin>
-    <plugin name="cordova-plugin-googleplus" spec="~5.2.1">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.722625625123-lp03ktdoqkncep9dbi07juasgb9d7shu" />
-    </plugin>
     <plugin name="cordova-plugin-camera" spec="^4.0.2">
         <variable name="CAMERA_USAGE_DESCRIPTION" value="To get photos" />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="To get photos fro post and for avatar" />
     </plugin>
+    <plugin name="cordova-plugin-googleplus" spec="^5.2.1">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.722625625123-lp03ktdoqkncep9dbi07juasgb9d7shu" />
+    </plugin>
     <engine name="android" spec="6.3.0" />
-    <engine name="ios" spec="4.5.4" />
     <engine name="browser" spec="5.0.3" />
+    <engine name="ios" spec="~4.5.4" />
 </widget>

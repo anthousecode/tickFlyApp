@@ -1,6 +1,6 @@
 {
   "name": "tickFlyApp",
-  "app_id": "com.Anthouse.Tickfly",
+  "app_id": "com.ant.house.tickfly",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
