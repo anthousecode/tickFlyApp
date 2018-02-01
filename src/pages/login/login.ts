@@ -83,7 +83,7 @@ export class LoginPage {
 
       })
       .catch(err => {
-      console.log(JSON.stringify(err));
+        console.log(JSON.stringify(err));
       });
   }
 

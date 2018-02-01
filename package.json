@@ -82,6 +82,7 @@
       "cordova-plugin-device": {},
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-file-transfer": {},
+      "cordova-plugin-camera": {},
       "cordova-plugin-file": {},
       "cordova-plugin-filepath": {},
       "cordova-plugin-splashscreen": {},
