@@ -82,7 +82,10 @@
       "cordova-plugin-device": {},
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-file-transfer": {},
-      "cordova-plugin-camera": {},
+      "cordova-plugin-camera": {
+        "CAMERA_USAGE_DESCRIPTION": "To get photos",
+        "PHOTOLIBRARY_USAGE_DESCRIPTION": "To get photos fro post and for avatar"
+      },
       "cordova-plugin-file": {},
       "cordova-plugin-filepath": {},
       "cordova-plugin-splashscreen": {},
@@ -91,10 +94,6 @@
       "cordova-plugin-facebook4": {
         "APP_ID": "140600353301646",
         "APP_NAME": "TickFly"
-      },
-      "cordova-plugin-camera": {
-        "CAMERA_USAGE_DESCRIPTION": "To get photos",
-        "PHOTOLIBRARY_USAGE_DESCRIPTION": "To get photos fro post and for avatar"
       },
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.722625625123-lp03ktdoqkncep9dbi07juasgb9d7shu"
