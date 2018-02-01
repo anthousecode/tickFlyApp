@@ -57,9 +57,11 @@ export class ChatListPage {
       let updatedChat = this.chats.filter(chat => {
         return chat.id == chatId;
       })[0];
-      updatedChat.timeLastMassage = messageData['createdAt'];
-      updatedChat.lastMessage = messageData['text'];
-      updatedChat.unreadMessages += 1;
+      if(typeof updatedChat !== 'undefined') {
+        updatedChat.timeLastMassage = messageData['createdAt'];
+        updatedChat.lastMessage = messageData['text'];
+        updatedChat.unreadMessages += 1;
+      }
     });
   }
 
