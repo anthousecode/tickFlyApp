@@ -62,8 +62,9 @@ export class ChatNewRecipientPage {
         let interlocutor = response.json().members.filter(member => {
           return member.user.id_user != this.userId;
         })[0];
+        console.log(interlocutor);
         const chatAvatar = interlocutor.user.avatar;
-        const chatTitle = interlocutor.user.first_name + interlocutor.user.last_name;
+        const chatTitle = interlocutor.user.nick_name;
         this.navCtrl.push(ChatPage, {chatId: chatId, chatAvatar: chatAvatar, chatTitle: chatTitle});
       },
       error => {
