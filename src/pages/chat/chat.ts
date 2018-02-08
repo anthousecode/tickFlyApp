@@ -115,7 +115,7 @@ export class ChatPage {
       error => {
         this.loadService.hideLoader();
       }
-    )
+    );
     this.chat.messages = this.chat.messages.reverse();
   }
 
