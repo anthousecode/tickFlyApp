@@ -8,9 +8,9 @@ import {GooglePlus} from "@ionic-native/google-plus";
 
 @Injectable()
 export class AuthService {
-  // API = "http://localhost:8080";
+// API = "http://localhost:8080";
   // API = "http://ec2-54-186-176-148.us-west-2.compute.amazonaws.com:8080/";
-  API = "http://18.219.82.49:8080/";
+API = "http://18.219.82.49:8080/";
 
   constructor(private http: Http) {
   }

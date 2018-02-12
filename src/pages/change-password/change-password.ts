@@ -20,6 +20,9 @@ import {LoaderService} from "../../services/loader.service";
 })
 export class ChangePasswordPage {
 
+  user;
+  action : string;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private userService: UserService,
@@ -28,10 +31,20 @@ export class ChangePasswordPage {
   }
 
   ngOnInit() {
-    this.userService.getEditProfile();
+    this.userService.getEditProfile()      
+    .subscribe(
+      response => {
+        this.user = response.json().user;
+        console.log(this.user);
+        this.loadService.hideLoader();
+      },
+      error => {
+        this.loadService.hideLoader();
+      }
+    );
   }
 
-  onChangePassword(form: NgForm) {
+  onChangePassword(form: NgForm) { 
     this.loadService.showLoader();
     this.userService.changePassword(
       form.value.old_password,
