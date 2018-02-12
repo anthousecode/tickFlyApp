@@ -31,7 +31,8 @@ export class ChangePasswordPage {
   }
 
   ngOnInit() {
-    this.userService.getEditProfile()      
+    this.loadService.showLoader();
+    this.userService.getEditProfile()
     .subscribe(
       response => {
         this.user = response.json().user;
@@ -44,7 +45,7 @@ export class ChangePasswordPage {
     );
   }
 
-  onChangePassword(form: NgForm) { 
+  onChangePassword(form: NgForm) {
     this.loadService.showLoader();
     this.userService.changePassword(
       form.value.old_password,

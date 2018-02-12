@@ -16,11 +16,12 @@ import {PaymentService} from "../services/payment.service";
 import {CommonService} from "../services/common.service";
 import {ChatService} from "../services/chat.service";
 import {Network} from "@ionic-native/network";
+import {ToastService} from "../services/toast.service";
 
 
 @Component({
   templateUrl: 'app.html',
-  providers: [HttpService, AuthService, PaymentService, CommonService, ChatService, Network]
+  providers: [HttpService, AuthService, PaymentService, CommonService, ChatService, Network, ToastService]
 })
 
 @Injectable()
@@ -43,7 +44,8 @@ export class MyApp implements OnInit {
               private commonService: CommonService,
               private chatService: ChatService,
               private network: Network,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              private toastService: ToastService) {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Категории', component: CategoryListPage},
@@ -53,20 +55,21 @@ export class MyApp implements OnInit {
   }
 
   ngOnInit() {
+    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+      this.presentInternetCheckAlert();
+    });
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      if(this.network.type == 'none') {
-        this.presentInternetCheckAlert();
-      } else {
+      if(this.network.type != 'none') {
         this.socketService.connect();
         this.getUnreadMessages();
         this.startListening();
         this.setTimezone();
       }
-    })
+    });
   }
 
   startListening() {
