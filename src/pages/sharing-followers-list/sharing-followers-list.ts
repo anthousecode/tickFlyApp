@@ -88,9 +88,6 @@ export class SharingFollowersListPage {
   }
 
   itemTapped(event, idUser) {
-    console.log('chosen follower postId ' + this.postId);
-    console.log('chosen follower idUser ' + idUser);
-
     let currentdate = new Date();
     let currentDatetime = currentdate.getHours() + ":" + (currentdate.getMinutes() < 10 ? '0' : '') + currentdate.getMinutes();
 
@@ -102,7 +99,7 @@ export class SharingFollowersListPage {
           const chatId = response.json().chat_id;
           const message = response.json().message;
           this.getChat(chatId);
-          this.socketService.emitChatMessage(this.post.title, chatId, this.userId, idUser, currentDatetime);
+          this.socketService.emitChatMessage(this.post.title, chatId, this.userId, idUser, currentDatetime, 'post', this.postId);
           console.log('chat messages ' + this.chat.messages);
 
           this.chat.messages.push({
@@ -113,8 +110,6 @@ export class SharingFollowersListPage {
             }
           );
 
-
-          console.log('chat message afetr ' + this.chat.messages);
           this.closeModal();
           this.toastService.showToast('Вы успешно поделились постом!');
         },

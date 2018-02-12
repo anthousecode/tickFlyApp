@@ -19,7 +19,7 @@
 <ion-content padding>
   <div class="tick-wrapper">
     <div>
-      <div *ngIf="!chat.messages.length">История сообщения пуста, пока</div>
+      <div *ngIf="!chat.messages.length">История сообщений пока пуста</div>
       <div class="message-wrap" *ngIf="chat.messages.length">
         <div *ngFor="let message of chat.messages">
           <div class="message-block" [ngClass]="(message.userId==userId)?'message-right':'message-left'">
@@ -27,9 +27,9 @@
               <p *ngIf="message.messageType === 'text'">
                 {{message.message}}
               </p>
-              <div *ngIf="message.messageType == 'post'" (click)="onPostPage(message.message.id_post)">
+              <div *ngIf="message.messageType == 'post'" (click)="onPostPage(message.postId)">
                 <p><b>Запись на стене</b></p>
-                <p>{{message.message.title}}</p>
+                <p>{{message.message}}</p>
               </div>
               <span class="message-time">
                 {{message.createdAt}}
