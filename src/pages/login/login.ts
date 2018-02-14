@@ -9,6 +9,7 @@ import {HomePage} from "../home/home";
 import {GooglePlus} from "@ionic-native/google-plus";
 import {ToastService} from "../../services/toast.service";
 import {LoaderService} from "../../services/loader.service";
+import {ResetPasswordPage} from "../reset-password/reset-password";
 
 
 @IonicPage()
@@ -46,6 +47,11 @@ export class LoginPage {
 
   onHomePage() {
     this.navCtrl.setRoot(HomePage);
+  }
+
+  onResetPasswordPage() {
+    console.log('dsada');
+    this.navCtrl.push(ResetPasswordPage);
   }
 
   onSignin(form: NgForm) {

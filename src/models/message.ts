@@ -10,5 +10,6 @@ export class Message {
   user?: User;
   messageType?: string;
   read?: boolean;
+  postId?: number;
 }
 
