@@ -51,6 +51,8 @@ import {ShopPage} from "../pages/shop/shop";
 import {SocketIoConfig, SocketIoModule} from "ng-socket-io";
 import {SocketService} from "../services/socket.service";
 import {PaymentSystemPageModule} from "../pages/payment-system/payment-system.module";
+import {ResetPasswordPage} from "../pages/reset-password/reset-password";
+import {ResetPasswordPageModule} from "../pages/reset-password/reset-password.module";
 
 const config: SocketIoConfig = {url: "http://ec2-54-186-176-148.us-west-2.compute.amazonaws.com:3001/", options: {}};
 @NgModule({
@@ -89,7 +91,8 @@ const config: SocketIoConfig = {url: "http://ec2-54-186-176-148.us-west-2.comput
     ChatPageModule,
     ChatNewRecipientPageModule,
     ShopPageModule,
-    PaymentSystemPageModule
+    PaymentSystemPageModule,
+    ResetPasswordPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -109,7 +112,8 @@ const config: SocketIoConfig = {url: "http://ec2-54-186-176-148.us-west-2.comput
     ChatListPage,
     ChatPage,
     ChatNewRecipientPage,
-    ShopPage
+    ShopPage,
+    ResetPasswordPage
   ],
   providers: [
     StatusBar,

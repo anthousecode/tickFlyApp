@@ -50,8 +50,6 @@ export class ChatListPage {
 
   startListening() {
     this.socketService.getMessages().subscribe(data => {
-      console.log('ChatListComponent Listener ');
-      console.log(data);
       let messageData = data['data'];
       let chatId = messageData['chatId'];
       let updatedChat = this.chats.filter(chat => {
@@ -59,7 +57,7 @@ export class ChatListPage {
       })[0];
       if(typeof updatedChat !== 'undefined') {
         updatedChat.timeLastMassage = messageData['createdAt'];
-        updatedChat.lastMessage = messageData['text'];
+        updatedChat.lastMessage = messageData['messageType'] == 'post' ? 'Запись на стене...' : messageData['text'];
         updatedChat.unreadMessages += 1;
       }
     });

@@ -164,7 +164,7 @@ export class PostPage {
 
   presentProfileModal(postId) {
     console.log('presentProfileModal postId ' + postId);
-    let profileModal = this.modalCtrl.create(SharingFollowersListPage, {postId: postId});
+    let profileModal = this.modalCtrl.create(SharingFollowersListPage, {postId: postId, post: this.post});
     profileModal.onDidDismiss(data => {
       console.log('data onDidDismiss ' + data);
     });

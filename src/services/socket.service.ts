@@ -25,13 +25,15 @@ export class SocketService {
     return observable;
   }
 
-  emitChatMessage(message: string, chatId: number, senderId: number, targetUserId: number, currentDatetime: string) {
+  emitChatMessage(message: string, chatId: number, senderId: number, targetUserId: number, currentDatetime: string, messageType: string, postId?: number) {
     this.socket.emit('add-message', {
       text: message,
       chatId: chatId,
       senderId: senderId,
       targetUserId: targetUserId,
-      createdAt: currentDatetime
+      createdAt: currentDatetime,
+      messageType: messageType,
+      id_post: postId
     });
   }
 }

@@ -62,13 +62,14 @@ export class ChatPage {
     this.messageListener = this.socketService.getMessages().subscribe(data => {
       // TODO: KEK LEL TOP TIER MEMES
       let messageData = data['data'];
-      console.log(messageData);
       if (messageData['senderId'] == this.interlocutor.id && messageData['chatId'] == this.chatId) {
         let msg = new Message();
+        console.log(messageData['text']);
+        msg.postId = messageData['id_post'];
         msg.message = messageData['text'];
         msg.userId = messageData['senderId'];
-        msg.messageType = "text";
-        msg.createdAt = messageData['createdAt']
+        msg.messageType = messageData['messageType'];
+        msg.createdAt = messageData['createdAt'];
         this.chat.messages.push(msg);
         this.scrollToBottom();
       }
@@ -92,6 +93,8 @@ export class ChatPage {
           message.userId = message.user_id;
           message.createdAt = message.format_time;
           message.messageType = message.message_type;
+          message.postId = message.message.id_post ? message.message.id_post : '';
+          message.message = message.message.title ? message.message.title : message.message;
           return message;
         });
         localStorage.setItem(lStorageKey, JSON.stringify(this.chat.messages));
@@ -115,7 +118,7 @@ export class ChatPage {
       error => {
         this.loadService.hideLoader();
       }
-    )
+    );
     this.chat.messages = this.chat.messages.reverse();
   }
 
@@ -126,7 +129,7 @@ export class ChatPage {
     this.chatService.sendMessage(this.chatId, form.value.message)
       .subscribe(
         response => {
-          this.socketService.emitChatMessage(form.value.message, this.chatId, this.userId, this.interlocutor.id, currentDatetime);
+          this.socketService.emitChatMessage(form.value.message, this.chatId, this.userId, this.interlocutor.id, currentDatetime, 'text');
           this.chat.messages.push({
               userId: Number(this.userId),
               message: form.value.message,
