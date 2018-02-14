@@ -1,11 +1,11 @@
-page-login {
+page-login, page-reset-password {
   ion-navbar {
     button {
       font-size: 12px;
     }
   }
   ion-content {
-    background-color: #d85a5d!important;
+    background-color: #d85a5d !important;
     .enter-block {
       h4 {
         margin-bottom: 10px;
@@ -27,53 +27,63 @@ page-login {
       width: 80%;
       margin: 0 auto;
       padding: 0;
-      border-top: 0!important;
+      border-top: 0 !important;
       .item-inner {
-        padding: 0!important;
+        padding: 0 !important;
       }
     }
     .input-wrapper {
       ion-label {
-       color: #fff;
-     }
-     input {
-      padding: 5px;
-      width: 100%!important;
-      margin: 8px 0px 4px 0px;
-      background-color: #fff!important;
-    }
-  }
-}
-
-.tick-buttons-wrap {
-  margin-top: 25px!important;
-  width: 80%;
-  margin: 0 auto;
-}
-.platform-ios {
-  page-login {
-    ion-navbar {
-      padding-top: 0 !important;
-      ion-title {
-        position: relative;
-        width: 130px;
-        padding: 0;
+        color: #fff;
+      }
+      input {
+        padding: 5px;
+        width: 100% !important;
+        margin: 8px 0px 4px 0px;
+        background-color: #fff !important;
       }
     }
   }
-  ion-navbar {
-    button {
-      margin-top: 15px;
-      font-size: 14px;
+
+  .forgot-password {
+    button, .activated {
+      background-color: transparent;
+      box-shadow: 0 0;
+      span {
+        text-transform: none !important;
+      }
     }
   }
-}
-@media only screen and ( min-width: 768px ) {
-  .tick-wrapper {
-  
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+
+  .tick-buttons-wrap {
+    margin-top: 25px !important;
+    width: 80%;
+    margin: 0 auto;
   }
-}
+  .platform-ios {
+    page-login {
+      ion-navbar {
+        padding-top: 0 !important;
+        ion-title {
+          position: relative;
+          width: 130px;
+          padding: 0;
+        }
+      }
+    }
+    ion-navbar {
+      button {
+        margin-top: 15px;
+        font-size: 14px;
+      }
+    }
+  }
+  @media only screen and (min-width: 768px) {
+    .tick-wrapper {
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
 }

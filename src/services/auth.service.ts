@@ -111,4 +111,10 @@ API = "http://18.219.82.49:8080/";
     return this.http.get(this.API + '/api/sign-up-facebook?access_token=' + facebookToken)
   }
 
+  resetPassword(email: string) {
+    return this.http.post(this.API + '/api/reset-password', {
+      email: email
+    })
+  }
+
 }
