@@ -141,8 +141,8 @@ export class PostPreviewComponent {
         response => {
           let balance = response.json().balance;
           let prompt = this.alertCtrl.create({
-            title: 'Тик',
-            message: 'Количество тиков на Вашем счету ' + balance + '<p>Введите количество тиков</p>',
+            title: 'Тук',
+            message: 'Количество туков на Вашем счету ' + balance + '<p>Введите количество туков</p>',
             cssClass: 'alert-spend-tick',
             inputs: [
               {
