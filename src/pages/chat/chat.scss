@@ -12,8 +12,8 @@ page-chat {
       align-items: center;
     }
     .chat-avatar {
-      width:50px!important;
-      height:50px!important;
+      width: 50px !important;
+      height: 50px !important;
       margin-right: 15px;
     }
   }
@@ -24,7 +24,7 @@ page-chat {
     font-weight: bold;
   }
   .message-content {
-    border-radius: 40px;
+    border-radius: 20px;
     margin: 5px 0;
     position: relative;
     padding: 6px 17px 3px 15px;
@@ -32,15 +32,16 @@ page-chat {
       margin: 0;
       font-size: 13px;
       margin-bottom: 4px;
+      word-break: break-word;
     }
   }
   .message-right {
     justify-content: flex-end;
     display: flex;
     .message-content {
-    background-color: #dadada;
-    margin-left: 40px;
-    color: #333;
+      background-color: #dadada;
+      margin-left: 40px;
+      color: #333;
     }
     .message-time {
       text-align: right;
@@ -51,8 +52,8 @@ page-chat {
     display: flex;
     .message-content {
       background-color: transparent;
-    margin-right: 40px;
-    border: 0.5px solid rgba(0, 0, 0, 0.2);
+      margin-right: 40px;
+      border: 0.5px solid rgba(0, 0, 0, 0.2);
     }
     .message-time {
       text-align: left;
@@ -136,7 +137,8 @@ page-chat {
       font-size: 19px;
       color: #808080;
     }
-  } // .tick-wrapper {
+  }
+  // .tick-wrapper {
   //   margin-bottom: 4rem;
   // }
 }
