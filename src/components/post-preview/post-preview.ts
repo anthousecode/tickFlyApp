@@ -146,7 +146,7 @@ export class PostPreviewComponent {
             cssClass: 'alert-spend-tick',
             inputs: [
               {
-                name: 'tuck',
+                name: 'tick',
                 placeholder: 'Tuck',
                 type: 'number'
               },
