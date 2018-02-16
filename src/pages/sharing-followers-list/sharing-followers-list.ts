@@ -98,15 +98,17 @@ export class SharingFollowersListPage {
           console.log(response.json());
           const chatId = response.json().chat_id;
           const message = response.json().message;
+          let read = false;
           this.getChat(chatId);
-          this.socketService.emitChatMessage(this.post.title, chatId, this.userId, idUser, currentDatetime, 'post', this.postId);
+          this.socketService.emitChatMessage(this.post.title, chatId, this.userId, idUser, currentDatetime, 'post', read, this.postId);
           console.log('chat messages ' + this.chat.messages);
 
           this.chat.messages.push({
               userId: this.userId,
               message: message,
               createdAt: currentDatetime,
-              messageType: 'post'
+              messageType: 'post',
+              read: read
             }
           );
 
