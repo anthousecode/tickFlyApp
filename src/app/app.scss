@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -15,7 +14,6 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-
 /* Variables */
 /* Colors */
 $primary-red: #c24849;
@@ -27,14 +25,14 @@ $secondary-blue: #1da1f2;
 $white: #f0f0f0;
 $category-color: #c04a4a;
 
-
 ion-menu {
   button {
     .item-inner {
-      background-image: none!important;
+      background-image: none !important;
     }
   }
 }
+
 ion-header {
   ion-navbar {
     .toolbar-background-md, .toolbar-background-ios {
@@ -47,13 +45,14 @@ ion-header {
     }
     button {
       font-size: 24px;
-      margin-top: 0!important;
+      margin-top: 0 !important;
     }
     .bar-button-default-ios, .bar-button-default-md {
       color: $white;
     }
   }
 }
+
 ion-content {
 
   ion-item {
@@ -88,48 +87,50 @@ ion-content {
     //   }
     // }
     .buttons-wrap {
-      order:1;
+      order: 1;
       .tik-like {
-        background-image: url("../assets/images/atlas_icons2.svg");
-        background-repeat: no-repeat;
+        background-image: url("../assets/images/tuck2.png");
+        //background-repeat: no-repeat;
         width: 24px;
         height: 24px;
-        background-position: -21px -66px;
-        background-size: 89px;
+        //background-position: -21px -66px;
+        background-size: contain;
       }
       .ticked {
-       background-image: url("../assets/images/atlas_icons2.svg");
-       width: 24px;
-       height: 24px;
-       background-position: -44px -66px;
-     }
-     button {
-       height: auto;
-       padding: 0 7px;
-       font-size: 19px;
-       color: #808080;
-     }
-   }
-   .category {
-    padding: 0;
-    list-style: none;
-    order:2;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    li {
-      padding: 3px 15px;
-      font-weight: bold;
-      font-size: 12px;
-      color: #fff;
-      background: $category-color;
-      border-radius: 2px;
-      margin: 1px 1px 0 0;
+        background-image: url("../assets/images/tuck.png");
+        width: 24px;
+        height: 24px;
+        //background-position: -44px -66px;
+        background-size: contain;
+      }
+      button {
+        height: auto;
+        padding: 0 7px;
+        font-size: 19px;
+        color: #808080;
+      }
+    }
+    .category {
+      padding: 0;
+      list-style: none;
+      order: 2;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      li {
+        padding: 3px 15px;
+        font-weight: bold;
+        font-size: 12px;
+        color: #fff;
+        background: $category-color;
+        border-radius: 2px;
+        margin: 1px 1px 0 0;
+      }
     }
   }
 }
-}
+
 .header-ios {
   background: $primary-red;
   color: $white;
@@ -157,16 +158,15 @@ ion-content {
   }
 }
 
-
 .toolbar-ios {
-  max-height:80px!important;
+  max-height: 80px !important;
   & ion-title {
     position: relative;
-    padding: 0px!important;
+    padding: 0px !important;
   }
-  & ion-buttons{
+  & ion-buttons {
     & button {
-      margin:0px!important;
+      margin: 0px !important;
     }
   }
 }
@@ -179,9 +179,8 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-
 .no-padding {
-  padding: 0px!important;
+  padding: 0px !important;
 }
 
 /* --== Alert Spend Tick ==--*/
@@ -203,6 +202,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
   }
 }
+
 /* --== /Alert Spend Tick ==--*/
 
 /* --== Alert Edit Profile and Alert Capabilities Post Preview  ==--*/
@@ -247,20 +247,23 @@ input[type=number]::-webkit-outer-spin-button {
       font-size: 11px;
     }
     input,
-    textarea{
+    textarea {
       margin: 10px 5px 10px 0;
     }
   }
 }
+
 .tick-title * {
   color: #fff;
 }
+
 .tick-hr {
   border: 0;
-  height: 2px!important;
-  background-color: #fff!important;
+  height: 2px !important;
+  background-color: #fff !important;
   color: #fff;
 }
+
 .tick-diamond {
   background-image: url(../assets/images/Romb.svg);
   background-repeat: no-repeat;
@@ -273,16 +276,18 @@ input[type=number]::-webkit-outer-spin-button {
   z-index: 0;
   background-size: cover;
 }
+
 .tick-form-send {
   width: calc(100% - 20px);
 }
+
 .tick-no-border {
   ion-item:first-child,
   ion-item:last-child {
-    border-top: 0!important;
+    border-top: 0 !important;
   }
   .item-inner {
-    padding: 0!important;
+    padding: 0 !important;
   }
   .img-responsive {
     max-width: 100%;
@@ -292,30 +297,32 @@ input[type=number]::-webkit-outer-spin-button {
   input,
   textarea,
   ion-select,
-  ion-datetime
-  {
+  ion-datetime {
     background-color: rgba(241, 241, 241, 0.6);
-    padding: 5px!important;
-    width: 100%!important;
+    padding: 5px !important;
+    width: 100% !important;
     margin: 10px 0;
   }
   ion-item {
     padding: 0;
   }
 }
+
 /* --==  Chat Style ==-- */
 .chat-avatar {
-  width: 80px!important;
-  height: 80px!important;
+  width: 80px !important;
+  height: 80px !important;
   border-radius: 50%;
   overflow: hidden;
   object-fit: cover;
 }
+
 .toolbar-background,
 .toolbar-background-ios {
   border: 0;
-  border-width: 0!important;
+  border-width: 0 !important;
 }
+
 .top-userprofile-info {
   display: flex;
   flex-direction: row;
@@ -325,12 +332,13 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 15px;
   }
 }
-@media only screen and ( min-width: 650px ) {
+
+@media only screen and (min-width: 650px) {
   .tick-wrapper {
     margin-top: 4rem;
     margin: 0 auto;
     max-width: 655px;
-    position: relative!important;
+    position: relative !important;
     width: 100%;
     height: 100%;
 
@@ -343,6 +351,7 @@ input[type=number]::-webkit-outer-spin-button {
 
   }
 }
-@media only screen and ( min-width: 650px ) {
+
+@media only screen and (min-width: 650px) {
 
 }
