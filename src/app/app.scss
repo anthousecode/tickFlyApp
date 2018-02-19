@@ -131,6 +131,14 @@ ion-content {
   }
 }
 
+.item-md, .item-ios {
+  ion-avatar {
+    img {
+      object-fit: cover;
+    }
+  }
+}
+
 .header-ios {
   background: $primary-red;
   color: $white;
