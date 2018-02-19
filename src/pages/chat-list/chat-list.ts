@@ -26,6 +26,7 @@ import {SocketService} from "../../services/socket.service";
 export class ChatListPage {
   chats: Chat[];
   isLoaded: boolean;
+  messageListener;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -48,8 +49,16 @@ export class ChatListPage {
     }
   }
 
+  destroyListeners() {
+    this.messageListener.unsubscribe();
+  }
+
+  ionViewDidLeave() {
+    this.destroyListeners();
+  }
+
   startListening() {
-    this.socketService.getMessages().subscribe(data => {
+    this.messageListener = this.socketService.getMessages().subscribe(data => {
       let messageData = data['data'];
       let chatId = messageData['chatId'];
       let updatedChat = this.chats.filter(chat => {

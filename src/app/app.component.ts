@@ -49,7 +49,7 @@ export class MyApp implements OnInit {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Категории', component: CategoryListPage},
-      {title: 'Магазин тиков', component: ShopPage}
+      {title: 'Магазин туков', component: ShopPage}
     ];
     this.userId = Number(this.authService.getUserId());
   }

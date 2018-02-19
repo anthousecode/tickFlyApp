@@ -147,7 +147,7 @@ export class PostPreviewComponent {
             inputs: [
               {
                 name: 'tick',
-                placeholder: 'Tick',
+                placeholder: 'Tuck',
                 type: 'number'
               },
             ],

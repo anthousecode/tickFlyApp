@@ -61,15 +61,18 @@ export class ChatPage {
   startListening() {
     this.messageListener = this.socketService.getMessages().subscribe(data => {
       // TODO: KEK LEL TOP TIER MEMES
+      console.log('startListening');
       let messageData = data['data'];
       if (messageData['senderId'] == this.interlocutor.id && messageData['chatId'] == this.chatId) {
         let msg = new Message();
+        console.log(messageData);
         console.log(messageData['text']);
         msg.postId = messageData['id_post'];
         msg.message = messageData['text'];
         msg.userId = messageData['senderId'];
         msg.messageType = messageData['messageType'];
         msg.createdAt = messageData['createdAt'];
+        msg.read = messageData['read'];
         this.chat.messages.push(msg);
         this.scrollToBottom();
       }
@@ -80,6 +83,7 @@ export class ChatPage {
 
 
   getChat() {
+    console.log('getChat');
     const lStorageKey = "chatMessages_" + this.chatId;
     if (localStorage.getItem(lStorageKey)) {
       this.chat.messages = JSON.parse(localStorage.getItem(lStorageKey));
@@ -93,6 +97,7 @@ export class ChatPage {
           message.userId = message.user_id;
           message.createdAt = message.format_time;
           message.messageType = message.message_type;
+          message.read = message.read;
           message.postId = message.message.id_post ? message.message.id_post : '';
           message.message = message.message.title ? message.message.title : message.message;
           return message;
@@ -120,21 +125,25 @@ export class ChatPage {
       }
     );
     this.chat.messages = this.chat.messages.reverse();
+    console.log(this.chat.messages);
   }
 
 
   sendMessage(form: NgForm) {
+    console.log('sendMessage');
     let currentdate = new Date();
     let currentDatetime = currentdate.getHours() + ":" + (currentdate.getMinutes() < 10 ? '0' : '') + currentdate.getMinutes();
     this.chatService.sendMessage(this.chatId, form.value.message)
       .subscribe(
         response => {
-          this.socketService.emitChatMessage(form.value.message, this.chatId, this.userId, this.interlocutor.id, currentDatetime, 'text');
+          let read = false;
+          this.socketService.emitChatMessage(form.value.message, this.chatId, this.userId, this.interlocutor.id, currentDatetime, 'text', read);
           this.chat.messages.push({
               userId: Number(this.userId),
               message: form.value.message,
               createdAt: currentDatetime,
-              messageType: 'text'
+              messageType: 'text',
+              read: read
             }
           );
           form.reset();
