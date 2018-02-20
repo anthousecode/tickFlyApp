@@ -124,7 +124,7 @@ export class PostPage {
           let balance = response.json().balance;
           let prompt = this.alertCtrl.create({
             title: 'Тук',
-            message: 'Количество тиков на Вашем счету ' + balance + '<p>Введите количество тиков</p>',
+            message: 'Количество туков на Вашем счету ' + balance + '<p>Введите количество туков</p>',
             inputs: [
               {
                 name: 'tick',
