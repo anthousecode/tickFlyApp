@@ -15,7 +15,7 @@ export class PostService {
 
   getBalance() {
     return this.http.get(
-      this.authService.API + `/api/v1/user/get-user-balance`,
+      `${this.authService.API}/api/v1/user/get-user-balance`,
       {
         headers: new Headers({
           "Authorization": 'Bearer ' + this.authService.getToken()
@@ -25,7 +25,7 @@ export class PostService {
 
   setTick(postId: number, userId: number, tick: number) {
     return this.http.post(
-      this.authService.API + `/api/v1/user/set-tick`,
+      `${this.authService.API}/api/v1/user/set-tick`,
       {
         id_post: postId,
         id_user: userId,
@@ -40,7 +40,7 @@ export class PostService {
 
   createPost(title: string, description: string, categories = [], tags: string) {
     return this.http.post(
-      this.authService.API + `/api/v1/post/save`,
+      `${this.authService.API}/api/v1/post/save`,
       {
         title: title,
         description: description,
@@ -56,7 +56,7 @@ export class PostService {
 
   getMorePostsOnHome(pageNumber) {
     return this.http.get(
-      this.authService.API + `/api/v1/post?page=` + pageNumber,
+      `${this.authService.API}/api/v1/post?page=${pageNumber}`,
       {
         headers: new Headers({
           "Authorization": 'Bearer ' + this.authService.getToken()

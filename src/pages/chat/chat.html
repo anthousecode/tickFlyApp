@@ -27,11 +27,11 @@
               <p *ngIf="message.messageType === 'text'">
                 {{message.message}}
               </p>
-              <!--<p>{{message.read}}</p>-->
+              <p>{{message.read}}</p>
               <div *ngIf="message.messageType == 'post'" (click)="onPostPage(message.postId)">
                 <p><b>Запись на стене</b></p>
                 <p>{{message.message}}</p>
-                <!--<p>{{message.read}}</p>-->
+                <p>{{message.read}}</p>
               </div>
               <span class="message-time">
                 {{message.createdAt}}

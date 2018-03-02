@@ -27,6 +27,7 @@ export class ChatPage {
   interlocutor: User;
   messageListener;
   unreadMessageCount;
+  messageStatusListener;
   @ViewChild(Content) content: Content;
 
   constructor(public navCtrl: NavController,
@@ -36,6 +37,7 @@ export class ChatPage {
               public loadService: LoaderService,
               public socketService: SocketService,
               public httpService: HttpService) {
+
     this.chat = new Chat();
     this.chat.messages = [];
     this.interlocutor = new User();
@@ -48,14 +50,26 @@ export class ChatPage {
     this.chatTitle = this.navParams.get("chatTitle");
     this.getChat();
     this.scrollToBottom();
+    this.socketService.triggerStatusMessage();
   }
 
   destroyListeners() {
     this.messageListener.unsubscribe();
+    this.messageStatusListener.unsubscribe();
   }
 
   ionViewDidLeave() {
     this.destroyListeners();
+  }
+
+  listenChangeStatusMessage() {
+    this.socketService.getStatusMessage().subscribe(
+      data => {
+        console.log('log before log data');
+        console.log(data);
+      }
+    );
+    console.log('listenChangeStatusMessage()');
   }
 
   startListening() {
@@ -63,6 +77,7 @@ export class ChatPage {
       // TODO: KEK LEL TOP TIER MEMES
       console.log('startListening');
       let messageData = data['data'];
+      this.socketService.triggerStatusMessage();
       if (messageData['senderId'] == this.interlocutor.id && messageData['chatId'] == this.chatId) {
         let msg = new Message();
         console.log(messageData);
@@ -72,7 +87,7 @@ export class ChatPage {
         msg.userId = messageData['senderId'];
         msg.messageType = messageData['messageType'];
         msg.createdAt = messageData['createdAt'];
-        msg.read = messageData['read'];
+        msg.read = true;
         this.chat.messages.push(msg);
         this.scrollToBottom();
       }
@@ -117,6 +132,7 @@ export class ChatPage {
         this.interlocutor.nickname = interlocutor.user.nick_name;
         this.interlocutor.email = interlocutor.user.email;
         this.loadService.hideLoader();
+        this.listenChangeStatusMessage();
         this.startListening();
         this.scrollToBottom();
       },
@@ -136,14 +152,13 @@ export class ChatPage {
     this.chatService.sendMessage(this.chatId, form.value.message)
       .subscribe(
         response => {
-          let read = false;
-          this.socketService.emitChatMessage(form.value.message, this.chatId, this.userId, this.interlocutor.id, currentDatetime, 'text', read);
+          this.socketService.emitChatMessage(form.value.message, this.chatId, this.userId, this.interlocutor.id, currentDatetime, 'text');
           this.chat.messages.push({
               userId: Number(this.userId),
               message: form.value.message,
               createdAt: currentDatetime,
               messageType: 'text',
-              read: read
+              read: false
             }
           );
           form.reset();
