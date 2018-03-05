@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ant.house.tickfly" version="1.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>TickFly</name>
-    <description>TickFly</description>
+<widget id="com.ant.house.tickfly" version="1.0.2.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>TuckFlow</name>
+    <description>TuckFlow</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">AntHouse</author>
     <content src="index.html" />
     <access origin="*" />
