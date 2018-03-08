@@ -28,6 +28,7 @@ export class SharingFollowersListPage {
   chat: Chat;
   post;
   unreadMessageCount;
+  pageNumber: number;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -41,6 +42,7 @@ export class SharingFollowersListPage {
     this.post = this.navParams.get('post');
     this.chat = new Chat();
     this.chat.messages = [];
+    this.pageNumber = 0;
   }
 
   ngOnInit() {
@@ -67,7 +69,7 @@ export class SharingFollowersListPage {
     if (localStorage.getItem(lStorageKey)) {
       this.chat.messages = JSON.parse(localStorage.getItem(lStorageKey));
     } else {
-      this.chatService.getChat(chatId).subscribe(
+      this.chatService.getChat(chatId, this.pageNumber).subscribe(
         response => {
           this.chat.messages = response.json().messages.map(message => {
             message.userId = message.user_id;

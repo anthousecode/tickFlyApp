@@ -29,6 +29,9 @@ export class ChatPage {
   unreadMessageCount;
   messageStatusListener;
   @ViewChild(Content) content: Content;
+  pageNumber: number;
+  isScrollable: boolean;
+  isLoading: boolean;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -41,6 +44,9 @@ export class ChatPage {
     this.chat = new Chat();
     this.chat.messages = [];
     this.interlocutor = new User();
+    this.pageNumber = 0;
+    this.isScrollable = false;
+    this.isLoading = false;
   }
 
   ionViewDidLoad() {
@@ -49,13 +55,12 @@ export class ChatPage {
     this.chatAvatar = this.navParams.get("chatAvatar");
     this.chatTitle = this.navParams.get("chatTitle");
     this.getChat();
-    this.scrollToBottom();
+    // this.scrollToBottom();
     this.socketService.triggerStatusMessage();
   }
 
   destroyListeners() {
     this.messageListener.unsubscribe();
-    this.messageStatusListener.unsubscribe();
   }
 
   ionViewDidLeave() {
@@ -105,8 +110,8 @@ export class ChatPage {
     } else {
       this.loadService.showLoader();
     }
-
-    this.chatService.getChat(this.chatId).subscribe(
+    console.log('pageNumber: ' + this.pageNumber);
+    this.chatService.getChat(this.chatId, this.pageNumber).subscribe(
       response => {
         this.chat.messages = response.json().messages.map(message => {
           message.userId = message.user_id;
@@ -135,6 +140,8 @@ export class ChatPage {
         this.listenChangeStatusMessage();
         this.startListening();
         this.scrollToBottom();
+        this.isScrollable = true;
+        this.pageNumber++;
       },
       error => {
         this.loadService.hideLoader();
@@ -197,5 +204,61 @@ export class ChatPage {
 
   onUserprofilePage() {
     this.navCtrl.push(UserProfilePage, {userId: this.interlocutor.id});
+  }
+
+/* Temporary stuff */
+  doInfinite(infiniteScroll) {
+    setTimeout(() => {
+      console.log('pageNumber: ' + this.pageNumber);
+      this.chatService.getChat(this.chatId, this.pageNumber).subscribe(
+        response => {
+          console.log(response.json());
+          const messageList = response.json().messages.map(message => {
+            message.userId = message.user_id;
+            message.createdAt = message.format_time;
+            message.messageType = message.message_type;
+            message.read = message.read;
+            message.postId = message.message.id_post ? message.message.id_post : '';
+            message.message = message.message.title ? message.message.title : message.message;
+            this.chat.messages.unshift(message);
+          });
+          // for(let index in messageList) {
+          //   const message = messageList[index];
+          //   this.chat.messages.unshift(message);
+          // }
+        },
+        error => {
+        }
+      );
+      infiniteScroll.complete();
+    }, 500);
+    this.pageNumber++;
+  }
+
+  loadMoreMessage() {
+    console.log('pageNumber: ' + this.pageNumber);
+    this.isLoading = true;
+    this.chatService.getChat(this.chatId, this.pageNumber).subscribe(
+      response => {
+        console.log(response.json());
+        const messageList = response.json().messages;
+        for (let index in messageList) {
+          const message = messageList[index];
+          message.userId = message.user_id;
+          message.createdAt = message.format_time;
+          message.messageType = message.message_type;
+          message.read = message.read;
+          message.postId = message.message.id_post ? message.message.id_post : '';
+          message.message = message.message.title ? message.message.title : message.message;
+          this.chat.messages.unshift(message);
+        }
+        this.isLoading = false;
+        this.pageNumber++;
+      },
+      error => {
+        console.log('error');
+        this.isLoading = false;
+      }
+    );
   }
 }

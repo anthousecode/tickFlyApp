@@ -21,17 +21,29 @@
     <div>
       <div *ngIf="!chat.messages.length">История сообщений пока пуста</div>
       <div class="message-wrap" *ngIf="chat.messages.length">
+        <!--<ion-infinite-scroll *ngIf="isScrollable" (ionInfinite)="doInfinite($event)">-->
+          <!--<ion-infinite-scroll-content></ion-infinite-scroll-content>-->
+        <!--</ion-infinite-scroll>-->
+        <div class="load-more" text-center>
+          <ion-spinner name="crescent" *ngIf="isLoading"></ion-spinner>
+          <ion-buttons text-center>
+            <button class="btn-load-more" ion-button color="light" small round
+                    (click)="loadMoreMessage()" *ngIf="!isLoading">
+              Загрузить более старые сообщения
+            </button>
+          </ion-buttons>
+        </div>
         <div *ngFor="let message of chat.messages">
           <div class="message-block" [ngClass]="(message.userId==userId)?'message-right':'message-left'">
             <div class="message-content">
               <p *ngIf="message.messageType === 'text'">
                 {{message.message}}
               </p>
-              <p>{{message.read}}</p>
+              <!--<p>{{message.read}}</p>-->
               <div *ngIf="message.messageType == 'post'" (click)="onPostPage(message.postId)">
                 <p><b>Запись на стене</b></p>
                 <p>{{message.message}}</p>
-                <p>{{message.read}}</p>
+                <!--<p>{{message.read}}</p>-->
               </div>
               <span class="message-time">
                 {{message.createdAt}}
@@ -39,6 +51,9 @@
             </div>
           </div>
         </div>
+        <!--<ion-infinite-scroll (ionInfinite)="doInfinite($event)">-->
+          <!--<ion-infinite-scroll-content></ion-infinite-scroll-content>-->
+        <!--</ion-infinite-scroll>-->
       </div>
     </div>
     <br>
