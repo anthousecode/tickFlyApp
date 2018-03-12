@@ -20,10 +20,7 @@
   <div class="tick-wrapper">
     <div>
       <div *ngIf="!chat.messages.length">История сообщений пока пуста</div>
-      <div class="message-wrap" *ngIf="chat.messages.length">
-        <!--<ion-infinite-scroll *ngIf="isScrollable" (ionInfinite)="doInfinite($event)">-->
-          <!--<ion-infinite-scroll-content></ion-infinite-scroll-content>-->
-        <!--</ion-infinite-scroll>-->
+      <div class="message-wrap">
         <div class="load-more" text-center>
           <ion-spinner name="crescent" *ngIf="isLoading"></ion-spinner>
           <ion-buttons text-center>
@@ -51,9 +48,6 @@
             </div>
           </div>
         </div>
-        <!--<ion-infinite-scroll (ionInfinite)="doInfinite($event)">-->
-          <!--<ion-infinite-scroll-content></ion-infinite-scroll-content>-->
-        <!--</ion-infinite-scroll>-->
       </div>
     </div>
     <br>
