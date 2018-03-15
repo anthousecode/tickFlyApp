@@ -7,6 +7,7 @@ import {HomePage} from "../home/home";
 import {ToastService} from "../../services/toast.service";
 import {LoaderService} from "../../services/loader.service";
 import {MultiImageUpload} from "../../components/multi-image-upload/multi-image-upload";
+import {CreatePostSecondStepPage} from "../create-post-second-step/create-post-second-step";
 
 /**
  * Generated class for the CreatePostPage page.
@@ -27,6 +28,7 @@ export class CreatePostPage {
   selectedCategories = [];
   @ViewChild(MultiImageUpload) multiImageUpload: MultiImageUpload;
   protected uploadFinished = false;
+  isFirstStep: boolean = true;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -67,8 +69,11 @@ export class CreatePostPage {
       form.value.tags
     ).subscribe(
       response => {
-        let postId = response.json().id_post;
-        this.onSubmitUploadImages(postId);
+        const postId = response.json().id_post;
+        // this.onSubmitUploadImages(postId);
+        console.log('postId in request ' + postId);
+        this.onSecondStep(postId);
+        this.loadService.hideLoader();
       },
       error => {
         this.loadService.hideLoader();
@@ -89,21 +94,7 @@ export class CreatePostPage {
     }
   }
 
-  onHomePage() {
-    this.navCtrl.setRoot(HomePage);
-  }
-
-
-  onSubmitUploadImages(postId: number) {
-    this.multiImageUpload.uploadImages(postId).then((images) => {
-      this.uploadFinished = true;
-      this.onHomePage();
-      this.loadService.hideLoader();
-      this.toastService.showToast('Пост успешно создан!');
-    }).catch(() => {
-      this.onHomePage();
-      this.loadService.hideLoader();
-      this.toastService.showToast('Пост успешно создан!');
-    });
+  onSecondStep(postId) {
+    this.navCtrl.push(CreatePostSecondStepPage, {postId: postId});
   }
 }

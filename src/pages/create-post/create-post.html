@@ -29,7 +29,7 @@
         <ion-item>
           <ion-label stacked>Категории</ion-label>
           <ion-select placeholder="Выбрать" name="selectedCategories" [(ngModel)]="selectedCategories" (ionChange)="onChange(selectedCategories)"
-            multiple="true">
+                      multiple="true">
             <ion-option *ngFor="let category of categories" (ionSelect)="onChange()" value="{{category.id_category}}">
               {{category.title}}
             </ion-option>
@@ -39,12 +39,10 @@
           <ion-label stacked>Теги</ion-label>
           <ion-input type="text" (keypress)="_keyPress($event)" name="tags" [ngModel]="description"></ion-input>
         </ion-item>
-        <multi-image-upload></multi-image-upload>
       </ion-list>
       <ion-buttons text-right>
-        <button ion-button color="danger">Создать</button>
+        <button ion-button color="danger">Далее</button>
       </ion-buttons>
     </form>
   </div>
-
 </ion-content>

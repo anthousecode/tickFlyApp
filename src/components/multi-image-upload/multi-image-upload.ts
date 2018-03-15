@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {DomSanitizer} from "@angular/platform-browser";
 import {ActionSheetController, Platform} from "ionic-angular";
 import {Camera, CameraOptions} from "@ionic-native/camera";
@@ -16,7 +16,7 @@ import {LoaderService} from "../../services/loader.service";
 })
 
 export class MultiImageUpload {
-  public serverUrl = this.authService.API + `/api/v1/post/save-media`;
+  public serverUrl = `${this.authService.API}/api/v1/post/save-media`;
 
   public isUploading = false;
   public uploadingProgress = {};
@@ -24,6 +24,7 @@ export class MultiImageUpload {
   public images: any = [];
   protected imagesValue: Array<any>;
   public hasImages: boolean = true;
+  @Input() postId: number;
 
   constructor(private sanitization: DomSanitizer,
               private actionSheetCtrl: ActionSheetController,
@@ -75,6 +76,7 @@ export class MultiImageUpload {
       input.onchange = () => {
         let blob = window.URL.createObjectURL(input.files[0]);
         this.images.push(blob);
+        this.uploadImage(blob, this.postId);
         this.util.trustImages();
       }
     } else {
@@ -115,6 +117,7 @@ export class MultiImageUpload {
         };
         this.camera.getPicture(options).then((imagePath) => {
           this.images.push(imagePath);
+          this.uploadImage(imagePath, this.postId);
           this.util.trustImages();
         });
       }).catch(() => {
@@ -123,7 +126,7 @@ export class MultiImageUpload {
   }
 
 
-  private uploadImage(targetPath, postId) {
+  public uploadImage(targetPath, postId) {
     return new Promise((resolve, reject) => {
       this.uploadingProgress[targetPath] = 0;
 
@@ -146,7 +149,11 @@ export class MultiImageUpload {
 
         fileTransfer.upload(targetPath, this.serverUrl, options).then(data => {
           resolve(JSON.parse(data.response));
+          this.isUploading = true;
         }).catch(error => {
+          this.isUploading = false;
+          this.uploadingProgress = {};
+          this.uploadingHandler = {};
           this.toastService.showToast('Ошибка загрузки изображения!');
           this.loadService.hideLoader();
         });
@@ -155,8 +162,9 @@ export class MultiImageUpload {
           this.uploadingProgress[targetPath] = event2.loaded * 100 / event2.total;
         });
       } else {
+        console.log('not cordova');
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', targetPath, true);
+        xhr.open('POST', targetPath, true);
         xhr.responseType = 'blob';
         xhr.onload = (e) => {
           if (xhr['status'] != 200) {
