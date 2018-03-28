@@ -50,6 +50,7 @@ export class PostPage {
     this.isTick = this.post.donate;
     this.comments = this.post.comments;
     this.currentUserId = Number(this.authService.getUserId());
+    console.log(this.post);
   }
 
   showPostAlert(postId, authorId) {
