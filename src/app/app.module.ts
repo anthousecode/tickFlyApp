@@ -54,7 +54,8 @@ import {PaymentSystemPageModule} from "../pages/payment-system/payment-system.mo
 import {ResetPasswordPage} from "../pages/reset-password/reset-password";
 import {ResetPasswordPageModule} from "../pages/reset-password/reset-password.module";
 
-const config: SocketIoConfig = {url: "http://ec2-54-186-176-148.us-west-2.compute.amazonaws.com:3001/", options: {}};
+const config: SocketIoConfig = {url: "http://localhost:3001/", options: {}};
+// const config: SocketIoConfig = {url: "http://18.219.82.49:3001/", options: {}};
 @NgModule({
   declarations: [
     MyApp,
@@ -80,7 +81,10 @@ const config: SocketIoConfig = {url: "http://ec2-54-186-176-148.us-west-2.comput
     PostPageModule,
     RegisterPageModule,
     UserProfilePageModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      scrollAssist: false,
+      autoFocusAssist: false,
+    }),
     SocketIoModule.forRoot(config),
 
     HttpModule,

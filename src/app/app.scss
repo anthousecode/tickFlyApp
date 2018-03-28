@@ -50,6 +50,9 @@ ion-header {
     .bar-button-default-ios, .bar-button-default-md {
       color: $white;
     }
+    .toolbar-title-ios {
+      text-align: left;
+    }
   }
 }
 
@@ -272,19 +275,6 @@ input[type=number]::-webkit-outer-spin-button {
   color: #fff;
 }
 
-.tick-diamond {
-  background-image: url(../assets/images/Romb.svg);
-  background-repeat: no-repeat;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-position: center;
-  z-index: 0;
-  background-size: cover;
-}
-
 .tick-form-send {
   width: calc(100% - 20px);
 }
@@ -352,9 +342,6 @@ input[type=number]::-webkit-outer-spin-button {
 
     ion-item {
       padding: 0;
-    }
-    .tick-diamond {
-      background-size: contain;
     }
 
   }
