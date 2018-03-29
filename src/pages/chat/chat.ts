@@ -110,9 +110,9 @@ export class ChatPage {
     } else {
       this.loadService.showLoader();
     }
-    console.log('pageNumber: ' + this.pageNumber);
     this.chatService.getChat(this.chatId, this.pageNumber).subscribe(
       response => {
+        console.log(this.chatId);
         this.chat.messages = response.json().messages.map(message => {
           message.userId = message.user_id;
           message.createdAt = message.format_time;
