@@ -3,7 +3,7 @@
     <name>TuckFlow</name>
     <description>TuckFlow</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">AntHouse</author>
-    <content original-src="index.html" src="http://192.168.1.27:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -108,7 +108,7 @@
     <plugin name="cordova-plugin-googleplus" spec="^5.2.1">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.722625625123-lp03ktdoqkncep9dbi07juasgb9d7shu" />
     </plugin>
-    <allow-navigation href="http://192.168.1.27:8100" />
     <engine name="browser" spec="5.0.3" />
     <engine name="android" spec="6.3.0" />
+    <allow-navigation href="http://192.168.1.27:8100" />
 </widget>

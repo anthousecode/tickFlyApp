@@ -1,6 +1,7 @@
 page-post {
   .item-md, .item-ios {
     &.item-block {
+      align-items: start;
       .item-inner {
         border-bottom: none;
       }

@@ -44,13 +44,12 @@ export class PostPage {
               public authService: AuthService,
               public modalCtrl: ModalController,
               public userService: UserService,
-              public toastService: ToastService) {
+              public toastService: ToastService)                                           {
     this.post = navParams.get('post');
     this.postId = this.post.id_post;
     this.isTick = this.post.donate;
     this.comments = this.post.comments;
     this.currentUserId = Number(this.authService.getUserId());
-    console.log(this.post);
   }
 
   showPostAlert(postId, authorId) {

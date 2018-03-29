@@ -59,6 +59,8 @@ export class ChatNewRecipientPage {
     this.chatService.createChat(userId).subscribe(
       response => {
         const chatId = response.json().chat_id;
+        console.log('createChat');
+        console.log(response.json());
         let interlocutor = response.json().members.filter(member => {
           return member.user.id_user != this.userId;
         })[0];
