@@ -50,14 +50,10 @@ ion-header {
     .bar-button-default-ios, .bar-button-default-md {
       color: $white;
     }
-    .toolbar-title-ios {
-      text-align: left;
-    }
   }
 }
 
 ion-content {
-
   ion-item {
     .more-icon {
       font-size: 18px;

@@ -17,19 +17,23 @@
 
 
 <ion-content padding>
+  <div ion-fixed>
+    <div class="load-more" text-center
+         *ngIf="chat.messages.length >= 10 && loadMoreMessages.length !== 0">
+      <ion-spinner name="crescent" center *ngIf="isLoading"></ion-spinner>
+      <ion-fab top center>
+        <button mini ion-fab (click)="loadMoreMessage()"
+                *ngIf="!isLoading">
+          <ion-icon name="arrow-round-up"></ion-icon>
+        </button>
+      </ion-fab>
+    </div>
+  </div>
   <div class="tick-wrapper">
     <div>
-      <div *ngIf="!chat.messages.length">История сообщений пока пуста</div>
+      <div *ngIf="!chat.messages.length">У Вас нет сообщений с этим пользователем</div>
       <div class="message-wrap">
-        <div class="load-more" text-center>
-          <ion-spinner name="crescent" *ngIf="isLoading"></ion-spinner>
-          <ion-buttons text-center>
-            <button class="btn-load-more" ion-button color="light" small round
-                    (click)="loadMoreMessage()" *ngIf="!isLoading">
-              Загрузить более старые сообщения
-            </button>
-          </ion-buttons>
-        </div>
+
         <div *ngFor="let message of chat.messages">
           <div class="message-block" [ngClass]="(message.userId==userId)?'message-right':'message-left'">
             <div class="message-content">
