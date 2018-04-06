@@ -27,11 +27,11 @@ export class ChatPage {
   interlocutor: User;
   messageListener;
   unreadMessageCount;
-  messageStatusListener;
   @ViewChild(Content) content: Content;
   pageNumber: number;
   isScrollable: boolean;
   isLoading: boolean;
+  loadMoreMessages = [0];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -217,6 +217,7 @@ export class ChatPage {
         response => {
           console.log(response.json());
           const messageList = response.json().messages;
+          this.loadMoreMessages = messageList;
           for (let index in messageList) {
             const message = messageList[index];
             message.userId = message.user_id;
