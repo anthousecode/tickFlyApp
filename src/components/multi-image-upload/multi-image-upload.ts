@@ -116,8 +116,8 @@ export class MultiImageUpload {
           correctOrientation: true
         };
         this.camera.getPicture(options).then((imagePath) => {
-          this.images.push(imagePath);
           this.uploadImage(imagePath, this.postId);
+          this.images.push(imagePath);
           this.util.trustImages();
         });
       }).catch(() => {
@@ -127,6 +127,7 @@ export class MultiImageUpload {
 
 
   public uploadImage(targetPath, postId) {
+    console.log('enter to upload image');
     return new Promise((resolve, reject) => {
       this.uploadingProgress[targetPath] = 0;
 
@@ -147,10 +148,13 @@ export class MultiImageUpload {
         const fileTransfer = new TransferObject();
         this.uploadingHandler[targetPath] = fileTransfer;
 
+        console.log('before fileTransfer.upload()');
         fileTransfer.upload(targetPath, this.serverUrl, options).then(data => {
           resolve(JSON.parse(data.response));
-          this.isUploading = true;
+          console.log('fileTransfer.upload() onfulfilled');
+          this.isUploading = false;
         }).catch(error => {
+          console.log('fileTransfer.upload() onrejected');
           this.isUploading = false;
           this.uploadingProgress = {};
           this.uploadingHandler = {};
@@ -158,8 +162,11 @@ export class MultiImageUpload {
           this.loadService.hideLoader();
         });
 
+        console.log('after upload() ');
         fileTransfer.onProgress(event2 => {
+          console.log('onProgress() ');
           this.uploadingProgress[targetPath] = event2.loaded * 100 / event2.total;
+          console.log(this.uploadingProgress[targetPath]);
         });
       } else {
         console.log('not cordova');
