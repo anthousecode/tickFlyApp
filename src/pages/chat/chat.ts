@@ -1,4 +1,4 @@
-import {Component, HostListener, Provider, ViewChild} from "@angular/core";
+import {Component, HostListener, Provider, ViewChild,ChangeDetectorRef} from "@angular/core";
 import {Content, IonicPage, NavController, NavParams} from "ionic-angular";
 import {Chat} from "../../models/chat";
 import {ChatService} from "../../services/chat.service";
@@ -39,7 +39,8 @@ export class ChatPage {
               public authService: AuthService,
               public loadService: LoaderService,
               public socketService: SocketService,
-              public httpService: HttpService) {
+              public httpService: HttpService,
+              public ref: ChangeDetectorRef) {
 
     this.chat = new Chat();
     this.chat.messages = [];
@@ -140,7 +141,7 @@ export class ChatPage {
         this.listenChangeStatusMessage();
         this.startListening();
         this.scrollToBottom();
-        this.isScrollable = true;
+        this.isScrollable = false;
         this.pageNumber++;
       },
       error => {
@@ -193,6 +194,10 @@ export class ChatPage {
       );
   }
 
+  checkScroll(){
+    this.isScrollable = this.content.scrollTop == 0;
+    this.ref.detectChanges();
+  }
 
   scrollToBottom() {
     setTimeout(() => {
