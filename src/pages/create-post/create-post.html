@@ -14,35 +14,47 @@
 
 <ion-content>
   <div class="tick-wrapper enter-block tf-post-label" padding>
+    <ion-slides  >
 
-    <form (ngSubmit)="onCreatePost(f)" #f="ngForm">
-      <ion-list class="tick-no-border">
+      <ion-slide >
+        <form (ngSubmit)="onCreatePost(f)" #f="ngForm">
+          <ion-list class="tick-no-border">
 
-        <ion-item>
-          <ion-label stacked>Название поста</ion-label>
-          <ion-input type="text" name="title" [ngModel]="title"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label stacked>Описание</ion-label>
-          <ion-textarea type="text" name="description" [ngModel]="description"></ion-textarea>
-        </ion-item>
-        <ion-item>
-          <ion-label stacked>Категории</ion-label>
-          <ion-select placeholder="Выбрать" name="selectedCategories" [(ngModel)]="selectedCategories" (ionChange)="onChange(selectedCategories)"
-                      multiple="true">
-            <ion-option *ngFor="let category of categories" (ionSelect)="onChange()" value="{{category.id_category}}">
-              {{category.title}}
-            </ion-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label stacked>Теги</ion-label>
-          <ion-input type="text" (keypress)="_keyPress($event)" name="tags" [ngModel]="description"></ion-input>
-        </ion-item>
-      </ion-list>
-      <ion-buttons text-right>
-        <button ion-button color="danger">Далее</button>
-      </ion-buttons>
-    </form>
+            <ion-item>
+              <ion-label stacked>Название поста</ion-label>
+              <ion-input type="text" name="title" [ngModel]="title"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked>Описание</ion-label>
+              <ion-textarea type="text" name="description" [ngModel]="description"></ion-textarea>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked>Категории</ion-label>
+              <ion-select placeholder="Выбрать" name="selectedCategories" [(ngModel)]="selectedCategories" (ionChange)="onChange(selectedCategories)"
+                          multiple="true">
+                <ion-option *ngFor="let category of categories" (ionSelect)="onChange()" value="{{category.id_category}}">
+                  {{category.title}}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked>Теги</ion-label>
+              <ion-input type="text" (keypress)="_keyPress($event)" name="tags" [ngModel]="description"></ion-input>
+            </ion-item>
+          </ion-list>
+
+        </form>
+      </ion-slide>
+
+      <ion-slide>
+        <multi-image-upload [postId]="postId"></multi-image-upload>
+      </ion-slide>
+
+    </ion-slides>
+    <ion-buttons>
+      <button ion-button *ngIf="!secondStep" (click)='goSecondStep(f);' color="danger">Далее</button>
+      <button ion-button  *ngIf="secondStep" (click)='goBack();' color="light">Назад</button>
+      <button ion-button  *ngIf="secondStep" color="danger" (click)="onSubmitUploadImages(postId)">Опубликовать</button>
+    </ion-buttons>
   </div>
 </ion-content>
