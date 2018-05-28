@@ -17,6 +17,7 @@ export class HomePage {
   posts = [];
   pageId: number = 0;
   timezone;
+  lastPage: boolean = false;
 
   constructor(public navCtrl: NavController,
               private httpService: HttpService,
@@ -79,33 +80,38 @@ export class HomePage {
   }
 
   doInfinite(infiniteScroll) {
-    setTimeout(() => {
-      this.postService.getMorePostsOnHome(this.pageId).subscribe(
-        response => {
-          console.log(response.json());
-          let postsList = response.json().posts;
-          for (let index in postsList) {
-            let post = postsList[index];
-            this.posts.push({
-              postId: post.id_post,
-              title: post.title,
-              categories: post.categories,
-              description: post.description,
-              tags: post.tags,
-              tickCount: post.summ_ticks,
-              date: post.format_date,
-              media: post.media,
-              author: post.user,
-              isTick: post.donate,
-              commentsCount: post.comments_count
-            });
+    if(!this.lastPage) {
+      setTimeout(() => {
+        this.postService.getMorePostsOnHome(this.pageId).subscribe(
+          response => {
+            console.log(response.json());
+            let postsList = response.json().posts;
+            this.lastPage = response.json().last_page;
+            console.log(this.lastPage,response.json().last_page)
+            for (let index in postsList) {
+              let post = postsList[index];
+              this.posts.push({
+                postId: post.id_post,
+                title: post.title,
+                categories: post.categories,
+                description: post.description,
+                tags: post.tags,
+                tickCount: post.summ_ticks,
+                date: post.format_date,
+                media: post.media,
+                author: post.user,
+                isTick: post.donate,
+                commentsCount: post.comments_count
+              });
+            }
+          },
+          error => {
           }
-        },
-        error => {
-        }
-      );
-      infiniteScroll.complete();
-    }, 500);
+        );
+        infiniteScroll.complete();
+      }, 500);
+    }
+
     this.pageId++;
   }
 

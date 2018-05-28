@@ -47,6 +47,7 @@ export class CreatePostPage {
               public alertCtrl: AlertController) {
     this.postId = this.navParams.get('postId');
     console.log('return first step',this.postId)
+
   }
 
   onChange(selectedCategories) {
@@ -57,7 +58,31 @@ export class CreatePostPage {
   }
   goSecondStep(form: NgForm) {
     console.log(this.postId)
-   if (!this.postId) {
+    this.slides.lockSwipeToNext(false);
+    console.log(this.postId);
+    if(this.postId) {
+      this.postService.updatePost(
+        form.value.title,
+        form.value.description,
+        this.selectedCategories,
+        form.value.tags,
+        this.postId
+      ).subscribe(
+        response => {
+
+          this.loadService.hideLoader();
+          this.slides.slideNext();
+          this.page ++ ;
+          this.secondStep = true;
+        },
+        error => {
+          this.loadService.hideLoader();
+          let errors = error.json().errors;
+          let firstError = errors[Object.keys(errors)[0]];
+          this.toastService.showToast(firstError);
+        }
+      )
+    } else {
      this.postService.createPost(
        form.value.title,
        form.value.description,
@@ -81,36 +106,12 @@ export class CreatePostPage {
          this.toastService.showToast(firstError);
        }
      )
-   } else {
-     this.postService.updatePost(
-       form.value.title,
-       form.value.description,
-       this.selectedCategories,
-       form.value.tags,
-       this.postId
-     ).subscribe(
-       response => {
-         const postId = response.json()["post"].id_post;
-         // this.onSubmitUploadImages(postId);
-         console.log(postId)
-         this.postId =  postId;
-         console.log('postId in request ' + postId);
-         this.loadService.hideLoader();
-         this.slides.slideNext();
-         this.page ++ ;
-         this.secondStep = true;
-       },
-       error => {
-         this.loadService.hideLoader();
-         let errors = error.json().errors;
-         let firstError = errors[Object.keys(errors)[0]];
-         this.toastService.showToast(firstError);
-       }
-     )
    }
   }
   goBack() {
+
   if(this.page > 1) {
+    this.slides.lockSwipeToPrev(false);
     this.slides.slidePrev();
     this.secondStep = false;
     // this.ref.detectChanges();
@@ -118,24 +119,26 @@ export class CreatePostPage {
   }
   onSelectItem(selectedItem) {
   }
-  onSubmitUploadImages(postId: number) {
+  slideChanged(){
+    if(this.slides.isBeginning()) {
+
+      this.slides.lockSwipeToNext(true);
+      this.slides.lockSwipeToPrev(true);
+
+    }
+    else  {
+      this.slides.lockSwipeToPrev(true);
+    }
+  }
+  onSubmitPost(postId: number) {
     this.onHomePage();
     this.loadService.hideLoader();
     this.canLeave = true;
-    this.toastService.showToast('Пост успешно создан!');
 
-    this.multiImageUpload.uploadImages(postId).then((images) => {
-      // this.uploadFinished = true;
-      this.onHomePage();
-      this.loadService.hideLoader();
-      this.toastService.showToast('Пост успешно создан!');
-    }).catch(() => {
-      this.onHomePage();
-      this.loadService.hideLoader();
-      this.toastService.showToast('Пост успешно создан!');
-    });
   }
   ngOnInit() {
+    this.slides.lockSwipeToPrev(true);
+    this.slides.lockSwipeToNext(true);
     this.httpService.getCategories()
       .subscribe(
         response => {
@@ -163,6 +166,7 @@ export class CreatePostPage {
     }
   }
   ionViewCanLeave():boolean{
+    console.log(this.canLeave);
     if(this.canLeave) {
       return this.canLeave;
     } else {
@@ -172,7 +176,7 @@ export class CreatePostPage {
 
   }
   leaveCreatePost(){
-    console.log('in',this.test);
+
     this.test ++;
     let alert = this.alertCtrl.create({
       title: 'Confirm',
@@ -181,6 +185,7 @@ export class CreatePostPage {
         text: "Ok",
         handler: () => {
           this.deletePost(this.postId);
+          this.canLeave = true;
           this.onHomePage()
         }
       }, {
@@ -196,17 +201,21 @@ export class CreatePostPage {
     return this.canLeave;
 
   }
-  deletePost(postId){
-    this.postService.deletePost(postId).subscribe(
-      data => {console.log()},
-      error => {
+  deletePost(postId) {
+    if(postId) {
+      this.postService.deletePost(postId).subscribe(
+        data => {console.log()},
+        error => {
 
-      }
-    )
+        }
+      )
+    }
   }
+
   onSecondStep(postId) {
     this.navCtrl.push(CreatePostSecondStepPage, {postId: postId});
   }
+
   onHomePage() {
       this.navCtrl.goToRoot(HomePage)
   }

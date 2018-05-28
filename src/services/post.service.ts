@@ -53,6 +53,21 @@ export class PostService {
         })
       })
   }
+  updatePost(title: string, description: string, categories = [], tags: string, postId:number) {
+    return this.http.put(
+      `${this.authService.API}/api/v1/post/update/${postId}`,
+      {
+        title: title,
+        description: description,
+        cat_ids: categories,
+        tags: tags
+      },
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      })
+  }
 
   getMorePostsOnHome(pageNumber) {
     return this.http.get(
