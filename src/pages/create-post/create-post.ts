@@ -215,7 +215,7 @@ export class CreatePostPage {
     return this.canLeave;
 
   }
-  deletePost(postId){
+  deletePost(postId) {
     if(postId) {
       this.postService.deletePost(postId).subscribe(
         data => {console.log()},
@@ -224,11 +224,12 @@ export class CreatePostPage {
         }
       )
     }
-
   }
+
   onSecondStep(postId) {
     this.navCtrl.push(CreatePostSecondStepPage, {postId: postId});
   }
+
   onHomePage() {
       this.navCtrl.goToRoot(HomePage)
   }

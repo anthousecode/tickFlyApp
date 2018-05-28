@@ -84,7 +84,7 @@
 
     <post-preview [userId]="userId" [publicProfile]="isPublic" [posts]="posts"></post-preview>
 
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll *ngIf="!lastPage" (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </div>
