@@ -57,9 +57,32 @@ export class CreatePostPage {
     }
   }
   goSecondStep(form: NgForm) {
-    this.slides.lockSwipeToNext(false);
     console.log(this.postId)
-   if (!this.postId) {
+    this.slides.lockSwipeToNext(false);
+    console.log(this.postId);
+    if(this.postId) {
+      this.postService.updatePost(
+        form.value.title,
+        form.value.description,
+        this.selectedCategories,
+        form.value.tags,
+        this.postId
+      ).subscribe(
+        response => {
+
+          this.loadService.hideLoader();
+          this.slides.slideNext();
+          this.page ++ ;
+          this.secondStep = true;
+        },
+        error => {
+          this.loadService.hideLoader();
+          let errors = error.json().errors;
+          let firstError = errors[Object.keys(errors)[0]];
+          this.toastService.showToast(firstError);
+        }
+      )
+    } else {
      this.postService.createPost(
        form.value.title,
        form.value.description,
@@ -69,32 +92,6 @@ export class CreatePostPage {
        response => {
          const postId = response.json().id_post;
          // this.onSubmitUploadImages(postId);
-         this.postId =  postId;
-         console.log('postId in request ' + postId);
-         this.loadService.hideLoader();
-         this.slides.slideNext();
-         this.page ++ ;
-         this.secondStep = true;
-       },
-       error => {
-         this.loadService.hideLoader();
-         let errors = error.json().errors;
-         let firstError = errors[Object.keys(errors)[0]];
-         this.toastService.showToast(firstError);
-       }
-     )
-   } else {
-     this.postService.updatePost(
-       form.value.title,
-       form.value.description,
-       this.selectedCategories,
-       form.value.tags,
-       this.postId
-     ).subscribe(
-       response => {
-         const postId = response.json()["post"].id_post;
-         // this.onSubmitUploadImages(postId);
-         console.log(postId)
          this.postId =  postId;
          console.log('postId in request ' + postId);
          this.loadService.hideLoader();
@@ -137,7 +134,7 @@ export class CreatePostPage {
     this.onHomePage();
     this.loadService.hideLoader();
     this.canLeave = true;
-    this.toastService.showToast('Пост успешно создан!');
+
   }
   ngOnInit() {
     this.slides.lockSwipeToPrev(true);
