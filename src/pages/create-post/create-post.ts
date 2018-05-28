@@ -133,22 +133,11 @@ export class CreatePostPage {
       this.slides.lockSwipeToPrev(true);
     }
   }
-  onSubmitUploadImages(postId: number) {
+  onSubmitPost(postId: number) {
     this.onHomePage();
     this.loadService.hideLoader();
     this.canLeave = true;
     this.toastService.showToast('Пост успешно создан!');
-
-    this.multiImageUpload.uploadImages(postId).then((images) => {
-      // this.uploadFinished = true;
-      this.onHomePage();
-      this.loadService.hideLoader();
-      this.toastService.showToast('Пост успешно создан!');
-    }).catch(() => {
-      this.onHomePage();
-      this.loadService.hideLoader();
-      this.toastService.showToast('Пост успешно создан!');
-    });
   }
   ngOnInit() {
     this.slides.lockSwipeToPrev(true);

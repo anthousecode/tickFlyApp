@@ -56,8 +56,8 @@ import {ResetPasswordPageModule} from "../pages/reset-password/reset-password.mo
 import {CreatePostSecondStepPage} from "../pages/create-post-second-step/create-post-second-step";
 import {CreatePostSecondStepPageModule} from "../pages/create-post-second-step/create-post-second-step.module";
 
-const config: SocketIoConfig = {url: "http://localhost:3001/", options: {}};
-// const config: SocketIoConfig = {url: "http://18.219.82.49:3001/", options: {}};
+// const config: SocketIoConfig = {url: "http://localhost:3001/", options: {}};
+const config: SocketIoConfig = {url: "http://18.219.82.49:3001/", options: {}};
 @NgModule({
   declarations: [
     MyApp,
