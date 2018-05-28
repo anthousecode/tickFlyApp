@@ -3,7 +3,15 @@
     <name>TuckFlow</name>
     <description>TuckFlow</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">AntHouse</author>
+<<<<<<< HEAD
+<<<<<<< HEAD
     <content src="index.html" />
+=======
+    <content original-src="index.html" src="http://192.168.1.27:8100" />
+>>>>>>> 1a11331... Removed romb
+=======
+    <content src="index.html" />
+>>>>>>> 7e7e0b1... Fixed runtime error when creating new chat
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
