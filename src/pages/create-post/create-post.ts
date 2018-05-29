@@ -190,17 +190,17 @@ export class CreatePostPage {
 
     this.test ++;
     let alert = this.alertCtrl.create({
-      title: 'Confirm',
-      message: 'Cancel create post?',
+      title: 'Вы хотите отменить создание поста?',
+      message: '',
       buttons: [{
-        text: "Ok",
+        text: "Да",
         handler: () => {
           this.deletePost(this.postId);
           this.canLeave = true;
           this.onHomePage()
         }
       }, {
-        text: "Cancel",
+        text: "Нет",
         role: 'cancel',
         handler:() => {
           this.canLeave = false;
