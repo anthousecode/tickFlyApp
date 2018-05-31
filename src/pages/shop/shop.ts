@@ -88,12 +88,23 @@ export class ShopPage {
       );
   }
 
-  openBrowserForPayment() {
+  openBrowserForPay() {
     let browser = this.iab.create(this.authService.API + '/shop?id_user=' + this.userId, '',
-      {location: 'no', hardwareback: 'no'});
+      {location: 'no', hardwareback: 'no', zoom: 'no'});
     browser.on('exit').subscribe(
       response => {
-        this.navCtrl.push(UserProfilePage, {userId: this.authService.getUserId()});
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      })
+  }
+
+  openBrowserForWithdraw() {
+    let browser = this.iab.create(this.authService.API + '/withdraw?id_user=' + this.userId, '',
+      {location: 'no', hardwareback: 'no', zoom: 'no'});
+    browser.on('exit').subscribe(
+      response => {
       },
       error => {
       })

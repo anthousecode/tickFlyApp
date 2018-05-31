@@ -1,5 +1,5 @@
 import {Component, Injectable, OnInit, ViewChild} from '@angular/core';
-import {Nav, Platform} from 'ionic-angular';
+import {AlertController, Nav, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 
@@ -14,11 +14,14 @@ import {SocketService} from "../services/socket.service";
 import {ChatListPage} from "../pages/chat-list/chat-list";
 import {PaymentService} from "../services/payment.service";
 import {CommonService} from "../services/common.service";
+import {ChatService} from "../services/chat.service";
+import {Network} from "@ionic-native/network";
+import {ToastService} from "../services/toast.service";
 
 
 @Component({
   templateUrl: 'app.html',
-  providers: [HttpService, AuthService, PaymentService, CommonService]
+  providers: [HttpService, AuthService, PaymentService, CommonService, ChatService, Network, ToastService]
 })
 
 @Injectable()
@@ -38,31 +41,41 @@ export class MyApp implements OnInit {
               private authService: AuthService,
               private socketService: SocketService,
               private paymentService: PaymentService,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private chatService: ChatService,
+              private network: Network,
+              private alertCtrl: AlertController,
+              private toastService: ToastService) {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Категории', component: CategoryListPage},
-      {title: 'Магазин тиков', component: ShopPage}
+      {title: 'Магазин туков', component: ShopPage}
     ];
     this.userId = Number(this.authService.getUserId());
   }
 
   ngOnInit() {
+    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+      this.presentInternetCheckAlert();
+    });
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.socketService.connect();
-      this.startListening();
-      this.getTickPackages();
-      this.setTimezone();
-    })
+      if(this.network.type != 'none') {
+        this.socketService.connect();
+        this.getUnreadMessages();
+        this.startListening();
+        this.setTimezone();
+      }
+    });
   }
 
   startListening() {
     this.socketService.getMessages().subscribe(data => {
       if (data['data']['targetUserId'] == this.authService.getUserId()) {
+        console.log(this.newMessageCount);
         this.newMessageCount += 1;
         localStorage.setItem("unreadMessages", String(this.newMessageCount));
       }
@@ -75,6 +88,15 @@ export class MyApp implements OnInit {
       this.rootPage = HomePage;
     }
     this.newMessageCount = Number(localStorage.getItem("unreadMessages"));
+  }
+
+  getUnreadMessages() {
+    this.chatService.getChats().subscribe(
+      response => {
+        let unreadMessage = JSON.parse(response.text()).count_unread_message;
+        localStorage.setItem("unreadMessages", unreadMessage);
+      }
+    );
   }
 
   setTimezone() {
@@ -99,6 +121,21 @@ export class MyApp implements OnInit {
         error => {
         }
       );
+  }
+
+  presentInternetCheckAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Внимание!',
+      message: 'Ваше устройство не подключено к интеренету. Для дальнейшего использования подключите устрйосвто к интернету и перезапустите приложение',
+      buttons: ['OK']
+    });
+    alert.present();
+    alert.onDidDismiss(res => {
+      setTimeout(() => {
+        this.platform.exitApp();
+      }),
+        500
+    });
   }
 
   openPage(page) {

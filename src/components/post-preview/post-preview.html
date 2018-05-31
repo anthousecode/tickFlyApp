@@ -10,19 +10,21 @@
         {{post?.author.nick_name}}
       </h2>
       <ion-buttons  end>
-        <button class="more-icon" (click)="showPostAlert(post?.postId, post?.author.id_user)" icon-end>
+        <button class="more-icon" (click)="showPostAlert(post?.postId, post?.author.id_user, post)" icon-end>
           <ion-icon name="more"></ion-icon>
         </button>
       </ion-buttons>
     </div>
   </ion-item>
 
-  <h2 padding class="post-title" (click)="onPostPage(post?.postId)">{{post?.title}}</h2>
+  <div class="post-content" (click)="onPostPage(post?.postId)">
+    <h2 padding class="post-title">{{post?.title}}</h2>
     <img *ngIf="post?.media[0]" src="{{post?.media[0]['url_thumb']}}">
-  <ion-card-content>
-    <p margin-bottom>{{getShortDescription(post?.description)}}</p>
-    <p class="ion-post-date">{{post?.date}}</p>
-  </ion-card-content>
+    <ion-card-content>
+      <p margin-bottom>{{getShortDescription(post?.description)}}</p>
+      <p class="ion-post-date">{{post?.date}}</p>
+    </ion-card-content>
+  </div>
 
   <div class="post-footer">
     <ion-buttons class="buttons-wrap">
@@ -40,7 +42,7 @@
           {{post?.commentsCount}}
         </div>
       </button>
-      <button ion-button small clear (click)="this.presentProfileModal(post?.postId);">
+      <button ion-button small clear (click)="this.presentProfileModal(post?.postId, post);">
         <ion-icon name="mail"></ion-icon>
       </button>
     </ion-buttons>

@@ -30,6 +30,7 @@ export class UserProfilePage {
   user;
   followersCount: number;
   pageId: number = 0;
+  lastPage: boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -142,30 +143,34 @@ export class UserProfilePage {
   }
 
   doInfinite(infiniteScroll) {
-    setTimeout(() => {
-      this.postService.getMorePostsOnProfile(this.userId, this.pageId).subscribe(
-        response => {
-          let postsList = response.json().posts;
-          for (let index in postsList) {
-            let post = postsList[index];
-            this.posts.push({
-              postId: post.id_post,
-              title: post.title,
-              categories: post.categories,
-              description: post.description,
-              tags: post.tags,
-              tickCount: post.summ_ticks,
-              date: post.format_date,
-              media: post.media,
-              author: post.user
-            });
+    if(!this.lastPage){
+      setTimeout(() => {
+        this.postService.getMorePostsOnProfile(this.userId, this.pageId).subscribe(
+          response => {
+            let postsList = response.json().posts;
+            this.lastPage = response.json().last_page;
+            for (let index in postsList) {
+              let post = postsList[index];
+              this.posts.push({
+                postId: post.id_post,
+                title: post.title,
+                categories: post.categories,
+                description: post.description,
+                tags: post.tags,
+                tickCount: post.summ_ticks,
+                date: post.format_date,
+                media: post.media,
+                author: post.user
+              });
+            }
+          },
+          error => {
           }
-        },
-        error => {
-        }
-      );
-      infiniteScroll.complete();
-    }, 500);
+        );
+        infiniteScroll.complete();
+      }, 500);
+    }
+
     this.pageId++;
   }
 }

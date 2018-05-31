@@ -66,7 +66,7 @@ export class PostPreviewComponent {
       );
   }
 
-  showPostAlert(postId, authorId) {
+  showPostAlert(postId, authorId, post) {
     let alert = this.alertCtrl.create({
       cssClass: 'alert-capabilities',
       buttons: [
@@ -74,7 +74,7 @@ export class PostPreviewComponent {
           text: 'Поделиться',
           cssClass: 'hidden',
           handler: () => {
-            this.presentProfileModal(postId);
+            this.presentProfileModal(postId, post);
           }
         }
       ]
@@ -141,13 +141,13 @@ export class PostPreviewComponent {
         response => {
           let balance = response.json().balance;
           let prompt = this.alertCtrl.create({
-            title: 'Тик',
-            message: 'Количество тиков на Вашем счету ' + balance + '<p>Введите количество тиков</p>',
+            title: 'Тук',
+            message: 'Количество туков на Вашем счету ' + balance + '<p>Введите количество туков</p>',
             cssClass: 'alert-spend-tick',
             inputs: [
               {
                 name: 'tick',
-                placeholder: 'Tick',
+                placeholder: 'Tuck',
                 type: 'number'
               },
             ],
@@ -183,8 +183,8 @@ export class PostPreviewComponent {
   }
 
 
-  presentProfileModal(postId) {
-    let profileModal = this.modalCtrl.create(SharingFollowersListPage, {postId: postId});
+  presentProfileModal(postId, post) {
+    let profileModal = this.modalCtrl.create(SharingFollowersListPage, {postId: postId, post: post});
     profileModal.onDidDismiss(data => {
     });
     profileModal.present();

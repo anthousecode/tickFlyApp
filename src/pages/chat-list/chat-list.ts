@@ -7,6 +7,7 @@ import {AuthService} from "../../services/auth.service";
 import {User} from "../../models/user";
 import {ChatNewRecipientPage} from "../chat-new-recipient/chat-new-recipient";
 import {LoaderService} from "../../services/loader.service";
+import {SocketService} from "../../services/socket.service";
 
 /**
  * Generated class for the ChatListPage page.
@@ -25,17 +26,20 @@ import {LoaderService} from "../../services/loader.service";
 export class ChatListPage {
   chats: Chat[];
   isLoaded: boolean;
+  messageListener;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public chatService: ChatService,
               public authService: AuthService,
               public loadService: LoaderService,
-              public loadingCtrl: LoadingController) {
+              public loadingCtrl: LoadingController,
+              public socketService: SocketService) {
   }
 
   ngOnInit() {
     this.chats = [];
+    this.startListening();
   }
 
   loadChatsFromStorage() {
@@ -43,6 +47,29 @@ export class ChatListPage {
       this.chats = JSON.parse(localStorage.getItem("chats"));
       this.isLoaded = true;
     }
+  }
+
+  destroyListeners() {
+    this.messageListener.unsubscribe();
+  }
+
+  ionViewDidLeave() {
+    this.destroyListeners();
+  }
+
+  startListening() {
+    this.messageListener = this.socketService.getMessages().subscribe(data => {
+      let messageData = data['data'];
+      let chatId = messageData['chatId'];
+      let updatedChat = this.chats.filter(chat => {
+        return chat.id == chatId;
+      })[0];
+      if(typeof updatedChat !== 'undefined') {
+        updatedChat.timeLastMassage = messageData['createdAt'];
+        updatedChat.lastMessage = messageData['messageType'] == 'post' ? 'Запись на стене...' : messageData['text'];
+        updatedChat.unreadMessages += 1;
+      }
+    });
   }
 
   getChats() {
@@ -83,18 +110,18 @@ export class ChatListPage {
     );
   }
 
-  createChat(targetUserId) {
-    this.chatService.createChat(targetUserId).subscribe(
-      response => {
+  // createChat(targetUserId) {
+  //   this.chatService.createChat(targetUserId).subscribe(
+  //     response => {
+  //
+  //     },
+  //     error => {
+  //     }
+  //   );
+  // }
 
-      },
-      error => {
-      }
-    );
-  }
-
-  onChatPage(chatId) {
-    this.navCtrl.push(ChatPage, {chatId: chatId});
+  onChatPage(chatId, chatAvatar, chatTitle) {
+    this.navCtrl.push(ChatPage, {chatId: chatId, chatAvatar: chatAvatar, chatTitle: chatTitle});
   }
 
   onNewChatPage() {

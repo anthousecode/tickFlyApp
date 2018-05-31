@@ -38,11 +38,20 @@
 
     <h2 padding text-wrap class="post-title">{{post?.title}}</h2>
 
-    <ion-slides pager *ngIf="post?.media">
-      <ion-slide *ngFor="let picture of post?.media">
-        <img  src="{{picture['url_thumb']}}">
-      </ion-slide>
-    </ion-slides>
+     <div class="media-block" *ngIf="post?.media">
+      <div *ngIf="post?.media.length > 1">
+        <ion-slides pager *ngIf="post?.media">
+          <ion-slide *ngFor="let picture of post?.media">
+            <img  src="{{picture['url_thumb']}}">
+            <span class="helper"></span>
+          </ion-slide>
+        </ion-slides>
+      </div>
+
+       <div *ngIf="post?.media.length === 1">
+         <img src="{{post?.media[0]['url_thumb']}}">
+       </div>
+     </div>
 
     <ion-card-content>
       <p margin-bottom>{{post?.description}}</p>
@@ -67,7 +76,7 @@
             </div>
             <div class="tickfly-currency">{{post?.tickCount ? post?.tickCount : post?.summ_ticks}}</div>
           </button>
-        <button ion-button small clear (click)="presentProfileModal(post?.postId)">
+        <button ion-button small clear (click)="presentProfileModal(post?.id_post)">
           <ion-icon name="mail"></ion-icon>
         </button>
       </ion-buttons>

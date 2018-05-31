@@ -101,6 +101,7 @@ export class SearchPage {
     this.searchService.getSearchResult(section, inputQuery)
       .subscribe(
         response => {
+          console.log(response.json());
           let postsList = response.json().posts;
           for (let index in postsList) {
             let post = postsList[index];
@@ -113,7 +114,8 @@ export class SearchPage {
               date: post.format_date,
               media: post.media,
               author: post.user,
-              isTick: post.donate
+              isTick: post.donate,
+              commentsCount: post.comments_count
             });
           }
         },

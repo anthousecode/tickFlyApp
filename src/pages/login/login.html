@@ -1,11 +1,11 @@
 <ion-header>
 
   <ion-navbar hideBackButton>
-    <ion-title>
-      <img src="assets/images/logo.png" alt="TickFly">
+    <ion-title class="loginpage-title">
+      <img src="assets/images/logo.png" alt="TuckFlow">
     </ion-title>
     <ion-buttons (click)="onRegisterPage()" end>
-      <button ion-button icon-end text-capitalize>
+      <button ion-button icon-end text-capitalize >
         Зарегистрироваться
         <ion-icon name="arrow-round-forward"></ion-icon>
       </button>
@@ -16,7 +16,6 @@
 
 <ion-content>
   <div class="tick-wrapper">
-    <div class="tick-diamond"></div>
     <div class="enter-block tf-post-label" padding>
       <form (ngSubmit)="onSignin(f)" #f="ngForm">
         <h4>вход</h4>
@@ -37,6 +36,11 @@
           <button ion-button small color="main-entry-button" type="submit">Войти</button>
         </ion-buttons>
       </form>
+      <ion-buttons class="forgot-password" (click)="onResetPasswordPage()" text-center>
+        <button ion-button icon-end>
+          Забыли пароль?
+        </button>
+      </ion-buttons>
     </div>
 
     <div class="enter-block" padding>

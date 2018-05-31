@@ -16,9 +16,9 @@ export class ChatService {
       this.authService.getHeaders("auth"))
   }
 
-  getChat(chatId) {
+  getChat(chatId, pageNumber) {
     return this.http.get(
-      this.authService.API + `/api/v1/chat/load-more?chat_id=` + chatId,
+      this.authService.API + `/api/v1/chat/load-more?chat_id=${chatId}&page=${pageNumber}`,
       this.authService.getHeaders("auth"))
   }
 

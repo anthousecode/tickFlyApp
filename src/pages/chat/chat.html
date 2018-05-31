@@ -7,29 +7,44 @@
 <ion-header>
   <ion-navbar>
     <div class="tick-header-info" (click)="onUserprofilePage()">
-      <ion-avatar item-start>
-        <img class="chat-avatar" src="{{interlocutor.avatar}}">
-      </ion-avatar>
-      <ion-title item-end class="tick-title">{{interlocutor.nickname}}</ion-title>
+      <ion-title item-end class="tick-title">
+        <img class="chat-avatar" src="{{chatAvatar}}">
+        {{chatTitle}}
+      </ion-title>
     </div>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding (ionScroll)="checkScroll($event)">
+  <div ion-fixed>
+    <div class="load-more" text-center
+         *ngIf="chat.messages.length >= 10 && loadMoreMessages.length !== 0">
+      <ion-spinner name="crescent" center *ngIf="isLoading"></ion-spinner>
+      <ion-fab top center *ngIf="isScrollable">
+        <button mini ion-fab (click)="loadMoreMessage()"
+                *ngIf="!isLoading">
+          <ion-icon name="arrow-round-up"></ion-icon>
+        </button>
+      </ion-fab>
+    </div>
+  </div>
   <div class="tick-wrapper">
     <div>
-      <div *ngIf="!chat.messages.length">История сообщения пуста, пока</div>
-      <div class="message-wrap" *ngIf="chat.messages.length">
+      <div *ngIf="!chat.messages.length">У Вас нет сообщений с этим пользователем</div>
+      <div class="message-wrap">
+
         <div *ngFor="let message of chat.messages">
           <div class="message-block" [ngClass]="(message.userId==userId)?'message-right':'message-left'">
             <div class="message-content">
               <p *ngIf="message.messageType === 'text'">
                 {{message.message}}
               </p>
-              <div *ngIf="message.messageType == 'post'" (click)="onPostPage(message.message.id_post)">
+              <!--<p>{{message.read}}</p>-->
+              <div *ngIf="message.messageType == 'post'" (click)="onPostPage(message.postId)">
                 <p><b>Запись на стене</b></p>
-                <p>{{message.message.title}}</p>
+                <p>{{message.message}}</p>
+                <!--<p>{{message.read}}</p>-->
               </div>
               <span class="message-time">
                 {{message.createdAt}}

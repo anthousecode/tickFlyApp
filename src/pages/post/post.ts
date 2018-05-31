@@ -44,7 +44,7 @@ export class PostPage {
               public authService: AuthService,
               public modalCtrl: ModalController,
               public userService: UserService,
-              public toastService: ToastService) {
+              public toastService: ToastService)                                           {
     this.post = navParams.get('post');
     this.postId = this.post.id_post;
     this.isTick = this.post.donate;
@@ -123,12 +123,12 @@ export class PostPage {
         response => {
           let balance = response.json().balance;
           let prompt = this.alertCtrl.create({
-            title: 'Тик',
-            message: 'Количество тиков на Вашем счету ' + balance + '<p>Введите количество тиков</p>',
+            title: 'Тук',
+            message: 'Количество туков на Вашем счету ' + balance + '<p>Введите количество туков</p>',
             inputs: [
               {
                 name: 'tick',
-                placeholder: 'Tick',
+                placeholder: 'Tuck',
                 type: 'number'
               },
             ],
@@ -163,8 +163,10 @@ export class PostPage {
   }
 
   presentProfileModal(postId) {
-    let profileModal = this.modalCtrl.create(SharingFollowersListPage, {postId: postId});
+    console.log('presentProfileModal postId ' + postId);
+    let profileModal = this.modalCtrl.create(SharingFollowersListPage, {postId: postId, post: this.post});
     profileModal.onDidDismiss(data => {
+      console.log('data onDidDismiss ' + data);
     });
     profileModal.present();
   }

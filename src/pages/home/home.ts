@@ -5,6 +5,7 @@ import {AuthService} from "../../services/auth.service";
 import {PostService} from "../../services/post.service";
 import {SocketService} from "../../services/socket.service";
 import {LoaderService} from "../../services/loader.service";
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'page-home',
@@ -13,6 +14,10 @@ import {LoaderService} from "../../services/loader.service";
 })
 export class HomePage {
   unreadMessages: number;
+  posts = [];
+  pageId: number = 0;
+  timezone;
+  lastPage: boolean = false;
 
   constructor(public navCtrl: NavController,
               private httpService: HttpService,
@@ -21,11 +26,9 @@ export class HomePage {
               public menu: MenuController,
               public socketService: SocketService,
               public authService: AuthService,
-              public loadService: LoaderService) {
+              public loadService: LoaderService,
+              private commonService: CommonService) {
   }
-
-  posts = [];
-  pageId: number = 0;
 
   ngOnInit() {
     this.menu.swipeEnable(true);
@@ -66,32 +69,49 @@ export class HomePage {
     })
   }
 
-  doInfinite(infiniteScroll) {
-    setTimeout(() => {
-      this.postService.getMorePostsOnHome(this.pageId).subscribe(
-        response => {
-          let postsList = response.json().posts;
-          for (let index in postsList) {
-            let post = postsList[index];
-            this.posts.push({
-              postId: post.id_post,
-              title: post.title,
-              categories: post.categories,
-              description: post.description,
-              tags: post.tags,
-              tickCount: post.summ_ticks,
-              date: post.format_date,
-              media: post.media,
-              author: post.user,
-              isTick: post.donate
-            });
-          }
+  setTimezone() {
+    this.timezone = new Date().toString().split(" ");
+    this.timezone = this.timezone[this.timezone.length - 2];
+    this.commonService.setTimezone(this.timezone)
+      .subscribe(response => {
         },
         error => {
-        }
-      );
-      infiniteScroll.complete();
-    }, 500);
+        });
+  }
+
+  doInfinite(infiniteScroll) {
+    if(!this.lastPage) {
+      setTimeout(() => {
+        this.postService.getMorePostsOnHome(this.pageId).subscribe(
+          response => {
+            console.log(response.json());
+            let postsList = response.json().posts;
+            this.lastPage = response.json().last_page;
+            console.log(this.lastPage,response.json().last_page)
+            for (let index in postsList) {
+              let post = postsList[index];
+              this.posts.push({
+                postId: post.id_post,
+                title: post.title,
+                categories: post.categories,
+                description: post.description,
+                tags: post.tags,
+                tickCount: post.summ_ticks,
+                date: post.format_date,
+                media: post.media,
+                author: post.user,
+                isTick: post.donate,
+                commentsCount: post.comments_count
+              });
+            }
+          },
+          error => {
+          }
+        );
+        infiniteScroll.complete();
+      }, 500);
+    }
+
     this.pageId++;
   }
 

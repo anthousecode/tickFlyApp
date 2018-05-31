@@ -21,8 +21,7 @@ import {InAppBrowser} from "@ionic-native/in-app-browser";
   providers: [ToastService, PaymentService, LoaderService, InAppBrowser]
 })
 export class PaymentSystemPage {
-  code: string;
-  amount: number;
+  code: string;  amount: number;
   paymentSystem: string;
   cvc;
   cardNumber;

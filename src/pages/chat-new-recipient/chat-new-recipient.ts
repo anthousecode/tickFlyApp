@@ -4,6 +4,7 @@ import {User} from "../../models/user";
 import {ChatService} from "../../services/chat.service";
 import {ChatPage} from "../chat/chat";
 import {LoaderService} from "../../services/loader.service";
+import {AuthService} from "../../services/auth.service";
 
 /**
  * Generated class for the ChatNewRecipientPage page.
@@ -16,19 +17,22 @@ import {LoaderService} from "../../services/loader.service";
 @Component({
   selector: 'page-chat-new-recipient',
   templateUrl: 'chat-new-recipient.html',
-  providers: [ChatService, LoaderService]
+  providers: [ChatService, LoaderService, AuthService]
 })
 export class ChatNewRecipientPage {
 
   chatCandidates: User[];
+  userId: number;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public chatService: ChatService,
-              public loadService: LoaderService) {
+              public loadService: LoaderService,
+              public authService: AuthService) {
   }
 
   ionViewDidLoad() {
+    this.userId = Number(this.authService.getUserId());
     this.getFollowers();
   }
 
@@ -55,7 +59,15 @@ export class ChatNewRecipientPage {
     this.chatService.createChat(userId).subscribe(
       response => {
         const chatId = response.json().chat_id;
-        this.navCtrl.push(ChatPage, {chatId: chatId});
+        console.log('createChat');
+        console.log(response.json());
+        let interlocutor = response.json().members.filter(member => {
+          return member.user.id_user != this.userId;
+        })[0];
+        console.log(interlocutor);
+        const chatAvatar = interlocutor.user.avatar;
+        const chatTitle = interlocutor.user.nick_name;
+        this.navCtrl.push(ChatPage, {chatId: chatId, chatAvatar: chatAvatar, chatTitle: chatTitle});
       },
       error => {
 

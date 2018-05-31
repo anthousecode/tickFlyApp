@@ -82,12 +82,16 @@ export class UserService {
   }
 
   changePassword(oldPassword: string, newPassword: string, confirmationPassword: string) {
+  
+    let action = typeof oldPassword !== "undefined" ? 'update' : 'set' ;
+
     return this.http.put(
       this.authService.API + `/api/v1/user/change-password`,
       {
         old_password: oldPassword,
         new_password: newPassword,
-        password_confirmation: confirmationPassword
+        password_confirmation: confirmationPassword,
+        action: action
       },
       {
         headers: new Headers({

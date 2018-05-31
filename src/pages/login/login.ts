@@ -9,6 +9,7 @@ import {HomePage} from "../home/home";
 import {GooglePlus} from "@ionic-native/google-plus";
 import {ToastService} from "../../services/toast.service";
 import {LoaderService} from "../../services/loader.service";
+import {ResetPasswordPage} from "../reset-password/reset-password";
 
 
 @IonicPage()
@@ -48,6 +49,11 @@ export class LoginPage {
     this.navCtrl.setRoot(HomePage);
   }
 
+  onResetPasswordPage() {
+    console.log('dsada');
+    this.navCtrl.push(ResetPasswordPage);
+  }
+
   onSignin(form: NgForm) {
     this.loadService.showLoader();
     this.authService.signin(form.value.email, form.value.password).subscribe(
@@ -78,10 +84,12 @@ export class LoginPage {
               this.toastService.showToast('Вы успешно авторизированы!');
             },
             error => {
+              console.log(JSON.stringify(error.json()));
             })
 
       })
       .catch(err => {
+        console.log(JSON.stringify(err));
       });
   }
 
@@ -101,6 +109,6 @@ export class LoginPage {
             error => {
             })
       })
-      .catch(e => console.log('Error logging into Facebook', e));
+      .catch(e => console.log('Error logging into Facebook', JSON.stringify(e)));
   }
 }
