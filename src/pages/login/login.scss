@@ -4,6 +4,11 @@ page-login, page-reset-password {
       font-size: 12px;
     }
   }
+  .loginpage-title {
+    .toolbar-title-ios {
+      text-align: left;
+    }
+  }
   ion-content {
     background-color: #d85a5d !important;
     .enter-block {

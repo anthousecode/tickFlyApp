@@ -44,7 +44,7 @@ export class PostPage {
               public authService: AuthService,
               public modalCtrl: ModalController,
               public userService: UserService,
-              public toastService: ToastService) {
+              public toastService: ToastService)                                           {
     this.post = navParams.get('post');
     this.postId = this.post.id_post;
     this.isTick = this.post.donate;
@@ -124,7 +124,7 @@ export class PostPage {
           let balance = response.json().balance;
           let prompt = this.alertCtrl.create({
             title: 'Тук',
-            message: 'Количество тиков на Вашем счету ' + balance + '<p>Введите количество тиков</p>',
+            message: 'Количество туков на Вашем счету ' + balance + '<p>Введите количество туков</p>',
             inputs: [
               {
                 name: 'tick',

@@ -1,4 +1,4 @@
-import {Component, Provider, ViewChild} from "@angular/core";
+import {Component, HostListener, Provider, ViewChild,ChangeDetectorRef} from "@angular/core";
 import {Content, IonicPage, NavController, NavParams} from "ionic-angular";
 import {Chat} from "../../models/chat";
 import {ChatService} from "../../services/chat.service";
@@ -28,6 +28,10 @@ export class ChatPage {
   messageListener;
   unreadMessageCount;
   @ViewChild(Content) content: Content;
+  pageNumber: number;
+  isScrollable: boolean;
+  isLoading: boolean;
+  loadMoreMessages = [0];
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -35,10 +39,15 @@ export class ChatPage {
               public authService: AuthService,
               public loadService: LoaderService,
               public socketService: SocketService,
-              public httpService: HttpService) {
+              public httpService: HttpService,
+              public ref: ChangeDetectorRef) {
+
     this.chat = new Chat();
     this.chat.messages = [];
     this.interlocutor = new User();
+    this.pageNumber = 0;
+    this.isScrollable = false;
+    this.isLoading = false;
   }
 
   ionViewDidLoad() {
@@ -47,7 +56,8 @@ export class ChatPage {
     this.chatAvatar = this.navParams.get("chatAvatar");
     this.chatTitle = this.navParams.get("chatTitle");
     this.getChat();
-    this.scrollToBottom();
+    // this.scrollToBottom();
+    this.socketService.triggerStatusMessage();
   }
 
   destroyListeners() {
@@ -58,11 +68,22 @@ export class ChatPage {
     this.destroyListeners();
   }
 
+  listenChangeStatusMessage() {
+    this.socketService.getStatusMessage().subscribe(
+      data => {
+        console.log('log before log data');
+        console.log(data);
+      }
+    );
+    console.log('listenChangeStatusMessage()');
+  }
+
   startListening() {
     this.messageListener = this.socketService.getMessages().subscribe(data => {
       // TODO: KEK LEL TOP TIER MEMES
       console.log('startListening');
       let messageData = data['data'];
+      this.socketService.triggerStatusMessage();
       if (messageData['senderId'] == this.interlocutor.id && messageData['chatId'] == this.chatId) {
         let msg = new Message();
         console.log(messageData);
@@ -72,7 +93,7 @@ export class ChatPage {
         msg.userId = messageData['senderId'];
         msg.messageType = messageData['messageType'];
         msg.createdAt = messageData['createdAt'];
-        msg.read = messageData['read'];
+        msg.read = true;
         this.chat.messages.push(msg);
         this.scrollToBottom();
       }
@@ -90,9 +111,9 @@ export class ChatPage {
     } else {
       this.loadService.showLoader();
     }
-
-    this.chatService.getChat(this.chatId).subscribe(
+    this.chatService.getChat(this.chatId, this.pageNumber).subscribe(
       response => {
+        console.log(this.chatId);
         this.chat.messages = response.json().messages.map(message => {
           message.userId = message.user_id;
           message.createdAt = message.format_time;
@@ -117,8 +138,11 @@ export class ChatPage {
         this.interlocutor.nickname = interlocutor.user.nick_name;
         this.interlocutor.email = interlocutor.user.email;
         this.loadService.hideLoader();
+        this.listenChangeStatusMessage();
         this.startListening();
         this.scrollToBottom();
+        this.isScrollable = false;
+        this.pageNumber++;
       },
       error => {
         this.loadService.hideLoader();
@@ -136,14 +160,13 @@ export class ChatPage {
     this.chatService.sendMessage(this.chatId, form.value.message)
       .subscribe(
         response => {
-          let read = false;
-          this.socketService.emitChatMessage(form.value.message, this.chatId, this.userId, this.interlocutor.id, currentDatetime, 'text', read);
+          this.socketService.emitChatMessage(form.value.message, this.chatId, this.userId, this.interlocutor.id, currentDatetime, 'text');
           this.chat.messages.push({
               userId: Number(this.userId),
               message: form.value.message,
               createdAt: currentDatetime,
               messageType: 'text',
-              read: read
+              read: false
             }
           );
           form.reset();
@@ -171,6 +194,10 @@ export class ChatPage {
       );
   }
 
+  checkScroll(){
+    this.isScrollable = this.content.scrollTop == 0;
+    this.ref.detectChanges();
+  }
 
   scrollToBottom() {
     setTimeout(() => {
@@ -182,5 +209,39 @@ export class ChatPage {
 
   onUserprofilePage() {
     this.navCtrl.push(UserProfilePage, {userId: this.interlocutor.id});
+  }
+
+  loadMoreMessage() {
+    console.log(this.content.scrollTop);
+    console.log('pageNumber: ' + this.pageNumber);
+    console.log(this.isLoading);
+    if(this.content.scrollTop == 0) {
+      this.isLoading = true;
+      console.log(this.isLoading);
+      this.chatService.getChat(this.chatId, this.pageNumber).subscribe(
+        response => {
+          console.log(response.json());
+          const messageList = response.json().messages;
+          this.loadMoreMessages = messageList;
+          for (let index in messageList) {
+            const message = messageList[index];
+            message.userId = message.user_id;
+            message.createdAt = message.format_time;
+            message.messageType = message.message_type;
+            message.read = message.read;
+            message.postId = message.message.id_post ? message.message.id_post : '';
+            message.message = message.message.title ? message.message.title : message.message;
+            this.chat.messages.unshift(message);
+          }
+          this.isLoading = false;
+          this.pageNumber++;
+        },
+        error => {
+          console.log('error');
+          this.isLoading = false;
+        }
+      );
+      console.log(this.isLoading);
+    }
   }
 }

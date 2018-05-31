@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar hideBackButton>
-    <ion-title>
+    <ion-title class="loginpage-title">
       <img src="assets/images/logo.png" alt="TuckFlow">
     </ion-title>
     <ion-buttons (click)="onRegisterPage()" end>
@@ -16,7 +16,6 @@
 
 <ion-content>
   <div class="tick-wrapper">
-    <div class="tick-diamond"></div>
     <div class="enter-block tf-post-label" padding>
       <form (ngSubmit)="onSignin(f)" #f="ngForm">
         <h4>вход</h4>
