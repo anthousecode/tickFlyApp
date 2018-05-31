@@ -110,15 +110,15 @@ export class ChatListPage {
     );
   }
 
-  createChat(targetUserId) {
-    this.chatService.createChat(targetUserId).subscribe(
-      response => {
-
-      },
-      error => {
-      }
-    );
-  }
+  // createChat(targetUserId) {
+  //   this.chatService.createChat(targetUserId).subscribe(
+  //     response => {
+  //
+  //     },
+  //     error => {
+  //     }
+  //   );
+  // }
 
   onChatPage(chatId, chatAvatar, chatTitle) {
     this.navCtrl.push(ChatPage, {chatId: chatId, chatAvatar: chatAvatar, chatTitle: chatTitle});

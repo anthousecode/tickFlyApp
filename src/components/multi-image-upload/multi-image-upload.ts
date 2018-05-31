@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {DomSanitizer} from "@angular/platform-browser";
 import {ActionSheetController, Platform} from "ionic-angular";
 import {Camera, CameraOptions} from "@ionic-native/camera";
@@ -16,7 +16,7 @@ import {LoaderService} from "../../services/loader.service";
 })
 
 export class MultiImageUpload {
-  public serverUrl = this.authService.API + `/api/v1/post/save-media`;
+  public serverUrl = `${this.authService.API}/api/v1/post/save-media`;
 
   public isUploading = false;
   public uploadingProgress = {};
@@ -24,6 +24,7 @@ export class MultiImageUpload {
   public images: any = [];
   protected imagesValue: Array<any>;
   public hasImages: boolean = true;
+  @Input() postId: number;
 
   constructor(private sanitization: DomSanitizer,
               private actionSheetCtrl: ActionSheetController,
@@ -75,6 +76,7 @@ export class MultiImageUpload {
       input.onchange = () => {
         let blob = window.URL.createObjectURL(input.files[0]);
         this.images.push(blob);
+        this.uploadImage(blob, this.postId);
         this.util.trustImages();
       }
     } else {
@@ -114,6 +116,7 @@ export class MultiImageUpload {
           correctOrientation: true
         };
         this.camera.getPicture(options).then((imagePath) => {
+          this.uploadImage(imagePath, this.postId);
           this.images.push(imagePath);
           this.util.trustImages();
         });
@@ -123,7 +126,8 @@ export class MultiImageUpload {
   }
 
 
-  private uploadImage(targetPath, postId) {
+  public uploadImage(targetPath, postId) {
+    console.log('enter to upload image');
     return new Promise((resolve, reject) => {
       this.uploadingProgress[targetPath] = 0;
 
@@ -144,19 +148,30 @@ export class MultiImageUpload {
         const fileTransfer = new TransferObject();
         this.uploadingHandler[targetPath] = fileTransfer;
 
+        console.log('before fileTransfer.upload()');
         fileTransfer.upload(targetPath, this.serverUrl, options).then(data => {
           resolve(JSON.parse(data.response));
+          console.log('fileTransfer.upload() onfulfilled');
+          this.isUploading = false;
         }).catch(error => {
+          console.log('fileTransfer.upload() onrejected');
+          this.isUploading = false;
+          this.uploadingProgress = {};
+          this.uploadingHandler = {};
           this.toastService.showToast('Ошибка загрузки изображения!');
           this.loadService.hideLoader();
         });
 
+        console.log('after upload() ');
         fileTransfer.onProgress(event2 => {
+          console.log('onProgress() ');
           this.uploadingProgress[targetPath] = event2.loaded * 100 / event2.total;
+          console.log(this.uploadingProgress[targetPath]);
         });
       } else {
+        console.log('not cordova');
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', targetPath, true);
+        xhr.open('POST', targetPath, true);
         xhr.responseType = 'blob';
         xhr.onload = (e) => {
           if (xhr['status'] != 200) {

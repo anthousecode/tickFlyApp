@@ -6,7 +6,7 @@
       [search]="true"
       [createPost]="true"
       [menu]="true">
-      <ion-title>
+      <ion-title class="homepage-title">
         <img src="assets/images/logo.png" alt="TuckFlow">
       </ion-title>
     </header-main>
@@ -17,7 +17,9 @@
   <div class="tick-wrapper">
     <post-preview [posts]="posts"></post-preview>
 
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+
+
+    <ion-infinite-scroll *ngIf="!lastPage" (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </div>

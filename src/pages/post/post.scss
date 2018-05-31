@@ -1,6 +1,7 @@
 page-post {
   .item-md, .item-ios {
     &.item-block {
+      align-items: start;
       .item-inner {
         border-bottom: none;
       }
@@ -78,17 +79,16 @@ page-post {
 }
 .swiper-slide {
   height: 60vh;
-  .slide-zoom {
-    height: 100%;
-  }
   img {
-    max-width: 100%;
-    height: auto;
-    max-height: 100%;
-    object-fit: cover;
-    object-position: center;
-    width: 100%;
+    width: auto;
+    max-height: 60vh;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  .helper {
+    display: inline-block;
     height: 100%;
+    vertical-align: middle;
   }
 }
 // .post-footer {
