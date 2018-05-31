@@ -60,7 +60,7 @@
           </ion-col>
           <ion-col col-3>
             <h3>{{user?.balance.amount}}</h3>
-            <p>тики</p>
+            <p>туки</p>
           </ion-col>
         </ion-row>
         <ng-template #publicProfile>
@@ -84,7 +84,7 @@
 
     <post-preview [userId]="userId" [publicProfile]="isPublic" [posts]="posts"></post-preview>
 
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll *ngIf="!lastPage" (ionInfinite)="doInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </div>

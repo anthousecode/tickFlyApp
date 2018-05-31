@@ -17,6 +17,20 @@ page-chat {
       margin-right: 15px;
     }
   }
+  [ion-fixed] {
+    width: 100%;
+    .load-more {
+      ion-spinner {
+        position: inherit;
+      }
+      ion-fab {
+        top: 0;
+        .fab {
+          background-color: $secondary-red;
+        }
+      }
+    }
+  }
   .message-time {
     display: block;
     color: #333;

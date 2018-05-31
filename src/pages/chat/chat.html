@@ -16,22 +16,35 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding (ionScroll)="checkScroll($event)">
+  <div ion-fixed>
+    <div class="load-more" text-center
+         *ngIf="chat.messages.length >= 10 && loadMoreMessages.length !== 0">
+      <ion-spinner name="crescent" center *ngIf="isLoading"></ion-spinner>
+      <ion-fab top center *ngIf="isScrollable">
+        <button mini ion-fab (click)="loadMoreMessage()"
+                *ngIf="!isLoading">
+          <ion-icon name="arrow-round-up"></ion-icon>
+        </button>
+      </ion-fab>
+    </div>
+  </div>
   <div class="tick-wrapper">
     <div>
-      <div *ngIf="!chat.messages.length">История сообщений пока пуста</div>
-      <div class="message-wrap" *ngIf="chat.messages.length">
+      <div *ngIf="!chat.messages.length">У Вас нет сообщений с этим пользователем</div>
+      <div class="message-wrap">
+
         <div *ngFor="let message of chat.messages">
           <div class="message-block" [ngClass]="(message.userId==userId)?'message-right':'message-left'">
             <div class="message-content">
               <p *ngIf="message.messageType === 'text'">
                 {{message.message}}
               </p>
-              <p>{{message.read}}</p>
+              <!--<p>{{message.read}}</p>-->
               <div *ngIf="message.messageType == 'post'" (click)="onPostPage(message.postId)">
                 <p><b>Запись на стене</b></p>
                 <p>{{message.message}}</p>
-                <p>{{message.read}}</p>
+                <!--<p>{{message.read}}</p>-->
               </div>
               <span class="message-time">
                 {{message.createdAt}}
