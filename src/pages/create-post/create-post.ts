@@ -58,7 +58,6 @@ export class CreatePostPage {
   }
   goSecondStep(form: NgForm) {
     console.log(this.postId)
-    this.slides.lockSwipeToNext(false);
     console.log(this.postId);
     if(this.postId) {
       this.postService.updatePost(
@@ -69,6 +68,7 @@ export class CreatePostPage {
         this.postId
       ).subscribe(
         response => {
+          this.slides.lockSwipeToNext(false);
 
           this.loadService.hideLoader();
           this.slides.slideNext();
@@ -90,6 +90,7 @@ export class CreatePostPage {
        form.value.tags
      ).subscribe(
        response => {
+         this.slides.lockSwipeToNext(false);
          const postId = response.json().id_post;
          // this.onSubmitUploadImages(postId);
          this.postId =  postId;
