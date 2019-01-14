@@ -29,10 +29,31 @@
             <ion-label stacked>Пароль</ion-label>
             <ion-input type="password" name="password" [ngModel]="password"></ion-input>
           </ion-item>
+          <!--<ion-item>-->
+            <!--<ion-label>Я согласен со всеми <span (click)="ok()">Условиями</span> </ion-label>-->
+            <!--<ion-checkbox color="danger" name="chosen_checkbox" [(ngModel)]="chosen"></ion-checkbox>-->
+          <!--</ion-item>-->
+
+
+          <ion-item>
+            <ion-row>
+              <ion-col col-2>
+                <ion-item>
+                  <ion-checkbox color="danger" name="chosen_checkbox" [(ngModel)]="chosen"></ion-checkbox>
+                </ion-item>
+              </ion-col>
+              <ion-col id="eula" col-10>
+                <ion-item>
+                  Я согласен с <span (click)="openEULA()">Условиями</span>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+
 
           </ion-list>
           <ion-buttons text-center>
-            <button ion-button small color="main-entry-button">Зарегистрироваться</button>
+            <button ion-button text-capitalize small id="register_button" color="main-entry-button" [disabled]="!chosen">Зарегистрироваться</button>
           </ion-buttons>
         </form>
       </div>

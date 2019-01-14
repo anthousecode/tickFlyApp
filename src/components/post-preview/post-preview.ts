@@ -50,6 +50,8 @@ export class PostPreviewComponent {
     this.isTick = false;
   }
 
+  API = "http://18.219.82.49:8080";
+
   onPostPage(postId) {
     this.loadService.showLoader();
     let post;

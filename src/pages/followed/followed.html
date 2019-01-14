@@ -23,7 +23,7 @@
       <button ion-item *ngFor="let followed of followedList" (click)="itemTapped($event, followed.id_followed)">
         <ion-item no-lines class="top-userprofile no-padding">
           <ion-avatar item-start>
-            <img src="{{followed.user_followed.avatar}}">
+            <img src="{{API + followed.user_followed.avatar}}">
           </ion-avatar>
           <h2>{{followed.user_followed.nick_name}}</h2>
         </ion-item>

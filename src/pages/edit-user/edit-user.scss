@@ -6,4 +6,12 @@ page-edit-user {
 		border-radius: 50%;
     object-fit: cover;
 	}
+
+  ion-buttons {
+    display: flex;
+    justify-content: center;
+    button {
+      padding: 0 6em !important;
+    }
+  }
 }

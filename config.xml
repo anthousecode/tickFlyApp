@@ -52,38 +52,42 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
-        <icon height="57" src="resources/ios/icon/icon.png" width="57" />
-        <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />
-        <icon height="40" src="resources/ios/icon/icon-40.png" width="40" />
-        <icon height="80" src="resources/ios/icon/icon-40@2x.png" width="80" />
-        <icon height="120" src="resources/ios/icon/icon-40@3x.png" width="120" />
-        <icon height="50" src="resources/ios/icon/icon-50.png" width="50" />
-        <icon height="100" src="resources/ios/icon/icon-50@2x.png" width="100" />
+        <icon height="180" src="resources/ios/icon/icon-60@3x.png" width="180" />
         <icon height="60" src="resources/ios/icon/icon-60.png" width="60" />
         <icon height="120" src="resources/ios/icon/icon-60@2x.png" width="120" />
-        <icon height="180" src="resources/ios/icon/icon-60@3x.png" width="180" />
-        <icon height="72" src="resources/ios/icon/icon-72.png" width="72" />
-        <icon height="144" src="resources/ios/icon/icon-72@2x.png" width="144" />
         <icon height="76" src="resources/ios/icon/icon-76.png" width="76" />
         <icon height="152" src="resources/ios/icon/icon-76@2x.png" width="152" />
-        <icon height="167" src="resources/ios/icon/icon-83.5@2x.png" width="167" />
+        <icon height="40" src="resources/ios/icon/icon-40.png" width="40" />
+        <icon height="20" src="resources/ios/icon/icon-20.png" width="20" />
+        <icon height="80" src="resources/ios/icon/icon-40@2x.png" width="80" />
+        <icon height="57" src="resources/ios/icon/icon.png" width="57" />
+        <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />
+        <icon height="72" src="resources/ios/icon/icon-72.png" width="72" />
+        <icon height="144" src="resources/ios/icon/icon-72@2x.png" width="144" />
         <icon height="29" src="resources/ios/icon/icon-small.png" width="29" />
         <icon height="58" src="resources/ios/icon/icon-small@2x.png" width="58" />
         <icon height="87" src="resources/ios/icon/icon-small@3x.png" width="87" />
-        <splash height="1136" src="resources/ios/splash/Default-568h@2x~iphone.png" width="640" />
-        <splash height="1334" src="resources/ios/splash/Default-667h.png" width="750" />
-        <splash height="2208" src="resources/ios/splash/Default-736h.png" width="1242" />
-        <splash height="1242" src="resources/ios/splash/Default-Landscape-736h.png" width="2208" />
-        <splash height="1536" src="resources/ios/splash/Default-Landscape@2x~ipad.png" width="2048" />
-        <splash height="2048" src="resources/ios/splash/Default-Landscape@~ipadpro.png" width="2732" />
-        <splash height="768" src="resources/ios/splash/Default-Landscape~ipad.png" width="1024" />
-        <splash height="2048" src="resources/ios/splash/Default-Portrait@2x~ipad.png" width="1536" />
-        <splash height="2732" src="resources/ios/splash/Default-Portrait@~ipadpro.png" width="2048" />
-        <splash height="1024" src="resources/ios/splash/Default-Portrait~ipad.png" width="768" />
-        <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
-        <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
-        <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
+        <icon height="50" src="resources/ios/icon/icon-50.png" width="50" />
+        <icon height="100" src="resources/ios/icon/icon-50@2x.png" width="100" />
+        <icon height="167" src="resources/ios/icon/icon-167.png" width="167" />
         <icon height="1024" src="resources/ios/icon/icon-1024.png" width="1024" />
+        <icon height="88" src="resources/ios/icon/icon-88.png" width="88" />
+        <splash height="1004" platform="ios" src="resources/ios/splash/768_1004.png" width="768" />
+        <splash height="1334" platform="ios" src="resources/ios/splash/Default-667h.png" width="750" />
+        <splash height="2208" platform="ios" src="resources/ios/splash/1242_2208.png" width="1242" />
+        <splash height="1242" platform="ios" src="resources/ios/splash/2208_1242.png" width="2208" />
+        <splash height="2048" platform="ios" src="resources/ios/splash/Default-Portrait@2x~ipad.png" width="1536" />
+        <splash height="1024" platform="ios" src="resources/ios/splash/Default-Portrait~ipad.png" width="768" />
+        <splash height="2436" platform="ios" src="resources/ios/splash/1125_2436.png" width="1125" />
+        <splash height="1125" platform="ios" src="resources/ios/splash/2436_1125.png" width="2436" />
+        <splash height="960" platform="ios" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
+        <splash height="480" platform="ios" src="resources/ios/splash/Default~iphone.png" width="320" />
+        <splash height="1136" platform="ios" src="resources/ios/splash/640_1136.png" width="640" />
+        <splash height="768" platform="ios" src="resources/ios/splash/1024_768.png" width="1024" />
+        <splash height="1536" platform="ios" src="resources/ios/splash/2048_1536.png" width="2048" />
+        <splash height="2008" platform="ios" src="resources/ios/splash/1536_2008.png" width="1536" />
+        <splash height="1496" platform="ios" src="resources/ios/splash/2048_1496.png" width="2048" />
+        <splash height="748" platform="ios" src="resources/ios/splash/1024_748.png" width="1024" />
     </platform>
     <allow-navigation href="http://192.168.0.132:8101" />
     <allow-navigation href="http://192.168.0.132:8100" />
@@ -96,11 +100,9 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.3.0" />
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.2" />
-    <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
     <plugin name="cordova-plugin-camera" spec="^3.0.0" />
     <plugin name="cordova-plugin-file" spec="^5.0.0" />
     <plugin name="cordova-plugin-filepath" spec="^1.1.0" />
-    <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
         <variable name="APP_ID" value="140600353301646" />
         <variable name="APP_NAME" value="TickFly" />
@@ -113,6 +115,11 @@
     <allow-navigation href="http://192.168.1.27:8100" />
     <allow-navigation href="http://192.168.1.31:8102" />
     <allow-navigation href="http://192.168.1.45:8100" />
+    <plugin name="cordova-plugin-document-viewer" spec="0.9.10" />
+    <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <engine name="browser" spec="5.0.3" />
-    <engine name="android" spec="6.3.0" />
+    <engine name="ios" spec="4.5.5" />
+    <plugin name="cordova-plugin-file-opener2" spec="2.1.4" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
+    <engine name="android" spec="~7.1.4" />
 </widget>

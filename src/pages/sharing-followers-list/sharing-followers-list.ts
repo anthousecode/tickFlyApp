@@ -45,6 +45,8 @@ export class SharingFollowersListPage {
     this.pageNumber = 0;
   }
 
+  API = "http://18.219.82.49:8080";
+
   ngOnInit() {
     this.shareService.getFollowers()
       .subscribe(

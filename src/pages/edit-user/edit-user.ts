@@ -52,6 +52,8 @@ export class EditUserPage {
               public loadService: LoaderService) {
   }
 
+  API = "http://18.219.82.49:8080";
+
   ngOnInit() {
     this.loadService.showLoader();
     this.userService.getEditProfile()

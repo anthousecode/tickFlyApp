@@ -52,6 +52,8 @@ export class PostPage {
     this.currentUserId = Number(this.authService.getUserId());
   }
 
+  API = "http://18.219.82.49:8080";
+
   showPostAlert(postId, authorId) {
     let alert = this.alertCtrl.create({
       cssClass: 'alert-capabilities',
@@ -191,7 +193,7 @@ export class PostPage {
           }
           let alert = this.alertCtrl.create({
             title: 'Пожаловаться',
-            message: 'Укажите причину:',
+            message: 'Укажите причину',
             inputs: complaintReasons,
             buttons: [
               {

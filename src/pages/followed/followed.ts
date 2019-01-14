@@ -29,6 +29,9 @@ export class FollowedPage {
 
   }
 
+
+  API = "http://18.219.82.49:8080";
+
   itemTapped(event, idUser) {
     this.navCtrl.push(UserProfilePage, {
       userId: idUser

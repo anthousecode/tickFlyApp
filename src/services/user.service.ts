@@ -13,7 +13,8 @@ export class UserService {
 
   }
 
-  API = "http://localhost:8080";
+  // API = "http://localhost:8080";
+  API = "http://localhost:6601";
 
   getProfile(idUser) {
     return this.http.get(
@@ -44,6 +45,15 @@ export class UserService {
       })
   }
 
+  getBlackList() {
+    return this.http.get(this.authService.API + `/api/v2/blacklist`,
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      })
+  }
+
   toggleSubscribe(idUser) {
     return this.http.put(
       this.authService.API + `/api/v1/user/subscribe-unsubscribe/` + idUser,
@@ -53,6 +63,28 @@ export class UserService {
           "Authorization": 'Bearer ' + this.authService.getToken()
         })
       })
+  }
+
+  blockUser(idUser) {
+    return this.http.get(
+      this.authService.API + `/api/v2/blacklist/` + idUser,
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      }
+    )
+  }
+
+  unblockUser(idUser) {
+    return this.http.delete(
+      this.authService.API + `/api/v2/blacklist/` + idUser,
+      {
+        headers: new Headers({
+          "Authorization": 'Bearer ' + this.authService.getToken()
+        })
+      }
+    )
   }
 
   getEditProfile() {

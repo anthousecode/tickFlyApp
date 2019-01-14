@@ -30,6 +30,7 @@ multi-image-upload {
         position: relative;
         background-size: cover;
         background-position: center center;
+        margin-top: 20px;
         img {
           width: 100%;
           &.uploading {

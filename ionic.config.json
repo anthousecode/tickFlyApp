@@ -1,9 +1,9 @@
 {
   "name": "tickFlyApp",
-  "app_id": "com.ant.house.tickfly",
-  "type": "ionic-angular",
   "integrations": {
     "cordova": {}
   },
-  "gcm_key": "MY_KEY"
+  "type": "ionic-angular",
+  "gcm_key": "MY_KEY",
+  "pro_id": "com.ant.house.tickfly"
 }

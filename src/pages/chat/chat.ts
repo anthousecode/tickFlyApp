@@ -11,6 +11,7 @@ import {SocketService} from "../../services/socket.service";
 import {PostPage} from "../post/post";
 import {HttpService} from "../../services/http.service";
 import {UserProfilePage} from "../user-profile/user-profile";
+import {ToastService} from "../../services/toast.service";
 
 @IonicPage()
 @Component({
@@ -40,7 +41,8 @@ export class ChatPage {
               public loadService: LoaderService,
               public socketService: SocketService,
               public httpService: HttpService,
-              public ref: ChangeDetectorRef) {
+              public ref: ChangeDetectorRef,
+              public toast: ToastService) {
 
     this.chat = new Chat();
     this.chat.messages = [];
@@ -49,6 +51,8 @@ export class ChatPage {
     this.isScrollable = false;
     this.isLoading = false;
   }
+
+  API = "http://18.219.82.49:3001";
 
   ionViewDidLoad() {
     this.userId = Number(this.authService.getUserId());
@@ -114,6 +118,7 @@ export class ChatPage {
     this.chatService.getChat(this.chatId, this.pageNumber).subscribe(
       response => {
         console.log(this.chatId);
+        console.log(response.json().messages);
         this.chat.messages = response.json().messages.map(message => {
           message.userId = message.user_id;
           message.createdAt = message.format_time;
@@ -173,6 +178,7 @@ export class ChatPage {
           this.scrollToBottom();
         },
         error => {
+          this.showAlertAboutBlock(error.json().message);
         }
       );
   }
@@ -222,6 +228,7 @@ export class ChatPage {
         response => {
           console.log(response.json());
           const messageList = response.json().messages;
+          console.log(messageList);
           this.loadMoreMessages = messageList;
           for (let index in messageList) {
             const message = messageList[index];
@@ -244,4 +251,9 @@ export class ChatPage {
       console.log(this.isLoading);
     }
   }
+
+  showAlertAboutBlock(message) {
+    this.toast.showToast(message,3000);
+  }
+
 }

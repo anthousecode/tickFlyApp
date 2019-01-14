@@ -127,7 +127,7 @@ export class MultiImageUpload {
 
 
   public uploadImage(targetPath, postId) {
-    console.log('enter to upload image');
+    console.log(targetPath);
     return new Promise((resolve, reject) => {
       this.uploadingProgress[targetPath] = 0;
 
@@ -148,12 +148,13 @@ export class MultiImageUpload {
         const fileTransfer = new TransferObject();
         this.uploadingHandler[targetPath] = fileTransfer;
 
-        console.log('before fileTransfer.upload()');
+        console.log('before fileTransfer.upload()',targetPath, this.serverUrl, options);
         fileTransfer.upload(targetPath, this.serverUrl, options).then(data => {
           resolve(JSON.parse(data.response));
           console.log('fileTransfer.upload() onfulfilled');
           this.isUploading = false;
         }).catch(error => {
+          console.log(error);
           console.log('fileTransfer.upload() onrejected');
           this.isUploading = false;
           this.uploadingProgress = {};

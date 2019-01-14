@@ -24,7 +24,7 @@
                           (click)="onChatPage(chat.id, chat.avatar, chat.title, chat.members)">
           <ion-item>
             <ion-avatar item-start>
-              <img class="chat-avatar" src="{{chat.avatar}}">
+              <img class="chat-avatar" src="{{API + chat.avatar}}">
             </ion-avatar>
             <h2 text-wrap>{{chat.title}}</h2>
             <p>{{chat.lastMessage}}</p>
@@ -32,6 +32,7 @@
               <ion-badge class="chat-badge" *ngIf="chat.unreadMessages > 0">{{chat.unreadMessages}}</ion-badge>
               {{chat.timeLastMassage}}
             </ion-note>
+            <img *ngIf="chat.userBlacklisted == true" src="././assets/images/user-lock-solid.svg" class="block_user" alt="">
           </ion-item>
         </ion-item-sliding>
       </div>

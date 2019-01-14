@@ -3,7 +3,8 @@
 
   <ion-item *ngIf="!(currentPage == 'UserProfilePage')">
     <ion-avatar item-start (click)="onAuthorPage(post?.author.id_user)">
-      <img class="chat-avatar" src="{{post?.author.avatar}}">
+      <!--<img class="chat-avatar" src="{{post?.author.avatar}}">-->
+      <img class="chat-avatar" src="{{API + post?.author.avatar}}">
     </ion-avatar>
     <div class="top-userprofile-info">
       <h2 text-wrap (click)="onAuthorPage(post?.author.id_user)">
@@ -19,7 +20,7 @@
 
   <div class="post-content" (click)="onPostPage(post?.postId)">
     <h2 padding class="post-title">{{post?.title}}</h2>
-    <img *ngIf="post?.media[0]" src="{{post?.media[0]['url_thumb']}}">
+    <img *ngIf="post?.media[0]" src="{{API + post?.media[0]['url_thumb']}}">
     <ion-card-content>
       <p margin-bottom>{{getShortDescription(post?.description)}}</p>
       <p class="ion-post-date">{{post?.date}}</p>

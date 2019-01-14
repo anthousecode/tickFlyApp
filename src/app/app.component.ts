@@ -100,8 +100,9 @@ export class MyApp implements OnInit {
   }
 
   setTimezone() {
-    this.timezone = new Date().toString().split(" ");
-    this.timezone = this.timezone[this.timezone.length - 2];
+    // this.timezone = new Date().toString().split(" ");
+    // this.timezone = this.timezone[this.timezone.length - 2];
+    this.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     this.commonService.setTimezone(this.timezone)
       .subscribe(response => {
         },

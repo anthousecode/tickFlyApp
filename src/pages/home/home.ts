@@ -30,6 +30,8 @@ export class HomePage {
               private commonService: CommonService) {
   }
 
+  API = "http://18.219.82.49:8080";
+
   ngOnInit() {
     this.menu.swipeEnable(true);
     this.loadService.showLoader();
@@ -98,11 +100,13 @@ export class HomePage {
                 tags: post.tags,
                 tickCount: post.summ_ticks,
                 date: post.format_date,
-                media: post.media,
+                media: this.API + post.media,
                 author: post.user,
                 isTick: post.donate,
                 commentsCount: post.comments_count
               });
+              // console.log(this.API + post.media);
+              // console.log(post);
             }
           },
           error => {

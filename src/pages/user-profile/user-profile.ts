@@ -3,6 +3,7 @@ import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angula
 import {UserService} from "../../services/user.service";
 import {FollowersPage} from "../followers/followers";
 import {FollowedPage} from "../followed/followed";
+import {BlackListPage} from "../black-list/black-list";
 import {EditUserPage} from "../edit-user/edit-user";
 import {ChangePasswordPage} from "../change-password/change-password";
 import {PostService} from "../../services/post.service";
@@ -31,6 +32,7 @@ export class UserProfilePage {
   followersCount: number;
   pageId: number = 0;
   lastPage: boolean = false;
+  isBlock: boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -41,6 +43,8 @@ export class UserProfilePage {
     this.userId = this.navParams.get('userId');
   }
 
+  API = "http://18.219.82.49:8080";
+
   ngOnInit() {
     this.loadService.showLoader();
     this.userService.getProfile(this.userId)
@@ -49,6 +53,7 @@ export class UserProfilePage {
           this.user = response.json().user;
           let postsList = response.json().posts;
           this.isPublic = response.json().public;
+          this.isBlock = response.json().user_blacklisted;
           this.isSubscribe = response.json().current_user_subscribe;
           this.followersCount = this.user.followers_count;
           for (let index in postsList) {
@@ -66,6 +71,8 @@ export class UserProfilePage {
               author: post.user,
               commentsCount: post.comments_count
             });
+            //console.log(this.API +  post.media);
+             //console.log(post.media[0]);
           }
           this.loadService.hideLoader();
         },
@@ -101,6 +108,20 @@ export class UserProfilePage {
       );
   }
 
+  onBlackListPage() {
+    let blackList;
+    this.userService.getBlackList()
+      .subscribe(
+        response => {
+          blackList = response.json().blacklist.data;
+          this.navCtrl.push(BlackListPage, {blackList: blackList});
+        },
+        error => {
+
+        }
+      );
+  }
+
   onToggleSubscribe(userId) {
     this.userService.toggleSubscribe(userId)
       .subscribe(
@@ -109,6 +130,33 @@ export class UserProfilePage {
           this.isSubscribe = response.json().subscribe;
         },
         error => {
+        }
+      )
+  }
+
+  onBlockUser(userId) {
+    this.userService.blockUser(userId)
+      .subscribe(
+        response => {
+          console.log(response.json());
+          this.isBlock = response.json().user_blacklisted;
+          console.log('BLOCKED');
+        },
+        error => {
+          console.log('NOT BLOCKED');
+        }
+      )
+  }
+
+  onUnblockUser(userId) {
+    this.userService.unblockUser(userId)
+      .subscribe(
+        response => {
+          this.isBlock = response.json().user_blacklisted;
+          console.log('UNBLOCKED');
+        },
+        error => {
+          console.log('NOT UNBLOCKED');
         }
       )
   }
@@ -135,6 +183,12 @@ export class UserProfilePage {
           text: 'Изменить пароль',
           handler: () => {
             this.onChangePasswordPage();
+          }
+        },
+        {
+          text: 'Черный список',
+          handler: () => {
+            this.onBlackListPage();
           }
         }
       ]

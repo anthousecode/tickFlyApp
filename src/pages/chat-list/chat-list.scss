@@ -2,6 +2,14 @@ page-chat-list {
 	.chat-title {
 		margin-bottom: 10px;
 	}
+
+  .block_user {
+    width: 25px;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+  }
+
 	ion-note {
 		font-size: 10px;
 		color: #a2a2a2!important;
@@ -11,5 +19,14 @@ page-chat-list {
     border-radius: 50% !important;
     color: white !important;
     background-color: $primary-red !important;
+  }
+
+  ion-fab {
+    button {
+      width: 50px !important;
+      height: 50px !important;
+      font-size: 20px !important;
+      padding-bottom: 5.5px;
+    }
   }
 }

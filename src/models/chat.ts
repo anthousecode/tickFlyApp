@@ -11,6 +11,7 @@ export class Chat {
   creatorId?: number;
   lastMessage?: string;
   unreadMessages?: number;
+  userBlacklisted?: boolean;
   members?: User[];
   messages?: Message[];
   avatar?: string;

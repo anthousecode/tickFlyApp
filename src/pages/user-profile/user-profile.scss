@@ -9,8 +9,8 @@ page-user-profile {
       font-size: 12px;
     }
     img {
-     width: 60px;
-     height: 60px;
+      width: 100px !important;
+      height: 100px !important;
    }
  }
   // .item-md, .item-ios {
@@ -74,5 +74,13 @@ page-user-profile {
       font-size: 19px!important;
       color: #808080;
     }
+  }
+  .subscribe_and_block {
+    padding: 0 0.4em !important;
+    width: 135px !important;
+  }
+
+  .top-userprofile-status {
+    padding-left: 0 !important;
   }
 }

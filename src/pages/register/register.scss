@@ -25,22 +25,51 @@ page-register {
         .item-inner {
           padding: 0 !important;
         }
+        ion-checkbox {
+          margin: 9px 13px 9px 4px !important;
+        }
+        ion-label {
+          span {
+            color: #bfbfbf;
+          }
+        }
+        ion-row{
+          margin: auto;
+        }
+      }
+      ion-item:last-child {
+        border-bottom: none !important;
+        width: 100%;
+        padding-left: 10%;
       }
       .input-wrapper {
         ion-label {
           color: #fff;
         }
         input {
-          padding: 5px;
+          padding: 8px;
           width: 100% !important;
           margin: 8px 0px 4px 0px;
           background-color: #fff !important;
+          border-radius: 4px;
+        }
+      }
+      #eula {
+        ion-item {
+          width: 100%;
+          margin-left: -25px;
         }
       }
     }
   }
   .toolbar-title-md, .toolbar-title-ios {
     color: #fff;
+  }
+  #register_button {
+    height: 2.8em;
+    font-size: 1.6rem;
+    //padding: 0 3.6em;
+    width: 80%;
   }
   @media only screen and (min-width: 650px) {
     .tick-wrapper {

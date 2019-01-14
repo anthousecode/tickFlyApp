@@ -37,6 +37,8 @@ export class ChatListPage {
               public socketService: SocketService) {
   }
 
+  API = "http://18.219.82.49:8080";
+
   ngOnInit() {
     this.chats = [];
     this.startListening();
@@ -86,6 +88,7 @@ export class ChatListPage {
             }
             chat.updatedAt = conversation.updated_at;
             chat.unreadMessages = conversation.unread_message;
+            chat.userBlacklisted = conversation.user_blacklisted;
             chat.members = conversation.members.map(member => {
               let user = new User();
               user.nickname = member.user.nick_name;

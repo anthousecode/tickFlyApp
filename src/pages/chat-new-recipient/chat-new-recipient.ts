@@ -31,6 +31,8 @@ export class ChatNewRecipientPage {
               public authService: AuthService) {
   }
 
+  API = "http://18.219.82.49:8080";
+
   ionViewDidLoad() {
     this.userId = Number(this.authService.getUserId());
     this.getFollowers();

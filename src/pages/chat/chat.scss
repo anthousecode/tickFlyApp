@@ -125,9 +125,11 @@ page-chat {
     textarea {
       background-color: #fff;
       margin: 0;
-      padding: 2px 4px;
+      //padding: 2px 4px;
+      padding: 7px 10px;
       width: 100%;
       resize: none;
+      border-radius: 6px;
     }
   }
   .date {

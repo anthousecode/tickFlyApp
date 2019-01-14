@@ -54,7 +54,7 @@
 
     </ion-slides>
     <ion-buttons>
-      <button ion-button *ngIf="!secondStep" (click)='goSecondStep(f);' color="danger">Далее</button>
+      <button ion-button text-capitalize *ngIf="!secondStep" (click)='goSecondStep(f);' color="danger" id="button_next">Далее</button>
       <button ion-button  *ngIf="secondStep" (click)='goBack();' color="light">Назад</button>
       <button ion-button  *ngIf="secondStep" color="danger" (click)="onSubmitPost(postId)">Опубликовать</button>
     </ion-buttons>

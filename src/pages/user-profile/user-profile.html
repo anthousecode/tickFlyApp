@@ -21,7 +21,8 @@
   <div class="tick-wrapper" [hidden]="user === undefined">
     <ion-item class="top-userprofile no-padding">
       <ion-avatar item-start>
-        <img class="chat-avatar" src="{{user?.avatar}}">
+        <!--<img class="chat-avatar" src="{{user?.avatar}}">-->
+        <img class="chat-avatar" src="{{API + user?.avatar}}">
       </ion-avatar>
       <div class="top-userprofile-info">
         <h2 text-wrap>{{user?.nick_name}}</h2>
@@ -31,14 +32,25 @@
           </button>
         </ion-buttons>
       </div>
-      <button ion-button *ngIf="isPublic && isSubscribe" color="light"
-      (click)="onToggleSubscribe(userId); ">
+      <button ion-button text-capitalize *ngIf="isPublic && isSubscribe" color="light"
+      (click)="onToggleSubscribe(userId); " class="subscribe_and_block">
         Отписаться
       </button>
-      <button ion-button *ngIf="isPublic && !isSubscribe"
-    (click)="onToggleSubscribe(userId) ;" color="danger">
+      <button ion-button text-capitalize *ngIf="isPublic && !isSubscribe"
+    (click)="onToggleSubscribe(userId) ;" color="danger" class="subscribe_and_block">
         Подписаться
       </button>
+      <br>
+      <button ion-button text-capitalize *ngIf="isPublic && !isBlock"
+              (click)="onBlockUser(userId);" color="dark" class="subscribe_and_block">
+        Заблокировать
+      </button>
+
+      <button ion-button text-capitalize *ngIf="isPublic && isBlock"
+              (click)="onUnblockUser(userId);" color="light" class="subscribe_and_block">
+        Разблокировать
+      </button>
+
     </ion-item>
   <ion-item text-wrap class="top-userprofile-status">
     <p>{{user?.status}}</p>

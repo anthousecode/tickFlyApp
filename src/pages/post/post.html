@@ -22,7 +22,8 @@
    <div padding>
     <ion-item margin-bottom>
       <ion-avatar item-start (click)="onAuthorPage(post?.user.id_user)">
-        <img class="chat-avatar"  src="{{post?.user?.avatar}}">
+        <!--<img class="chat-avatar"  src="{{post?.user?.avatar}}">-->
+        <img class="chat-avatar"  src="{{API + post?.user?.avatar}}">
       </ion-avatar>
       <div class="top-userprofile-info">
         <h2 text-wrap  (click)="onAuthorPage(post?.user.id_user)">
@@ -42,14 +43,15 @@
       <div *ngIf="post?.media.length > 1">
         <ion-slides pager *ngIf="post?.media">
           <ion-slide *ngFor="let picture of post?.media">
-            <img  src="{{picture['url_thumb']}}">
+            <img  src="{{API + picture['url_thumb']}}">
             <span class="helper"></span>
           </ion-slide>
         </ion-slides>
       </div>
 
        <div *ngIf="post?.media.length === 1">
-         <img src="{{post?.media[0]['url_thumb']}}">
+         <img src="{{API + post?.media[0]['url_thumb']}}">
+         <!--<img src="{{post?.media[0][API]}}">-->
        </div>
      </div>
 
@@ -99,7 +101,8 @@
     <ion-item text-wrap class="comments-item" *ngFor="let comment of comments" margin-bottom>
 
       <ion-avatar item-start (click)="onUserprofilePage(comment.user.id_user)">
-        <img src="{{comment.user.avatar}}">
+        <!--<img src="{{comment.user.avatar}}">-->
+        <img src="{{API + comment.user.avatar}}">
       </ion-avatar>
       <div class="comments-item-desription">
         <h2 float-left (click)="onUserprofilePage(comment.user.id_user)">{{comment.user.nick_name}}</h2>
@@ -119,7 +122,7 @@
   <ion-toolbar>
     <form class="tick-form-send" (ngSubmit)="onSetComment(f)" #f="ngForm">
       <div class="comment-form">
-        <ion-input class="comment-form-input" type="text" placeholder="Коммент" name="comment" [ngModel]="comment"></ion-input>
+        <ion-input class="comment-form-input" type="text" placeholder="Комментарий" name="comment" [ngModel]="comment"></ion-input>
         <button type="submit" class="comment-form-button">
           <ion-icon name="md-send" large></ion-icon>
         </button>

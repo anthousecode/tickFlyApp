@@ -272,7 +272,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .tick-form-send {
-  width: calc(100% - 20px);
+  //width: calc(100% - 20px);
+  width: 100%;
 }
 
 .tick-no-border {

@@ -1,4 +1,6 @@
 import {BrowserModule} from "@angular/platform-browser";
+// import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+// import {MatCheckboxModule} from '@angular/material/checkbox';
 import {ErrorHandler, NgModule} from "@angular/core";
 import {IonicApp, IonicErrorHandler, IonicModule} from "ionic-angular";
 
@@ -15,6 +17,7 @@ import {FormsModule} from "@angular/forms";
 import {UserProfilePage} from "../pages/user-profile/user-profile";
 import {FollowersPage} from "../pages/followers/followers";
 import {FollowedPage} from "../pages/followed/followed";
+import {BlackListPage} from "../pages/black-list/black-list";
 import {EditUserPage} from "../pages/edit-user/edit-user";
 import {ChangePasswordPage} from "../pages/change-password/change-password";
 import {File} from "@ionic-native/file";
@@ -33,6 +36,7 @@ import {CreatePostPageModule} from "../pages/create-post/create-post.module";
 import {EditUserPageModule} from "../pages/edit-user/edit-user.module";
 import {FollowedPageModule} from "../pages/followed/followed.module";
 import {FollowersPageModule} from "../pages/followers/followers.module";
+import {BlackListPageModule} from "../pages/black-list/black-list.module";
 import {LoginPageModule} from "../pages/login/login.module";
 import {PostPageModule} from "../pages/post/post.module";
 import {RegisterPageModule} from "../pages/register/register.module";
@@ -56,6 +60,9 @@ import {ResetPasswordPageModule} from "../pages/reset-password/reset-password.mo
 import {CreatePostSecondStepPage} from "../pages/create-post-second-step/create-post-second-step";
 import {CreatePostSecondStepPageModule} from "../pages/create-post-second-step/create-post-second-step.module";
 
+import { FileTransfer } from "@ionic-native/file-transfer";
+import { DocumentViewer } from "@ionic-native/document-viewer";
+
 // const config: SocketIoConfig = {url: "http://localhost:3001/", options: {}};
 const config: SocketIoConfig = {url: "http://18.219.82.49:3001/", options: {}};
 @NgModule({
@@ -68,12 +75,15 @@ const config: SocketIoConfig = {url: "http://18.219.82.49:3001/", options: {}};
   ],
   imports: [
     BrowserModule,
+    // BrowserAnimationsModule,
+    // MatCheckboxModule,
     CategoryPageModule,
     CategoryListPageModule,
     ChangePasswordPageModule,
     CreatePostPageModule,
     EditUserPageModule,
     FollowedPageModule,
+    BlackListPageModule,
     RegisterPageModule,
     FollowersPageModule,
     PostPageModule,
@@ -111,6 +121,7 @@ const config: SocketIoConfig = {url: "http://18.219.82.49:3001/", options: {}};
     UserProfilePage,
     FollowersPage,
     FollowedPage,
+    BlackListPage,
     EditUserPage,
     ChangePasswordPage,
     CategoryListPage,
@@ -133,7 +144,9 @@ const config: SocketIoConfig = {url: "http://18.219.82.49:3001/", options: {}};
     Camera,
     FilePath,
     ChatsProvider,
-    SocketService
+    SocketService,
+    FileTransfer,
+    DocumentViewer
   ]
 })
 export class AppModule {
