@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <header-main
+      [messages]="false"
+      [search]="false"
+      [createPost]="false"
+      [menu]="true">
+      <ion-title class="tick-title">Черный список</ion-title>
+    </header-main>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="tick-wrapper">
+    <ion-list>
+      <button ion-item *ngFor="let blacklisted of blackList" (click)="itemTapped($event, blacklisted.id_user)">
+        <ion-item no-lines class="top-userprofile no-padding">
+          <ion-avatar item-start>
+            <img src="{{API + blacklisted.avatar}}">
+          </ion-avatar>
+          <h2>{{blacklisted.nick_name}}</h2>
+        </ion-item>
+      </button>
+    </ion-list>
+    <div *ngIf="selectedItem" padding>
+      You navigated here from <b>{{selectedItem.title}}</b>
+    </div>
+  </div>
+</ion-content>
+<!--<p>weihgweihgo</p>-->
