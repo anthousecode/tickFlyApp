@@ -67,12 +67,7 @@ export class RegisterPage {
   }
 
   openEULA() {
-    // this.document.viewDocument('assets/Tuck_Flow_EULA.pdf', 'application/pdf', {});
-    // this.fileOpener.open('file:///data/user/0/com.ant.house.tickfly/files/assets/Tuck_Flow_EULA.pdf', 'application/pdf')
-    // // this.fileOpener.open(this.file.dataDirectory+'Tuck_Flow_EULA.pdf', 'application/pdf')
-    //   .then(() => console.log('File is opened'))
-    //   .catch(e => console.log('Error opening file', e));
-console.log('fewghweghj');
+
     let filePath = this.file.applicationDirectory + 'www/assets';
 
     if (this.platfrom.is('android')){
